@@ -26,8 +26,8 @@ public class PiracyController {
 	// TODO 01: Comprobar que funcionan todos los test y que se cargan los recursos para test correctamente!
 	// - Crear los test de integracion que faltan para los Show*Parser. Aqui tirar ya contra la web html de verdad
 	//
-	// TODO 02: Montar la integración continua con en mi iMac
-	//			- Montar un pipeline
+	// TODO 02: Montando la integración continua con en mi macbook air
+	//			- Montar un pipeline: https://jenkins.io/blog/2017/02/07/declarative-maven-project/
 	// 			- Pasar las metricas de calidad
 	// 			- Montar un entorno de pruebas sodbre docker. Publicar el docker resultante en Docker Hub privado
 	// 						* Docker hub is a repository of images that can be public or private.
