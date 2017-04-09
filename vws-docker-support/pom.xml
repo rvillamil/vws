@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+	  <groupId>es.rvp.web.vws</groupId>
+	  <artifactId>vws</artifactId>
+	  <version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>vws-docker-support</artifactId>
+	<packaging>pom</packaging>
+	<name>VWS:Docker images</name>
+	<description>Docker images for VWS infraestructure</description>
+
+	<build>
+	  <plugins>
+	    
+	    <!-- Docker plugin -->
+	    <plugin>
+	      <groupId>io.fabric8</groupId>
+	      <artifactId>docker-maven-plugin</artifactId>
+	      <extensions>true</extensions>
+	      <version>${docker.maven.plugin.version}</version>
+	      <configuration>
+		<images>
+		  <image>
+		    <name>${docker.tomcat.img.name}</name>
+		    <build>
+		      <!-- Cleanup dangling (untagged) images after each build (including any containers created from them).  -->
+		      <cleanup>remove</cleanup>
+		      <dockerFileDir>${project.basedir}/vws-tomcat</dockerFileDir>
+		    </build>
+		  </image>
+		</images>
+	      </configuration>
+
+	      <!-- Execturion maven phase -->
+	      <executions>
+		<execution>
+		  <id>start</id>
+		  <phase>pre-integration-test</phase>
+		  <goals>
+		    <goal>build</goal>
+		    <goal>start</goal>
+		  </goals>
+		</execution>
+		
+		<execution>
+		  <id>stop</id>
+		  <phase>post-integration-test</phase>
+		  <goals>
+		    <goal>stop</goal>
+		  </goals>
+		</execution>
+	      </executions>
+	      
+	    </plugin>
+	  </plugins>
+	</build>
+
+</project>
