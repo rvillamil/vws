@@ -17,6 +17,7 @@ apt_generated
 .apt_generated
 # Eclipse Core
 .project
+spartanizer.xml
 
 # External tool builders
 .externalToolBuilders/
