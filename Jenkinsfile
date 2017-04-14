@@ -20,6 +20,7 @@ node {
         "PATH+MVN=${jdktool}/bin:${mvnHome}/bin",
         "M2_HOME=${mvnHome}",
         "JAVA_HOME=${jdktool}"
+	"DOCKER_HOME=${docker}"
     ]
 
     
@@ -29,6 +30,7 @@ node {
 	sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
+            echo "DOCKER_HOME=${DOCKER_HOME}"
         '''
 	// TODO: Borramos el workspace??
 	//sh 'rm -rf *'
