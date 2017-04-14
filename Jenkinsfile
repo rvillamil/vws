@@ -1,74 +1,51 @@
+#!groovy
+
 /*
-
- TODO 00: Problemas con la ejecucion del plugin de maven en Jenkins
-
- About declarative Pipeline (DSL) syntax: https://jenkins.io/doc/book/pipeline/syntax/
- About DSL and maven project: https://jenkins.io/blog/2017/02/07/declarative-maven-project/
-
+  Links:
+  - https://jenkins.io/blog/2017/02/07/declarative-maven-project/
+ -  http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
 */
-pipeline {
 
-    agent any
+node {
+    checkout scm
 
-    tools { 
-        maven 'Maven_3' 
-        jdk 'JDK_8'
-	
-	
-	/*
-	SonarQube Server : No se como se declara aqui 
-	SonarQube_Scanner_3 : No se como se declara aqui. La declaro mas abajo con groovy
-	Docker_latest
-	*/
-    }
+    String jdktool = tool name: "JDK_8", type: 'hudson.model.JDK'
+    def mvnHome    = tool name: 'Maven_3'
 
+    /* Set JAVA_HOME, and special PATH variables. */
+    List javaEnv = [
+        "PATH+MVN=${jdktool}/bin:${mvnHome}/bin",
+        "M2_HOME=${mvnHome}",
+        "JAVA_HOME=${jdktool}"
+    ]
+
+    withEnv(javaEnv) {
+      
+      stage ('Initialize') {
+	sh '''
+            echo "PATH = ${PATH}"
+            echo "M2_HOME = ${M2_HOME}"
+        '''
+      } // End initialize
+
+      stage ('Build') {
+        try {
+	  sh 'mvn -Dmaven.test.failure.ignore=true install -Ddocker.host=tcp://localhost:2375'
+        } catch (e) {
+	  currentBuild.result = 'FAILURE'
+        }
+      } // End Build
+
+      
+      stage ('Post') {
+        if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+	  junit 'target/surefire-reports/**/*.xml'  
+        }
+      } // End post
+      
+    } // End With(javaEnv)
     
-    // Stages section: A sequence of one or more stage directives
-    stages {
+} // End node
 
-    	stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-		    echo "DOCKER:" $(docker --version)
-                ''' 
-            }
-        }
-	
-        stage('Build') {
-            steps {
-	    	echo "IGNORANDO los TEST"
-                sh 'mvn install -Dmaven.test.skip=true
-		// -Ddocker.host=tcp://localhost:2375'
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
-        }
 
-	// requires SonarQube Scanner 2.8+ --> ESTA SINTAXIS no funciona!!
-	/*
-	stage('SonarQube analysis') {
-	    steps {
-    	        def scannerHome = tool 'SonarQube_Scanner_3'
-    	  	withSonarQubeEnv('SonarQube Server') {
-      	            sh "${scannerHome}/bin/sonar-scanner"
-		}
-    	    }
-  	}
-	*/
    
-    }
-    
-    /*
-      The post section defines actions which will be run at the end of the Pipeline run
-    */
-    post { 
-        always { 
-            echo 'End of pipeline..'
-        }
-    }
-}
