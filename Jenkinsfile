@@ -10,8 +10,10 @@
 node {
     checkout scm
 
+    // Tools y Jenkins 'configuracion tool' section
     String jdktool = tool name: "JDK_8", type: 'hudson.model.JDK'
     def mvnHome    = tool name: 'Maven_3'
+    def docker     = tool name: 'Docker_latest"
 
     /* Set JAVA_HOME, and special PATH variables. */
     List javaEnv = [
@@ -28,8 +30,8 @@ node {
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
         '''
-	// Borramos el workspace
-	sh 'rm -rf *'
+	// TODO: Borramos el workspace??
+	//sh 'rm -rf *'
       } 
 
       stage('Checkout SCM') {
@@ -76,8 +78,13 @@ node {
 	  step([$class: 'ArtifactArchiver',
 		artifacts: '**/target/*.jar, **/target/*.war', fingerprint: true])
 	}
-      } // End post
-      
+      }
+
+      /* TODO: Cuando y como borramos el workspace
+      stage ("Cleanup"){
+	deleteDir()
+      }
+      */
     } // End With(javaEnv)
     
 } // End node
