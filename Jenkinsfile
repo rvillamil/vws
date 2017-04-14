@@ -6,11 +6,12 @@
 */
 pipeline {
 
-    agent any
+    agent docker:'ubuntu'
 
     tools { 
         maven 'Maven_3' 
         jdk 'JDK_8'
+	
 	
 	/*
 	SonarQube Server : No se como se declara aqui 
