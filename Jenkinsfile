@@ -48,7 +48,7 @@ pipeline {
 
 	// requires SonarQube Scanner 2.8+
 	stage('SonarQube analysis') {
-	    sonar-scanner
+	    sh 'sonar-scanner'
   	}
    
     }
