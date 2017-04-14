@@ -11,8 +11,7 @@ pipeline {
     tools { 
         maven 'Maven_3' 
         jdk 'JDK_8'
-	sonarscanner 'SonarQube_Scanner_3'
-
+	
 	/*
 	SonarQube Server : No se como se declara aqui 
 	SonarQube_Scanner_3 : No se como se declara aqui. La declaro mas abajo con groovy
