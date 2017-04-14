@@ -36,7 +36,7 @@ pipeline {
         stage('Build') {
             steps {
 	    	echo "IGNORANDO los TEST"
-                sh 'mvn install -Dmaven.test.skip=true' 
+                sh 'mvn install -Dmaven.test.skip=true -Ddocker.host=tcp://localhost:2375'
             }
             post {
                 success {
