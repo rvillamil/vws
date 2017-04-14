@@ -17,7 +17,7 @@ node {
 
     /* Set JAVA_HOME, and special PATH variables. */
     List javaEnv = [
-        "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:${dockerHome}",
+        "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:${dockerHome}/bin",
         "M2_HOME=${mvnHome}",
         "JAVA_HOME=${jdktool}",
 	"DOCKER_HOME=${dockerHome}"
