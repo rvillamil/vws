@@ -11,15 +11,16 @@ pipeline {
     tools { 
         maven 'Maven_3' 
         jdk 'JDK_8'
+
 	/*
-	SonarQube_Scanner_3
+	SonarQube Server : No se como se declara aqui 
+	SonarQube_Scanner_3 : No se como se declara aqui. La declaro mas abajo con groovy
 	Docker_latest
 	*/
     }
 
-    /*
-    Stages section: A sequence of one or more stage directives
-    */
+    
+    // Stages section: A sequence of one or more stage directives
     stages {
 
     	stage ('Initialize') {
@@ -34,7 +35,8 @@ pipeline {
 	
         stage('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+	    	echo "IGNORANDO los TEST"
+                sh 'mvn install -Dmaven.test.skip=true' 
             }
             post {
                 success {
@@ -42,6 +44,14 @@ pipeline {
                 }
             }
         }
+
+	// requires SonarQube Scanner 2.8+
+	stage('SonarQube analysis') {
+    	  def scannerHome = tool 'SonarQube_Scanner_3';
+    	  withSonarQubeEnv('SonarQube Server') {
+      	       sh "${scannerHome}/bin/sonar-scanner"
+    	  }
+  	}
    
     }
     
