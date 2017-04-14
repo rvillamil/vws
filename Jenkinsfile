@@ -11,6 +11,7 @@ pipeline {
     tools { 
         maven 'Maven_3' 
         jdk 'JDK_8'
+	sonarscanner 'SonarQube_Scanner_3'
 
 	/*
 	SonarQube Server : No se como se declara aqui 
@@ -47,10 +48,7 @@ pipeline {
 
 	// requires SonarQube Scanner 2.8+
 	stage('SonarQube analysis') {
-    	  def scannerHome = tool 'SonarQube_Scanner_3';
-    	  withSonarQubeEnv('SonarQube Server') {
-      	       sh "${scannerHome}/bin/sonar-scanner"
-    	  }
+	    sonar-scanner
   	}
    
     }
