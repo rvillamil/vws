@@ -1,5 +1,7 @@
 /*
 
+ TODO 00: Problemas con la ejecucion del plugin de maven en Jenkins
+
  About declarative Pipeline (DSL) syntax: https://jenkins.io/doc/book/pipeline/syntax/
  About DSL and maven project: https://jenkins.io/blog/2017/02/07/declarative-maven-project/
 
