@@ -15,7 +15,7 @@ node {
     def mvnHome    = tool name: 'Maven_3'
     def dockerHome = tool name: 'Docker_latest'
 
-    /* Set JAVA_HOME, and special PATH variables. */
+    /* Set JAVA_HOME, and special PATH variables: docker, java, maven */
     List javaEnv = [
         "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:${dockerHome}/bin",
         "M2_HOME=${mvnHome}",
