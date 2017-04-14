@@ -6,7 +6,7 @@
 */
 pipeline {
 
-    agent docker:'ubuntu'
+    agent any
 
     tools { 
         maven 'Maven_3' 
