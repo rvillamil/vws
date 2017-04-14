@@ -46,7 +46,8 @@ pipeline {
             }
         }
 
-	// requires SonarQube Scanner 2.8+
+	// requires SonarQube Scanner 2.8+ --> ESTA SINTAXIS no funciona!!
+	/*
 	stage('SonarQube analysis') {
 	    steps {
     	        def scannerHome = tool 'SonarQube_Scanner_3'
@@ -55,6 +56,7 @@ pipeline {
 		}
     	    }
   	}
+	*/
    
     }
     
