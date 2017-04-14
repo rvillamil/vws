@@ -13,13 +13,13 @@ node {
     // Tools y Jenkins 'configuracion tool' section
     String jdktool = tool name: "JDK_8", type: 'hudson.model.JDK'
     def mvnHome    = tool name: 'Maven_3'
-    def docker     = tool name: 'Docker_latest'
+    def dockerHome = tool name: 'Docker_latest'
 
     /* Set JAVA_HOME, and special PATH variables. */
     List javaEnv = [
-        "PATH+MVN=${jdktool}/bin:${mvnHome}/bin",
+        "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:{dockerHome}",
         "M2_HOME=${mvnHome}",
-        "JAVA_HOME=${jdktool}"
+        "JAVA_HOME=${jdktool}",
 	"DOCKER_HOME=${docker}"
     ]
 
