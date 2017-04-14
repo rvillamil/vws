@@ -1,9 +1,10 @@
 #!groovy
 
 /*
-  Links:
-  - https://jenkins.io/blog/2017/02/07/declarative-maven-project/
- -  http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
+  Useful links:
+  - Https://jenkins.io/blog/2017/02/07/declarative-maven-project/
+  -  http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
+  - https://jenkins.io/doc/pipeline/examples/
 */
 
 node {
@@ -19,28 +20,62 @@ node {
         "JAVA_HOME=${jdktool}"
     ]
 
+    
     withEnv(javaEnv) {
-      
+
       stage ('Initialize') {
 	sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
         '''
-      } // End initialize
+	// Borramos el workspace
+	sh 'rm -rf *'
+      } 
 
+      stage('Checkout SCM') {
+	// Checkout code from repository
+	checkout scm
+      }
+  
       stage ('Build') {
         try {
-	  sh 'mvn -Dmaven.test.failure.ignore=true install -Ddocker.host=tcp://localhost:2375'
+	  // Compila, genera el directorio target y no lanza los test
+	  sh 'mvn clean compile'
         } catch (e) {
 	  currentBuild.result = 'FAILURE'
         }
       } // End Build
 
       
-      stage ('Post') {
+      stage ('Test') {
+	echo 'Ejecutando tests unitarios y de integracion'
+	try{
+	  // Lanza test unitarios, empaqueta y lanza los de integracion
+	  sh 'mvn verify -Ddocker.host=unix:/var/run/docker.sock'
+	  // Archiva los resultados de las pruebas realizadas con el plugin
+	  // surefire de Maven para poder ser visualizados desde la interfaz web de Jenkins
+	  step([$class: 'JUnitResultArchiver',
+		testResults: '**/target/surefire-reports/TEST-*.xml'])
+	}
+	catch (err) {
+	  // En caso de error tambien archivamos los test, para su visualizacion
+	  step([$class: 'JUnitResultArchiver',
+		testResults: '**/target/surefire-reports/TEST-*.xml'])
+	
+	  if (currentBuild.result == 'UNSTABLE')
+	    currentBuild.result = 'FAILURE'
+	    throw err
+	}
+      } // End test 
+      
+      stage ('Archive') {
         if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-	  junit 'target/surefire-reports/**/*.xml'  
-        }
+	  echo 'Archiva el paquete el paquete generado en Jenkins'
+	  // Archiva los ficheros jar generados por Maven para que esten
+	  // disponibles desde la interfaz web de Jenkins.
+	  step([$class: 'ArtifactArchiver',
+		artifacts: '**/target/*.jar, **/target/*.war', fingerprint: true])
+	}
       } // End post
       
     } // End With(javaEnv)
