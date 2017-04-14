@@ -51,7 +51,7 @@ node {
 	echo 'Ejecutando tests unitarios y de integracion'
 	try{
 	  // Lanza test unitarios, empaqueta y lanza los de integracion
-	  sh 'mvn verify -Ddocker.host=unix:/var/run/docker.sock'
+	  sh 'mvn verify'
 	  // Archiva los resultados de las pruebas realizadas con el plugin
 	  // surefire de Maven para poder ser visualizados desde la interfaz web de Jenkins
 	  step([$class: 'JUnitResultArchiver',
