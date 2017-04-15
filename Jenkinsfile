@@ -31,6 +31,7 @@ node {
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
             echo "DOCKER_HOME=${DOCKER_HOME}"
+            echo "DOCKER_HOST=${DOCKER_HOST}"
         '''
 	// TODO: Borramos el workspace??
 	//sh 'rm -rf *'
@@ -55,7 +56,7 @@ node {
 	echo 'Ejecutando tests unitarios y de integracion'
 	try{
 	  // Lanza test unitarios, empaqueta y lanza los de integracion
-	  sh 'mvn verify'
+	  sh 'mvn verify -DOCKER_HOST=/var/run/docker.sock'
 	  // Archiva los resultados de las pruebas realizadas con el plugin
 	  // surefire de Maven para poder ser visualizados desde la interfaz web de Jenkins
 	  step([$class: 'JUnitResultArchiver',
