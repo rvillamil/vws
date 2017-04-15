@@ -20,8 +20,7 @@ node {
         "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:${dockerHome}/bin",
         "M2_HOME=${mvnHome}",
         "JAVA_HOME=${jdktool}",
-	"DOCKER_HOME=${dockerHome}",
-	"USER_UID=${UID}"
+	"DOCKER_HOME=${dockerHome}"
     ]
 
     
