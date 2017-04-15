@@ -16,8 +16,39 @@
 
 	<build>
 	  <plugins>
+
+	    <plugin>
+	      <groupId>com.spotify</groupId>
+	      <artifactId>docker-maven-plugin</artifactId>
+	      <version>0.4.13</version>
+	      <configuration>
+		<imageName>${docker.tomcat.img.name}</imageName>
+		<dockerDirectory>${project.basedir}/vws-tomcat</dockerDirectory>
+<!--
+		<resources>
+		  <resource>
+		    <targetPath>/</targetPath>
+		    <directory>${project.build.directory}</directory>
+		    <include>${project.build.finalName}.jar</include>
+		  </resource>
+		</resources>
+-->
+	      </configuration>
+
+	      <executions>
+
+		<execution>
+		  <id>build-image</id>
+		  <phase>package</phase>
+		  <goals>
+		    <goal>build</goal>
+		  </goals>
+		</execution>
+	      </executions>
+	    </plugin>
 	    
 	    <!-- Docker plugin -->
+	    <!--
 	    <plugin>
 	      <groupId>io.fabric8</groupId>
 	      <artifactId>docker-maven-plugin</artifactId>
@@ -28,15 +59,15 @@
 		  <image>
 		    <name>${docker.tomcat.img.name}</name>
 		    <build>
-		      <!-- Cleanup dangling (untagged) images after each build (including any containers created from them).  -->
+		      Cleanup dangling (untagged) images after each build (including any containers created from them). 
 		      <cleanup>remove</cleanup>
 		      <dockerFileDir>${project.basedir}/vws-tomcat</dockerFileDir>
 		    </build>
 		  </image>
 		</images>
 	      </configuration>
-
-	      <!-- Execturion maven phase -->
+	      -->
+	      <!-- Execturion maven phase 
 	      <executions>
 		<execution>
 		  <id>start</id>
@@ -56,7 +87,8 @@
 		</execution>
 	      </executions>
 	      
-	    </plugin>
+	      </plugin>
+	      -->
 	  </plugins>
 	</build>
 
