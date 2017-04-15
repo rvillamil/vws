@@ -1,7 +1,9 @@
 #!groovy
 
 /*
-  Useful links:
+TODO: Quizas la mejor opcion sea dejar para el perfildesarrollo, la generacion de imagenes con maven. Para Jenkins, crear un perfil de integracion y que se ejecuten con docker normal
+ 
+ Useful links:
   - https://jenkins.io/blog/2017/02/07/declarative-maven-project/
   - http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
   - https://jenkins.io/doc/pipeline/examples/
