@@ -2,8 +2,8 @@
 
 /*
   Useful links:
-  - Https://jenkins.io/blog/2017/02/07/declarative-maven-project/
-  -  http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
+  - https://jenkins.io/blog/2017/02/07/declarative-maven-project/
+  - http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
   - https://jenkins.io/doc/pipeline/examples/
 */
 
