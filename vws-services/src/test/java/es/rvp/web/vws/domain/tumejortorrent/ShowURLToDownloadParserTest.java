@@ -23,12 +23,11 @@ public class ShowURLToDownloadParserTest {
 	}
 
 	@Test
-	@Ignore
+	@Ignore // Usar otro tipo de test ¿Un Spy?
 	public void givenHTMLWithURLToDownloadFieldParseThenGetTheURLToDownloadString() {
 		// Given
 		String htmlFragment = "loquesea HTML";
 		// When
-		// TODO : Usar otro tipo de test ¿Un Spy?
 		ShowFieldParser spyShowFieldParser = Mockito.spy(this.showURLToDownloadParser);
 		spyShowFieldParser.parse(htmlFragment);
 

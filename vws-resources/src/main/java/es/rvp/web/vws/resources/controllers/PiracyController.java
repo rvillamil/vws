@@ -23,8 +23,22 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	//
+	// TODO 00: Montar el soporte para Docker de la siguiente forma:
+	//
+	/*
+	 Quizas la mejor opcion sea dejar para el perfil 'develop', la generacion de imagenes con maven tal y como esta.
+	 para el Perfil de 'integration', excluir esa generacion que se hace en desarrollo y
+	 montarla en la integracion continua con el Jenkinsfile sin el soporte de maven
+
+	// ....Jenkisfile
+	stage('Create Docker Image') {
+	    dir('webapp') {
+	      docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
+	    }
+	  }
+   */
 	// TODO 01: Comprobar que funcionan todos los test y que se cargan los recursos para test correctamente!
-	// - Hay teest igonrados
+	// - Hay teet igonrados
 	// - Crear los test de integracion que faltan para los Show*Parser. Aqui tirar ya contra la web html de verdad
 	//
 	// TODO 02: Montando la integración continua con en mi macbook air
