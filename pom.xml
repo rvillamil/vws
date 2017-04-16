@@ -26,8 +26,6 @@
 		<start-class>es.rvp.web.vws.Application</start-class>
 		<lombok.version>1.14.8</lombok.version>
 		<docker.maven.plugin.version>0.20.1</docker.maven.plugin.version>
-		<maven.surefire.version>2.20</maven.surefire.version>
-		<maven.failsafe.version>2.20</maven.failsafe.version>
 
 		<!-- Only unit tests are run by default. -->
 		<skip.integration.tests>true</skip.integration.tests>
