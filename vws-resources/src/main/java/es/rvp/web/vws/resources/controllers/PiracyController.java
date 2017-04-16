@@ -24,6 +24,7 @@ public class PiracyController {
 
 	//
 	// TODO 01: Comprobar que funcionan todos los test y que se cargan los recursos para test correctamente!
+	// - Hay teest igonrados
 	// - Crear los test de integracion que faltan para los Show*Parser. Aqui tirar ya contra la web html de verdad
 	//
 	// TODO 02: Montando la integración continua con en mi macbook air
@@ -83,7 +84,7 @@ public class PiracyController {
 	@RequestMapping("/billboardfilms")
 	public Set<Show> parseBillBoardFilms() {
 		LOGGER.info("Getting billboard films ...");
-		return webTorrentSpider.parseBillboardFilms(maxBillboardFilms);
+		return this.webTorrentSpider.parseBillboardFilms(this.maxBillboardFilms);
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class PiracyController {
 	@RequestMapping("/videopremieres")
 	public Set<Show> parseVideoPremieres() {
 		LOGGER.info("Getting video premieres ...");
-		return webTorrentSpider.parseVideoPremieres(maxVideoPremieres);
+		return this.webTorrentSpider.parseVideoPremieres(this.maxVideoPremieres);
 	}
 
 	/**
@@ -108,7 +109,7 @@ public class PiracyController {
 	 */
 	public Set<Show> parseTVShow(final String tvShowPath) {
 		LOGGER.info("Getting tv shows ...");
-		return webTorrentSpider.parseTVShow(tvShowPath, maxTVshows);
+		return this.webTorrentSpider.parseTVShow(tvShowPath, this.maxTVshows);
 	}
 
 	/**

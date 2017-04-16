@@ -19,13 +19,16 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. 
-			If you want to follow our recommendation and use a later Java version you 
+		<!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility.
+			If you want to follow our recommendation and use a later Java version you
 			can add a java.version property: -->
 		<java.version>1.8</java.version>
 		<start-class>es.rvp.web.vws.Application</start-class>
 		<lombok.version>1.14.8</lombok.version>
 		<docker.maven.plugin.version>0.20.1</docker.maven.plugin.version>
+		<maven.surefire.version>2.20</maven.surefire.version>
+		<maven.failsafe.version>2.20</maven.failsafe.version>
+
 		<!-- Only unit tests are run by default. -->
 		<skip.integration.tests>true</skip.integration.tests>
 		<skip.unit.tests>false</skip.unit.tests>
@@ -48,9 +51,9 @@
 
 	<dependencies>
 
-		<!-- Starters are a set of convenient dependency descriptors that you can 
-			include in your application. You get a one-stop-shop for all the Spring and 
-			related technology that you need, without having to hunt through sample code 
+		<!-- Starters are a set of convenient dependency descriptors that you can
+			include in your application. You get a one-stop-shop for all the Spring and
+			related technology that you need, without having to hunt through sample code
 			and copy paste loads of dependency descriptors http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter -->
 
 		<!-- Add typical dependencies for a web application -->
@@ -58,8 +61,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- To build a war file that is both executable and deployable into an 
-			external container you need to mark the embedded container dependencies as 
+		<!-- To build a war file that is both executable and deployable into an
+			external container you need to mark the embedded container dependencies as
 			“provided”. More info in: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,7 +76,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Starter for testing Spring Boot applications with libraries including 
+		<!-- Starter for testing Spring Boot applications with libraries including
 			JUnit, Hamcrest and Mockito -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -104,7 +107,7 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
-		<!-- Spring Boot includes an additional set of tools that can make the 
+		<!-- Spring Boot includes an additional set of tools that can make the
 			application development experience a little more pleasant. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -119,17 +122,82 @@
 
 	</dependencies>
 
+	<!-- Profiles: Only integration test on demand (-P integration) -->
+	<profiles>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>develop</id>
+			<properties>
+				<skip.integration.tests>true</skip.integration.tests>
+				<skip.unit.tests>false</skip.unit.tests>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>integration</id>
+			<properties>
+				<skip.integration.tests>false</skip.integration.tests>
+				<skip.unit.tests>false</skip.unit.tests>
+			</properties>
+		</profile>
+	</profiles>
 
 	<!-- Testing support -->
+	TODO: http://docs.spring.io/spring-boot/docs/current/maven-plugin/usage.html ---> Hacer funciona los test de integracion con profiles!
 	<build>
 		<plugins>
-			<!-- The Surefire Plugin is used during the test phase of the build lifecycle 
-				to execute the unit tests of an application. It generates reports in two 
+			<!-- http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/maven-plugin/examples/it-skip.html -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+        	  	  <execution>
+            		<id>pre-integration-test</id>
+            		<goals>
+              			<goal>start</goal>
+            		</goals>
+            		<configuration>
+              			<skip>${skip.integration.tests}</skip>
+            		</configuration>
+          		  </execution>
+
+          		  <execution>
+            		<id>post-integration-test</id>
+            		<goals>
+              			<goal>stop</goal>
+            		</goals>
+            		<configuration>
+              			<skip>${skip.integration.tests}</skip>
+            		</configuration>
+          		  </execution>
+       	 	</executions>
+
+			</plugin>
+
+			<!-- The Surefire Plugin is used during the test phase of the build lifecycle
+				to execute the unit tests of an application. It generates reports in two
 				different file formats: txt y XML -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-junit47</artifactId>
+						<version>${maven.surefire.version}</version>
+					</dependency>
+				</dependencies>
+
 				<configuration>
+					<!-- Sets the VM argument line used when unit tests are run -->
+					<argLine>${surefireArgLine}</argLine>
+
+					<!-- Skips unit tests if the value of skip.unit.tests property is true -->
 					<skipTests>${skip.unit.tests}</skipTests>
+
+					<!-- Excludes integration tests when unit tests are run. -->
 					<excludes>
 						<exclude>**/*IT.java</exclude>
 						<exclude>**/*IntegrationTest.java</exclude>
@@ -137,18 +205,27 @@
 				</configuration>
 			</plugin>
 
+			<!-- The Failsafe Plugin is designed to run integration tests while the
+				Surefire Plugin is designed to run unit tests -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<executions>
+					<!-- Ensures that both integration-test and verify goals of the Failsafe
+						Maven plugin are executed. -->
 					<execution>
-						<id>integration-test</id>
+						<id>integration-tests</id>
 						<goals>
 							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
 						<configuration>
-							<!-- Skips integration tests if the value of skip.integration.tests 
+							<!-- Sets the VM argument line used when integration tests are run.
+								<argLine>${failsafeArgLine}</argLine> -->
+							<!-- Skips integration tests if the value of skip.integration.tests
 								property is true -->
 							<skipTests>${skip.integration.tests}</skipTests>
+							<skipITs>${skip.integration.tests}</skipITs>
 							<includes>
 								<include>**/*IT.java</include>
 								<include>**/*IntegrationTest.java</include>
@@ -156,6 +233,7 @@
 						</configuration>
 					</execution>
 				</executions>
+
 			</plugin>
 
 		</plugins>

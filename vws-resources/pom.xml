@@ -23,15 +23,16 @@
 	 </dependencies>
 
 	<build>
-		
+
 	  <plugins>
-	    <!-- Spring Boot includes a Maven plugin that can package the project 
+	    <!-- Spring Boot includes a Maven plugin that can package the project
 		 as an executable jar. -->
+<!--
 	    <plugin>
 	      <groupId>org.springframework.boot</groupId>
 	      <artifactId>spring-boot-maven-plugin</artifactId>
 	    </plugin>
-
+ -->
 	    <!-- Ver documentacion en https://dmp.fabric8.io/ -->
 	    <plugin>
 	      <groupId>io.fabric8</groupId>
@@ -54,7 +55,7 @@
 		  </image>
 		</images>
 	      </configuration>
-	      
+
 	      <executions>
 		<execution>
 		  <id>start</id>
@@ -64,7 +65,7 @@
 		    <goal>start</goal>
 		  </goals>
 		</execution>
-		
+
 		<execution>
 		  <id>stop</id>
 		  <phase>post-integration-test</phase>
@@ -73,7 +74,7 @@
 		  </goals>
 		</execution>
 	      </executions>
-	      
+
 	    </plugin>
 	  </plugins>
 	</build>
