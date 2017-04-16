@@ -1,6 +1,3 @@
-/**
- *
- */
 package es.rvp.web.vws.components.jsoup;
 
 import java.io.IOException;

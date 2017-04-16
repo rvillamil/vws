@@ -1,6 +1,3 @@
-/**
- *
- */
 package es.rvp.web.vws.domain.tumejortorrent;
 
 import static org.junit.Assert.assertEquals;

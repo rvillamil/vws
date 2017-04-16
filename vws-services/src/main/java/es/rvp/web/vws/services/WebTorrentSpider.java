@@ -1,6 +1,3 @@
-/**
- *
- */
 package es.rvp.web.vws.services;
 
 import java.util.Set;

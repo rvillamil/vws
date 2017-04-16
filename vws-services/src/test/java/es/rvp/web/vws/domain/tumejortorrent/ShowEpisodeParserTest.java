@@ -1,6 +1,3 @@
-/**
- *
- */
 package es.rvp.web.vws.domain.tumejortorrent;
 
 import static org.junit.Assert.assertEquals;
@@ -48,9 +45,7 @@ public class ShowEpisodeParserTest {
 				anyString(),
 				anyInt()) ).thenReturn(
 						"Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]");
-		String data = showSessionParser.parse(htmlFragment);
-		// Then
-		assertEquals ("8", data);
+		assertEquals("8", showSessionParser.parse(htmlFragment));
 	}
 
 	@Test
@@ -66,9 +61,6 @@ public class ShowEpisodeParserTest {
 				anyInt()) ).thenReturn(
 						"Modern Family - Temporada 8 [HDTV 720p][AC3 5.1 Español Castellano]");
 
-		String data = showSessionParser.parse(htmlFragment);
-
-		// Then
-		assertNull (data);
+		assertNull(showSessionParser.parse(htmlFragment));
 	}
 }

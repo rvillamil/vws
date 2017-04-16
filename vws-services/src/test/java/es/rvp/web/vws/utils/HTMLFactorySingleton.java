@@ -1,6 +1,3 @@
-/**
- *
- */
 package es.rvp.web.vws.utils;
 
 /**

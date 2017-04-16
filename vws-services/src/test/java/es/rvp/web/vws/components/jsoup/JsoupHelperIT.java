@@ -1,6 +1,3 @@
-/**
- *
- */
 package es.rvp.web.vws.components.jsoup;
 
 import static org.junit.Assert.assertEquals;
