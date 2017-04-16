@@ -52,7 +52,9 @@
 		<!-- Starters are a set of convenient dependency descriptors that you can
 			include in your application. You get a one-stop-shop for all the Spring and
 			related technology that you need, without having to hunt through sample code
-			and copy paste loads of dependency descriptors http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter -->
+			and copy paste loads of dependency descriptors
+
+			http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter -->
 
 		<!-- Add typical dependencies for a web application -->
 		<dependency>
@@ -61,7 +63,8 @@
 		</dependency>
 		<!-- To build a war file that is both executable and deployable into an
 			external container you need to mark the embedded container dependencies as
-			“provided”. More info in: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file -->
+			“provided”.
+			More info in: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
