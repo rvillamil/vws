@@ -48,8 +48,16 @@ para Servlet 3.X (no se requiere un web.xml)
   Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
 
 ## Perfiles maven  ##
+
+Perfiles por defecto: develop + docker-support
+es decir: mvn install <--> mvn install -Pdevelop,docker-support
+
+mvn install -P integration,-docker-support:  para el Jenkins
+
 -Pdevelop = Lanza test unitarios
 -Pintegration = Lanza test unitarios y de integracion
+-Pdocker-support = Ejecuta el docker build en los proyectos con Docker
+NOTA: -P-docker-support , evita que se lancen los docker build
 
 ## Como generar un entregable para produccion  ##
 

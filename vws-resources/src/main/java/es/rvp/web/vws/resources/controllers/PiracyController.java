@@ -28,7 +28,8 @@ public class PiracyController {
 	/*
 	 Quizas la mejor opcion sea dejar para el perfil 'develop', la generacion de imagenes con maven tal y como esta.
 	 para el Perfil de 'integration', excluir esa generacion que se hace en desarrollo y
-	 montarla en la integracion continua con el Jenkinsfile sin el soporte de maven
+	 montarla en la integracion continua con el Jenkinsfile sin el soporte de maven:
+	  	mvn install -P develop,-docker-support (Ojo con el '-' delante excluye el profile)
 
 	// ....Jenkisfile
 	stage('Create Docker Image') {

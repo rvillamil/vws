@@ -23,7 +23,6 @@
 	</dependencies>
 
 	<build>
-
 		<plugins>
 			<!-- Spring Boot includes a Maven plugin that can package the project
 				as an executable jar. -->
@@ -31,51 +30,65 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
-			<!-- Ver documentacion en https://dmp.fabric8.io/ -->
-			<plugin>
-				<groupId>io.fabric8</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<extensions>true</extensions>
-				<version>${docker.maven.plugin.version}</version>
-				<configuration>
-					<logDate>default</logDate>
-					<images>
-						<image>
-							<name>${docker.vws.backend.name}</name>
-							<build>
-								<from>${docker.tomcat.img.name}</from>
-								<assembly>
-									<mode>dir</mode>
-									<descriptorRef>artifact</descriptorRef>
-									<targetDir>/usr/local/tomcat/webapps</targetDir>
-								</assembly>
-							</build>
-						</image>
-					</images>
-				</configuration>
-
-				<executions>
-					<execution>
-						<id>start</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>build</goal>
-							<goal>start</goal>
-						</goals>
-					</execution>
-
-					<execution>
-						<id>stop</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>stop</goal>
-						</goals>
-					</execution>
-				</executions>
-
-			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>docker-support</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+
+			<build>
+				<plugins>
+					<!-- Ver documentacion en https://dmp.fabric8.io/ -->
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>docker-maven-plugin</artifactId>
+						<extensions>true</extensions>
+						<version>${docker.maven.plugin.version}</version>
+						<configuration>
+							<logDate>default</logDate>
+							<images>
+								<image>
+									<name>${docker.vws.backend.name}</name>
+									<build>
+										<from>${docker.tomcat.img.name}</from>
+										<assembly>
+											<mode>dir</mode>
+											<descriptorRef>artifact</descriptorRef>
+											<targetDir>/usr/local/tomcat/webapps</targetDir>
+										</assembly>
+									</build>
+								</image>
+							</images>
+						</configuration>
+
+						<executions>
+							<execution>
+								<id>start</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>build</goal>
+									<goal>start</goal>
+								</goals>
+							</execution>
+
+							<execution>
+								<id>stop</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 
 </project>
