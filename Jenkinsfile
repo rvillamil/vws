@@ -29,15 +29,7 @@ node {
             echo "JAVA_HOME=${JAVA_HOME}"
             echo "DOCKER_HOME=${DOCKER_HOME}"
         '''
-	// TODO: Borramos el workspace??
-	//sh 'rm -rf *'
       } 
-
-      //TODO: Cuando y como borramos el workspace
-      stage ("Cleanup"){
-	deleteDir()
-      }
-
      
       stage('Checkout SCM') {
 	checkout scm
@@ -76,7 +68,13 @@ node {
 
       }
     
-  
+      //TODO: Cuando y como borramos el workspace
+      /*
+      stage ("Cleanup"){
+	deleteDir()
+      }
+      */
+
     } // End With(javaEnv)
     
 } // End node
