@@ -61,9 +61,13 @@ node {
       stage ('SonarQube') {
 	print "Generando informes para el SonarHost en " + sonarHost
 	cmd_jacoco_prepare="mvn clean -P " + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true"
-	cmd_sonar_run="mvn package -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
+	cmd_jacoco_coverage_per_test="mvn clean -P coverage-per-test," + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install"
+	//cmd_sonar_run="mvn package -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
+	cmd_sonar_run="mvn -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
+
 	
 	sh "${cmd_jacoco_prepare}"
+	sh "${cmd_jacoco_coverage_per_test}"
 	sh "${cmd_sonar_run}"
 
       }
