@@ -60,8 +60,21 @@ node {
 
       stage ('SonarQube') {
 	print "Generando informes para el SonarHost en " + sonarHost
+	withSonarQubeEnv('SonarQube Server') {
+	  // requires SonarQube Scanner for Maven 3.2+
+	  // The Java Plugin is going to reuse reports and not generate them,
+	  // so before trying to configure your analysis to import these reports,
+	  // you need to be sure they are correctly generated and not empty.
+	  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+	}
+      }
+
+      /*
+      stage ('SonarQube') {
+	print "Generando informes para el SonarHost en " + sonarHost
 	cmd_jacoco_prepare="mvn clean -P " + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true"
 	cmd_jacoco_coverage_per_test="mvn clean -P coverage-per-test," + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install"
+
 	//cmd_sonar_run="mvn package -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
 	cmd_sonar_run="mvn -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
 
@@ -71,6 +84,7 @@ node {
 	sh "${cmd_sonar_run}"
 
       }
+      */
     
       //TODO: Cuando y como borramos el workspace
       /*

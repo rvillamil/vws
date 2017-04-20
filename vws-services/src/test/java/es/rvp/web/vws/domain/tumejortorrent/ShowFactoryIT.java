@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import es.rvp.web.vws.domain.ShowFactory;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=TestConfig.class)
+@Ignore
 public class ShowFactoryIT {
 
 	// Interface a testear
@@ -31,6 +33,7 @@ public class ShowFactoryIT {
 
 	// ------------------------ newInstance -----------------------------------
 	@Test
+	@Ignore
 	public void givenHTMLWithTVShowWhenParseThenGetShowInstance() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
@@ -57,6 +60,7 @@ public class ShowFactoryIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenHTMLWithFilmWhenParseThenGetShowInstance() {
 
 		// Given

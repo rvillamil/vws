@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import es.rvp.web.vws.services.WebTorrentSpider;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=TestConfig.class)
+@Ignore
 public class WebTorrentSpiderIT {
 
 	// Interface a testear
@@ -30,11 +32,12 @@ public class WebTorrentSpiderIT {
 
 	//--------------------------- parseHTMLFrom -------------------------
 	@Test
+	@Ignore
 	public void givenURLWithFilmWhenParseGetTheShowObject() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
 		// When
-		final Show show = webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNotNull 	( show );
 
@@ -53,11 +56,12 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenURLWithTVShowWhenParseGetTheShowObject() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-seriehd/the-big-bang-theory/capitulo-1018/hdtv-720p-ac3-5-1/";
 		// When
-		final Show show = webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNotNull 	( show );
 
@@ -76,12 +80,13 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenExistingURLWithNoShowWhenParseGetNull() {
 		// Given
 		// Ojo, la pagina existe y devuelve contenido
 		final String urlWithShow = "http://tumejortorrent.com/invented/";
 		// When
-		final Show show = webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNotNull 	( show );
 		assertEquals 	( show.getBaseURI(), urlWithShow );
@@ -89,31 +94,34 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenNotDomainsURLWithNoShowWhenParseGetNull() {
 		// Given
 		final String urlWithShow = "http://sfgdgdopguregjer0"; // No pertenece al dominio de tumejortorrent.com
 		// When
-		final Show show = webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNull 	( show );
 	}
 
 	//--------------------------- parseBillboardFilms -------------------------
 	@Test
+	@Ignore
 	public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
 		// Given
 		// When
-		final Set<Show> shows = webTorrentSpider.parseBillboardFilms(5);
+		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(5);
 		// Then
 		assertNotNull 	( shows );
 		assertEquals 	( shows.size(), 5);
 	}
 
 	@Test
+	@Ignore
 	public void whenParseBillBoardWithThwoHundredFilmsGetAllShows() {
 		// Given
 		// When
-		final Set<Show> shows = webTorrentSpider.parseBillboardFilms(200);
+		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(200);
 		// Then
 		assertNotNull 	( shows );
 		assertTrue	( shows.size() < 200);
@@ -124,7 +132,7 @@ public class WebTorrentSpiderIT {
 	public void whenParseVideoPremieresWithMoreFiveFilmsThenGetFiveFilms() {
 		// Given
 		// When
-		final Set<Show> shows = webTorrentSpider.parseVideoPremieres(5);
+		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(5);
 		// Then
 		assertNotNull 	( shows );
 		assertEquals 	( shows.size(), 5);
@@ -134,7 +142,7 @@ public class WebTorrentSpiderIT {
 	public void whenParseVideoPremieresWithThwoHundredFilmsGetAllShows() {
 		// Given
 		// When
-		final Set<Show> shows = webTorrentSpider.parseVideoPremieres(200);
+		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(200);
 		// Then
 		assertNotNull 	( shows );
 		assertTrue	( shows.size() < 200);
@@ -145,7 +153,7 @@ public class WebTorrentSpiderIT {
 	public void whenParseModernFamilyThenGetTheLastThreeEpisodes() {
 		// Given
 		// When
-		final Set<Show> shows = webTorrentSpider.parseTVShow("/series-hd/modern-family", 3);
+		final Set<Show> shows = this.webTorrentSpider.parseTVShow("/series-hd/modern-family", 3);
 		// Then
 		assertNotNull 	( shows );
 		assertEquals 	( shows.size(), 3);
@@ -155,7 +163,7 @@ public class WebTorrentSpiderIT {
 	public void whenParseModernFamilyWithThwoHundredThenGetTheLastEpisodes() {
 		// Given
 		// When
-		final Set<Show> shows = webTorrentSpider.parseTVShow("/series-hd/modern-family", 200);
+		final Set<Show> shows = this.webTorrentSpider.parseTVShow("/series-hd/modern-family", 200);
 		// Then
 		assertNotNull 	( shows );
 		assertTrue 	( shows.size() < 200);

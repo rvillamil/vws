@@ -9,6 +9,7 @@ import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.rvp.web.vws.TestConfig;
-import es.rvp.web.vws.components.jsoup.JSoupHelper;
 
 /**
  * @author Rodrigo Villamil Perez
@@ -45,6 +45,7 @@ public class JsoupHelperIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenURLWhenGetDocumentThenGetInfoNotNull() {
 		// Given
 		final String stringURL = "http://www.google.es";
@@ -59,6 +60,7 @@ public class JsoupHelperIT {
 
 	// -------------------- newInstanceFromElementWithURL ---------------------
 	@Test
+	@Ignore
 	public void givenElementWithURLWithoutContentWhenInstanceDocumentThenGetNull() {
 		/*
 		<a href="http://foto.jpg"
@@ -80,6 +82,7 @@ public class JsoupHelperIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenElementWithURLWithContentWhenInstanceDocumentThenGetTheDocument() {
 		/*
 		<a href="http://www.google.es"
@@ -104,6 +107,7 @@ public class JsoupHelperIT {
 	}
 
 	@Test
+	@Ignore
 	public void givenElementComplexWithURLWithContentWhenInstanceDocumentThenGetTheDocument() {
 		/*
 	  	 <li>
