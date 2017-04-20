@@ -1,7 +1,7 @@
 #!groovy
 
 // Global
-sonarHost="http://localhost:9000"
+sonarHost="http://sonarqube.com:9000"
 mavenProfiles="develop,-docker-support"
 
 node {
