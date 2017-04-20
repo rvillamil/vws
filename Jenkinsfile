@@ -40,7 +40,7 @@ node {
       // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
       // Compilamos y lanzamos los test aunque fallen
       stage ('BuildAndTest') {
-	cmd = "mvn install -P "+mavenProfiles+" -Dmaven.test.failure.ignore=true"
+	cmd = "mvn install -P "+ mavenProfiles + " -Dmaven.test.failure.ignore=true"
 	sh "${cmd}"
       }
 
@@ -62,9 +62,12 @@ node {
 
       stage ('SonarQube') {
 	print "Generando informes para el SonarHost en " + sonarHost
+	cmd_jacoco_prepare="mvn clean -P " + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true"
+	cmd_sonar_run="mvn package -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
 	
-	sh "${mvnHome}/bin/mvn clean -P ${mavenProfiles} org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true"
-	sh "${mvnHome}/bin/mvn package -P -P ${mavenProfiles} sonar:sonar -Dsonar.host.url=${sonarHost}"
+	sh "${cmd_jacoco_prepare}"
+	sh "${cmd_sonar_run}"
+
       }
       
       // SonarQube
