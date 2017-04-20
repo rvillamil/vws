@@ -38,36 +38,28 @@ node {
       } 
 
       stage('Checkout SCM') {
-	// Checkout code from repository
 	checkout scm
       }
-  
+
+      // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
+      // Compilamos y lanzamos los test aunque fallen
       stage ('BuildAndTest') {
-        try {
-	  // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
-	  // Compilamos y lanzamos los test aunque fallen
-	  sh 'mvn install -P develop,-docker-support -Dmaven.test.failure.ignore=true'
-        } catch (e) {
-	  print 'Ha sucedido el siguiente problema al compilar: ' + e
-	  currentBuild.result = 'FAILURE'
-        }
-      } // End Build
+       	  sh 'mvn install -P develop,-docker-support -Dmaven.test.failure.ignore=true'
+      }
 
       stage ('Archive') {
-	try {
-	  if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-	    // Archivamos los artefactos en Jenkins. No tiene nada que ver con el artifactory 
-	    archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-	    // Publica los resultados de los test de Junit en Jenkins --> Probar
-	    //junit testResults: '**/target/surefire-reports/TEST-*.xml'
+	// Archivamos los artefactos en Jenkins: Si no hay nada que archivar
+	// no va a fallar 
+	archiveArtifacts allowEmptyArchive: true,
+			 artifacts: '**/target/*.jar', 
+			 fingerprint: true,
+			 onlyIfSuccessful: true
+	// Publica los resultados de los test de Junit en Jenkins --> Probar
+	// Si no hay test, no va a fallar
+	junit allowEmptyResults: true,
+	      testResults: '**/target/surefire-reports/TEST-*.xml'
 	    // Publica los resultados de los test de Jacoco en Jenkins --> Probar
 	    //step( [ $class: 'JacocoPublisher' ] )
-	  }
-	}
-	catch (e) {
-	  print 'Ha sucedido el siguiente problema en el archivado de informes: ' + e
-	  currentBuild.result = 'FAILURE'
-	}
       }
 
 
