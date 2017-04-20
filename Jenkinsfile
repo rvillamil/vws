@@ -33,6 +33,12 @@ node {
 	//sh 'rm -rf *'
       } 
 
+      //TODO: Cuando y como borramos el workspace
+      stage ("Cleanup"){
+	deleteDir()
+      }
+
+     
       stage('Checkout SCM') {
 	checkout scm
       }
@@ -69,25 +75,8 @@ node {
 	sh "${cmd_sonar_run}"
 
       }
-      
-      // SonarQube
-      // 
-       // Archiva los resultados de las pruebas realizadas con el plugin
-      // surefire de Maven para poder ser visualizados desde la interfaz web de Jenkins
-      //	  step([$class: 'JUnitResultArchiver',
-      //		testResults: '**/target/surefire-reports/TEST-*.xml'])
-
-      // Archiva los ficheros jar generados por Maven para que esten
-      // disponibles desde la interfaz web de Jenkins.
-      //step([$class: 'ArtifactArchiver',
-      //		artifacts: '**/target/*.jar, **/target/*.war', fingerprint: true])
-
-      /* TODO: Cuando y como borramos el workspace
-      stage ("Cleanup"){
-	deleteDir()
-      }
-      */
-      
+    
+  
     } // End With(javaEnv)
     
 } // End node
