@@ -1,12 +1,14 @@
 #!groovy
 
- // Tools y Jenkins 'configuracion tool' section
-jdktool    = tool name: "JDK_8", type: 'hudson.model.JDK'
-mvnHome    = tool name: 'Maven_3'
-dockerHome = tool name: 'Docker_latest'
 
 node {
-    /* Set JAVA_HOME, and special PATH variables: docker, java, maven */
+
+  // Tools y Jenkins 'configuracion tool' section
+  jdktool    = tool name: "JDK_8", type: 'hudson.model.JDK'
+  mvnHome    = tool name: 'Maven_3'
+  dockerHome = tool name: 'Docker_latest'
+
+  /* Set JAVA_HOME, and special PATH variables: docker, java, maven */
     List javaEnv = [
         "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:${dockerHome}/bin",
         "M2_HOME=${mvnHome}",
