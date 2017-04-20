@@ -37,7 +37,7 @@ node {
       // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
       // Compilamos y lanzamos los test aunque fallen
       stage ('BuildAndTest') {
-       	  sh 'mvn install -P develop,-docker-support -Dmaven.test.failure.ignore=true'
+       	  sh 'mvn install -P integration,-docker-support -Dmaven.test.failure.ignore=true'
       }
 
       stage ('Archive') {
