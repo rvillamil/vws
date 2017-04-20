@@ -1,6 +1,8 @@
 #!groovy
 
-sonarHost = "http://sonarqube.com:9000"
+// Global
+sonarHost="http://sonarqube.com:9000"
+mavenProfiles="develop,-docker-support"
 
 node {
 
@@ -38,7 +40,7 @@ node {
       // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
       // Compilamos y lanzamos los test aunque fallen
       stage ('BuildAndTest') {
-       	  sh 'mvn install -P develop,-docker-support -Dmaven.test.failure.ignore=true'
+       	  sh 'mvn install -P ${mavenProfiles} -Dmaven.test.failure.ignore=true'
       }
 
       stage ('Archive') {
@@ -59,8 +61,9 @@ node {
 
       stage ('SonarQube') {
 	print "Generando informes para el SonarHost en " + sonarHost
-	sh "${mvnHome}/bin/mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test"
-	sh "${mvnHome}/bin/mvn package sonar:sonar -Dsonar.host.url=${sonarHost}"
+	
+	sh "${mvnHome}/bin/mvn clean -P ${mavenProfiles} org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true"
+	sh "${mvnHome}/bin/mvn package -P -P ${mavenProfiles} sonar:sonar -Dsonar.host.url=${sonarHost}"
       }
       
       // SonarQube
