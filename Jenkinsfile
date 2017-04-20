@@ -1,5 +1,6 @@
 #!groovy
 
+sonarQubeServer = "http://sonarqube.com:9000"
 
 node {
 
@@ -20,11 +21,13 @@ node {
     withEnv(javaEnv) {
 
       stage ('Initialize') {
+	print "Server: " + sonarQubeServer
 	sh '''
             echo "PATH = ${PATH}"
             echo "M2_HOME = ${M2_HOME}"
             echo "DOCKER_HOME=${DOCKER_HOME}"
             echo "DOCKER_HOST=${DOCKER_HOST}"
+            echo "SONARQUBE SERVER=${sonarQubeServer}"
         '''
 	// TODO: Borramos el workspace??
 	//sh 'rm -rf *'
