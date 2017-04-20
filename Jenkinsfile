@@ -1,6 +1,6 @@
 #!groovy
 
-sonarQubeServer = "http://sonarqube.com:9000"
+sonarHost = "http://sonarqube.com:9000"
 
 node {
 
@@ -21,13 +21,11 @@ node {
     withEnv(javaEnv) {
 
       stage ('Initialize') {
-	print "Server: " + sonarQubeServer
 	sh '''
-            echo "PATH = ${PATH}"
-            echo "M2_HOME = ${M2_HOME}"
+            echo "PATH=${PATH}"
+            echo "M2_HOME=${M2_HOME}"
+            echo "JAVA_HOME=${JAVA_HOME}"
             echo "DOCKER_HOME=${DOCKER_HOME}"
-            echo "DOCKER_HOST=${DOCKER_HOST}"
-            echo "SONARQUBE SERVER=${sonarQubeServer}"
         '''
 	// TODO: Borramos el workspace??
 	//sh 'rm -rf *'
@@ -59,10 +57,14 @@ node {
 	      testResults: '**/target/failsafe-reports/TEST-*.xml'
       }
 
+      stage ('SonarQube') {
+	print "Generando informes para el SonarHost en " + sonarHost
+	sh "${mvnHome}/bin/mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test"
+	sh "${mvnHome}/bin/mvn package sonar:sonar -Dsonar.host.url=${sonarHost}"
+      }
+      
       // SonarQube
-      // sh "${mvnHome}/bin/mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test"
-      // sh "${mvnHome}/bin/mvn package sonar:sonar -Dsonar.host.url=http://ec2-54-171-187-14.eu-west-1.compute.amazonaws.com:9000"
-   
+      // 
        // Archiva los resultados de las pruebas realizadas con el plugin
       // surefire de Maven para poder ser visualizados desde la interfaz web de Jenkins
       //	  step([$class: 'JUnitResultArchiver',
