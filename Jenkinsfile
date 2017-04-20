@@ -1,12 +1,5 @@
 #!groovy
 
-/* 
- Useful links:
-  - https://jenkins.io/blog/2017/02/07/declarative-maven-project/
-  - http://dmunozfer.es/tutorial-jenkins-2-configuracion-pipeline/
-  - https://jenkins.io/doc/pipeline/examples/
-*/
-
 node {
     checkout scm
 
@@ -54,15 +47,19 @@ node {
 			 artifacts: '**/target/*.jar', 
 			 fingerprint: true,
 			 onlyIfSuccessful: true
-	// Publica los resultados de los test de Junit en Jenkins --> Probar
-	// Si no hay test, no va a fallar
+	// Publica los resultados de los test de Junit en Jenkins
 	junit allowEmptyResults: true,
 	      testResults: '**/target/surefire-reports/TEST-*.xml'
-	    // Publica los resultados de los test de Jacoco en Jenkins --> Probar
-	    //step( [ $class: 'JacocoPublisher' ] )
+
+	// Publica los resultados de los test de Integracion en Jenkins
+	junit allowEmptyResults: true,
+	      testResults: '**/target/failsafe-reports/TEST-*.xml'
       }
 
-
+      // SonarQube
+      // sh "${mvnHome}/bin/mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent test"
+      // sh "${mvnHome}/bin/mvn package sonar:sonar -Dsonar.host.url=http://ec2-54-171-187-14.eu-west-1.compute.amazonaws.com:9000"
+   
        // Archiva los resultados de las pruebas realizadas con el plugin
       // surefire de Maven para poder ser visualizados desde la interfaz web de Jenkins
       //	  step([$class: 'JUnitResultArchiver',
@@ -78,6 +75,7 @@ node {
 	deleteDir()
       }
       */
+      
     } // End With(javaEnv)
     
 } // End node
