@@ -22,7 +22,7 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @ConfigurationProperties(prefix="general")
 public class PiracyController {
 
-	//
+	// FIXME 00: Jacoco no genera informe de test de integracion para Sonar
 	// TODO 00: Jenkins CI - Montar el soporte para Docker de la siguiente forma:
 	//
 	/*
