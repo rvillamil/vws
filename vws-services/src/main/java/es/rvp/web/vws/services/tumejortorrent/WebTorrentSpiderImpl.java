@@ -63,13 +63,13 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	@Override
 	public Show parseHTMLFrom(final String urlWithShow) {
 		Show show = null;
-		if (! urlWithShow.toLowerCase().contains(PORTAL_NAME.toLowerCase()) ) {
+		if (! urlWithShow.toLowerCase().contains(this.PORTAL_NAME.toLowerCase()) ) {
 			LOGGER.warn(String.format("URL '%s' doesn't contains the string '%s'. The object 'Show 'returned is null",
-					urlWithShow, URL_BASE) );
+					urlWithShow, this.URL_BASE) );
 		} else {
-			final Document document = jSoupHelper.newInstanceByURL (urlWithShow);
-			if (null!=document) {
-				show = showFactory.newInstance(urlWithShow, document.html());
+			final Document document = this.jSoupHelper.newInstanceByURL (urlWithShow);
+			if (document != null) {
+				show = this.showFactory.newInstance(urlWithShow, document.html());
 			}
 		}
 
@@ -81,7 +81,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	 */
 	@Override
 	public Set<Show> parseBillboardFilms(final int maxSize) {
-		return parseShows( "/estrenos-de-cine",
+		return this.parseShows( "/estrenos-de-cine",
 			 				maxSize,
 			 				"pelilist");
 	}
@@ -91,7 +91,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	 */
 	@Override
 	public Set<Show> parseVideoPremieres(final int maxSize) {
-		return parseShows( "/peliculas",
+		return this.parseShows( "/peliculas",
  						   maxSize,
  						   "pelilist");
 	}
@@ -102,7 +102,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	@Override
 	public Set<Show> parseTVShow(final String tvShowPath, final int maxSize) {
 
-		return parseShows(  tvShowPath,
+		return this.parseShows(  tvShowPath,
 				   			maxSize,
 				   			"buscar-list");
 
@@ -116,28 +116,28 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 
 		LOGGER.info("parsing shows from {}. The max size from show list is {}", urlPath, maxSize);
 		final Set<Show> shows 	= new LinkedHashSet<>();
-		final Document document = jSoupHelper.newInstanceByURL(
-				URL_BASE + urlPath);
+		final Document document = this.jSoupHelper.newInstanceByURL(
+				this.URL_BASE + urlPath);
 
-		if ( null!= document ) {
+		if ( document != null ) {
 			// Seleccionamos todos los elemtos de la lista <li> ... </li> de nombre 'classListName'
-			final Elements elements = jSoupHelper.selectElementsByClassListName ( document,
+			final Elements elements = this.jSoupHelper.selectElementsByClassListName ( document,
 																	   				   classListName );
 			int idx=0;
 			// menor=(x<y)?x:y;
-			final int sizeLimit = (maxSize > (elements.size())) ? (elements.size()):maxSize;
+			final int sizeLimit = maxSize > elements.size() ? elements.size():maxSize;
 			LOGGER.debug(String.format(
 					"WebTorrentSpiderImpl - parseShows - Path: %s, maxSize: %s, Request Delay (ms): %s",
 					urlPath,
 					maxSize,
-					requestDelay));
-			while (idx < (sizeLimit ) )
+					this.requestDelay));
+			while (idx < sizeLimit )
 			{
 				try {
-					Thread.sleep(requestDelay);
-					Document documentWithHref = jSoupHelper.newInstanceFromElementWithURL(elements.get(idx));
+					Thread.sleep(this.requestDelay);
+					Document documentWithHref = this.jSoupHelper.newInstanceFromElementWithURL(elements.get(idx));
 					if ( documentWithHref != null) {
-						final Show show 	  = showFactory.newInstance( documentWithHref.baseUri(),
+						final Show show 	  = this.showFactory.newInstance( documentWithHref.baseUri(),
 																		 documentWithHref.html() );
 						if (show!=null) {
 							if ( shows.add(show) ) {

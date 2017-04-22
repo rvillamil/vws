@@ -23,7 +23,6 @@ import es.rvp.web.vws.services.WebTorrentSpider;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=TestConfig.class)
-@Ignore
 public class WebTorrentSpiderIT {
 
 	// Interface a testear
@@ -32,7 +31,6 @@ public class WebTorrentSpiderIT {
 
 	//--------------------------- parseHTMLFrom -------------------------
 	@Test
-	@Ignore
 	public void givenURLWithFilmWhenParseGetTheShowObject() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
@@ -56,7 +54,6 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
-	@Ignore
 	public void givenURLWithTVShowWhenParseGetTheShowObject() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-seriehd/the-big-bang-theory/capitulo-1018/hdtv-720p-ac3-5-1/";
@@ -80,7 +77,6 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
-	@Ignore
 	public void givenExistingURLWithNoShowWhenParseGetNull() {
 		// Given
 		// Ojo, la pagina existe y devuelve contenido
@@ -94,7 +90,6 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
-	@Ignore
 	public void givenNotDomainsURLWithNoShowWhenParseGetNull() {
 		// Given
 		final String urlWithShow = "http://sfgdgdopguregjer0"; // No pertenece al dominio de tumejortorrent.com
@@ -106,7 +101,6 @@ public class WebTorrentSpiderIT {
 
 	//--------------------------- parseBillboardFilms -------------------------
 	@Test
-	@Ignore
 	public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
 		// Given
 		// When
@@ -139,6 +133,7 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
+	@Ignore
 	public void whenParseVideoPremieresWithThwoHundredFilmsGetAllShows() {
 		// Given
 		// When
@@ -160,6 +155,7 @@ public class WebTorrentSpiderIT {
 	}
 
 	@Test
+	@Ignore
 	public void whenParseModernFamilyWithThwoHundredThenGetTheLastEpisodes() {
 		// Given
 		// When

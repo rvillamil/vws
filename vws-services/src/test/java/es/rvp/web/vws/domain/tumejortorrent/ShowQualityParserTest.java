@@ -9,6 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
@@ -50,6 +51,8 @@ public class ShowQualityParserTest {
 	}
 
 	@Test
+	@Ignore
+	// TODO 08-a: Como sabemos que es una cadena qeu corresfonde con la calidad?
 	public void givenHTMLWithOutQualityFieldParseThenGetNull() {
 
 		// Given

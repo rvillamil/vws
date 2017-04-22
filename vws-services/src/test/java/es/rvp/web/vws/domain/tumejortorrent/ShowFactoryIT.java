@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,6 @@ public class ShowFactoryIT {
 
 	// ------------------------ newInstance -----------------------------------
 	@Test
-	@Ignore
 	public void givenHTMLWithFilmWhenParseThenGetShowInstance() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
@@ -60,14 +58,13 @@ public class ShowFactoryIT {
 	}
 
 	@Test
-	@Ignore
 	public void givenHTMLWithTVShowWhenParseThenGetShowInstance() {
 
 		// Given
 		final String urlWithShow = "http://www.tumejortorrent.com/descargar-serie/the-man-in-the-high-castle/capitulo-25/hdtv/";
 		// When
 		Show show = this.showFactory.newInstance( urlWithShow,
-				  								this.jsoupHelper.newInstanceByURL(urlWithShow).html());
+				  								 this.jsoupHelper.newInstanceByURL(urlWithShow).html());
 		// Then
 		assertNotNull 	( show );
 
