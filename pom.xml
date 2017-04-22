@@ -35,7 +35,7 @@
 		<docker.vws.backend.name>img-vws-resources:${project.version}</docker.vws.backend.name>
 
 		<!-- JACOCO support -->
-		<jacoco.plugin.version>0.7.4.201502262128</jacoco.plugin.version>
+		<jacoco.plugin.version>0.7.9</jacoco.plugin.version>
 		<jacoco.it.execution.data.file>${project.basedir}/target/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.basedir}/target/jacoco.exec</jacoco.ut.execution.data.file>
 
