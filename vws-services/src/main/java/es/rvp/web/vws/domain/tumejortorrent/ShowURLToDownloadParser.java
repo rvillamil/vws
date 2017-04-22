@@ -32,9 +32,7 @@ public class ShowURLToDownloadParser implements ShowFieldParser {
 			// process the line
 			if (line.contains("window.location.href")){
 				String[] lines = line.split("=");
-				urlToDownLoad  = lines[1] + "=" + lines[2];
-				urlToDownLoad  = urlToDownLoad.replace("\"", "");
-				urlToDownLoad  = urlToDownLoad.replace(";", "").trim();
+				urlToDownLoad  = (lines[1] + "=" + lines[2]).replace("\"", "").replace(";", "").trim();
 			}
 		}
 		scanner.close();
