@@ -23,18 +23,8 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	//
-	// FIXME 00: Comprobar que funcionan todos los test y que se cargan los recursos para test correctamente!
-	// - Haciendo funcionar ShowEpisodeParserTest e ShowEpisodeParserIT para series que tienen dos episodios en su nombre
-	// - Crear los test de integracion que faltan para los Show*Parser. Aqui tirar ya contra la web html de verdad
-	// - Activar los test igonrados
+	// FIXME 00: Se siguen lanzando los test de integracion aunque use: mvn install -Pdevelop,-docker-support ¿Que pasa?!! Es el tema del Jacoco pero no se que es
 	//
-
-	// FIXME 01: Problemas!! Me esta lanzando los test de integracion aunque ponga "mvn install -Pdevelop,-docker-support"
-	// Es por el plugin de jacoco que los lanza igual y se la suda
-	// http://stackoverflow.com/questions/42011140/jacoco-check-goal-for-integration-tests
-	// Sin embargo, asi funciona: mvn install -Pdevelop,-docker-support -DskipITs
-	//
-
 	// TODO 00: Jenkins CI - Montar el soporte para Docker de la siguiente forma:
 	//
 	/*

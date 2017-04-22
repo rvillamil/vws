@@ -46,7 +46,7 @@ public class ShowQualityParserIT {
 
 	@Test
 	@Ignore
-	// TODO 08-b: Como sabemos que es una cadena qeu corresfonde con la calidad?
+	// TODO 08-b: Test Unitario - Como sabemos que es una cadena qeu corresfonde con la calidad?
 	public void givenHTMLWithFilmWhenParseThenGetEpisodeNull() {
 		// Given
 		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,

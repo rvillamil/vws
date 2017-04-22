@@ -46,11 +46,10 @@ public class JSoupHelperImpl implements JSoupHelper {
 			if (connection != null) {
 				document = connection.get();
 			} else {
-				LOGGER.error(String.format("Connection error to '%s'", urlString));
+				LOGGER.info(String.format("Connection error to '%s'", urlString));
 			}
 		} catch (final IOException ex) {
-			LOGGER.error("Exception - newInstanceByURL with urlString param='" + urlString + "'. Exception: "
-					+ ex.getMessage(), ex);
+			LOGGER.info("Couldn't create object Document. Method 'newInstanceByURL' with URL '" + urlString + "'. Exception: " + ex.getClass().getName());
 		}
 
 		return document;

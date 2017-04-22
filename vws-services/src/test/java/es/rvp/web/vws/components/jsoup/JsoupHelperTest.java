@@ -39,10 +39,10 @@ public class JsoupHelperTest {
 	}
 
 	//------------------------ newInstanceByURL -------------------------------
-	// Covered by Integration Test: TODO 09: Podemos hacer un spy que compruebe que se ejecute y ya esta
+	// Covered by Integration Test: TODO 08-e: Test Unitario - Podemos hacer un spy que compruebe que se ejecute y ya esta
 
 	// -------------------- newInstanceFromElementWithURL ---------------------
-	// Covered by Integration Test
+	// Covered by Integration Test: TODO 08-f: Test Unitario - Podemos hacer un spy que compruebe que se ejecute y ya esta
 
 	// -------------------- selectElementsByClassListName ---------------------
 	@Test

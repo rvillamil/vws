@@ -46,8 +46,7 @@ public class PiracyControllerIT {
 	@Ignore
 	public void whenParseOneFilmInBillBoardThenGetOneFilmInBillBoard() {
 		// When
-		// TODO 07: Montar todos los servicios REST con sus test unitarios y de integracion. Estamos teniendo problemas
-		// para deserializar. ¿Tenemos que implementar un deserializador?
+		// TODO 08-d: Test Unitario - Montar todos los servicios REST con sus test unitarios y de integracion. Estamos teniendo problemas para deserializar. ¿Tenemos que implementar un deserializador?
 		@SuppressWarnings("rawtypes")
 		final ResponseEntity<Set> response = this.restTemplate.getForEntity("/hackbillboardfilms", Set.class);
 		final Set<?> showsJSONFormat = response.getBody();
