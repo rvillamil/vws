@@ -35,10 +35,7 @@
 		<docker.vws.backend.name>img-vws-resources:${project.version}</docker.vws.backend.name>
 
 		<!-- JACOCO support -->
-		<maven.surefire.version>2.18.1</maven.surefire.version>
-		<maven.failsafe.version>2.17</maven.failsafe.version>
-		<maven.project.info.reports.version>2.7</maven.project.info.reports.version>
-
+		<jacoco.plugin.version>0.7.4.201502262128</jacoco.plugin.version>
 		<jacoco.it.execution.data.file>${project.basedir}/target/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.basedir}/target/jacoco.exec</jacoco.ut.execution.data.file>
 
@@ -159,7 +156,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.4.201502262128</version>
+				<version>${jacoco.plugin.version}</version>
 				<executions>
 					<!-- Prepares the property pointing to the JaCoCo runtime agent which
 						is passed as VM argument when Maven the Surefire plugin is executed. -->
@@ -229,14 +226,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven.surefire.version}</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.surefire</groupId>
-						<artifactId>surefire-junit47</artifactId>
-						<version>${maven.surefire.version}</version>
-					</dependency>
-				</dependencies>
 				<configuration>
 					<!-- Sets the VM argument line used when unit tests are run. -->
 					<argLine>-Dfile.encoding=${project.build.sourceEncoding}
@@ -255,12 +244,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${maven.failsafe.version}</version>
 				<executions>
 					<!-- Ensures that both integration-test and verify goals of the Failsafe
 						Maven plugin are executed. -->
 					<execution>
-						<id>integration-tests</id>
 						<goals>
 							<goal>integration-test</goal>
 							<goal>verify</goal>

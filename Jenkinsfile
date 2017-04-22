@@ -2,7 +2,7 @@
 
 // Global
 sonarHost="http://sonarqube:9000"
-mavenProfiles="develop,-docker-support"
+mavenProfiles="integration,-docker-support"
 
 node {
 
@@ -19,7 +19,7 @@ node {
 	"DOCKER_HOME=${dockerHome}"
     ]
 
-    
+
     withEnv(javaEnv) {
 
       stage ('Initialize') {
@@ -29,8 +29,8 @@ node {
             echo "JAVA_HOME=${JAVA_HOME}"
             echo "DOCKER_HOME=${DOCKER_HOME}"
         '''
-      } 
-     
+      }
+
       stage('Checkout SCM') {
 	checkout scm
       }
@@ -44,9 +44,9 @@ node {
 
       stage ('Archive') {
 	// Archivamos los artefactos en Jenkins: Si no hay nada que archivar
-	// no va a fallar 
+	// no va a fallar
 	archiveArtifacts allowEmptyArchive: true,
-			 artifacts: '**/target/*.jar', 
+			 artifacts: '**/target/*.jar',
 			 fingerprint: true,
 			 onlyIfSuccessful: true
 	// Publica los resultados de los test de Junit en Jenkins
@@ -69,8 +69,8 @@ node {
 	}
       }
     } // End With(javaEnv)
-    
+
 } // End node
 
 
-   
+

@@ -24,6 +24,8 @@ public class PiracyController {
 
 	//
 	// FIXME 00: Se siguen lanzando los test de integracion aunque use: mvn install -Pdevelop,-docker-support ¿Que pasa?!! Es el tema del Jacoco pero no se que es
+	// Busqueda de Goolge: spring boot + jacoco
+	// - Ver esto: http://dev.macero.es/2016/02/06/test-coverage-analysis-for-your-spring-boot-app/
 	//
 	// TODO 00: Jenkins CI - Montar el soporte para Docker de la siguiente forma:
 	//
