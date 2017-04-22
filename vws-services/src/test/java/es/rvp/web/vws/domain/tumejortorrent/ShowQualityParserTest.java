@@ -9,7 +9,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
@@ -33,7 +32,6 @@ public class ShowQualityParserTest {
 		this.showQualityParser  	= new ShowQualityParser (this.jSoupHelper);
 	}
 
-	// -------------------------- parse -----------------------------------
 	@Test
 	public void givenHTMLWithQualityFieldParseThenGetTheQualityString() {
 
@@ -52,7 +50,6 @@ public class ShowQualityParserTest {
 	}
 
 	@Test
-	@Ignore
 	public void givenHTMLWithOutQualityFieldParseThenGetNull() {
 
 		// Given

@@ -24,6 +24,7 @@ import es.rvp.web.vws.services.tumejortorrent.WebTorrentSpiderImpl;
 @ComponentScan("es.rvp.web.vws")
 @Configuration
 public class TestConfig {
+
 	@Bean
 	JSoupHelper jSoupHelper() {
 		return new JSoupHelperImpl();
@@ -65,4 +66,5 @@ public class TestConfig {
 				this.jSoupHelper(),
 				this.showFactory());
 	}
+
 }

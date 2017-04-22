@@ -53,7 +53,6 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	 */
 	public WebTorrentSpiderImpl( final JSoupHelper  	jSoupHelper,
 						  		 final ShowFactory 		showFactory) {
-		super();
 		this.jSoupHelper	= jSoupHelper;
 		this.showFactory 	= showFactory;
 	}

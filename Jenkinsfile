@@ -68,31 +68,6 @@ node {
 	  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
 	}
       }
-
-      /*
-      stage ('SonarQube') {
-	print "Generando informes para el SonarHost en " + sonarHost
-	cmd_jacoco_prepare="mvn clean -P " + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install -Dmaven.test.failure.ignore=true"
-	cmd_jacoco_coverage_per_test="mvn clean -P coverage-per-test," + mavenProfiles + " org.jacoco:jacoco-maven-plugin:prepare-agent install"
-
-	//cmd_sonar_run="mvn package -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
-	cmd_sonar_run="mvn -P " + mavenProfiles +  " sonar:sonar -Dsonar.host.url="+ sonarHost
-
-	
-	sh "${cmd_jacoco_prepare}"
-	sh "${cmd_jacoco_coverage_per_test}"
-	sh "${cmd_sonar_run}"
-
-      }
-      */
-    
-      //TODO: Cuando y como borramos el workspace
-      /*
-      stage ("Cleanup"){
-	deleteDir()
-      }
-      */
-
     } // End With(javaEnv)
     
 } // End node

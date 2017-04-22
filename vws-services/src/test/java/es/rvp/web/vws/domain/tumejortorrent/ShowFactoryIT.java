@@ -21,20 +21,20 @@ import es.rvp.web.vws.domain.ShowFactory;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=TestConfig.class)
-@Ignore
 public class ShowFactoryIT {
 
-	// Interface a testear
-	@Autowired
-	private ShowFactory showFactory;
 	// Clase de apoyo
 	@Autowired
 	private JSoupHelper jsoupHelper;
 
+	// Interface a testear
+	@Autowired
+	private ShowFactory showFactory;
+
 	// ------------------------ newInstance -----------------------------------
 	@Test
 	@Ignore
-	public void givenHTMLWithTVShowWhenParseThenGetShowInstance() {
+	public void givenHTMLWithFilmWhenParseThenGetShowInstance() {
 		// Given
 		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
 
@@ -61,7 +61,7 @@ public class ShowFactoryIT {
 
 	@Test
 	@Ignore
-	public void givenHTMLWithFilmWhenParseThenGetShowInstance() {
+	public void givenHTMLWithTVShowWhenParseThenGetShowInstance() {
 
 		// Given
 		final String urlWithShow = "http://www.tumejortorrent.com/descargar-serie/the-man-in-the-high-castle/capitulo-25/hdtv/";

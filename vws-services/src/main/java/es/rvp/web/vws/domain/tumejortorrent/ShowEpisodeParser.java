@@ -1,5 +1,6 @@
 package es.rvp.web.vws.domain.tumejortorrent;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,6 @@ public class ShowEpisodeParser implements ShowFieldParser {
 	 * @param jSoupHelper Facility to parse the HTML document
 	 */
 	public ShowEpisodeParser (final JSoupHelper jSoupHelper){
-		super();
 		this.jSoupHelper = jSoupHelper;
 	}
 
@@ -36,34 +36,37 @@ public class ShowEpisodeParser implements ShowFieldParser {
 	 * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
 	 */
 	@Override
-	public String parse(final String htmlDocument) {
-
-		Document doc = new Document (htmlDocument);
-
-		Integer episodeInt  = null;
-		String  episode =  null;
+	public String parse(final String htmlFragment) {
+		String episodes  =  null;
 		try {
-			// Seleccionamos el encabezado de la pagina, e.g.:
-			//		"Modern Family  /  Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]"
-			episode = jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
-			String[] data = episode.split("Cap\\.");
+			Document doc 	   = Jsoup.parseBodyFragment(htmlFragment);
+			Integer oneEpisode =  null;
+			Integer twoEpisode =  null;
+
+			// Seleccionamos el encabezado de la pagina,
+			// e.g.:
+			//		"Mom  /  Mom - Temporada 4 [HDTV][Cap.418][AC3 5.1 Español Castellano]"
+			// 	    "The Man in the High Castle  /  The Man in the High Castle - Temporada 2 [HDTV][Cap.205_206][Español Castellano]"
+			//
+			String  dataToParse = this.jSoupHelper.selectElementText (doc,"h1",0);
+			String[] data = dataToParse.split("Cap\\.");
 			if (data.length > 1) {
-				episode = data[1]; // --> Retorna algo del tipo  "811][AC3 5.1 Español Castellano]"
-				episode = episode.substring(1,3); // --> Retorna 11
-				episodeInt = Integer.parseInt(episode);
+				dataToParse = data[1]; // --> Retorna algo del tipo  "418][AC3 5.1 Español Castellano]" o bien "205_206][Español Castellano]
+				oneEpisode = Integer.parseInt(dataToParse.substring(1,3));
+				// Son varios episodios ...
+				if( dataToParse.contains("_") ) {
+					twoEpisode =  Integer.parseInt( dataToParse.substring(5,7));
+				} // --> Retorna 5&6
+				episodes=oneEpisode.toString();
+				if (twoEpisode!=null) {
+					episodes += "&" + twoEpisode.toString();
+				}
 			}
-		}
-		catch (NumberFormatException ex) {
-			LOGGER.warn("parsing field episode - is not number the string '" + episode + "'");
 		}
 		catch (Exception ex) {
 			LOGGER.warn(ex.getMessage(), ex);
 		}
 
-		if (episodeInt!=null) {
-			return episodeInt.toString();
-		}else {
-			return null;
-		}
+		return episodes;
 	}
 }

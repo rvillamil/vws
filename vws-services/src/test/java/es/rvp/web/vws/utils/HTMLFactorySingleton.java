@@ -1,5 +1,7 @@
 package es.rvp.web.vws.utils;
 
+import es.rvp.web.vws.components.jsoup.JSoupHelper;
+
 /**
  * @author Rodrigo
  *
@@ -114,10 +116,14 @@ public enum HTMLFactorySingleton {
 					"<li>\n"
 							+ "<h2>%s</h2>\n"
 							+ "</li>\n",
-							( "elementList_"+ i));
+							"elementList_"+ i);
 
 			htmlString.append(htmlElement);
 		}
 		return htmlString + "</ul>";
+	}
+
+	public String getHTMLByURL (final JSoupHelper jsoupHelper, final String URL){
+		return jsoupHelper.newInstanceByURL(URL).html();
 	}
 }

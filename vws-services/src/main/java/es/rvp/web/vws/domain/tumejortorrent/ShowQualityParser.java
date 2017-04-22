@@ -2,6 +2,7 @@ package es.rvp.web.vws.domain.tumejortorrent;
 
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,6 @@ public class ShowQualityParser implements ShowFieldParser {
 	 * @param jSoupHelper Facility to parse the HTML document
 	 */
 	public ShowQualityParser (final JSoupHelper jSoupHelper){
-		super();
 		this.jSoupHelper = jSoupHelper;
 	}
 
@@ -38,12 +38,12 @@ public class ShowQualityParser implements ShowFieldParser {
 	 * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
 	 */
 	@Override
-	public String parse(final String htmlDocument) {
-		Document doc 			= new Document (htmlDocument);
+	public String parse(final String htmlFragment) {
+		Document doc = Jsoup.parseBodyFragment(htmlFragment);
 		String quality  = null;
 		try {
-			quality = jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
-			quality = getTextBetweenBracketsByPosition(quality,1).trim();
+			quality = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
+			quality = this.getTextBetweenBracketsByPosition(quality,1).trim();
 		}
 		catch (Exception ex) {
 			LOGGER.warn(ex.getMessage(), ex);

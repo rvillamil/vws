@@ -42,7 +42,6 @@ public class ShowFactoryImpl implements ShowFactory {
 			final ShowFieldParser		showQualityParser,
 			final ShowFieldParser  		showSessionParser,
 			final ShowFieldParser 		showURLToDownloadParse) {
-		super();
 		this.jSoupHelper			 = jSoupHelper;
 		this.showEpisodeParser  	 = showEpisodeParser;
 		this.showQualityParser		 = showQualityParser;

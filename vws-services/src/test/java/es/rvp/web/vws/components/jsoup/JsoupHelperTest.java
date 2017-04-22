@@ -22,7 +22,7 @@ public class JsoupHelperTest {
 
 	@Before
 	public void setup() {
-		jsoupHelper  		= new JSoupHelperImpl ();
+		this.jsoupHelper  		= new JSoupHelperImpl ();
 	}
 
 	//----------------------- newInstanceFromText -----------------------------
@@ -32,14 +32,14 @@ public class JsoupHelperTest {
 		String theText 		   = "test";
 		String htmlText = "<html>\n <head></head>\n <body>\n  test\n </body>\n</html>";
 
-		Document document = jsoupHelper.newInstanceFromText(theText);
+		Document document = this.jsoupHelper.newInstanceFromText(theText);
 		// Then
 		assertNotNull 	( document );
 		assertEquals 	( document.html(), htmlText );
 	}
 
 	//------------------------ newInstanceByURL -------------------------------
-	// Covered by Integration Test
+	// Covered by Integration Test: TODO 08: Podemos hacer un spy que compruebe que se ejecute y ya esta
 
 	// -------------------- newInstanceFromElementWithURL ---------------------
 	// Covered by Integration Test
@@ -58,7 +58,7 @@ public class JsoupHelperTest {
 		String HTMList = HTMLFactorySingleton.INSTANCE.newHTMLWithList (5, "className");
 		Document document = Jsoup.parseBodyFragment(HTMList);
 		// When
-		Elements elements = jsoupHelper.selectElementsByClassListName(document, "className");
+		Elements elements = this.jsoupHelper.selectElementsByClassListName(document, "className");
 		// Then
 		assertNotNull  ( elements);
 		assertTrue 	( elements.size() == 5);
@@ -76,7 +76,7 @@ public class JsoupHelperTest {
 		Document document = Jsoup.parseBodyFragment(HTMList.toString());
 
 		// When
-		Elements elements = jsoupHelper.selectElementsByClassListName(document, "className");
+		Elements elements = this.jsoupHelper.selectElementsByClassListName(document, "className");
 		// Then
 		assertNotNull  ( elements);
 		assertTrue 	( elements.size() == 0);
@@ -95,7 +95,7 @@ public class JsoupHelperTest {
 		Document document = Jsoup.parseBodyFragment(HTMList.toString());
 
 		// When
-		Elements elements = jsoupHelper.selectElementsByClassListName(document, "className");
+		Elements elements = this.jsoupHelper.selectElementsByClassListName(document, "className");
 		// Then
 		assertNotNull  ( elements);
 		assertTrue 	( elements.size() == 0);
@@ -108,7 +108,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.selectElementText(document, "p", 1);
+		String theText = this.jsoupHelper.selectElementText(document, "p", 1);
 		// Then
 		assertEquals (theText, "My second paragraph.");
 	}
@@ -119,7 +119,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.selectElementText(document, "p", 3);
+		String theText = this.jsoupHelper.selectElementText(document, "p", 3);
 		// Then
 		assertNull (theText);
 	}
@@ -130,8 +130,8 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.selectElementText(document, "body", 1);
-		String theText2 = jsoupHelper.selectElementText(document, "inexistente", 1);
+		String theText = this.jsoupHelper.selectElementText(document, "body", 1);
+		String theText2 = this.jsoupHelper.selectElementText(document, "inexistente", 1);
 
 		// Then
 		assertNull (theText);
@@ -144,7 +144,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithClassFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementTextByClass(document, "claseTest", 1);
+		String theText = this.jsoupHelper.getElementTextByClass(document, "claseTest", 1);
 		// Then
 		assertEquals (theText, "Hello2");
 	}
@@ -155,7 +155,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithClassFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementTextByClass(document, "claseTest", 2);
+		String theText = this.jsoupHelper.getElementTextByClass(document, "claseTest", 2);
 		// Then
 		assertNull (theText);
 	}
@@ -166,7 +166,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithClassFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementTextByClass(document, "Inexistent", 1);
+		String theText = this.jsoupHelper.getElementTextByClass(document, "Inexistent", 1);
 		// Then
 		assertNull (theText);
 	}
@@ -178,7 +178,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithURLClassFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementURLByClass(document, "btn-torrent", 0);
+		String theText = this.jsoupHelper.getElementURLByClass(document, "btn-torrent", 0);
 		// Then
 		assertEquals (theText, "http://www.google.es");
 	}
@@ -189,7 +189,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithURLClassFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementURLByClass(document, "btn-torrent", 2);
+		String theText = this.jsoupHelper.getElementURLByClass(document, "btn-torrent", 2);
 		// Then
 		assertNull (theText);
 	}
@@ -200,7 +200,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithURLClassFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementURLByClass(document, "Inexistent", 2);
+		String theText = this.jsoupHelper.getElementURLByClass(document, "Inexistent", 2);
 		// Then
 		assertNull (theText);
 	}
@@ -212,7 +212,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithIMGFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementURLIMGByClass(document, "entry-left", 0);
+		String theText = this.jsoupHelper.getElementURLIMGByClass(document, "entry-left", 0);
 		// Then
 		assertNotNull (theText);
 		assertEquals ( theText, "http://www.prueba1.jpg");
@@ -224,7 +224,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithIMGFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementURLIMGByClass(document, "entry-left", 3);
+		String theText = this.jsoupHelper.getElementURLIMGByClass(document, "entry-left", 3);
 		// Then
 		assertNull (theText);
 	}
@@ -235,7 +235,7 @@ public class JsoupHelperTest {
 		String htmlFragment = HTMLFactorySingleton.INSTANCE.newHTMLWithIMGFragment();
 		Document document = Jsoup.parseBodyFragment(htmlFragment);
 		// When
-		String theText = jsoupHelper.getElementURLIMGByClass(document, "wrong", 0);
+		String theText = this.jsoupHelper.getElementURLIMGByClass(document, "wrong", 0);
 		// Then
 		assertNull (theText);
 	}

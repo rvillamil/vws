@@ -21,32 +21,47 @@ import es.rvp.web.vws.domain.ShowFieldParser;
 public class ShowEpisodeParserTest {
 
 	// Clases a testear
-	private ShowFieldParser 		showSessionParser;
+	private ShowFieldParser 		showEpisodeParser;
 
 	// Clases a mockear
 	private JSoupHelper 			jSoupHelper;
 
 	@Before
 	public void setup() {
-		jSoupHelper 		= mock (JSoupHelperImpl.class);
-		showSessionParser  	= new ShowSessionParser (jSoupHelper);
+		this.jSoupHelper 		= mock (JSoupHelperImpl.class);
+		this.showEpisodeParser  	= new ShowEpisodeParser (this.jSoupHelper);
 	}
 
-	// -------------------------- parse -----------------------------------
 	@Test
-	public void givenHTMLWithSessionFieldParseThenGetTheSessionString() {
+	public void givenHTMLWithTVShowWhenParseThenGetTheEpisode() {
 
 		// Given
 		String htmlFragment = "loquesea HTML";
 
 		// When
-		when (jSoupHelper.selectElementText (
+		when (this.jSoupHelper.selectElementText (
 				anyObject(),
 				anyString(),
 				anyInt()) ).thenReturn(
-						"Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]");
-		assertEquals("8", showSessionParser.parse(htmlFragment));
+						"Mom  /  Mom - Temporada 4 [HDTV][Cap.418][AC3 5.1 Español Castellano]");
+		assertEquals("18", this.showEpisodeParser.parse(htmlFragment));
 	}
+
+	@Test
+	public void givenHTMLWithTVShowWithTwoEpisodesWhenParseThenGetTheEpisodes() {
+
+		// Given
+		String htmlFragment = "loquesea HTML";
+
+		// When
+		when (this.jSoupHelper.selectElementText (
+				anyObject(),
+				anyString(),
+				anyInt()) ).thenReturn(
+						"The Man in the High Castle  /  The Man in the High Castle - Temporada 2 [HDTV][Cap.205_206][Español Castellano]");
+		assertEquals("5&6", this.showEpisodeParser.parse(htmlFragment));
+	}
+
 
 	@Test
 	public void givenHTMLWithOutSessionFieldParseThenGetNull() {
@@ -55,12 +70,12 @@ public class ShowEpisodeParserTest {
 		String htmlFragment = "loquesea HTML";
 
 		// When
-		when (jSoupHelper.selectElementText (
+		when (this.jSoupHelper.selectElementText (
 				anyObject(),
 				anyString(),
 				anyInt()) ).thenReturn(
 						"Modern Family - Temporada 8 [HDTV 720p][AC3 5.1 Español Castellano]");
 
-		assertNull(showSessionParser.parse(htmlFragment));
+		assertNull(this.showEpisodeParser.parse(htmlFragment));
 	}
 }

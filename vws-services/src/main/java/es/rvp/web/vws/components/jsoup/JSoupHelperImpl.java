@@ -48,9 +48,9 @@ public class JSoupHelperImpl implements JSoupHelper {
 			} else {
 				LOGGER.error(String.format("Connection error to '%s'", urlString));
 			}
-		} catch (final IOException e) {
+		} catch (final IOException ex) {
 			LOGGER.error("Exception - newInstanceByURL with urlString param='" + urlString + "'. Exception: "
-					+ e.getMessage(), e.getCause());
+					+ ex.getMessage(), ex);
 		}
 
 		return document;
@@ -68,10 +68,10 @@ public class JSoupHelperImpl implements JSoupHelper {
 		try {
 			String urlWithShow = element.select("a").attr("href");
 			if (!urlWithShow.isEmpty()) {
-				document = newInstanceByURL(urlWithShow);
+				document = this.newInstanceByURL(urlWithShow);
 			}
-		} catch (Exception e) {
-			LOGGER.warn("newInstanceFromElementWithURL --> " +  e.getMessage(), e.getCause());
+		} catch (Exception ex) {
+			LOGGER.warn("newInstanceFromElementWithURL --> " +  ex.getMessage(), ex);
 		}
 
 		return document;
@@ -102,11 +102,11 @@ public class JSoupHelperImpl implements JSoupHelper {
 			if (!elements.isEmpty()) {
 				Element element = document.select(cssQuery).get(index);
 				if (element != null) {
-					elementValue = element.html().trim();
+					elementValue = element.text().trim();
 				}
 			}
 		} catch (Exception ex) {
-			LOGGER.warn("selectElementText --> " + ex.getMessage(), ex.getCause());
+			LOGGER.warn("selectElementText --> " + ex.getMessage(), ex);
 		}
 		return elementValue;
 	}
@@ -127,7 +127,7 @@ public class JSoupHelperImpl implements JSoupHelper {
 				}
 			}
 		} catch (Exception ex) {
-			LOGGER.warn("getElementTextByClass --> " + ex.getMessage(), ex.getCause());
+			LOGGER.warn("getElementTextByClass --> " + ex.getMessage(), ex);
 		}
 
 		return elementValue;
@@ -149,7 +149,7 @@ public class JSoupHelperImpl implements JSoupHelper {
 				}
 			}
 		} catch (Exception ex) {
-			LOGGER.warn("getElementURLByClass --> " + ex.getMessage(), ex.getCause());
+			LOGGER.warn("getElementURLByClass --> " + ex.getMessage(), ex);
 		}
 
 		return elementValue;
@@ -171,7 +171,7 @@ public class JSoupHelperImpl implements JSoupHelper {
 				}
 			}
 		} catch (Exception ex) {
-			LOGGER.warn("getElementURLIMGByClass --> " + ex.getMessage(), ex.getCause());
+			LOGGER.warn("getElementURLIMGByClass --> " + ex.getMessage(), ex);
 		}
 
 		return elementValue;

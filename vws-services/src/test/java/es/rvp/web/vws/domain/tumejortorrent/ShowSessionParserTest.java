@@ -28,11 +28,10 @@ public class ShowSessionParserTest {
 
 	@Before
 	public void setup() {
-		jSoupHelper 		= mock (JSoupHelperImpl.class);
-		showSessionParser  	= new ShowSessionParser (jSoupHelper);
+		this.jSoupHelper 		= mock (JSoupHelperImpl.class);
+		this.showSessionParser  	= new ShowSessionParser (this.jSoupHelper);
 	}
 
-	// -------------------------- parse -----------------------------------
 	@Test
 	public void givenHTMLWithSessionFieldParseThenGetTheSessionString() {
 
@@ -40,14 +39,29 @@ public class ShowSessionParserTest {
 		String htmlFragment = "loquesea HTML";
 
 		// When
-		when (jSoupHelper.selectElementText (
+		when (this.jSoupHelper.selectElementText (
 				anyObject(),
 				anyString(),
 				anyInt()) ).thenReturn(
-						"Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]");
-		String data = showSessionParser.parse(htmlFragment);
+						"Mom  /  Mom - Temporada 4 [HDTV][Cap.418][AC3 5.1 Español Castellano]");
+		String data = this.showSessionParser.parse(htmlFragment);
 		// Then
-		assertEquals ("8", data);
+		assertEquals ("4", data);
+	}
+
+	@Test
+	public void givenHTMLWithTVShowWithTwoEpisodesWhenParseThenGetTheSession() {
+
+		// Given
+		String htmlFragment = "loquesea HTML";
+
+		// When
+		when (this.jSoupHelper.selectElementText (
+				anyObject(),
+				anyString(),
+				anyInt()) ).thenReturn(
+						"The Man in the High Castle  /  The Man in the High Castle - Temporada 2 [HDTV][Cap.205_206][Español Castellano]");
+		assertEquals("2", this.showSessionParser.parse(htmlFragment));
 	}
 
 	@Test
@@ -57,13 +71,13 @@ public class ShowSessionParserTest {
 		String htmlFragment = "loquesea HTML";
 
 		// When
-		when (jSoupHelper.selectElementText (
+		when (this.jSoupHelper.selectElementText (
 				anyObject(),
 				anyString(),
 				anyInt()) ).thenReturn(
 						"Modern Family - Temporada 8 [HDTV 720p][AC3 5.1 Español Castellano]");
 
-		String data = showSessionParser.parse(htmlFragment);
+		String data = this.showSessionParser.parse(htmlFragment);
 
 		// Then
 		assertNull (data);

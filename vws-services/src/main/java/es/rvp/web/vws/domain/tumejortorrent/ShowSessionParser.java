@@ -1,5 +1,6 @@
 package es.rvp.web.vws.domain.tumejortorrent;
 
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,6 @@ public class ShowSessionParser implements ShowFieldParser {
 	 * @param jSoupHelper Facility to parse the HTML document
 	 */
 	public ShowSessionParser (final JSoupHelper jSoupHelper){
-		super();
 		this.jSoupHelper = jSoupHelper;
 	}
 
@@ -36,14 +36,14 @@ public class ShowSessionParser implements ShowFieldParser {
 	 * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
 	 */
 	@Override
-	public String parse(final String htmlDocument) {
-		Document doc 			= new Document (htmlDocument);
+	public String parse(final String htmlFragment) {
+		Document doc = Jsoup.parseBodyFragment(htmlFragment);
 		Integer sessionInt  	= null;
 		String session 			= null;
 		try {
 			// Seleccionamos el encabezado de la pagina, e.g.:
 			//		"Modern Family  /  Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]"
-			session = jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
+			session = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
 			String[] data = session.split("Cap\\.");
 			if (data.length > 1) {
 				session = data[1]; // --> Retorna algo del tipo  "811][AC3 5.1 Español Castellano]"

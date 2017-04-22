@@ -83,7 +83,7 @@ public interface JSoupHelper {
 	 *
 	 * @param document The HTML document
 	 * .e.g: <p>Hello</p>
-	 * 		  <p>Hello2</p>
+	 * 		 <p>Hello2</p>
 	 *
 	 * @param cssQuery HTML element with TEXT. .e.g:. "p", "h1",
 	 * .e.g: "p"

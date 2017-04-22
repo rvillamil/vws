@@ -23,7 +23,19 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	//
-	// TODO 00: Montar el soporte para Docker de la siguiente forma:
+	// FIXME 00: Comprobar que funcionan todos los test y que se cargan los recursos para test correctamente!
+	// - Haciendo funcionar ShowEpisodeParserTest e ShowEpisodeParserIT para series que tienen dos episodios en su nombre
+	// - Crear los test de integracion que faltan para los Show*Parser. Aqui tirar ya contra la web html de verdad
+	// - Activar los test igonrados
+	//
+
+	// FIXME 01: Problemas!! Me esta lanzando los test de integracion aunque ponga "mvn install -Pdevelop,-docker-support"
+	// Es por el plugin de jacoco que los lanza igual y se la suda
+	// http://stackoverflow.com/questions/42011140/jacoco-check-goal-for-integration-tests
+	// Sin embargo, asi funciona: mvn install -Pdevelop,-docker-support -DskipITs
+	//
+
+	// TODO 00: Jenkins CI - Montar el soporte para Docker de la siguiente forma:
 	//
 	/*
 	 Quizas la mejor opcion sea dejar para el perfil 'develop', la generacion de imagenes con maven tal y como esta.
@@ -38,14 +50,10 @@ public class PiracyController {
 	    }
 	  }
    */
-	// TODO 01: Comprobar que funcionan todos los test y que se cargan los recursos para test correctamente!
-	// - Hay teet igonrados
-	// - Crear los test de integracion que faltan para los Show*Parser. Aqui tirar ya contra la web html de verdad
-	//
-	// TODO 02: Montando la integración continua con en mi macbook air
-	//			- Montar un pipeline: https://jenkins.io/blog/2017/02/07/declarative-maven-project/
-	// 			- Pasar las metricas de calidad
-	// 			- Montar un entorno de pruebas sodbre docker. Publicar el docker resultante en Docker Hub privado
+	// TODO 01: Jenkins CI - Finalizar la integración continua con en mi macbook air
+	//		- Revisar que mas cosas podemos hacer con los pipelines (Ver mis favoritos sobre pipeline-CI)
+	//		- Pasar las metricas de calidad
+	// 		- Montar un entorno de pruebas sodbre docker. Publicar el docker resultante en Docker Hub privado
 	// 						* Docker hub is a repository of images that can be public or private.
 	// 						  It literally just stores images. That is it. It's the default namespace if you don't define
 	//						  your own registry "docker pull nginx" vs "docker pull swozey.com/nginx."
@@ -55,16 +63,13 @@ public class PiracyController {
 	// 						- Ver , Docker hub, Docker Store, Cloud docker
 	//
 	//
-	// TODO 03: Migrar a Spring Boot 2.0 y ver que aporta
-	// TODO 04: Revisar la configuracion de spring boot y la carga de properties ( https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
+	// TODO 02: Revisar la configuracion de spring boot y la carga de properties ( https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
 	//
-	// TODO 05: Revisar el soporte actual de pruebas ¿Es necesario el surefire y el failsafe con spring boot? Quizas
-	//		    sea necesario para la Integracion continua...
 	//
-	// TODO 06: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos.
+	// TODO 03: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos.
 	// 			Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
 	//
-	// TODO 07: Montar el README explicando como se instala o como se desarrolla
+	// TODO 04: Montar el README explicando como se instala o como se desarrolla
 
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
