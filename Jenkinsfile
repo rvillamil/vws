@@ -65,7 +65,9 @@ node {
 	  // The Java Plugin is going to reuse reports and not generate them,
 	  // so before trying to configure your analysis to import these reports,
 	  // you need to be sure they are correctly generated and not empty.
-	  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+	  // sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+	  def sonarMavenPlugin = 'org.codehaus.mojo:sonar-maven-plugin:3.0.2:sonar'
+	  sh "mvn -e -B ${sonarMavenPlugin}"
 	}
       }
     } // End With(javaEnv)
