@@ -49,15 +49,15 @@ para Servlet 3.X (no se requiere un web.xml)
 
 ## Perfiles maven  ##
 
-Perfiles por defecto: develop + docker-support
-es decir: mvn install <--> mvn install -Pdevelop,docker-support
+Los peerfiles son:
+- develop (default) : Ejecuta test unitarios, skip a los de integracion
+- docker-support (default) : Genera contendedores docker con la aplicacion. Ejecuta el docker build en los proyectos con Docker
+- integration : Ejecuta todos los test
 
-mvn install -P integration,-docker-support:  para el Jenkins
+Si ejecutamos un: mvn clean install, equivale a ejecutar un 'mvn install -Pdevelop,docker-support'
+OJO: -P-docker-support , evita que se lancen los docker build
 
--Pdevelop = Lanza test unitarios
--Pintegration = Lanza test unitarios y de integracion
--Pdocker-support = Ejecuta el docker build en los proyectos con Docker
-NOTA: -P-docker-support , evita que se lancen los docker build
+Si queremos evitar lanzar el soporte para docker: mvn install -P integration,-docker-support
 
 ## Como generar un entregable para produccion  ##
 
