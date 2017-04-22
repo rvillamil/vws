@@ -36,7 +36,6 @@
 
 		<!-- JACOCO support -->
 		<jacoco.plugin.version>0.7.9</jacoco.plugin.version>
-		<sonar.jacoco.itReportPath>${project.basedir}/../target/jacoco-it.exec</sonar.jacoco.itReportPath>
 		<jacoco.it.execution.data.file>${project.basedir}/target/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.basedir}/target/jacoco.exec</jacoco.ut.execution.data.file>
 
