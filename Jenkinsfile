@@ -38,7 +38,7 @@ node {
       // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
       // Compilamos y lanzamos los test aunque fallen
       stage ('BuildAndTest') {
-	cmd = "mvn install -P "+ mavenProfiles + " -Dmaven.test.failure.ignore=true"
+	cmd = "mvn clean install -P "+ mavenProfiles + " -Dmaven.test.failure.ignore=true"
 	sh "${cmd}"
       }
 
