@@ -50,6 +50,7 @@ public class PiracyController {
 	// 						- Ver , Docker hub, Docker Store, Cloud docker
 	//
 	//
+	// TODO 01: Soporte para JIRA para estas tareas o dejamos el TODO list?
 	// TODO 02: Revisar la configuracion de spring boot y la carga de properties ( https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
 	//
 	//
@@ -57,7 +58,8 @@ public class PiracyController {
 	// 			Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
 	//
 	// TODO 04: Montar el README explicando como se instala o como se desarrolla
-
+	// TODO 05: Ideas para Front:
+	//	- Swagger http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
 
