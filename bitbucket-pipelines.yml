@@ -9,4 +9,4 @@ pipelines:
   default:
     - step:
         script: # Modify the commands below to build your repository.
-          - mvn -B verify # -B batch mode makes Maven less verbose
+          - mvn -P integration,-docker-support -Dmaven.test.failure.ignore=true verify # -B batch mode makes Maven less verbose
