@@ -40,7 +40,6 @@ public class WebTorrentSpiderTest {
 	public void setup() {
 		this.jSoupHelper 		= mock ( JSoupHelperImpl.class);
 		this.showFactory  		= mock ( ShowFactoryImpl.class);
-
 		this.webTorrentSpider   = new WebTorrentSpiderImpl (this.jSoupHelper,
 															this.showFactory);
 	}

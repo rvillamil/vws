@@ -105,7 +105,6 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 		return this.parseShows(  tvShowPath,
 				   			maxSize,
 				   			"buscar-list");
-
 	}
 
 
