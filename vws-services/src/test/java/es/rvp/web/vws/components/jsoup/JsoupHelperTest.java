@@ -39,11 +39,9 @@ public class JsoupHelperTest {
 	}
 
 	//------------------------ newInstanceByURL -------------------------------
-	// Covered by Integration Test: TODO 08-e: Test Unitario - Podemos hacer un spy que compruebe que se ejecute y ya esta
-
+	// Covered by Integration Test
 	// -------------------- newInstanceFromElementWithURL ---------------------
-	// Covered by Integration Test: TODO 08-f: Test Unitario - Podemos hacer un spy que compruebe que se ejecute y ya esta
-
+	// Covered by Integration Test
 	// -------------------- selectElementsByClassListName ---------------------
 	@Test
 	public void givenDocumentWithHTMLListWhenParseThenGetTheElementsInTheList() {

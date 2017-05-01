@@ -124,7 +124,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 																	   				   classListName );
 			int idx=0;
 			// menor=(x<y)?x:y;
-			final int sizeLimit = maxSize > elements.size() ? elements.size():maxSize;
+			int sizeLimit = maxSize <= elements.size() ? maxSize : elements.size();
 			LOGGER.debug(String.format(
 					"WebTorrentSpiderImpl - parseShows - Path: %s, maxSize: %s, Request Delay (ms): %s",
 					urlPath,
@@ -140,10 +140,18 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 																		 documentWithHref.html() );
 						if (show!=null) {
 							if ( shows.add(show) ) {
-								LOGGER.trace(String.format(
-									"WebTorrentSpiderImpl - parseShows - adding show '%s', number '%s'",
+								LOGGER.info(String.format(
+									"parseShows - adding show '%s', number '%s'",
 									show.getTitle(),
 									idx+1));
+							} else {
+								LOGGER.info(String.format(
+										"parseShows - Show '%s' (number '%s') already exist!. Not adding!",
+										show.getTitle(),
+										idx+1));
+								if (sizeLimit < elements.size()) {
+									++sizeLimit; // Incrementamos el tamanio para intentar meter otro que no esta repetido
+								}
 							}
 						}
 					}

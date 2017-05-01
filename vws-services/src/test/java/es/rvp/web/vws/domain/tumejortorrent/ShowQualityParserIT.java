@@ -2,9 +2,7 @@ package es.rvp.web.vws.domain.tumejortorrent;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,19 +39,5 @@ public class ShowQualityParserIT {
 		// Then
 		assertNotNull 	( data );
 		assertEquals 	( data, "HDTV");
-	}
-
-
-	@Test
-	@Ignore
-	// TODO 08-b: Test Unitario - Como sabemos que es una cadena qeu corresfonde con la calidad?
-	public void givenHTMLWithFilmWhenParseThenGetEpisodeNull() {
-		// Given
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
-				"http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/");
-		// When
-		String data = this.showQualityParser.parse(html);
-		// Then
-		assertNull 	( data );
 	}
 }
