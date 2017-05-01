@@ -143,7 +143,7 @@ public class WebTorrentSpiderIT {
 		assertTrue	( shows.size() < 200);
 	}
 
-	//--------------------------- parseTVShow ---------------------------------
+	//----------------------------- parseTVShow -------------------------------
 	@Test
 	public void whenParseModernFamilyThenGetTheLastThreeEpisodes() {
 		// Given

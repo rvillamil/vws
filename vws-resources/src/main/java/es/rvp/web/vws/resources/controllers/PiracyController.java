@@ -50,7 +50,6 @@ public class PiracyController {
 	// 						- Ver , Docker hub, Docker Store, Cloud docker
 	//
 	//
-	// TODO 01: Soporte para JIRA para estas tareas o dejamos el TODO list?
 	// TODO 02: Revisar la configuracion de spring boot y la carga de properties ( https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
 	//
 	//
