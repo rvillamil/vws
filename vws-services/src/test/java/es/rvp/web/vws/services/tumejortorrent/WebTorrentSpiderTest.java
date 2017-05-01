@@ -98,14 +98,117 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
 		// Given
-		int numberOfFilmsInBillBoard = 20;
+		int numberOfShowsInTheWebSite 	= 20;
+		int numberOfShowsToParse 		= 5;
+		String htmlClassName				= "pelilist";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsToParse);
+	}
+
+	@Test
+	public void whenParseTwentyFilmsInBillBoardWithTenFilmsThenGetTenFilms() {
+		// Given
+		int numberOfShowsInTheWebSite 	= 10;
+		int numberOfShowsToParse 		= 20;
+		String htmlClassName				= "pelilist";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsInTheWebSite);
+	}
+
+	//--------------------------- parseVideoPremieres -------------------------
+	@Test
+	public void whenParseVideoPremieresWithMoreFiveVideoThenGetFiveVideo() {
+		// Given
+		int numberOfShowsInTheWebSite 	= 20;
+		int numberOfShowsToParse 		= 5;
+		String htmlClassName				= "pelilist";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsToParse);
+	}
+
+	@Test
+	public void whenParseTwentyVideoPremieresInBillBoardWithTenVideosThenGetTenVideos() {
+		// Given
+		int numberOfShowsInTheWebSite 	= 10;
+		int numberOfShowsToParse 		= 20;
+		String htmlClassName				= "pelilist";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsInTheWebSite);
+	}
+
+	//--------------------------- parseTVShow ---------------------------------
+	@Test
+	public void whenParseModernFamilyWith20EpisodesThenGetTheLastThreeEpisodes() {
+		// Given
+		int numberOfShowsInTheWebSite 	= 20;
+		int numberOfShowsToParse 		= 3;
+		String htmlClassName				= "buscar-list";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseTVShow("/series-hd/modern-family", numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsToParse);
+	}
+
+	@Test
+	public void whenParseThreeModernFamilyEpisodeWithThowEpisodesThenGetTheTwoEpisodes() {
+		// Given
+		int numberOfShowsInTheWebSite 	= 2;
+		int numberOfShowsToParse 		= 3;
+		String htmlClassName			= "buscar-list";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseTVShow("/series-hd/modern-family", numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsInTheWebSite);
+	}
+
+
+
+	// ----------------------- test utils -------------------------------------
+	private Elements getTestElements (final int numberOfElements){
+		Elements elements = new Elements();
+
+		for (int i=0; i < numberOfElements; ++i) {
+			Element e = new Element (Tag.valueOf("tag"), "element_"+ i+1);
+			elements.add(e);
+		}
+
+		return elements;
+	}
+
+	private void configureTest ( final int numberOfShowsInTheWebSite,
+			 					 final String classListName){
 
 		final String urlWithShow = "http://tumejortorrent.com";
-		Show.builder().title("test").build();
 		// When
 		Document doc = new Document (urlWithShow);
 		when (this.jSoupHelper.newInstanceByURL(anyString())).thenReturn(doc);
-		when (this.jSoupHelper.selectElementsByClassListName(doc,"pelilist")).thenReturn(this.getTestElements(numberOfFilmsInBillBoard));
+		when (this.jSoupHelper.selectElementsByClassListName(doc, classListName)).thenReturn(this.getTestElements(numberOfShowsInTheWebSite));
 		when (this.jSoupHelper.newInstanceFromElementWithURL(anyObject())).thenReturn(new Document ("showhtml")); // Crea un elemento con el show
 
 		// Hacemos este artificio, para que no meta elementos repetidos
@@ -114,29 +217,5 @@ public class WebTorrentSpiderTest {
 			String title = String.valueOf(System.currentTimeMillis());
 			return Show.builder().title(title).build();
 		});
-
-		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(5);
-		// Then
-		assertNotNull 	( shows );
-		assertEquals 	( shows.size(), 5);
 	}
-
-	// TODO 08-c: Test Unitarios - Completar resto de test ...
-
-	// ----------------------- test utils -------------------------------------
-	private Elements getTestElements (final int numberOfElements){
-		Elements elements = new Elements();
-
-		for (int i=0; i < numberOfElements; i++) {
-			Element e = new Element (Tag.valueOf("tag"), "element_"+ i+1);
-			elements.add(e);
-		}
-
-		return elements;
-	}
-
-	//--------------------------- parseVideoPremieres -------------------------
-	//--------------------------- parseTVShow ---------------------------------
-
 }
-;

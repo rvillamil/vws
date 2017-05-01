@@ -3,11 +3,9 @@ package es.rvp.web.vws.services.tumejortorrent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,16 +108,6 @@ public class WebTorrentSpiderIT {
 		assertEquals 	( shows.size(), 5);
 	}
 
-	@Test
-	@Ignore
-	public void whenParseBillBoardWithThwoHundredFilmsGetAllShows() {
-		// Given
-		// When
-		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(200);
-		// Then
-		assertNotNull 	( shows );
-		assertTrue	( shows.size() < 200);
-	}
 
 	//--------------------------- parseVideoPremieres -------------------------
 	@Test
@@ -132,16 +120,6 @@ public class WebTorrentSpiderIT {
 		assertEquals 	( shows.size(), 5);
 	}
 
-	@Test
-	@Ignore
-	public void whenParseVideoPremieresWithThwoHundredFilmsGetAllShows() {
-		// Given
-		// When
-		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(200);
-		// Then
-		assertNotNull 	( shows );
-		assertTrue	( shows.size() < 200);
-	}
 
 	//----------------------------- parseTVShow -------------------------------
 	@Test
@@ -152,16 +130,5 @@ public class WebTorrentSpiderIT {
 		// Then
 		assertNotNull 	( shows );
 		assertEquals 	( shows.size(), 3);
-	}
-
-	@Test
-	@Ignore
-	public void whenParseModernFamilyWithThwoHundredThenGetTheLastEpisodes() {
-		// Given
-		// When
-		final Set<Show> shows = this.webTorrentSpider.parseTVShow("/series-hd/modern-family", 200);
-		// Then
-		assertNotNull 	( shows );
-		assertTrue 	( shows.size() < 200);
 	}
 }
