@@ -57,8 +57,9 @@ public class PiracyController {
 	// 			Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
 	//
 	// TODO 04: Montar el README explicando como se instala o como se desarrolla
-	// TODO 05: Ideas para Front:
-	//	- Swagger http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+	// TODO 05: Ideas para Front: Swagger
+	//	- Swagger: http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
+	//
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
 
