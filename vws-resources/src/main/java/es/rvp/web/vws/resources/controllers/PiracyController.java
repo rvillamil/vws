@@ -22,9 +22,13 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @ConfigurationProperties(prefix="general")
 public class PiracyController {
 
-	// TODO 00: Comenzar a montar la parte 'Front'
+	// TODO 00: Comenzar a montar la parte 'Front' con Angular
 	//
-	// TODO 01: Jenkins CI - Finalizar el soporte para Docker de la siguiente forma:
+	// TODO 01: Implementar la autorizacion a la API en el Backend con OauthZ
+	// TODO 01: Implementar la autenticacion (CAS?, otra cosa?)
+	// TODO 01: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos. Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
+	//
+	// TODO 02: Jenkins CI - Finalizar el soporte para Docker de la siguiente forma:
 	//
 	/*
 	// ....Jenkisfile
@@ -34,10 +38,15 @@ public class PiracyController {
 	    }
 	  }
    */
-	// TODO 02: Revisar la configuracion de spring boot y la carga de properties ( https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
+	// TODO 03: Revisar la configuracion de spring boot y la carga de properties
+	// - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+	// - http://www.baeldung.com/spring-boot-application-configuration
 	//
-	// TODO 03: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos.
-	// 			Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
+	// TODO 04: Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+	//
+	// TODO 05: Funcionalidades de negocio
+	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
+	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 	//
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);

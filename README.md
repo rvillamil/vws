@@ -14,6 +14,9 @@ está preparada para generar un jar autoejecutable con un tomcat
 embebido aunque tambien se puede desplegar en un servidor de aplicaciones con soporte
 para Servlet 3.X (no se requiere un web.xml)
 
+* El proyecto vws-docker-support contiene ...
+* El proyecto vws-persistence contiene ..
+
 ## Compilacion y ejecucion basica  ##
 
 Mejor contar antes los profiles de compilacion ...
