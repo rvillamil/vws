@@ -51,7 +51,7 @@ public class ShowFactoryIT {
 		assertNotNull 	( show.getFileSize());
 		assertNull 		( show.getFilmaffinityPoints());
 		assertNotNull 	( show.getReleaseDate());
-		assertNotNull 	( show.getURLTODownlad());
+		assertNotNull 	( show.getURLTODownload());
 		assertNotNull 	( show.getURLWithCover());
 		assertNotNull 	( show.getDescription());
 		assertNotNull 	( show.getSinopsis());
@@ -76,7 +76,7 @@ public class ShowFactoryIT {
 		assertNotNull 	( show.getFileSize());
 		assertNull 		( show.getFilmaffinityPoints());
 		assertNotNull 	( show.getReleaseDate());
-		assertNotNull 	( show.getURLTODownlad());
+		assertNotNull 	( show.getURLTODownload());
 		assertNotNull 	( show.getURLWithCover());
 		assertNotNull 	( show.getDescription());
 		assertNotNull 	( show.getSinopsis());

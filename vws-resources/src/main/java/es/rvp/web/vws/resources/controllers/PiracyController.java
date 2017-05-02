@@ -22,14 +22,11 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @ConfigurationProperties(prefix="general")
 public class PiracyController {
 
-	// TODO 00: Jenkins CI - Montar el soporte para Docker de la siguiente forma:
+	// TODO 00: Comenzar a montar la parte 'Front'
+	//
+	// TODO 01: Jenkins CI - Finalizar el soporte para Docker de la siguiente forma:
 	//
 	/*
-	 Quizas la mejor opcion sea dejar para el perfil 'develop', la generacion de imagenes con maven tal y como esta.
-	 para el Perfil de 'integration', excluir esa generacion que se hace en desarrollo y
-	 montarla en la integracion continua con el Jenkinsfile sin el soporte de maven:
-	  	mvn install -P develop,-docker-support (Ojo con el '-' delante excluye el profile)
-
 	// ....Jenkisfile
 	stage('Create Docker Image') {
 	    dir('webapp') {
@@ -37,28 +34,10 @@ public class PiracyController {
 	    }
 	  }
    */
-	// TODO 01: Jenkins CI - Finalizar la integración continua con en mi macbook air
-	//		- Revisar que mas cosas podemos hacer con los pipelines (Ver mis favoritos sobre pipeline-CI)
-	//		- Pasar las metricas de calidad
-	// 		- Montar un entorno de pruebas sodbre docker. Publicar el docker resultante en Docker Hub privado
-	// 						* Docker hub is a repository of images that can be public or private.
-	// 						  It literally just stores images. That is it. It's the default namespace if you don't define
-	//						  your own registry "docker pull nginx" vs "docker pull swozey.com/nginx."
-	//
-	//						* Docker Cloud is their SAAS service that runs docker containers for hosting applications/etc.
-	//						  It's akin to an AWS/GKE
-	// 						- Ver , Docker hub, Docker Store, Cloud docker
-	//
-	//
 	// TODO 02: Revisar la configuracion de spring boot y la carga de properties ( https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html)
-	//
 	//
 	// TODO 03: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos.
 	// 			Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
-	//
-	// TODO 04: Montar el README explicando como se instala o como se desarrolla
-	// TODO 05: Ideas para Front: Swagger
-	//	- Swagger: http://www.baeldung.com/swagger-2-documentation-for-spring-rest-api
 	//
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);

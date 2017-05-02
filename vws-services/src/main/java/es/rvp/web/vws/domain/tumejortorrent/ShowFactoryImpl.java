@@ -46,7 +46,7 @@ public class ShowFactoryImpl implements ShowFactory {
 		this.showEpisodeParser  	 = showEpisodeParser;
 		this.showQualityParser		 = showQualityParser;
 		this.showSessionParser 		 = showSessionParser;
-		showURLToDownloadParser 	 = showURLToDownloadParse;
+		this.showURLToDownloadParser 	 = showURLToDownloadParse;
 	}
 
 	/*
@@ -59,19 +59,19 @@ public class ShowFactoryImpl implements ShowFactory {
 		Show theShow = null;
 
 		// Buscamos el boton de "descargar tu archivo torent"
-		final Document doc 		= jSoupHelper.newInstanceFromText(htmlDocument);
+		final Document doc 		= this.jSoupHelper.newInstanceFromText(htmlDocument);
 		theShow = Show.builder().
-				baseURI      ( baseURI).
-				title		 ( jSoupHelper.selectElementText(doc, "strong", 0)).
-				session 	 ( showSessionParser.parse(htmlDocument)).
-				episode 	 ( showEpisodeParser.parse(htmlDocument)).
-				description  ( jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).
-				sinopsis	 ( jSoupHelper.getElementTextByClass(doc, "sinopsis", 0)).
-				quality		 ( showQualityParser.parse(htmlDocument) ).
-				URLWithCover ( jSoupHelper.getElementURLIMGByClass (doc,"entry-left",0)).
-				fileSize	 ( jSoupHelper.getElementTextByClass(doc, "imp", 1)).
-				releaseDate	 ( jSoupHelper.getElementTextByClass(doc, "imp", 2)).
-				URLTODownlad ( showURLToDownloadParser.parse(htmlDocument)).build();
+				baseURI       ( baseURI).
+				title		  ( this.jSoupHelper.selectElementText(doc, "strong", 0)).
+				session 	  ( this.showSessionParser.parse(htmlDocument)).
+				episode 	  ( this.showEpisodeParser.parse(htmlDocument)).
+				description   ( this.jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).
+				sinopsis	  ( this.jSoupHelper.getElementTextByClass(doc, "sinopsis", 0)).
+				quality		  ( this.showQualityParser.parse(htmlDocument) ).
+				URLWithCover  ( this.jSoupHelper.getElementURLIMGByClass (doc,"entry-left",0)).
+				fileSize	  ( this.jSoupHelper.getElementTextByClass(doc, "imp", 1)).
+				releaseDate	  ( this.jSoupHelper.getElementTextByClass(doc, "imp", 2)).
+				URLTODownload ( this.showURLToDownloadParser.parse(htmlDocument)).build();
 
 		LOGGER.debug("newInstance: " + theShow.toString());
 

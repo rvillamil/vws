@@ -2,7 +2,7 @@
 
 // Global
 sonarHost="http://sonarqube:9000"
-mavenProfiles="integration,-docker-support"
+mavenProfiles="integration"
 
 node {
 

@@ -45,7 +45,7 @@ public class WebTorrentSpiderIT {
 		assertNotNull 	( show.getFileSize());
 		assertNull 		( show.getFilmaffinityPoints());
 		assertNotNull 	( show.getReleaseDate());
-		assertNotNull 	( show.getURLTODownlad() );
+		assertNotNull 	( show.getURLTODownload() );
 		assertNotNull 	( show.getURLWithCover());
 		assertNotNull 	( show.getDescription());
 		assertNotNull 	( show.getSinopsis());
@@ -68,7 +68,7 @@ public class WebTorrentSpiderIT {
 		assertNotNull 	( show.getFileSize());
 		assertNull 		( show.getFilmaffinityPoints());
 		assertNotNull 	( show.getReleaseDate());
-		assertNotNull 	( show.getURLTODownlad() );
+		assertNotNull 	( show.getURLTODownload() );
 		assertNotNull 	( show.getURLWithCover());
 		assertNotNull 	( show.getDescription());
 		assertNotNull 	( show.getSinopsis());
@@ -84,7 +84,7 @@ public class WebTorrentSpiderIT {
 		// Then
 		assertNotNull 	( show );
 		assertEquals 	( show.getBaseURI(), urlWithShow );
-		assertNull 		( show.getURLTODownlad() );
+		assertNull 		( show.getURLTODownload() );
 	}
 
 	@Test

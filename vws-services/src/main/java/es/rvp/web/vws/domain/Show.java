@@ -19,7 +19,7 @@ public class Show {
 
 	@NonNull
 	private final String title;
-	private String baseURI;
+	private final String baseURI;
 	private final String session;
 	private final String episode;
 	//
@@ -31,7 +31,7 @@ public class Show {
 	private final Double filmaffinityPoints;
 	// Release Date: 06/05/2016
 	private final String releaseDate;
-	private final String URLTODownlad;
+	private final String URLTODownload;
 	private final String URLWithCover;
 	private final String description;
 	private final String sinopsis;

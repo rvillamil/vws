@@ -32,18 +32,18 @@ public class ShowFactoryTest {
 
 	@Before
 	public void setup() {
-		jSoupHelper 			= mock (JSoupHelperImpl.class);
-		showEpisodeParser		= mock (ShowEpisodeParser.class);
-		showQualityParser		= mock (ShowQualityParser.class);
-		showSessionParser		= mock (ShowSessionParser.class);
-		showURLToDownloadParser = mock (ShowURLToDownloadParser.class);
+		this.jSoupHelper 			= mock (JSoupHelperImpl.class);
+		this.showEpisodeParser		= mock (ShowEpisodeParser.class);
+		this.showQualityParser		= mock (ShowQualityParser.class);
+		this.showSessionParser		= mock (ShowSessionParser.class);
+		this.showURLToDownloadParser = mock (ShowURLToDownloadParser.class);
 
-		showFactory  		= new ShowFactoryImpl (
-				jSoupHelper,
-				showEpisodeParser,
-				showQualityParser,
-				showSessionParser,
-				showURLToDownloadParser);
+		this.showFactory  		= new ShowFactoryImpl (
+				this.jSoupHelper,
+				this.showEpisodeParser,
+				this.showQualityParser,
+				this.showSessionParser,
+				this.showURLToDownloadParser);
 	}
 
 	// ------------------------ newInstance -----------------------------------
@@ -54,33 +54,33 @@ public class ShowFactoryTest {
 		Document doc = new Document (htmlFragment);
 
 		// When
-		when (jSoupHelper.newInstanceFromText(htmlFragment)).thenReturn(doc);
+		when (this.jSoupHelper.newInstanceFromText(htmlFragment)).thenReturn(doc);
 		// URLTODownload
-		when (showURLToDownloadParser.parse(htmlFragment)).thenReturn("http://www.seriemolona.com");
+		when (this.showURLToDownloadParser.parse(htmlFragment)).thenReturn("http://www.seriemolona.com");
 		// -- Titulo
-		when (jSoupHelper.selectElementText(doc, "strong", 0)).thenReturn("serieMolona");
+		when (this.jSoupHelper.selectElementText(doc, "strong", 0)).thenReturn("serieMolona");
 		// -- Episodio
-		when (showEpisodeParser.parse(htmlFragment)).thenReturn("9");
+		when (this.showEpisodeParser.parse(htmlFragment)).thenReturn("9");
 		// Sesion(temporada)
-		when (showSessionParser.parse(htmlFragment)).thenReturn("8");
+		when (this.showSessionParser.parse(htmlFragment)).thenReturn("8");
 		// Calidad
-		when (showQualityParser.parse(htmlFragment)).thenReturn("HDTV 720p");
+		when (this.showQualityParser.parse(htmlFragment)).thenReturn("HDTV 720p");
 		// Descripcion
-		when (jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).thenReturn("description molona");
+		when (this.jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).thenReturn("description molona");
 		// Sinopsis
-		when (jSoupHelper.getElementTextByClass(doc, "sinopsis", 0)).thenReturn("sinopsis molona");
+		when (this.jSoupHelper.getElementTextByClass(doc, "sinopsis", 0)).thenReturn("sinopsis molona");
 		// Cover
-		when (jSoupHelper.getElementURLIMGByClass (doc,"entry-left",0)).thenReturn("http://www.portadamolona.com");
+		when (this.jSoupHelper.getElementURLIMGByClass (doc,"entry-left",0)).thenReturn("http://www.portadamolona.com");
 		// FileSize
-		when (jSoupHelper.getElementTextByClass(doc, "imp", 1)).thenReturn("567Mb");
+		when (this.jSoupHelper.getElementTextByClass(doc, "imp", 1)).thenReturn("567Mb");
 		// ReleaseDate
-		when (jSoupHelper.getElementTextByClass(doc, "imp", 2)).thenReturn("26/05/1976");
+		when (this.jSoupHelper.getElementTextByClass(doc, "imp", 2)).thenReturn("26/05/1976");
 
-		Show show = showFactory.newInstance("http://www.baseURI.com", htmlFragment);
+		Show show = this.showFactory.newInstance("http://www.baseURI.com", htmlFragment);
 
 		// Then
 		assertEquals ("http://www.baseURI.com", show.getBaseURI());
-		assertEquals ("http://www.seriemolona.com", show.getURLTODownlad());
+		assertEquals ("http://www.seriemolona.com", show.getURLTODownload());
 		assertEquals ("serieMolona", show.getTitle());
 		assertEquals ("9", show.getEpisode());
 		assertEquals ("8", show.getSession());
@@ -101,29 +101,29 @@ public class ShowFactoryTest {
 		Document doc = new Document (htmlFragment);
 
 		// When
-		when (jSoupHelper.newInstanceFromText(htmlFragment)).thenReturn(doc);
+		when (this.jSoupHelper.newInstanceFromText(htmlFragment)).thenReturn(doc);
 		// URLTODownload
-		when (showURLToDownloadParser.parse(htmlFragment)).thenReturn("http://www.pelimolona.com");
+		when (this.showURLToDownloadParser.parse(htmlFragment)).thenReturn("http://www.pelimolona.com");
 		// -- Titulo
-		when (jSoupHelper.selectElementText(doc, "strong", 0)).thenReturn("tituloMolon");
+		when (this.jSoupHelper.selectElementText(doc, "strong", 0)).thenReturn("tituloMolon");
 		// -- Episodio
-		when (showEpisodeParser.parse(htmlFragment)).thenReturn(null);
+		when (this.showEpisodeParser.parse(htmlFragment)).thenReturn(null);
 		// Sesion(temporada)
-		when (showSessionParser.parse(htmlFragment)).thenReturn(null);
+		when (this.showSessionParser.parse(htmlFragment)).thenReturn(null);
 		// Calidad
-		when (showQualityParser.parse(htmlFragment)).thenReturn("HDTV 1080p");
+		when (this.showQualityParser.parse(htmlFragment)).thenReturn("HDTV 1080p");
 		// Descripcion
-		when (jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).thenReturn("description molona");
+		when (this.jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).thenReturn("description molona");
 		// Sinopsis
-		when (jSoupHelper.getElementTextByClass(doc, "sinopsis", 0)).thenReturn("sinopsis molona");
+		when (this.jSoupHelper.getElementTextByClass(doc, "sinopsis", 0)).thenReturn("sinopsis molona");
 		// Cover
-		when (jSoupHelper.getElementURLIMGByClass (doc,"entry-left",0)).thenReturn("http://www.portadamolona.com");
+		when (this.jSoupHelper.getElementURLIMGByClass (doc,"entry-left",0)).thenReturn("http://www.portadamolona.com");
 		// FileSize
-		when (jSoupHelper.getElementTextByClass(doc, "imp", 1)).thenReturn("567Mb");
+		when (this.jSoupHelper.getElementTextByClass(doc, "imp", 1)).thenReturn("567Mb");
 		// ReleaseDate
-		when (jSoupHelper.getElementTextByClass(doc, "imp", 2)).thenReturn("26/05/1976");
+		when (this.jSoupHelper.getElementTextByClass(doc, "imp", 2)).thenReturn("26/05/1976");
 
-		Show show = showFactory.newInstance("http://www.baseURI.com", htmlFragment);
+		Show show = this.showFactory.newInstance("http://www.baseURI.com", htmlFragment);
 
 		// Then
 		assertEquals   	("http://www.baseURI.com", show.getBaseURI());

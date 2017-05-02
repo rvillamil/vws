@@ -15,9 +15,16 @@ embebido aunque tambien se puede desplegar en un servidor de aplicaciones con so
 para Servlet 3.X (no se requiere un web.xml)
 
 ## Compilacion y ejecucion basica  ##
+
+Mejor contar antes los profiles de compilacion ...
+
+$mvn clean install : Compila con el profile 'develop' por defecto
+$mvn clean install -P integration: Compila con el profile 'integration' lanzando los test de integracion
+
+## Generar contenedores docker con la aplicacion ##
  * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
    requiere docker 1.12 o superior
- * Ejecutar un mvn install para que compile y genere todos los contenedores
+ * Ejecutar $mvn install -P docker-support
  * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'
  * Ver que la apliacion está iniciada correctamente en:
 
@@ -27,7 +34,6 @@ para Servlet 3.X (no se requiere un web.xml)
  * Parar con crtl-c y ejecutar un 'docker-compose down'
 
 ## Entorno de desarrollo  ##
-
 
  * Importar el proyecto como proyecto maven en tu editor favorito
 

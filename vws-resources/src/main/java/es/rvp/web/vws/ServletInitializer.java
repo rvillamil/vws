@@ -12,7 +12,6 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
  * @see http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file
  * @author Rodrigo Villamil Pérez
  */
-
 public class ServletInitializer extends SpringBootServletInitializer {
 
 	@Override
