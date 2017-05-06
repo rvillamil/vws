@@ -323,6 +323,7 @@
 
 	<modules>
 		<module>vws-docker-support</module>
+		<module>vws-ui</module>
 		<module>vws-persistence</module>
 		<module>vws-services</module>
 		<module>vws-resources</module>
