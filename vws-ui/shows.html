@@ -2,32 +2,37 @@
 <html>
 
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="assets/css/main.css">
-<title>VWS: Video websites scraper</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/main.js"></script>
+    <title>VWS: Video websites scraper</title>
 </head>
 
 <body>
 	<h1>Video websites scraper</h1>
 
-	<div class="billboard">
+	<div class="shows-section">
 		<p>Estrenos de cine</p>
-		<img src="images/w3schools_green.jpg"
-			alt="W3Schools.com" style="width: 104px; height: 142px;">
+		<ul class="show-list">
+			<li class="show-item">
+			    Titulo 1
+				<img src="images/w3schools_green.jpg" alt="W3Schools.com"
+					style="width: 104px; height: 142px;" />
+		  	</li>
+			<li class="show-item">
+			    Titulo 2
+				<img src="images/bebe_jefazo.jpg" alt="W3Schools.com"
+					style="width: 104px; height: 142px;" />
+			</li>
+		</ul>
 	</div>
 
-	<div class="videopremieres">
-		<p>Estrenos de video</p>
-		<img src="images/w3schools_green.jpg"
-            alt="W3Schools.com" style="width: 104px; height: 142px;">
-	</div>
+	<div id="films" class="shows-section-prueba">
+		<p>Estrenos de Video</p>
+	   <button type="button" onclick="loadBillboardfilms()">Obten cartelera</button>
+	 </div>
 
-	<div class="myfavoriteshows">
-		<p>Mis series favoritas</p>
-		<img src="images/w3schools_green.jpg"
-            alt="W3Schools.com" style="width: 104px; height: 142px;">
-	</div>
 
 </body>
 

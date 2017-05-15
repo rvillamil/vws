@@ -1,11 +1,29 @@
 @CHARSET "UTF-8";
 
 body {
-    background-color: #ffffff;
+	background-color: #ffffff;
 }
+
 h1 {
-    color: #aaaaaa;
+	color: #aaaaaa;
 }
+
 p {
-    color: black;
+	color: black;
+}
+
+/* Todo esto quizas deberia de ir a un fichero de CSS especifico de los shows */
+div.shows-section {
+	border: 1px solid blue;
+}
+
+ul.show-list {
+    border: 1px solid black;
+	list-style-type: none;
+    padding-left: 10px; /* Pegamos a la izquierda la lista de elemnentos */
+}
+
+li.show-item {
+	display: inline; /* Lo pone horizontal */
+	margin-right: 20px;
 }
