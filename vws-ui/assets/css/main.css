@@ -12,18 +12,20 @@ p {
 	color: black;
 }
 
+div.messages-box {
+    border: 3px solid red;
+}
+
+div.show-box {
+    display: inline-block;
+    margin: 10px;
+    border: 3px solid #73AD21;
+}
+.show-box-element {
+	display: block;
+}
+
 /* Todo esto quizas deberia de ir a un fichero de CSS especifico de los shows */
 div.shows-section {
 	border: 1px solid blue;
-}
-
-ul.show-list {
-    border: 1px solid black;
-	list-style-type: none;
-    padding-left: 10px; /* Pegamos a la izquierda la lista de elemnentos */
-}
-
-li.show-item {
-	display: inline; /* Lo pone horizontal */
-	margin-right: 20px;
 }
