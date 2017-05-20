@@ -2,73 +2,57 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/css/main.css">
-    <script src="assets/js/main.js"></script>
-    <title>VWS: Video websites scraper</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/js/main.js"></script>
+<title>VWS: Video websites scraper</title>
 </head>
 
 <body>
-	<h1>Video websites scraper</h1>
+	<div class="container">
 
-    <div class="messages-box">Another box, before the floating boxes...</div>
-	<div class="shows-section">
-		<p>Estrenos de cine</p>
+		<header>
+			<h1>Video websites scraper</h1>
+		</header>
 
-        <div class="show-box">
-             <a class="show-box-element" href="http://pp.com">
-                <img src="images/bebe_jefazo.jpg" alt="W3Schools.com"
-                      style="width: 104px; height: 142px;" />
-             </a>
-             <a class="show-box-element" href="http://pp.com">Titulo</a>
-             <p class="show-box-element">HD 720</p>
-             <p class="show-box-element">Mola mazo</p>
-        </div>
+		<nav>
+			<ul>
+				<li><a href="#">billboard</a></li>
+				<li><a href="#">videopremieres</a></li>
+				<li><a href="#">Series</a></li>
+			</ul>
+		</nav>
+
+		<article>
 
 
-      <div class="show-box">
-             <a class="show-box-element" href="http://pp.com">
-                <img src="images/w3schools_green.jpg" alt="W3Schools.com"
-                      style="width: 104px; height: 142px;" />
-             </a>
-             <a class="show-box-element" href="http://pp.com">Titulo</a>
-             <p class="show-box-element">HD 720</p>
-             <p class="show-box-element">Mola mazo</p>
-        </div>
+			<div class="messages-box">
+				Another box, before the floating boxes...
+				<button type="button" onclick="loadBillboardfilms()">Obten cartelera</button>
+			</div>
 
-        <div class="show-box">
-             <a href="http://pp.com">W3School</a>
-             <img src="images/w3schools_green.jpg" alt="W3Schools.com"
-                      style="width: 104px; height: 142px;" />
-             <p>HD 720</p>
-             <p>Mola mazo</p>
-        </div>
 
+			<div id="id-shows-section" class="shows-section">
+				<div class='show-box'>
+					<div class='show-box-element'>Filmaffinity null</div>
+					<a class='show-box-element'
+						href='http://tumejorjuego.com/redirect/index.php?link=descargar-torrent/1495275529_batman-la-lego-pelicula--bluray-screeener/'>
+						<img
+						src='http://www.tumejortorrent.com/pictures/f/mediums/94675_batman-la-lego-pelicula-bluray-screener-espaa-ol-castellano-2017.jpg'
+						alt='cover' style='width: 104px; height: 142px;' />
+					</a>
+                    <div class='show-box-title'>Batman y la puta madre que lo pario
+                        <span class="tooltiptext">Tooltip text</span>
+                    </div>
+					<div class='show-box-element'>BluRay Screener</div>
+					<div class='show-box-element'>19-05-2017 - 1.6 GB</div>
+
+				</div>
+			</div>
+
+		</article>
+		<footer>Copyright &copy; W3Schools.com</footer>
 	</div>
-
-	<div id="films" class="shows-section">
-		<p>Estrenos de Video</p>
-
-	    <div class="show-box">
-	         <a href="http://pp.com">W3School</a>
-             <img src="images/w3schools_green.jpg" alt="W3Schools.com"
-                      style="width: 104px; height: 142px;" />
-             <p>HD 720</p>
-             <p>Mola mazo</p>
-	    </div>
-
-        <div class="show-box">
-             <a href="http://pp.com">W3School</a>
-             <img src="images/w3schools_green.jpg" alt="W3Schools.com"
-                      style="width: 104px; height: 142px;" />
-             <p>HD 720</p>
-             <p>Mola mazo</p>
-        </div>
-
-        <button type="button" onclick="loadBillboardfilms()">Obten cartelera</button>
-
-	 </div>
-
-
 </body>
+</html>

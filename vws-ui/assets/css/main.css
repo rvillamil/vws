@@ -1,31 +1,88 @@
 @CHARSET "UTF-8";
 
-body {
-	background-color: #ffffff;
+div.container {
+	width: 100%;
+	border: 1px solid gray;
 }
 
-h1 {
-	color: #aaaaaa;
+header, footer {
+	padding: 1em;
+	color: white;
+	background-color: black;
+	clear: left;
+	text-align: center;
 }
 
-p {
-	color: black;
+nav {
+	float: left;
+	max-width: 160px;
+	margin: 0;
+	padding: 1em;
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+}
+
+nav ul a {
+	text-decoration: none;
+}
+
+article {
+	margin-left: 170px;
+	border-left: 1px solid gray;
+	padding: 1em;
+	overflow: hidden;
 }
 
 div.messages-box {
-    border: 3px solid red;
+	border: 3px solid red;
 }
 
 div.show-box {
-    display: inline-block;
-    margin: 10px;
-    border: 3px solid #73AD21;
-}
-.show-box-element {
-	display: block;
+	display: inline-block;
+	margin: 10px;
+	border: 3px solid #73AD21;
 }
 
-/* Todo esto quizas deberia de ir a un fichero de CSS especifico de los shows */
 div.shows-section {
 	border: 1px solid blue;
+}
+
+.show-box-element {
+	display: block;
+	margin: 1px;
+	padding: 1px;
+	border: 1px;
+}
+
+/* Titulo del show con Tooltip y recortado por puntos */
+.show-box-title {
+	width: 100px;
+	margin: 1px;
+    padding: 1px;
+    border: 1px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.show-box-title .tooltiptext {
+    visibility: hidden;
+    width: 220px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    margin-left: -120px;
+}
+
+.show-box-title:hover .tooltiptext {
+    visibility: visible;
 }

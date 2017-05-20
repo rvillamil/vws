@@ -29,10 +29,8 @@ function loadShows(urlPath, cFunction) {
 		}
 
 		/*
-		if (this.readyState == 3 ) {
-			console.log ("Processing ..")
-		}
-		*/
+		 * if (this.readyState == 3 ) { console.log ("Processing ..") }
+		 */
 
 		if (this.readyState == 4 && this.status == 200) {
 			onSuccess(this);
@@ -47,18 +45,45 @@ function loadShows(urlPath, cFunction) {
 	request.send();
 }
 
+
+/*
+SHOW:
+"title": "string", "urltodownload": "string",  "urlwithCover": "string"
+"session": "string", "episode": "string",
+"releaseDate": "string", "quality": "string", "fileSize": "string"
+"filmaffinityPoints": 0,
+"description": "string",
+"sinopsis": "string",
+*/
 function onSuccess(request) {
-	var htmlFragment = document.getElementById("films");
+	var htmlFragment = document.getElementById("id-shows-section");
 	try {
 		var shows = JSON.parse(request.responseText);
-		var html  = "<ul>";
-		for (var i = 0; i < shows.length; i++) {
-			html += '<li><a href="' + shows[i]["urltodownload"] + '">'
-					+ shows[i]["title"] + "</a></li>";
-		}
-		html += "</ul>";
-		htmlFragment.innerHTML = html
 
+		var newHtml  ="";
+		for (var i = 0; i < shows.length; i++) {
+			console.log("Processing show " + shows[i]['title'])
+
+			newHtml += "<div class='show-box'>";
+			newHtml += 	 "<div class='show-box-element'>" + " Filmaffinity "+ shows[i]["filmaffinityPoints"] + "</div>";
+			newHtml += 	 "<a class='show-box-element' href='"+ shows[i]["urltodownload"] + "'>";
+			newHtml += 	    "<img src='" + shows[i]["urlwithCover"] + "'" + " alt='cover' " + " style='width: 104px; height: 142px;'" + "/>";
+			newHtml +=    "</a>";
+			newHtml += 	  "<div class='show-box-title'>" + shows[i]["title"];
+			newHtml +=	     "<span class='tooltiptext'>" + shows[i]["title"] + "</span>";
+			newHtml +=    "</div>";
+			// Solo las series tiene estos valores
+			if (shows[i]["session"] != null){
+				newHtml +=    "<div class='show-box-element'>" + "Temporada " + shows[i]["session"] + "-" + "Episodio " + shows[i]["episode"] + "</div>";
+			}
+			newHtml += 	  "<div class='show-box-element'>" + shows[i]["quality"] + "</div>";
+			newHtml += 	  "<div class='show-box-element'>" + shows[i]["releaseDate"] + " - " + shows[i]["fileSize"] + "</div>";
+			newHtml += "</div>";
+		}
+
+		console.log (newHtml)
+
+		htmlFragment.innerHTML = newHtml;
 	} catch (err) {
 		console.log(err.message + " in " + request.responseText);
 		return;
