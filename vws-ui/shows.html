@@ -11,49 +11,30 @@
 
 <body>
 	<div class="container">
-
 		<header>
 			<h1>Video websites scraper</h1>
 		</header>
 
 		<nav>
 			<ul>
-				<li><a href="#">billboard</a></li>
-				<li><a href="#">videopremieres</a></li>
+				<li><a href="billboardfilms.html" target="iframe_shows">Cartelera</a></li>
+				<li><a href="videopremieres.html" target="iframe_shows">Video</a></li>
 				<li><a href="#">Series</a></li>
 			</ul>
 		</nav>
 
 		<article>
 
-
 			<div class="messages-box">
 				Another box, before the floating boxes...
-				<button type="button" onclick="loadBillboardfilms()">Obten cartelera</button>
 			</div>
 
-
 			<div id="shows-container">
-
-				<div class='show-container'>
-					<div class='show-box-text'>Filmaffinity 7,3</div>
-
-                    <div class='show-box-img'>
-					   <a href='http://tumejorjuego.com/redirect/index.php?link=descargar-torrent/1495275529_batman-la-lego-pelicula--bluray-screeener/'>
-						  <img src='http://www.tumejortorrent.com/pictures/f/mediums/94675_batman-la-lego-pelicula-bluray-screener-espaa-ol-castellano-2017.jpg'
-						     alt='cover' />
-					   </a>
-					   <span class="tooltiptext">Batman y la puta madre que lo pario</span>
-                    </div>
-
-                    <div class='show-box-title'>Batman y la puta madre que lo pario</div>
-					<div class='show-box-text'>BluRay Screener</div>
-					<div class='show-box-text'>19-05-2017 - 1.6 GB</div>
-
-				</div>
+                <iframe width="100%" name="iframe_shows" style="border:none;"></iframe>
 			</div>
 
 		</article>
+
 		<footer>Copyright &copy; W3Schools.com</footer>
 	</div>
 </body>

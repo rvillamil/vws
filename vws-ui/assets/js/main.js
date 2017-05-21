@@ -104,3 +104,7 @@ function onSuccess(request) {
 function loadBillboardfilms() {
 	loadShows('/billboardfilms', onSuccess);
 }
+
+function loadVideoPremieres() {
+	loadShows('/videopremieres', onSuccess);
+}

@@ -2,7 +2,8 @@
 
 div.container {
 	width: 100%;
-	border: 1px solid gray;
+	height: 500px;
+	border: 1px solid red;
 }
 
 header, footer {
