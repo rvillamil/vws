@@ -5,7 +5,7 @@
  */
 
 /**
- * Use: loadShows("url");
+ * Use: loadShows("url", "callback function");
  */
 function loadShows(urlPath, cFunction) {
 	var request = new XMLHttpRequest();

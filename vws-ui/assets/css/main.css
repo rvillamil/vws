@@ -2,7 +2,6 @@
 
 div.container {
 	width: 100%;
-	height: 500px;
 	border: 1px solid red;
 }
 
@@ -31,10 +30,11 @@ nav ul a {
 }
 
 article {
-	margin-left: 170px;
+	margin-left: 100px;
 	border-left: 1px solid gray;
-	padding: 1em;
+	padding: 0em;
 	overflow: hidden;
+
 }
 
 div.messages-box {
@@ -43,7 +43,10 @@ div.messages-box {
 
 /* ------------------- Show -------------------- */
 #shows-container {
-	border: 1px solid blue;
+	border:  1px solid blue;
+	margin:  0px;
+    padding: 0px;
+	height: auto;
 }
 
 div.show-container {
