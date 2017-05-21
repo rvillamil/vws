@@ -29,6 +29,10 @@ nav ul a {
 	text-decoration: none;
 }
 
+nav ul a:hover {
+    color: red;
+}
+
 article {
 	margin-left: 100px;
 	border-left: 1px solid gray;
