@@ -37,10 +37,6 @@ article {
 
 }
 
-div.messages-box {
-	border: 3px solid red;
-}
-
 /* ------------------- Show -------------------- */
 #shows-container {
 	border:  1px solid blue;

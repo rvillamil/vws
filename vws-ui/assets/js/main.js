@@ -38,7 +38,9 @@ function loadShows(urlPath, cFunction) {
 	};
 
 	request.onerror = function() {
+		document.getElementById("shows-container").innerHTML = "Errro: " + this.readyState + " -" + this.status + "-" + this.statusText;
 		console.log("Error");
+
 	};
 
 	request.open("GET", "http://localhost:8080" + urlPath, true);
