@@ -56,28 +56,39 @@ SHOW:
 "sinopsis": "string",
 */
 function onSuccess(request) {
-	var htmlFragment = document.getElementById("id-shows-section");
+	var htmlFragment = document.getElementById("shows-container");
 	try {
 		var shows = JSON.parse(request.responseText);
 
 		var newHtml  ="";
 		for (var i = 0; i < shows.length; i++) {
 			console.log("Processing show " + shows[i]['title'])
+			newHtml += "<div class='show-container'>";
 
-			newHtml += "<div class='show-box'>";
-			newHtml += 	 "<div class='show-box-element'>" + " Filmaffinity "+ shows[i]["filmaffinityPoints"] + "</div>";
-			newHtml += 	 "<a class='show-box-element' href='"+ shows[i]["urltodownload"] + "'>";
-			newHtml += 	    "<img src='" + shows[i]["urlwithCover"] + "'" + " alt='cover' " + " style='width: 104px; height: 142px;'" + "/>";
-			newHtml +=    "</a>";
-			newHtml += 	  "<div class='show-box-title'>" + shows[i]["title"];
-			newHtml +=	     "<span class='tooltiptext'>" + shows[i]["title"] + "</span>";
-			newHtml +=    "</div>";
-			// Solo las series tiene estos valores
-			if (shows[i]["session"] != null){
-				newHtml +=    "<div class='show-box-element'>" + "Temporada " + shows[i]["session"] + "-" + "Episodio " + shows[i]["episode"] + "</div>";
+			// Filmaffinity Points
+			if (shows[i]["filmaffinityPoints"] != null){
+				newHtml += 	 "<div class='show-box-text'>" + " Filmaffinity "+ shows[i]["filmaffinityPoints"] + "</div>";
 			}
-			newHtml += 	  "<div class='show-box-element'>" + shows[i]["quality"] + "</div>";
-			newHtml += 	  "<div class='show-box-element'>" + shows[i]["releaseDate"] + " - " + shows[i]["fileSize"] + "</div>";
+			// Cover
+			newHtml +=   "<div class='show-box-img'>";
+			newHtml += 	    "<a href='"+ shows[i]["urltodownload"] + "'>";
+			newHtml += 	        "<img src='" + shows[i]["urlwithCover"] + "'" + " alt='cover' " + "/>";
+			newHtml +=       "</a>";
+			newHtml +=       "<span class='tooltiptext'>" + shows[i]["title"] + "</span>";
+			newHtml +=   "</div>";
+
+			// Title
+			newHtml += 	  "<div class='show-box-title'>" + shows[i]["title"] + "</div>";
+
+			// Session and Episode
+			if (shows[i]["session"] != null){
+				newHtml +=    "<div class='show-box-text'>" + "Temporada " + shows[i]["session"] + "-" + "Episodio " + shows[i]["episode"] + "</div>";
+			}
+			// Quality
+			newHtml += 	  "<div class='show-box-text'>" + shows[i]["quality"] + "</div>";
+			// Releasedate and filesize
+			newHtml += 	  "<div class='show-box-text'>" + shows[i]["releaseDate"] + " - " + shows[i]["fileSize"] + "</div>";
+
 			newHtml += "</div>";
 		}
 
