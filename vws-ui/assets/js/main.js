@@ -4,6 +4,14 @@
  * https://www.w3schools.com/js/js_ajax_http.asp
  */
 
+/*
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    console.log('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
+    + ' Column: ' + column + ' StackTrace: ' +  errorObj);
+}
+*/
+
+
 /**
  * Replace de tabcontent with name 'showType' with HTML show list
  *
@@ -25,14 +33,14 @@ function openShows(evt, showType) {
 	evt.currentTarget.className += " active";
 
 	if (showType == "tabcontent_billboardfilms") {
-		console.log("Getting billboard films async mode ...")
+		setHTMLAllTabContents ("Getting billboard films async mode ...")
 		loadShows('/billboardfilms', onSuccess, showType);
 
 	} else if (showType == "tabcontent_videopremieres") {
-		console.log("Getting video premieres async mode ...")
+		setHTMLAllTabContents("Getting video premieres async mode ...")
 		loadShows('/videopremieres', onSuccess, showType);
 	} else {
-		setTextStatusBar("ERROR!! 'tabconten' not exists" + showType)
+		showErrorModal("ERROR!! 'tabcontent' not exists " + showType)
 	}
 }
 
@@ -57,7 +65,7 @@ function loadShows(urlPath, cFunction, showType) {
 		// statusText:
 		// - "OK", "not Found" ..Returns the status-text
 		if (this.readyState == 0) {
-			setTextStatusBar("WTF! Server not running?");
+			showErrorModal("WTF! Server not running?");
 		}
 
 		/*
@@ -70,7 +78,7 @@ function loadShows(urlPath, cFunction, showType) {
 	};
 
 	request.onerror = function() {
-		setTextStatusBar("Error --> readyState: " + this.readyState
+		showErrorModal("Error --> readyState: " + this.readyState
 				+ " - status: " + this.status + " - statusText "
 				+ this.statusText);
 	};
@@ -139,20 +147,44 @@ function onSuccess(response, showType) {
 			newHtml += "</div>";
 
 		} // End for
-		setHTMLInTabContainer(showType, newHtml);
+		setHTMLTabContentByName(showType, newHtml);
 	} // End try
 	catch (err) {
-		setTextStatusBar(err.message + " in " + response.responseText);
+		showErrorModal(err.message + " in " + response.responseText);
 		return;
 	}
 	// console.log("newhtml with shows: " + newHtml)
 }
 
-function setTextStatusBar(text) {
-	console.log("Status Bar text: " + text);
-	document.getElementById('statusbar').innerHTML = text;
+function showErrorModal(text) {
+	// Get the modal
+	var modal = document.getElementById('errorModal');
+	modal.style.display = "block";
+	document.getElementById('modal-text').innerHTML= text;
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
 }
 
-function setHTMLInTabContainer(tabContainer, htmlFragment) {
-	document.getElementById(tabContainer).innerHTML = htmlFragment;
+function setHTMLAllTabContents(htmlFragment) {
+	console.log("setHTMLAllTabContainers:" + htmlFragment);
+	var tabcontent = document.getElementsByClassName("tabcontent");
+	for (var i = 0; i < tabcontent.length; i++) {
+		tabcontent[i].innerHTML = htmlFragment;
+	}
+}
+
+function setHTMLTabContentByName (tabContent, htmlFragment) {
+	document.getElementById(tabContent).innerHTML = htmlFragment;
 }
