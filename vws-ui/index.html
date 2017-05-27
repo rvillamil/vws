@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="assets/js/main.js"></script>
+    <title>VWS: Video websites scraper</title>
+</head>
+
+<body>
+	<div id="statusbar"><p>Click on the buttons inside the tabbed menu:</p></div>
+
+	<div class="tab">
+		<button class="tablinks" onclick="openShows(event, 'tabcontent_billboardfilms')">Estrenos de cine</button>
+		<button class="tablinks" onclick="openShows(event, 'tabcontent_videopremieres')">Estrenos de Video</button>
+		<button class="tablinks" onclick="openShows(event, 'tabcontent_tvshows')">Series favoritas</button>
+	</div>
+
+    <!-- Reservamos tres zonas -->
+	<div id="tabcontent_billboardfilms" class="tabcontent">
+	</div>
+	<div id="tabcontent_videopremieres" class="tabcontent">
+	</div>
+	<div id="tabcontent_tvshows" class="tabcontent">
+	</div>
+
+    <!-- Pintamos la primera zona porque si no, nos salen tres cajitas debajo y queda fatal -->
+    <script>
+          setHTMLInTabContainer ('tabcontent_billboardfilms', "Hola...");
+    </script>
+
+</body>
+</html>
