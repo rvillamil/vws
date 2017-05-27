@@ -58,7 +58,7 @@ div.show-container {
     display: inline-block;
     margin: 5px;
     border: 1px solid #ccc;
-    width: 180px;
+    width: 140px;
 }
 
 div.show-container:hover {
@@ -72,7 +72,25 @@ div.show-container:hover {
     padding: 1px;
     border: 1px;
     text-align: center;
+    font-size: 0.675em;
+    font-weight: lighter;
+
 }
+
+/* Titulo del show con Tooltip y recortado por puntos */
+.show-box-title {
+    width: auto;
+    margin: 1px;
+    padding: 1px;
+    border: 1px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.875em;
+    font-weight: bold;
+}
+
 /* Campo con la portada del show-container */
 .show-box-img img {
     width: 100%;
@@ -97,15 +115,4 @@ div.show-container:hover {
     visibility: visible;
 }
 
-/* Titulo del show con Tooltip y recortado por puntos */
-.show-box-title {
-    width: auto;
-    margin: 1px;
-    padding: 1px;
-    border: 1px;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
 

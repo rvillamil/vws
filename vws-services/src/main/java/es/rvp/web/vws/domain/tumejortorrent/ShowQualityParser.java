@@ -44,6 +44,9 @@ public class ShowQualityParser implements ShowFieldParser {
 		try {
 			quality = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
 			quality = this.getTextBetweenBracketsByPosition(quality,1).trim();
+			if (quality.equals("")) {
+				quality=null;
+			}
 		}
 		catch (Exception ex) {
 			LOGGER.warn(ex.getMessage(), ex);

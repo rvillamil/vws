@@ -52,7 +52,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	 * @param showFactory The show factory object
 	 */
 	public WebTorrentSpiderImpl( final JSoupHelper  	jSoupHelper,
-						  		 final ShowFactory 		showFactory) {
+			final ShowFactory 		showFactory) {
 		this.jSoupHelper	= jSoupHelper;
 		this.showFactory 	= showFactory;
 	}
@@ -82,8 +82,8 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	@Override
 	public Set<Show> parseBillboardFilms(final int maxSize) {
 		return this.parseShows( "/estrenos-de-cine",
-			 				maxSize,
-			 				"pelilist");
+				maxSize,
+				"pelilist");
 	}
 
 	/* (non-Javadoc)
@@ -91,9 +91,16 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	 */
 	@Override
 	public Set<Show> parseVideoPremieres(final int maxSize) {
-		return this.parseShows( "/peliculas",
- 						   maxSize,
- 						   "pelilist");
+		Set<Show> showsHD = this.parseShows( "/peliculas-x264-mkv",
+				maxSize/2,
+				"pelilist");
+		Set<Show> shows = this.parseShows( "/peliculas",
+				maxSize/2,
+				"pelilist");
+
+		showsHD.addAll(shows);
+
+		return showsHD;
 	}
 
 	/* (non-Javadoc)
@@ -103,15 +110,15 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	public Set<Show> parseTVShow(final String tvShowPath, final int maxSize) {
 
 		return this.parseShows(  tvShowPath,
-				   			maxSize,
-				   			"buscar-list");
+				maxSize,
+				"buscar-list");
 	}
 
 
 	// ----------------------- Metodos privados -------------------------------
 	private Set<Show> parseShows ( final String 				urlPath,
-								   final int 				  	maxSize,
-								   final String 			  	classListName ) {
+			final int 				  	maxSize,
+			final String 			  	classListName ) {
 
 		LOGGER.info("parsing shows from {}. The max size from show list is {}", urlPath, maxSize);
 		final Set<Show> shows 	= new LinkedHashSet<>();
@@ -121,7 +128,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 		if ( document != null ) {
 			// Seleccionamos todos los elemtos de la lista <li> ... </li> de nombre 'classListName'
 			final Elements elements = this.jSoupHelper.selectElementsByClassListName ( document,
-																	   				   classListName );
+					classListName );
 			int idx=0;
 			// menor=(x<y)?x:y;
 			int sizeLimit = maxSize <= elements.size() ? maxSize : elements.size();
@@ -137,13 +144,13 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 					Document documentWithHref = this.jSoupHelper.newInstanceFromElementWithURL(elements.get(idx));
 					if ( documentWithHref != null) {
 						final Show show 	  = this.showFactory.newInstance( documentWithHref.baseUri(),
-																		 documentWithHref.html() );
+								documentWithHref.html() );
 						if (show!=null) {
 							if ( shows.add(show) ) {
 								LOGGER.info(String.format(
-									"parseShows - adding show '%s', number '%s'",
-									show.getTitle(),
-									idx+1));
+										"parseShows - adding show '%s', number '%s'",
+										show.getTitle(),
+										idx+1));
 							} else {
 								LOGGER.info(String.format(
 										"parseShows - Show '%s' (number '%s') already exist!. Not adding!",

@@ -119,6 +119,8 @@ function onSuccess(response, showType) {
 			newHtml += "<div class='show-box-title'>" + shows[i]["title"]
 					+ "</div>";
 
+			console.log ("session:'" + shows[i]["session"] + "'");
+
 			// Session and Episode
 			if (shows[i]["session"] != null) {
 				newHtml += "<div class='show-box-text'>" + "Temporada "
@@ -126,8 +128,12 @@ function onSuccess(response, showType) {
 						+ shows[i]["episode"] + "</div>";
 			}
 			// Quality
-			newHtml += "<div class='show-box-text'>" + shows[i]["quality"]
-					+ "</div>";
+			var quality = shows[i]["quality"];
+			//console.log ("Quality:'" + quality + "'");
+			if ( quality == null) {
+				quality ="Undetermined";
+			}
+			newHtml += "<div class='show-box-text'>" + quality + "</div>";
 			// Releasedate and filesize
 			newHtml += "<div class='show-box-text'>" + shows[i]["releaseDate"]
 					+ " - " + shows[i]["fileSize"] + "</div>";
