@@ -118,9 +118,7 @@ function onSuccess(response, showType) {
 			// Title
 			newHtml += "<div class='show-box-title'>" + shows[i]["title"]
 					+ "</div>";
-
-			console.log ("session:'" + shows[i]["session"] + "'");
-
+			// console.log ("session:'" + shows[i]["session"] + "'");
 			// Session and Episode
 			if (shows[i]["session"] != null) {
 				newHtml += "<div class='show-box-text'>" + "Temporada "
