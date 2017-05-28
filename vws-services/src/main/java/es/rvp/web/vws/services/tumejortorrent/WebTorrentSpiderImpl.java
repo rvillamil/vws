@@ -91,11 +91,16 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	 */
 	@Override
 	public Set<Show> parseVideoPremieres(final int maxSize) {
+		int overMaxSize = maxSize;
+		if (( maxSize % 2) != 0 ){ // Si es impar ..
+			overMaxSize = (maxSize/2) +1;
+		}
+
 		Set<Show> showsHD = this.parseShows( "/peliculas-x264-mkv",
 				maxSize/2,
 				"pelilist");
 		Set<Show> shows = this.parseShows( "/peliculas",
-				maxSize/2,
+				overMaxSize,
 				"pelilist");
 
 		showsHD.addAll(shows);

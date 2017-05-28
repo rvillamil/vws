@@ -41,7 +41,7 @@ public class WebTorrentSpiderTest {
 		this.jSoupHelper 		= mock ( JSoupHelperImpl.class);
 		this.showFactory  		= mock ( ShowFactoryImpl.class);
 		this.webTorrentSpider   = new WebTorrentSpiderImpl (this.jSoupHelper,
-															this.showFactory);
+				this.showFactory);
 	}
 
 	//--------------------------- parseHTMLFrom -------------------------------
@@ -133,7 +133,7 @@ public class WebTorrentSpiderTest {
 		String htmlClassName				= "pelilist";
 
 		// When
-		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		this.configureTest (numberOfShowsInTheWebSite, htmlClassName);
 		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(numberOfShowsToParse);
 		// Then
 		assertNotNull 	( shows );
@@ -201,7 +201,7 @@ public class WebTorrentSpiderTest {
 	}
 
 	private void configureTest ( final int numberOfShowsInTheWebSite,
-			 					 final String classListName){
+			final String classListName){
 
 		final String urlWithShow = "http://tumejortorrent.com";
 		// When
