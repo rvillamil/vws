@@ -4,13 +4,10 @@
  * https://www.w3schools.com/js/js_ajax_http.asp
  */
 
-/*
-window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-    console.log('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
-    + ' Column: ' + column + ' StackTrace: ' +  errorObj);
-}
-*/
-
+/**
+ * Global config
+ */
+var server = "http://localhost:3300";
 
 /**
  * Replace de tabcontent with name 'showType' with HTML show list
@@ -40,7 +37,7 @@ function openShows(evt, showType) {
         setHTMLAllTabContents("Getting video premieres async mode ...")
         loadShows('/videopremieres', onSuccess, showType);
     } else {
-        showErrorModal("ERROR!! 'tabcontent' not exists " + showType)
+        showAlertWindow("ERROR!! 'tabcontent' not exists " + showType)
     }
 }
 
@@ -57,33 +54,33 @@ function loadShows(urlPath, cFunction, showType) {
         // - 1: server connection established
         // - 2: request received
         // - 3: processing request
-        // - 4 request finished and response is ready
+        // - 4: request finished and response is ready
         //
         // status:
         // - 200 : OK ... https://www.w3schools.com/tags/ref_httpmessages.asp
         //
         // statusText:
         // - "OK", "not Found" ..Returns the status-text
-        if (this.readyState == 0) {
-            showErrorModal("WTF! Server not running?");
-        }
 
         /*
          * if (this.readyState == 3 ) { console.log ("Processing ..") }
          */
-
+        // Todo ok
         if (this.readyState == 4 && this.status == 200) {
             onSuccess(this, showType);
         }
     };
 
-    request.onerror = function() {
-        showErrorModal("Error --> readyState: " + this.readyState +
-            " - status: " + this.status + " - statusText " +
-            this.statusText);
-    };
+    request.onloadstart = function() {
+        setHTMLAllTabContents("Load start..");
+    }
 
-    request.open("GET", "http://localhost:3000" + urlPath, true);
+    request.onerror = function() {
+        showAlertWindow("Unknown Error Occured. Server response not received. \n[ readyState: " +
+            this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
+    }
+
+    request.open("GET", server + urlPath, true);
     request.send();
 }
 
@@ -150,15 +147,33 @@ function onSuccess(response, showType) {
         setHTMLTabContentByName(showType, newHtml);
     } // End try
     catch (err) {
-        showErrorModal(err.message + " in " + response.responseText);
+        showAlertWindow("onSuccess method error: " + err.message + " in " + response.responseText);
         return;
     }
-    // console.log("newhtml with shows: " + newHtml)
 }
 
-function showErrorModal(text) {
+
+function setHTMLAllTabContents(htmlFragment) {
+    //console.log("setHTMLAllTabContainers:" + htmlFragment);
+    var tabcontent = document.getElementsByClassName("tabcontent");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].innerHTML = htmlFragment;
+    }
+}
+
+function setHTMLTabContentByName(tabContent, htmlFragment) {
+    document.getElementById(tabContent).innerHTML = htmlFragment;
+}
+
+// ------------ Ventanas modales -----------
+function showAlertWindow(text) {
+    console.log("showAlertWindow:" + text);
+    alert(text);
+}
+
+function showModalWindow(text) {
     // Get the modal
-    var modal = document.getElementById('errorModal');
+    var modal = document.getElementById('modalWindow');
     modal.style.display = "block";
     document.getElementById('modal-text').innerHTML = text;
 
@@ -175,16 +190,4 @@ function showErrorModal(text) {
             modal.style.display = "none";
         }
     }
-}
-
-function setHTMLAllTabContents(htmlFragment) {
-    console.log("setHTMLAllTabContainers:" + htmlFragment);
-    var tabcontent = document.getElementsByClassName("tabcontent");
-    for (var i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].innerHTML = htmlFragment;
-    }
-}
-
-function setHTMLTabContentByName(tabContent, htmlFragment) {
-    document.getElementById(tabContent).innerHTML = htmlFragment;
 }
