@@ -1,4 +1,4 @@
-## VWS: Video websites scraper ##
+# VWS: Video websites scraper #
 
 Web scraping application for video websites
 
