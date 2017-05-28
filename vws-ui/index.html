@@ -16,16 +16,20 @@
         <p>VWS: Video websites scraper</p>
     </div>
 
+    <!-- Botonera -->
     <div class="tab">
-        <button class="tablinks" onclick="openShows(event, 'tabcontent_billboardfilms')">Estrenos de cine</button>
-        <button class="tablinks" onclick="openShows(event, 'tabcontent_videopremieres')">Estrenos de Video</button>
-        <button class="tablinks" onclick="openShows(event, 'tabcontent_tvshows')">Series favoritas</button>
+        <button class="tablinks" onclick="openShows(event, 'tabcontent-billboardfilms')">Estrenos de cine</button>
+        <button class="tablinks" onclick="openShows(event, 'tabcontent-videopremieres')">Estrenos de Video</button>
+        <button class="tablinks" onclick="openShows(event, 'tabcontent-tvshows')">Series favoritas</button>
     </div>
 
-    <!-- Reservamos tres zonas -->
-    <div id="tabcontent_billboardfilms" class="tabcontent"></div>
-    <div id="tabcontent_videopremieres" class="tabcontent"></div>
-    <div id="tabcontent_tvshows" class="tabcontent"></div>
+    <!-- Centro: Reservamos tres zonas -->
+    <div id="tabcontent-billboardfilms" class="tabcontent"></div>
+    <div id="tabcontent-videopremieres" class="tabcontent"></div>
+    <div id="tabcontent-tvshows" class="tabcontent"></div>
+
+    <!-- Derecha -->
+    <div id="description-section">Resumen de la pelicula</div>
 
     <!-- The Modal Window -->
     <div id="modalWindow" class="modal">

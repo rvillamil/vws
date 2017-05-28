@@ -28,11 +28,11 @@ function openShows(evt, showType) {
     document.getElementById(showType).style.display = "block";
     evt.currentTarget.className += " active";
 
-    if (showType == "tabcontent_billboardfilms") {
+    if (showType == "tabcontent-billboardfilms") {
         setHTMLAllTabContents("Getting billboard films async mode ...")
         doRequest('GET', '/billboardfilms', onSuccessGetShows, showType);
 
-    } else if (showType == "tabcontent_videopremieres") {
+    } else if (showType == "tabcontent-videopremieres") {
         setHTMLAllTabContents("Getting video premieres async mode ...")
         doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
     } else {
