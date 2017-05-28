@@ -145,7 +145,7 @@ public class WebTorrentSpiderTest {
 		// Given
 		int numberOfShowsInTheWebSite 	= 10;
 		int numberOfShowsToParse 		= 20;
-		String htmlClassName				= "pelilist";
+		String htmlClassName			= "pelilist";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
