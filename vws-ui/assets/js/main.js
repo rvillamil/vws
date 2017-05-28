@@ -69,6 +69,7 @@ function doRequest(operation, resourcePath, onSuccessCFunction, showType) {
         if (this.readyState == 4 && this.status == 200) {
             onSuccessCFunction(this, showType);
         } else if (this.readyState == 4) {
+            setHTMLAllTabContents("Ha sucedido algun problema al obtener el recurso '" + resourcePath + "'");
             showAlertWindow("doRequest: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         }
