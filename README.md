@@ -88,6 +88,11 @@ Si queremos evitar lanzar el soporte para docker: mvn install -P integration,-do
 ## Swagger  ##
 API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
 
-## Test en frontend ##
-Dentro del directorio test, ejecutamos el comando "json-server billboardfilms.json"
-Requiere insalado el modulo de node, json-server
+## Ejecucion del BackEnd para test del frontEnd#
+Dentro del directorio test, tenemos un par de scripts
+
+Opcion 1:  $runJSONServer.sh
+  Requiere instalada el modulo de node, json-server. Carga el fichero .json para pruebas sin BackEnd en localhost:3000
+
+opcion 2:  $runAWSBackEnd.sh
+  Lanza con spring-boot, el backend en la localhost:8080

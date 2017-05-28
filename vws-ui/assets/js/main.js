@@ -7,14 +7,13 @@
 /**
  * Global config
  */
-var server = "http://localhost:3300";
+var server = "http://localhost:8080";
 
 /**
  * Replace de tabcontent with name 'showType' with HTML show list
  *
- * @param evt
- * @param showType:
- *            tabcontent_billboardfilms, tabcontent_videopremieres,..
+ * @param evt : 
+ * @param showType: tabcontent_billboardfilms, tabcontent_videopremieres,..
  */
 function openShows(evt, showType) {
     var i, tabcontent, tablinks;
@@ -31,20 +30,25 @@ function openShows(evt, showType) {
 
     if (showType == "tabcontent_billboardfilms") {
         setHTMLAllTabContents("Getting billboard films async mode ...")
-        loadShows('/billboardfilms', onSuccess, showType);
+        doRequest('GET', '/billboardfilms', onSuccessGetShows, showType);
 
     } else if (showType == "tabcontent_videopremieres") {
         setHTMLAllTabContents("Getting video premieres async mode ...")
-        loadShows('/videopremieres', onSuccess, showType);
+        doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
     } else {
         showAlertWindow("ERROR!! 'tabcontent' not exists " + showType)
     }
 }
 
 /**
- * Use: loadShows("url", "callback function");
+ * Make a request aginst AWS shows API
+ * 
+ * @param operation: HTTP method. (e.g. GET, POST..)
+ * @param resourcePath: Resource path (e.g. /billboardfilms)
+ * @param onSuccessCFunction: on success request, callback function
+ * @param showType: tabcontent_billboardfilms, tabcontent_videopremieres,..
  */
-function loadShows(urlPath, cFunction, showType) {
+function doRequest(operation, resourcePath, onSuccessCFunction, showType) {
     var request = new XMLHttpRequest();
     // onreadystatechange: Defines a function to be called when the readyState
     // property changes
@@ -61,26 +65,20 @@ function loadShows(urlPath, cFunction, showType) {
         //
         // statusText:
         // - "OK", "not Found" ..Returns the status-text
-
-        /*
-         * if (this.readyState == 3 ) { console.log ("Processing ..") }
-         */
-        // Todo ok
+        //console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
         if (this.readyState == 4 && this.status == 200) {
-            onSuccess(this, showType);
+            onSuccessCFunction(this, showType);
+        } else if (this.readyState == 4) {
+            showAlertWindow("doRequest: [readyState: " +
+                this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         }
     };
 
     request.onloadstart = function() {
-        setHTMLAllTabContents("Load start..");
+        setHTMLAllTabContents("Obteniendo '" + resourcePath + "' ...");
     }
 
-    request.onerror = function() {
-        showAlertWindow("Unknown Error Occured. Server response not received. \n[ readyState: " +
-            this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
-    }
-
-    request.open("GET", server + urlPath, true);
+    request.open(operation, server + resourcePath, true);
     request.send();
 }
 
@@ -88,21 +86,17 @@ function loadShows(urlPath, cFunction, showType) {
  * On request success event, then create new show list in the 'show-container'
  * div tag
  *
- * @param response
- *            JSON with the show list
- * @param showType
- *            tabcontent_billboardfilms, tabcontent_videopremieres or
- *            tabcontent_tvshows
- *
+ * @param response: JSON with the show list
+ * @param showType: tabcontent_billboardfilms, tabcontent_videopremieres or tabcontent_tvshows
  * @returns nothing
  */
-function onSuccess(response, showType) {
+function onSuccessGetShows(response, showType) {
     try {
         var newHtml = "";
         var shows = JSON.parse(response.responseText);
 
         for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show " + shows[i]['title'])
+            console.log("Processing show '" + shows[i]['title'] + "'")
             newHtml += "<div class='show-container'>";
 
             // Filmaffinity Points
@@ -137,6 +131,7 @@ function onSuccess(response, showType) {
                 quality = "Undetermined";
             }
             newHtml += "<div class='show-box-text'>" + quality + "</div>";
+
             // Releasedate and filesize
             newHtml += "<div class='show-box-text'>" + shows[i]["releaseDate"] +
                 " - " + shows[i]["fileSize"] + "</div>";
