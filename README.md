@@ -83,3 +83,11 @@ Si queremos evitar lanzar el soporte para docker: mvn install -P integration,-do
 
 * Solo test unitarios: mvn clean test
 * Test de integracion:mvn install -Dskip.integration.tests=false (Lo mejor es lanzar con el profile de integracion: mvn clen install -P integration)
+
+
+## Swagger  ##
+API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
+
+## Test en frontend ##
+Dentro del directorio test, ejecutamos el comando "json-server billboardfilms.json"
+Requiere insalado el modulo de node, json-server
