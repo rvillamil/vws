@@ -1,16 +1,23 @@
+/* Variables */
+:root {
+  --site-background-color: #909090;
+  --menu-background-color: #787878;
+}
+
 * {
     box-sizing: border-box
 }
 
 body {
     font-family: "Lato", sans-serif;
+    background-color: var(--site-background-color);
 }
 
 
 /* Head */
 
-#head {
-    background-color: #f1f1f1;
+#head {    
+    background-color: var(--menu-background-color);
     height: 100%;
     padding: 0px;
     border: 0px;
@@ -22,10 +29,10 @@ body {
 
 div.tab {
     float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 12%;
-    height: 100%;
+    border: 1px solid #ccc;    
+    background-color: var(--menu-background-color);
+    width: 12%;        
+    height:100vh;
 }
 
 
@@ -36,8 +43,10 @@ div.tab {
     padding: 0px 12px;
     border: 1px solid #ccc;
     width: 68%;
-    border-left: none;
-    height: 100%;
+    border-left: none;    
+    border-right: none; 
+    border-bottom: none;
+    height: auto;
 }
 
 
@@ -45,10 +54,10 @@ div.tab {
 
 #description-section {
     float: left;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
-    width: 20%;
-    height: 100%;
+    border: none;
+    background-color: var(--site-background-color);
+    width: 20%;    
+    height:100vh;
 }
 
 
