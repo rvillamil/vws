@@ -332,3 +332,6 @@ tags
 hs_err_pid*
 
 # End of https://www.gitignore.io/api/java,eclipse,python,osx,linux,pycharm,intellij,windows,vim
+
+# Visual Studio
+.vscode
