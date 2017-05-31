@@ -97,16 +97,15 @@ function onSuccessGetShows(response, showType) {
         var shows = JSON.parse(response.responseText);
 
         for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show '" + shows[i]['title'] + "'")
-            newHtml += "<div class='show-container'>";
-
+            console.log("Processing show '" + shows[i]['title'] + "'")            
+            newHtml += "<div class='show-container' onmouseover='showDescription(" + '"'+ shows[i]["description"] + '"' + "," + '"' + shows[i]["sinopsis"] + '"'+ ")'>"
             // Filmaffinity Points
             if (shows[i]["filmaffinityPoints"] != null) {
                 newHtml += "<div class='show-box-text'>" + " Filmaffinity " +
                     shows[i]["filmaffinityPoints"] + "</div>";
             }
-            // Cover
-            newHtml += "<div class='show-box-img'>";
+            // Cover            
+            newHtml += "<div class='show-box-img'>"
             newHtml += "<a href='" + shows[i]["urltodownload"] + "'>";
             newHtml += "<img src='" + shows[i]["urlwithCover"] + "'" +
                 " alt='cover' " + "/>";
@@ -138,9 +137,9 @@ function onSuccessGetShows(response, showType) {
                 " - " + shows[i]["fileSize"] + "</div>";
 
             newHtml += "</div>";
-
         } // End for
         setHTMLTabContentByName(showType, newHtml);
+        console.log("newHtml:" + newHtml);
     } // End try
     catch (err) {
         showAlertWindow("onSuccess method error: " + err.message + " in " + response.responseText);
@@ -148,6 +147,10 @@ function onSuccessGetShows(response, showType) {
     }
 }
 
+function showDescription (description, sinopsis){ 
+    document.getElementById("about-show-description").innerHTML = description;
+    document.getElementById("about-show-sinopsis").innerHTML = sinopsis;
+}
 
 function setHTMLAllTabContents(htmlFragment) {
     //console.log("setHTMLAllTabContainers:" + htmlFragment);
@@ -157,9 +160,11 @@ function setHTMLAllTabContents(htmlFragment) {
     }
 }
 
-function setHTMLTabContentByName(tabContent, htmlFragment) {
+function setHTMLTabContentByName(tabContent, htmlFragment) {    
     document.getElementById(tabContent).innerHTML = htmlFragment;
 }
+
+    
 
 // ------------ Ventanas modales -----------
 function showAlertWindow(text) {

@@ -52,12 +52,14 @@ div.tab {
 
 /* Description section on right*/
 
-#description-section {
+#about-show {
     float: left;
     border: none;
     background-color: var(--site-background-color);
     width: 20%;    
     height:100vh;
+    font-size: 0.775em;
+    font-weight: lighter;
 }
 
 
@@ -107,7 +109,7 @@ div.show-container:hover {
 }
 
 
-/* Elemento de texto dentro del show-container */
+/* Elemento de texto dentro del show-container con la fecha, formato ..*/
 
 .show-box-text {
     display: block;
