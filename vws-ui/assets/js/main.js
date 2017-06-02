@@ -98,7 +98,11 @@ function onSuccessGetShows(response, showType) {
 
         for (var i = 0; i < shows.length; i++) {
             console.log("Processing show '" + shows[i]['title'] + "'")            
-            newHtml += "<div class='show-container' onmouseover='showDescription(" + '"'+ shows[i]["description"] + '"' + "," + '"' + shows[i]["sinopsis"] + '"'+ ")'>"
+            newHtml += "<div class='show-container'" + 
+                       " onmouseover='showDescription(" + '"'+ shows[i]["title"] + '"' + 
+                                                      "," + '"'+ shows[i]["description"] + '"' + 
+                                                      "," + '"' + shows[i]["sinopsis"] + '"'+ ")'" + 
+                        ">"
             // Filmaffinity Points
             if (shows[i]["filmaffinityPoints"] != null) {
                 newHtml += "<div class='show-box-text'>" + " Filmaffinity " +
@@ -147,7 +151,8 @@ function onSuccessGetShows(response, showType) {
     }
 }
 
-function showDescription (description, sinopsis){ 
+function showDescription (title, description, sinopsis){ 
+    document.getElementById("about-show-title").innerHTML = title;
     document.getElementById("about-show-description").innerHTML = description;
     document.getElementById("about-show-sinopsis").innerHTML = sinopsis;
 }
