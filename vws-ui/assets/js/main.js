@@ -17,7 +17,7 @@ var server = "http://localhost:8080";
  */
 function openShows(evt, showType) {
     var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
+    tabcontent = document.getElementsByClassName("main-content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
@@ -36,7 +36,7 @@ function openShows(evt, showType) {
         setHTMLAllTabContents("Getting video premieres async mode ...")
         doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
     } else {
-        showAlertWindow("ERROR!! 'tabcontent' not exists " + showType)
+        showAlertWindow("ERROR!! 'main-content' not exists " + showType)
     }
 }
 
@@ -97,13 +97,13 @@ function onSuccessGetShows(response, showType) {
         var shows = JSON.parse(response.responseText);
 
         for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show '" + shows[i]['title'] + "'")            
-            newHtml += "<div class='show-container'" + 
-                       " onmouseover='showDescription(" + '"'+ shows[i]["title"] + '"' + 
-                                                      "," + '"'+ shows[i]["description"] + '"' + 
-                                                      "," + '"' + shows[i]["sinopsis"] + '"'+ ")'" + 
-                        ">"
-            // Filmaffinity Points
+            console.log("Processing show '" + shows[i]['title'] + "'")
+            newHtml += "<div class='show-container'" +
+                " onmouseover='showDescription(" + '"' + shows[i]["title"] + '"' +
+                "," + '"' + shows[i]["description"] + '"' +
+                "," + '"' + shows[i]["sinopsis"] + '"' + ")'" +
+                ">"
+                // Filmaffinity Points
             if (shows[i]["filmaffinityPoints"] != null) {
                 newHtml += "<div class='show-box-text'>" + " Filmaffinity " +
                     shows[i]["filmaffinityPoints"] + "</div>";
@@ -151,7 +151,7 @@ function onSuccessGetShows(response, showType) {
     }
 }
 
-function showDescription (title, description, sinopsis){ 
+function showDescription(title, description, sinopsis) {
     document.getElementById("about-show-title").innerHTML = title;
     document.getElementById("about-show-description").innerHTML = description;
     document.getElementById("about-show-sinopsis").innerHTML = sinopsis;
@@ -159,17 +159,18 @@ function showDescription (title, description, sinopsis){
 
 function setHTMLAllTabContents(htmlFragment) {
     //console.log("setHTMLAllTabContainers:" + htmlFragment);
-    var tabcontent = document.getElementsByClassName("tabcontent");
+    var tabcontent = document.getElementsByClassName("main-content");
+    // htmlFragment = "<iframe id=\"FileFrame\" src=\"about:blank\" scrolling=\"yes\">" + htmlFragment + "</iframe>";
     for (var i = 0; i < tabcontent.length; i++) {
         tabcontent[i].innerHTML = htmlFragment;
     }
 }
 
-function setHTMLTabContentByName(tabContent, htmlFragment) {    
+function setHTMLTabContentByName(tabContent, htmlFragment) {
     document.getElementById(tabContent).innerHTML = htmlFragment;
 }
 
-    
+
 
 // ------------ Ventanas modales -----------
 function showAlertWindow(text) {

@@ -1,7 +1,10 @@
 /* Variables */
+
 :root {
-  --site-background-color: #909090;
-  --menu-background-color: #787878;
+    --site-background-color: #909090;
+    --topbar-background-color: #787878;
+    --topbar-height: 40px;
+    --button-bar-width: 90px;
 }
 
 * {
@@ -11,55 +14,87 @@
 body {
     font-family: "Lato", sans-serif;
     background-color: var(--site-background-color);
+    margin: 0;
 }
 
 
-/* Head */
+/* topbar */
 
-#head {    
-    background-color: var(--menu-background-color);
+#topbar {
+    background-color: var(--topbar-background-color);
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--topbar-height);
+    /* Full width */
+    /*
     height: 100%;
+    float: top;
     padding: 0px;
     border: 0px;
     margin: 0px;
-}
-
-
-/* Botonera */
-
-div.tab {
-    float: left;
-    border: 1px solid #ccc;    
-    background-color: var(--menu-background-color);
-    width: 12%;        
-    height:100vh;
+*/
 }
 
 
 /* Main content */
 
-.tabcontent {
-    float: left;
+.main-content {
+    /* float: left; */
+    position: fixed;
+    top: var(--topbar-height);
+    left: var(--button-bar-width);
     padding: 0px 12px;
-    border: 1px solid #ccc;
-    width: 68%;
-    border-left: none;    
-    border-right: none; 
+    border: 2px solid #fa8072;
+    width: 73%;
+    /*
+    border-left: none;
+    border-right: none;
     border-bottom: none;
-    height: auto;
+    */
+    height: 100vh;
 }
 
 
 /* Description section on right*/
 
 #about-show {
-    float: left;
-    border: none;
+    float: right;
+    border: 5px solid #ccc;
     background-color: var(--site-background-color);
-    width: 20%;    
-    height:100vh;
+    width: 20%;
+    height: 100vh;
     font-size: 0.775em;
     font-weight: lighter;
+}
+
+#about-show-title {
+    position: fixed;
+    top: 50px;
+    border: 5px solid #ccc;
+}
+
+
+/* Botonera */
+
+div.tab {
+    background-color: var(--topbar-background-color);
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    left: 0;
+    width: var(--button-bar-width);
+    top: var(--topbar-height);
+    height: 100vh;
+    /*
+    float: left;
+    border: 1px solid #ccc;
+    background-color: var(--topbar-background-color);
+    width: 12%;
+    height: 100vh;
+    */
 }
 
 
