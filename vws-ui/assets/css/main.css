@@ -1,10 +1,13 @@
-/* Variables */
+/* Vars section */
 
 :root {
     --site-background-color: #909090;
     --topbar-background-color: #787878;
     --topbar-height: 40px;
-    --button-bar-width: 90px;
+    /* Layout size*/
+    --button-bar-width: 10%;
+    --main-content-width: 75%;
+    --about-show-width: 15%;
 }
 
 * {
@@ -18,7 +21,7 @@ body {
 }
 
 
-/* topbar */
+/* -------------------------- Zone: TOP ------------------------- */
 
 #topbar {
     background-color: var(--topbar-background-color);
@@ -39,45 +42,63 @@ body {
 }
 
 
-/* Main content */
+/* -------------------------- Zone: CENTER ------------------------- */
 
 .main-content {
     /* float: left; */
     position: fixed;
     top: var(--topbar-height);
     left: var(--button-bar-width);
-    padding: 0px 12px;
+    padding: 0px 0px;
     border: 2px solid #fa8072;
-    width: 73%;
+    width: var(--main-content-width);
     /*
     border-left: none;
     border-right: none;
     border-bottom: none;
     */
     height: 100vh;
+    overflow: scroll;
 }
 
 
-/* Description section on right*/
+/* -------------------------- Zone: Right -------------------------- */
 
 #about-show {
     float: right;
     border: 5px solid #ccc;
     background-color: var(--site-background-color);
-    width: 20%;
+    width: var(--about-show-width);
     height: 100vh;
     font-size: 0.775em;
     font-weight: lighter;
 }
 
+#about-show-empty-zone {
+    float: top;
+    border: 10px solid #ccc;
+}
+
 #about-show-title {
-    position: fixed;
-    top: 50px;
-    border: 5px solid #ccc;
+    float: top;
+    border: 0px solid #ccc;
+    margin: 5px;
+}
+
+#about-show-description {
+    float: top;
+    border: 0px solid #aaa;
+    margin: 5px;
+}
+
+#about-show-sinopsis {
+    float: top;
+    border: 0px solid #aaa;
+    margin: 5px;
 }
 
 
-/* Botonera */
+/* -------------------------- Zone: Left -------------------------- */
 
 div.tab {
     background-color: var(--topbar-background-color);
@@ -130,7 +151,7 @@ div.tab button.active {
 }
 
 
-/* ------------------- Show -------------------- */
+/* ------------------------ Component: Show ------------------------- */
 
 div.show-container {
     display: inline-block;

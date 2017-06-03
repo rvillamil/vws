@@ -170,8 +170,6 @@ function setHTMLTabContentByName(tabContent, htmlFragment) {
     document.getElementById(tabContent).innerHTML = htmlFragment;
 }
 
-
-
 // ------------ Ventanas modales -----------
 function showAlertWindow(text) {
     console.log("showAlertWindow:" + text);
