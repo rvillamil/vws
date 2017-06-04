@@ -12,24 +12,25 @@
 </head>
 
 <body>
-    <div id="topbar">
+    <!-- Zone: Top -->
+    <div class="topbar">
         <p>VWS: Video websites scraper</p>
     </div>
 
-    <!-- Botonera -->
-    <div class="tab">
-        <button class="tablinks" onclick="openShows(event, 'tabcontent-billboardfilms')">Estrenos de cine</button>
-        <button class="tablinks" onclick="openShows(event, 'tabcontent-videopremieres')">Estrenos de Video</button>
-        <button class="tablinks" onclick="openShows(event, 'tabcontent-tvshows')">Series favoritas</button>
+    <!-- Zone: Left (Button zone) -->
+    <div class="menubar">
+        <button class="tablinks" onclick="openShows(event, 'billboardfilms-content')">Estrenos de cine</button>
+        <button class="tablinks" onclick="openShows(event, 'videopremieres-content')">Estrenos de Video</button>
+        <button class="tablinks" onclick="openShows(event, 'tvshows-content')">Series favoritas</button>
     </div>
 
-    <!-- Centro: Reservamos tres zonas -->
-    <div id="tabcontent-billboardfilms" class="main-content"></div>
-    <div id="tabcontent-videopremieres" class="main-content"></div>
-    <div id="tabcontent-tvshows" class="main-content"></div>
+    <!-- Zone: Center  -->
+    <div id="billboardfilms-content" class="main-content"></div>
+    <div id="videopremieres-content" class="main-content"></div>
+    <div id="tvshows-content" class="main-content"></div>
 
-    <!-- Derecha -->
-    <div id="about-show">
+    <!-- Zone: Right  -->
+    <div class="about-show">
         <div id="about-show-empty-zone">Vacio</div>
         <div id="about-show-title">Titulo</div>
         <div id="about-show-description">Descripcion</div>
