@@ -29,12 +29,17 @@ function openShows(evt, showType) {
     evt.currentTarget.className += " active";
 
     if (showType == "billboardfilms-content") {
-        setHTMLAllTabContents("Getting billboard films async mode ...")
+        setMainContent("Getting billboard films async mode ...")
         doRequest('GET', '/billboardfilms', onSuccessGetShows, showType);
 
     } else if (showType == "videopremieres-content") {
-        setHTMLAllTabContents("Getting video premieres async mode ...")
+        setMainContent("Getting video premieres async mode ...")
         doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
+    } else if (showType == "tvshows-content") {
+        document.getElementById("favorites-tvshows-content").innerHTML = "MOLA";
+        // setMainContent("Getting tvshows async mode ...")
+
+        //doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
     } else {
         showAlertWindow("ERROR!! 'main-content' not exists " + showType)
     }
@@ -69,14 +74,14 @@ function doRequest(operation, resourcePath, onSuccessCFunction, showType) {
         if (this.readyState == 4 && this.status == 200) {
             onSuccessCFunction(this, showType);
         } else if (this.readyState == 4) {
-            setHTMLAllTabContents("Ha sucedido algun problema al obtener el recurso '" + resourcePath + "'");
+            setMainContent("Ha sucedido algun problema al obtener el recurso '" + resourcePath + "'");
             showAlertWindow("doRequest: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         }
     };
 
     request.onloadstart = function() {
-        setHTMLAllTabContents("Obteniendo '" + resourcePath + "' ...");
+        setMainContent("Obteniendo '" + resourcePath + "' ...");
     }
 
     request.open(operation, server + resourcePath, true);
@@ -99,7 +104,7 @@ function onSuccessGetShows(response, showType) {
         for (var i = 0; i < shows.length; i++) {
             console.log("Processing show '" + shows[i]['title'] + "'")
             newHtml += "<div class='show-container'" +
-                " onmouseover='showDescription(" + '"' + shows[i]["title"] + '"' +
+                " onmouseover='setAboutShow(" + '"' + shows[i]["title"] + '"' +
                 "," + '"' + shows[i]["description"] + '"' +
                 "," + '"' + shows[i]["sinopsis"] + '"' + ")'" +
                 ">"
@@ -142,7 +147,7 @@ function onSuccessGetShows(response, showType) {
 
             newHtml += "</div>";
         } // End for
-        setHTMLTabContentByName(showType, newHtml);
+        document.getElementById(showType).innerHTML = newHtml;
         console.log("newHtml:" + newHtml);
     } // End try
     catch (err) {
@@ -151,48 +156,26 @@ function onSuccessGetShows(response, showType) {
     }
 }
 
-function showDescription(title, description, sinopsis) {
+/**
+ * 
+ * @param {*} title 
+ * @param {*} description 
+ * @param {*} sinopsis 
+ */
+function setAboutShow(title, description, sinopsis) {
     document.getElementById("about-show-title").innerHTML = title;
     document.getElementById("about-show-description").innerHTML = description;
     document.getElementById("about-show-sinopsis").innerHTML = sinopsis;
 }
 
-function setHTMLAllTabContents(htmlFragment) {
+/**
+ * 
+ * @param {*} htmlFragment 
+ */
+function setMainContent(htmlFragment) {
     //console.log("setHTMLAllTabContainers:" + htmlFragment);
     var tabcontent = document.getElementsByClassName("main-content");
-    // htmlFragment = "<iframe id=\"FileFrame\" src=\"about:blank\" scrolling=\"yes\">" + htmlFragment + "</iframe>";
     for (var i = 0; i < tabcontent.length; i++) {
         tabcontent[i].innerHTML = htmlFragment;
-    }
-}
-
-function setHTMLTabContentByName(tabContent, htmlFragment) {
-    document.getElementById(tabContent).innerHTML = htmlFragment;
-}
-
-// ------------ Ventanas modales -----------
-function showAlertWindow(text) {
-    console.log("showAlertWindow:" + text);
-    alert(text);
-}
-
-function showModalWindow(text) {
-    // Get the modal
-    var modal = document.getElementById('modalWindow');
-    modal.style.display = "block";
-    document.getElementById('modal-text').innerHTML = text;
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
     }
 }

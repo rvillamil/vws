@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="assets/css/modal.css">
-
+    <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/modal.js"></script>
+
     <title>VWS: Video websites scraper</title>
 </head>
 
@@ -27,7 +30,16 @@
     <!-- Zone: Center  -->
     <div id="billboardfilms-content" class="main-content"></div>
     <div id="videopremieres-content" class="main-content"></div>
-    <div id="tvshows-content" class="main-content"></div>
+    <div id="tvshows-content" class="main-content">
+        <form class="form-tvshows">
+            Seguir serie
+            <input type="text" name="follow-tvshow" class="rounded-element">
+            <input type="submit" value="seguir">
+        </form>
+        <div id="favorites-tvshows-content">
+        </div>
+
+    </div>
 
     <!-- Zone: Right  -->
     <div class="about-show">
@@ -37,7 +49,7 @@
         <div id="about-show-sinopsis">Sinopsis</div>
     </div>
 
-    <!-- The Modal Window -->
+    <!-- Modal Window -->
     <div id="modalWindow" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
@@ -45,6 +57,8 @@
             <div id="modal-text">Default Text</div>
         </div>
     </div>
+
+
 
 </body>
 

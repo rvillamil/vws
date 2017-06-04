@@ -5,6 +5,7 @@
     --topbar-background-color: #333;
     --topbar-height: 50px;
     --about-show-text-color: rgb(208, 208, 208);
+    --menubar-button-text-color: rgb(184, 188, 191);
     /* Layout size*/
     --button-bar-width: 10%;
     --main-content-width: 75%;
@@ -63,7 +64,7 @@ div.menubar {
 div.menubar button {
     display: block;
     background-color: inherit;
-    color: rgb(184, 188, 191);
+    color: var(--menubar-button-text-color);
     padding: 22px 15px;
     width: 100%;
     border: none;
@@ -217,4 +218,33 @@ div.show-container:hover {
 
 .show-box-img:hover .tooltiptext {
     visibility: visible;
+}
+
+
+/* ---------- Component: tvshow search form --------------- */
+
+.form-tvshows {
+    display: inline-block;
+    background: var(--topbar-background-color);
+    border-radius: 1em;
+    border: none;
+    margin: 1em;
+    padding: 0.2em;
+    color: var(--menubar-button-text-color);
+    font-size: 1em;
+    padding-left: 1.5em;
+    box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px hsl(0, 0%, 2%)
+}
+
+.rounded-element {
+    background: #1A1A1A;
+    border-radius: 2em;
+    border: none;
+    margin: 2em;
+    padding: 0.8em;
+    color: #A2A2A2;
+    font-size: 1.1em;
+    padding-left: 1.5em;
+    outline: none;
+    box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px hsl(0, 0%, 2%)
 }
