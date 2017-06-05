@@ -97,7 +97,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 		}
 
 		Set<Show> showsHD = this.parseShows( "/peliculas-x264-mkv",
-				maxSize/2,
+														maxSize/2,
 				"pelilist");
 		Set<Show> shows = this.parseShows( "/peliculas",
 				overMaxSize,
@@ -114,16 +114,16 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	@Override
 	public Set<Show> parseTVShow(final String tvShowPath, final int maxSize) {
 
-		return this.parseShows(  tvShowPath,
-				maxSize,
-				"buscar-list");
+		return this.parseShows(  "/series-hd/" + tvShowPath,
+								 maxSize,
+								"buscar-list");
 	}
 
 
 	// ----------------------- Metodos privados -------------------------------
-	private Set<Show> parseShows ( final String 				urlPath,
-			final int 				  	maxSize,
-			final String 			  	classListName ) {
+	private Set<Show> parseShows ( final String 	urlPath,
+			final int 		maxSize,
+			final String 	classListName ) {
 
 		LOGGER.info("parsing shows from {}. The max size from show list is {}", urlPath, maxSize);
 		final Set<Show> shows 	= new LinkedHashSet<>();

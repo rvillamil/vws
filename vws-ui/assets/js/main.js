@@ -103,57 +103,68 @@ function onSuccessGetShows(response, showType) {
 
         for (var i = 0; i < shows.length; i++) {
             console.log("Processing show '" + shows[i]['title'] + "'")
-            newHtml += "<div class='show-container'" +
-                " onmouseover='setAboutShow(" + '"' + shows[i]["title"] + '"' +
-                "," + '"' + shows[i]["description"] + '"' +
-                "," + '"' + shows[i]["sinopsis"] + '"' + ")'" +
-                ">"
-                // Filmaffinity Points
-            if (shows[i]["filmaffinityPoints"] != null) {
-                newHtml += "<div class='show-box-text'>" + " Filmaffinity " +
-                    shows[i]["filmaffinityPoints"] + "</div>";
-            }
-            // Cover            
-            newHtml += "<div class='show-box-img'>"
-            newHtml += "<a href='" + shows[i]["urltodownload"] + "'>";
-            newHtml += "<img src='" + shows[i]["urlwithCover"] + "'" +
-                " alt='cover' " + "/>";
-            newHtml += "</a>";
-            newHtml += "<span class='tooltiptext'>" + shows[i]["title"] +
-                "</span>";
-            newHtml += "</div>";
-
-            // Title
-            newHtml += "<div class='show-box-title'>" + shows[i]["title"] +
-                "</div>";
-            // console.log ("session:'" + shows[i]["session"] + "'");
-            // Session and Episode
-            if (shows[i]["session"] != null) {
-                newHtml += "<div class='show-box-text'>" + "Temporada " +
-                    shows[i]["session"] + "-" + "Episodio " +
-                    shows[i]["episode"] + "</div>";
-            }
-            // Quality
-            var quality = shows[i]["quality"];
-            //console.log ("Quality:'" + quality + "'");
-            if (quality == null) {
-                quality = "Undetermined";
-            }
-            newHtml += "<div class='show-box-text'>" + quality + "</div>";
-
-            // Releasedate and filesize
-            newHtml += "<div class='show-box-text'>" + shows[i]["releaseDate"] +
-                " - " + shows[i]["fileSize"] + "</div>";
-
-            newHtml += "</div>";
+            newHtml += newHTMLShow(shows[i]);
         } // End for
         document.getElementById(showType).innerHTML = newHtml;
-        console.log("newHtml:" + newHtml);
+        //console.log("newHtml:" + newHtml);
     } // End try
     catch (err) {
         showAlertWindow("onSuccess method error: " + err.message + " in " + response.responseText);
         return;
     }
+}
+
+/**
+ * 
+ * @param {*} jsonShow 
+ */
+function newHTMLShow(jsonShow) {
+    var newHtml = "";
+    newHtml += "<div class='show-container'" +
+        " onmouseover='setAboutShow(" + '"' + jsonShow["title"] + '"' +
+        "," + '"' + jsonShow["description"] + '"' +
+        "," + '"' + jsonShow["sinopsis"] + '"' + ")'" +
+        ">"
+        // Filmaffinity Points
+    if (jsonShow["filmaffinityPoints"] != null) {
+        newHtml += "<div class='show-box-text'>" + " Filmaffinity " +
+            jsonShow["filmaffinityPoints"] + "</div>";
+    }
+    // Cover            
+    newHtml += "<div class='show-box-img'>"
+    newHtml += "<a href='" + jsonShow["urltodownload"] + "'>";
+    newHtml += "<img src='" + jsonShow["urlwithCover"] + "'" +
+        " alt='cover' " + "/>";
+    newHtml += "</a>";
+    newHtml += "<span class='tooltiptext'>" + jsonShow["title"] +
+        "</span>";
+    newHtml += "</div>";
+
+    // Title
+    newHtml += "<div class='show-box-title'>" + jsonShow["title"] +
+        "</div>";
+    // console.log ("session:'" + jsonShow["session"] + "'");
+    // Session and Episode
+    if (jsonShow["session"] != null) {
+        newHtml += "<div class='show-box-text'>" + "Temporada " +
+            jsonShow["session"] + "-" + "Episodio " +
+            jsonShow["episode"] + "</div>";
+    }
+    // Quality
+    var quality = jsonShow["quality"];
+    //console.log ("Quality:'" + quality + "'");
+    if (quality == null) {
+        quality = "Undetermined";
+    }
+    newHtml += "<div class='show-box-text'>" + quality + "</div>";
+
+    // Releasedate and filesize
+    newHtml += "<div class='show-box-text'>" + jsonShow["releaseDate"] +
+        " - " + jsonShow["fileSize"] + "</div>";
+
+    newHtml += "</div>";
+
+    return newHtml;
 }
 
 /**

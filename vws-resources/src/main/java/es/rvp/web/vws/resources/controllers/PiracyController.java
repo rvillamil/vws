@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.rvp.web.vws.domain.Show;
@@ -37,7 +39,7 @@ public class PiracyController {
 	      docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
 	    }
 	  }
-   */
+	 */
 	// TODO 03: Revisar la configuracion de spring boot y la carga de properties
 	// - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 	// - http://www.baeldung.com/spring-boot-application-configuration
@@ -78,7 +80,8 @@ public class PiracyController {
 	 *
 	 * @return JSon object, with the billboard films in the torrent portal [0, maxBillboardFilms]
 	 */
-	@RequestMapping("/billboardfilms")
+	@RequestMapping(value="/billboardfilms",
+					method=RequestMethod.GET)
 	public Set<Show> parseBillBoardFilms() {
 		LOGGER.info("Getting billboard films ...");
 		return this.webTorrentSpider.parseBillboardFilms(this.maxBillboardFilms);
@@ -89,7 +92,8 @@ public class PiracyController {
 	 *
 	 * @return JSon object, with the video premieres in the torrent portal [0, maxSize]
 	 */
-	@RequestMapping("/videopremieres")
+	@RequestMapping(value="/videopremieres",
+					method=RequestMethod.GET)
 	public Set<Show> parseVideoPremieres() {
 		LOGGER.info("Getting video premieres ...");
 		return this.webTorrentSpider.parseVideoPremieres(this.maxVideoPremieres);
@@ -99,22 +103,24 @@ public class PiracyController {
 	 * Parse one TV show from torrent portal, to get the last tv shows from the session
 	 *
 	 * @param  tvShowPath the relative path in the torrent portal where the tv show is located
-	 * 	 	   e.g: /series-hd/modern-family
-	 * 				(Full url will be http://tumejortorrent.com/series-hd/modern-family)
+	 * 	 	   e.g: 'modern-family' from http://tumejortorrent.com/series-hd/modern-family)
 	 *
 	 * @return JSon object, with last episodes from TV show between '0 and maxTVshows'
 	 */
-	public Set<Show> parseTVShow(final String tvShowPath) {
-		LOGGER.info("Getting tv shows ...");
-		return this.webTorrentSpider.parseTVShow(tvShowPath, this.maxTVshows);
+	@RequestMapping(value="/tvshows/{name}",
+					method=RequestMethod.GET)
+	public Set<Show> parseTVShow(@PathVariable("name") final String tvShowName) {
+		LOGGER.info("Getting the tv show '{}'", tvShowName);
+		return this.webTorrentSpider.parseTVShow(tvShowName, this.maxTVshows);
 	}
 
 	/**
 	 * @return One text if this web site is available
 	 */
-	@RequestMapping("/")
+	@RequestMapping(value="/",
+					method=RequestMethod.GET)
 	String hello() {
-		LOGGER.info("Application started !!");
+		LOGGER.info("VWS application started !!");
 		return "Video websites scaper (VWS) is available!";
 	}
 }

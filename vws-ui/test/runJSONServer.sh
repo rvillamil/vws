@@ -1,2 +1,2 @@
 # Install: npm install -g json-server
- json-server -p 8080 billboardfilms.json
+ json-server -p 8080 shows.json 

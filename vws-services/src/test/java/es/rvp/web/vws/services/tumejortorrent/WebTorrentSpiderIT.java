@@ -126,7 +126,7 @@ public class WebTorrentSpiderIT {
 	public void whenParseModernFamilyThenGetTheLastThreeEpisodes() {
 		// Given
 		// When
-		final Set<Show> shows = this.webTorrentSpider.parseTVShow("/series-hd/modern-family", 3);
+		final Set<Show> shows = this.webTorrentSpider.parseTVShow("modern-family", 3);
 		// Then
 		assertNotNull 	( shows );
 		assertEquals 	( shows.size(), 3);
