@@ -36,13 +36,19 @@ function openShows(evt, showType) {
         setMainContent("Getting video premieres async mode ...")
         doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
     } else if (showType == "tvshows-content") {
-        document.getElementById("favorites-tvshows-content").innerHTML = "MOLA";
+        //document.getElementById("favorites-tvshows-content").innerHTML = "MOLA";
         // setMainContent("Getting tvshows async mode ...")
+        //doRequest('POST', '/tvshows', onSuccessGetShows, showType);
 
         //doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
     } else {
         showAlertWindow("ERROR!! 'main-content' not exists " + showType)
     }
+}
+
+function getTVShow() {
+    resourcePath = '/tvshows';
+    doRequest('GET', resourcePath, onSuccessGetShows, showType);
 }
 
 /**

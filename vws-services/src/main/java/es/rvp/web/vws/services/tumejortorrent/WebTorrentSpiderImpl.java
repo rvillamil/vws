@@ -176,6 +176,9 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 			}
 		}
 
+		LOGGER.info("parseShows - Return {} shows", shows.size());
+
+
 		return shows;
 	}
 }

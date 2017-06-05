@@ -31,9 +31,9 @@
     <div id="billboardfilms-content" class="main-content"></div>
     <div id="videopremieres-content" class="main-content"></div>
     <div id="tvshows-content" class="main-content">
-        <form class="form-tvshows">
+        <form class="form-tvshows" onsubmit="getTVShow()" action="/tvshows">
             Seguir serie
-            <input type="text" name="follow-tvshow" class="rounded-element">
+            <input type="text" name="name" class="rounded-element">
             <input type="submit" value="seguir">
         </form>
         <div id="favorites-tvshows-content">
