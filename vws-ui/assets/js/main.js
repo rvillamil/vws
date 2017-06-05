@@ -10,12 +10,13 @@
 var server = "http://localhost:8080";
 
 /**
- * Replace de tabcontent with name 'showType' with HTML show list
+ * Replace de tabcontent with name 'htmlElementID' with HTML show list
  *
- * @param evt : 
- * @param showType: tabcontent_billboardfilms, tabcontent_videopremieres,..
+ * @param evt : MouseEvent
+ * @param htmlElementID: billboardfilms-content, videopremieres-content,... HTML element to replace
  */
-function openShows(evt, showType) {
+function getShows(evt, htmlElementID) {
+    console.log("getShows with event: " + event + " for replacing html element: " + htmlElementID);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("main-content");
     for (i = 0; i < tabcontent.length; i++) {
@@ -25,31 +26,27 @@ function openShows(evt, showType) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(showType).style.display = "block";
+    document.getElementById(htmlElementID).style.display = "block";
     evt.currentTarget.className += " active";
 
-    if (showType == "billboardfilms-content") {
+    if (htmlElementID == "billboardfilms-content") {
         setMainContent("Getting billboard films async mode ...")
-        doRequest('GET', '/billboardfilms', onSuccessGetShows, showType);
+        doRequest('GET', '/billboardfilms', newHTMLShowList, htmlElementID);
 
-    } else if (showType == "videopremieres-content") {
+    } else if (htmlElementID == "videopremieres-content") {
         setMainContent("Getting video premieres async mode ...")
-        doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
-    } else if (showType == "tvshows-content") {
+        doRequest('GET', '/videopremieres', newHTMLShowList, htmlElementID);
+    } else if (htmlElementID == "tvshows-content") {
         //document.getElementById("favorites-tvshows-content").innerHTML = "MOLA";
         // setMainContent("Getting tvshows async mode ...")
-        //doRequest('POST', '/tvshows', onSuccessGetShows, showType);
+        //doRequest('POST', '/tvshows', onSuccessGetShows, htmlElementID);
 
-        //doRequest('GET', '/videopremieres', onSuccessGetShows, showType);
+        //doRequest('GET', '/videopremieres', onSuccessGetShows, htmlElementID);
     } else {
-        showAlertWindow("ERROR!! 'main-content' not exists " + showType)
+        showAlertWindow("ERROR!! 'main-content' not exists " + htmlElementID)
     }
 }
 
-function getTVShow() {
-    resourcePath = '/tvshows';
-    doRequest('GET', resourcePath, onSuccessGetShows, showType);
-}
 
 /**
  * Make a request aginst AWS shows API
@@ -57,9 +54,12 @@ function getTVShow() {
  * @param operation: HTTP method. (e.g. GET, POST..)
  * @param resourcePath: Resource path (e.g. /billboardfilms)
  * @param onSuccessCFunction: on success request, callback function
- * @param showType: tabcontent_billboardfilms, tabcontent_videopremieres,..
+ * @param htmlElementID: billboardfilms-content, videopremieres-content,... The HTML ID element to replace
  */
-function doRequest(operation, resourcePath, onSuccessCFunction, showType) {
+function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID) {
+    console.log("doRequest to: " + resourcePath + " ( Method: " + operation + " )" +
+        " the result replace the html element: " + htmlElementID);
+
     var request = new XMLHttpRequest();
     // onreadystatechange: Defines a function to be called when the readyState
     // property changes
@@ -78,7 +78,7 @@ function doRequest(operation, resourcePath, onSuccessCFunction, showType) {
         // - "OK", "not Found" ..Returns the status-text
         //console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
         if (this.readyState == 4 && this.status == 200) {
-            onSuccessCFunction(this, showType);
+            document.getElementById(htmlElementID).innerHTML = onSuccessCFunction(this);
         } else if (this.readyState == 4) {
             setMainContent("Ha sucedido algun problema al obtener el recurso '" + resourcePath + "'");
             showAlertWindow("doRequest: [readyState: " +
@@ -94,35 +94,37 @@ function doRequest(operation, resourcePath, onSuccessCFunction, showType) {
     request.send();
 }
 
-/**
- * On request success event, then create new show list in the 'show-container'
- * div tag
- *
- * @param response: JSON with the show list
- * @param showType: tabcontent_billboardfilms, tabcontent_videopremieres or tabcontent_tvshows
- * @returns nothing
- */
-function onSuccessGetShows(response, showType) {
-    try {
-        var newHtml = "";
-        var shows = JSON.parse(response.responseText);
 
-        for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show '" + shows[i]['title'] + "'")
-            newHtml += newHTMLShow(shows[i]);
-        } // End for
-        document.getElementById(showType).innerHTML = newHtml;
-        //console.log("newHtml:" + newHtml);
-    } // End try
-    catch (err) {
-        showAlertWindow("onSuccess method error: " + err.message + " in " + response.responseText);
-        return;
-    }
+function getTVShow() {
+    resourcePath = '/tvshows';
+    doRequest('GET', resourcePath, newHTMLShowList, "tvshows-content");
 }
 
 /**
- * 
- * @param {*} jsonShow 
+ * Create HTML text with show list
+ * @param response: String with JSON format with the show list
+ * @returns html text with shows
+ */
+function newHTMLShowList(response) {
+    try {
+        var newHtml = "";
+        var shows = JSON.parse(response.responseText);
+        for (var i = 0; i < shows.length; i++) {
+            console.log("Processing show '" + shows[i]['title'] + "'")
+            newHtml += newHTMLShow(shows[i]);
+        }
+        // console.log("onSuccessGetShows - newHtml:" + newHtml);
+    } catch (err) {
+        showAlertWindow("onSuccess method error: " + err.message + " in " + response.responseText);
+        return;
+    }
+    return newHtml;
+}
+
+/**
+ * Create HTML text with show
+ * @param jsonShow: JSON Object, with the show
+ * @return html text with the show
  */
 function newHTMLShow(jsonShow) {
     var newHtml = "";
