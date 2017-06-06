@@ -3,6 +3,7 @@
 :root {
     --site-background-color: rgb(79, 80, 82);
     --topbar-background-color: #333;
+    --topbar-text-color: rgb(246, 189, 4);
     --topbar-height: 50px;
     --about-show-text-color: rgb(208, 208, 208);
     --menubar-button-text-color: rgb(184, 188, 191);
@@ -22,6 +23,30 @@ body {
     margin: 0;
 }
 
+a:link {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: pink;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--topbar-text-color);
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
 
 /* -------------------------- Zone: Top ------------------------- */
 
@@ -39,7 +64,7 @@ div.topbar {
 }
 
 div.topbar p {
-    color: rgb(246, 189, 4);
+    color: var(--topbar-text-color);
     padding: 0px;
     border: 0px;
     margin: 15px;
@@ -86,7 +111,7 @@ div.menubar button:hover {
 /* Create an active/current "tab button" class */
 
 div.menubar button.active {
-    color: rgb(246, 189, 4);
+    color: var(--topbar-text-color);
 }
 
 
@@ -154,14 +179,14 @@ div.about-show {
 
 /* ------------------------ Component: Show ------------------------- */
 
-div.show-container {
+.show-container {
     display: inline-block;
     margin: 5px;
     border: 1px solid #ccc;
     width: 140px;
 }
 
-div.show-container:hover {
+.show-container:hover {
     border: 1px solid #fa8072;
 }
 
@@ -182,6 +207,19 @@ div.show-container:hover {
 /* Titulo del show con Tooltip y recortado por puntos */
 
 .show-box-title {
+    width: auto;
+    margin: 1px;
+    padding: 1px;
+    border: 1px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.875em;
+    font-weight: bold;
+}
+
+.show-box-session {
     width: auto;
     margin: 1px;
     padding: 1px;
@@ -218,6 +256,20 @@ div.show-container:hover {
 
 .show-box-img:hover .tooltiptext {
     visibility: visible;
+}
+
+.showtv-episodes-container {
+    text-align: center;
+    margin: 1px;
+    border: 0px solid #ccc;
+    width: auto;
+}
+
+.showtv-episodes-container p {
+    margin: 2px;
+    border: 0px solid #ccc;
+    padding: 0px;
+    font-size: 0.875em;
 }
 
 

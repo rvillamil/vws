@@ -97,7 +97,33 @@ function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID) {
 
 function getTVShow() {
     resourcePath = '/tvshows';
-    doRequest('GET', resourcePath, newHTMLShowList, "tvshows-content");
+    doRequest('GET', resourcePath, newHTMLTVShow, "tvshows-content");
+}
+
+/**
+ * Create HTML text with TV show
+ * @param response: String with JSON format with the tvshow list
+ * @returns html text with TV show
+ */
+function newHTMLTVShow(response) {
+    try {
+        var shows = JSON.parse(response.responseText);
+        var newHTML = " <div class='showtv-episodes-container'>";
+        for (var i = 0; i < shows.length; i++) {
+            console.log("Processing TV show '" + shows[i]['title'] + " T-" +
+                shows[i]['session'] + " E-" + shows[i]['episode'] + "'");
+            newHTML += "<a href='" + shows[i]["urltodownload"] + "'>";
+            newHTML += "<p>Episodio " + shows[i]['episode'] + "</p>";
+            newHTML += "</a>";
+        }
+        newHTML += "</div>";
+        newHTML = newHTMLShow(shows[0], newHTML);
+        // console.log("newHTMLTVShow - newHTML:" + newHTML);
+    } catch (err) {
+        showAlertWindow("newHTMLTVShow method error: " + err.message + " in " + response.responseText);
+        return;
+    }
+    return newHTML;
 }
 
 /**
@@ -107,26 +133,28 @@ function getTVShow() {
  */
 function newHTMLShowList(response) {
     try {
-        var newHtml = "";
+        var newHTML = "";
         var shows = JSON.parse(response.responseText);
         for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show '" + shows[i]['title'] + "'")
-            newHtml += newHTMLShow(shows[i]);
+            console.log("Processing show '" + shows[i]['title'] + "'");
+            newHTML += newHTMLShow(shows[i], null);
         }
-        // console.log("onSuccessGetShows - newHtml:" + newHtml);
+        // console.log("newHTMLShowList - newHTML:" + newHTML);
     } catch (err) {
-        showAlertWindow("onSuccess method error: " + err.message + " in " + response.responseText);
+        showAlertWindow("newHTMLShowList method error: " + err.message + " in " + response.responseText);
         return;
     }
-    return newHtml;
+    return newHTML;
 }
 
 /**
  * Create HTML text with show
+ * 
  * @param jsonShow: JSON Object, with the show
+ * @param htmlWithEpisodes: HTML text with episodes or null show is not a TV Show
  * @return html text with the show
  */
-function newHTMLShow(jsonShow) {
+function newHTMLShow(jsonShow, htmlWithEpisodes) {
     var newHtml = "";
     newHtml += "<div class='show-container'" +
         " onmouseover='setAboutShow(" + '"' + jsonShow["title"] + '"' +
@@ -151,12 +179,11 @@ function newHTMLShow(jsonShow) {
     // Title
     newHtml += "<div class='show-box-title'>" + jsonShow["title"] +
         "</div>";
-    // console.log ("session:'" + jsonShow["session"] + "'");
-    // Session and Episode
+
+    // Session
     if (jsonShow["session"] != null) {
-        newHtml += "<div class='show-box-text'>" + "Temporada " +
-            jsonShow["session"] + "-" + "Episodio " +
-            jsonShow["episode"] + "</div>";
+        newHtml += "<div class='show-box-session'>" + "Temporada " +
+            jsonShow["session"] + "</div>";
     }
     // Quality
     var quality = jsonShow["quality"];
@@ -170,6 +197,10 @@ function newHTMLShow(jsonShow) {
     newHtml += "<div class='show-box-text'>" + jsonShow["releaseDate"] +
         " - " + jsonShow["fileSize"] + "</div>";
 
+    // Add html with episode list
+    if (htmlWithEpisodes != null) {
+        newHtml += htmlWithEpisodes;
+    }
     newHtml += "</div>";
 
     return newHtml;
