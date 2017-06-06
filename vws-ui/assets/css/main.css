@@ -275,7 +275,7 @@ div.about-show {
 
 /* ---------- Component: tvshow search form --------------- */
 
-.form-tvshows {
+.form-shows {
     display: inline-block;
     background: var(--topbar-background-color);
     border-radius: 1em;

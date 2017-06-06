@@ -94,10 +94,21 @@ function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID) {
     request.send();
 }
 
-
-function getTVShow() {
-    resourcePath = '/tvshows';
-    doRequest('GET', resourcePath, newHTMLTVShow, "tvshows-content");
+/**
+ * Request to get tvshow from a 'Form' called 'form-tvshows-name'
+ * @param event: form event 
+ */
+function doRequestTVShow(event) {
+    // to stop the form from submitting
+    if (event.preventDefault) {
+        event.preventDefault();
+    }
+    // The value of input text
+    var value = document.getElementById("form-tvshows-name").value;
+    // Run request ..
+    doRequest('GET', "/tvshows?name=" + value, newHTMLTVShow, "tvshows-content");
+    // You must return false to prevent the default form behavior
+    return false;
 }
 
 /**
@@ -117,7 +128,9 @@ function newHTMLTVShow(response) {
             newHTML += "</a>";
         }
         newHTML += "</div>";
-        newHTML = newHTMLShow(shows[0], newHTML);
+        if (shows.length > 0) {
+            newHTML = newHTMLShow(shows[0], newHTML);
+        }
         // console.log("newHTMLTVShow - newHTML:" + newHTML);
     } catch (err) {
         showAlertWindow("newHTMLTVShow method error: " + err.message + " in " + response.responseText);
