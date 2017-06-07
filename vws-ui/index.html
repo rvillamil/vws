@@ -31,17 +31,14 @@
     <div id="billboardfilms-content" class="main-content"></div>
     <div id="videopremieres-content" class="main-content"></div>
     <div id="tvshows-content" class="main-content">
-        <form id="form-follow-tvshow" class="form-shows">
-            Seguir serie
-            <input id="form-tvshows-name" type="text" name="name" class="rounded-element">
-            <input type="submit" value="seguir">
-        </form>
-        <!-- Script here mandatory -->
-        <script>
-            document.getElementById("form-follow-tvshow").addEventListener("submit", doRequestTVShow);
-        </script>
-
-        <div id="favorites-tvshows-content"></div>
+        <div id="box-with-form-tvshows-follow">
+            <form id="form-tvshows-follow" class="form-shows">
+                Seguir serie
+                <input id="form-tvshows-name" type="text" name="name" class="rounded-element">
+                <input type="submit" value="seguir">
+            </form>
+        </div>
+        <div id="box-with-tvshows-follow"></div>
     </div>
 
     <!-- Zone: Right  -->
@@ -61,7 +58,10 @@
         </div>
     </div>
 
-
+    <!-- This script here mandatory -->
+    <script>
+        document.getElementById("form-tvshows-follow").addEventListener("submit", sendTVShowFollowForm);
+    </script>
 
 </body>
 

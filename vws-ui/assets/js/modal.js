@@ -27,4 +27,5 @@ function showModalWindow(text) {
             modal.style.display = "none";
         }
     }
+    return modal;
 }

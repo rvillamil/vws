@@ -7,6 +7,8 @@
     --topbar-height: 50px;
     --about-show-text-color: rgb(208, 208, 208);
     --menubar-button-text-color: rgb(184, 188, 191);
+    --menubar-font-size: 0.80em;
+    --form-shows-background-color: rgb(59, 80, 82);
     /* Layout size*/
     --button-bar-width: 10%;
     --main-content-width: 75%;
@@ -97,7 +99,7 @@ div.menubar button {
     text-align: left;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 0.80em;
+    font-size: var(--menubar-font-size);
 }
 
 
@@ -129,9 +131,8 @@ div.menubar button.active {
     /*
     border-left: none;
     border-right: none;
-    border-bottom: none;
     */
-    height: 100vh;
+    height: 90vh;
     overflow: scroll;
 }
 
@@ -200,7 +201,6 @@ div.about-show {
     border: 1px;
     text-align: center;
     font-size: 0.675em;
-    font-weight: lighter;
 }
 
 
@@ -230,6 +230,18 @@ div.about-show {
     overflow: hidden;
     font-size: 0.875em;
     font-weight: bold;
+}
+
+.show-box-quality {
+    display: block;
+    margin: 1px;
+    padding: 1px;
+    border: 1px;
+    text-align: center;
+    font-size: 0.675em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 
@@ -277,26 +289,27 @@ div.about-show {
 
 .form-shows {
     display: inline-block;
-    background: var(--topbar-background-color);
-    border-radius: 1em;
-    border: none;
-    margin: 1em;
+    background: rgb(59, 80, 82);
+    border-radius: 0em;
+    margin: 0.2em;
     padding: 0.2em;
     color: var(--menubar-button-text-color);
-    font-size: 1em;
+    font-size: var(--menubar-font-size);
     padding-left: 1.5em;
-    box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px hsl(0, 0%, 2%)
 }
 
 .rounded-element {
     background: #1A1A1A;
-    border-radius: 2em;
+    border-radius: 1em;
     border: none;
-    margin: 2em;
+    margin: 0.2em;
     padding: 0.8em;
     color: #A2A2A2;
     font-size: 1.1em;
     padding-left: 1.5em;
     outline: none;
-    box-shadow: 0 4px 6px -5px hsl(0, 0%, 40%), inset 0px 4px 6px -5px hsl(0, 0%, 2%)
+}
+
+#box-with-form-tvshows-follow {
+    background: var(--form-shows-background-color);
 }

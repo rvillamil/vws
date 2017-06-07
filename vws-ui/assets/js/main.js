@@ -30,23 +30,15 @@ function getShows(evt, htmlElementID) {
     evt.currentTarget.className += " active";
 
     if (htmlElementID == "billboardfilms-content") {
-        setMainContent("Getting billboard films async mode ...")
-        doRequest('GET', '/billboardfilms', newHTMLShowList, htmlElementID);
-
+        doRequest('GET', '/billboardfilms', newHTMLShowList, htmlElementID, false);
     } else if (htmlElementID == "videopremieres-content") {
-        setMainContent("Getting video premieres async mode ...")
-        doRequest('GET', '/videopremieres', newHTMLShowList, htmlElementID);
+        doRequest('GET', '/videopremieres', newHTMLShowList, htmlElementID, false);
     } else if (htmlElementID == "tvshows-content") {
-        //document.getElementById("favorites-tvshows-content").innerHTML = "MOLA";
-        // setMainContent("Getting tvshows async mode ...")
-        //doRequest('POST', '/tvshows', onSuccessGetShows, htmlElementID);
-
-        //doRequest('GET', '/videopremieres', onSuccessGetShows, htmlElementID);
+        doRequest('GET', '/favorites', newHTMLFavoritesTVShowList, "box-with-tvshows-follow", false)
     } else {
         showAlertWindow("ERROR!! 'main-content' not exists " + htmlElementID)
     }
 }
-
 
 /**
  * Make a request aginst AWS shows API
@@ -55,40 +47,35 @@ function getShows(evt, htmlElementID) {
  * @param resourcePath: Resource path (e.g. /billboardfilms)
  * @param onSuccessCFunction: on success request, callback function
  * @param htmlElementID: billboardfilms-content, videopremieres-content,... The HTML ID element to replace
+ * @param addContent: true for add content to htmlElementID. Otherwise, replace the content
  */
-function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID) {
+function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID, addContent) {
     console.log("doRequest to: " + resourcePath + " ( Method: " + operation + " )" +
-        " the result replace the html element: " + htmlElementID);
-
+        " the result replace the html element: " + htmlElementID + " (addcontent=" + addContent + ")");
+    var modal = null;
     var request = new XMLHttpRequest();
-    // onreadystatechange: Defines a function to be called when the readyState
-    // property changes
+    // onreadystatechange: Defines a function to be called when the readyState property changes
     request.onreadystatechange = function() {
-        // readyState:
-        // - 0: request not initialized
-        // - 1: server connection established
-        // - 2: request received
-        // - 3: processing request
-        // - 4: request finished and response is ready
-        //
-        // status:
-        // - 200 : OK ... https://www.w3schools.com/tags/ref_httpmessages.asp
-        //
-        // statusText:
-        // - "OK", "not Found" ..Returns the status-text
-        //console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
+        // console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
         if (this.readyState == 4 && this.status == 200) {
-            document.getElementById(htmlElementID).innerHTML = onSuccessCFunction(this);
+            if (addContent == true) {
+                document.getElementById(htmlElementID).innerHTML += onSuccessCFunction(this);
+            } else  {
+                document.getElementById(htmlElementID).innerHTML = onSuccessCFunction(this);
+            }
         } else if (this.readyState == 4) {
-            setMainContent("Ha sucedido algun problema al obtener el recurso '" + resourcePath + "'");
-            showAlertWindow("doRequest: [readyState: " +
+            showAlertWindow("Request problem! - doRequest: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         }
     };
 
     request.onloadstart = function() {
-        setMainContent("Obteniendo '" + resourcePath + "' ...");
-    }
+        modal = showModalWindow("doRequest to: " + resourcePath);
+    };
+
+    request.onloadend = function() {
+        modal.style.display = "none";
+    };
 
     request.open(operation, server + resourcePath, true);
     request.send();
@@ -98,7 +85,8 @@ function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID) {
  * Request to get tvshow from a 'Form' called 'form-tvshows-name'
  * @param event: form event 
  */
-function doRequestTVShow(event) {
+function sendTVShowFollowForm(event) {
+    //console.log("sendTVShowFollowForm...");
     // to stop the form from submitting
     if (event.preventDefault) {
         event.preventDefault();
@@ -106,9 +94,52 @@ function doRequestTVShow(event) {
     // The value of input text
     var value = document.getElementById("form-tvshows-name").value;
     // Run request ..
-    doRequest('GET', "/tvshows?name=" + value, newHTMLTVShow, "tvshows-content");
+    doRequest('GET', "/tvshows?name=" + name, newHTMLTVShow, "box-with-tvshows-follow", true);
     // You must return false to prevent the default form behavior
     return false;
+}
+
+
+/**
+ * Create HTML text with show list
+ * @param response: String with JSON format with the show list
+ * @returns html text with shows
+ */
+function newHTMLShowList(response) {
+    try {
+        var newHTML = "";
+        var shows = JSON.parse(response.responseText);
+        for (var i = 0; i < shows.length; i++) {
+            console.log("Processing show '" + shows[i]['title'] + "'");
+            newHTML += newHTMLShow(shows[i], null);
+        }
+        // console.log("newHTMLShowList - newHTML:" + newHTML);
+    } catch (err) {
+        showAlertWindow("newHTMLShowList method error: " + err.message + " in " + response.responseText);
+        return;
+    }
+    return newHTML;
+}
+
+/**
+ * 
+ * @param response:
+ */
+function newHTMLFavoritesTVShowList(response) {
+    try {
+        var newHTML = "";
+        var shows = JSON.parse(response.responseText);
+        for (var i = 0; i < shows.length; i++) {
+            console.log("Processing favorite TV show '" + shows[i]['title'] + "'");
+            //newHTML += newHTMLShow(shows[i], null);
+            doRequest('GET', "/tvshows?name=" + shows[i]['title'], newHTMLTVShow, "box-with-tvshows-follow", true);
+        }
+        // console.log("newHTMLShowList - newHTML:" + newHTML);
+    } catch (err) {
+        showAlertWindow("newHTMLFavoritesTVShowList method error: " + err.message + " in " + response.responseText);
+        return;
+    }
+    return newHTML;
 }
 
 /**
@@ -140,47 +171,29 @@ function newHTMLTVShow(response) {
 }
 
 /**
- * Create HTML text with show list
- * @param response: String with JSON format with the show list
- * @returns html text with shows
- */
-function newHTMLShowList(response) {
-    try {
-        var newHTML = "";
-        var shows = JSON.parse(response.responseText);
-        for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show '" + shows[i]['title'] + "'");
-            newHTML += newHTMLShow(shows[i], null);
-        }
-        // console.log("newHTMLShowList - newHTML:" + newHTML);
-    } catch (err) {
-        showAlertWindow("newHTMLShowList method error: " + err.message + " in " + response.responseText);
-        return;
-    }
-    return newHTML;
-}
-
-/**
  * Create HTML text with show
  * 
  * @param jsonShow: JSON Object, with the show
- * @param htmlWithEpisodes: HTML text with episodes or null show is not a TV Show
+ * @param htmlWithEpisodeLinks: HTML text with episode links or null show is not a TV Show
  * @return html text with the show
  */
-function newHTMLShow(jsonShow, htmlWithEpisodes) {
+function newHTMLShow(jsonShow, htmlWithEpisodeLinks) {
     var newHtml = "";
     newHtml += "<div class='show-container'" +
         " onmouseover='setAboutShow(" + '"' + jsonShow["title"] + '"' +
         "," + '"' + jsonShow["description"] + '"' +
         "," + '"' + jsonShow["sinopsis"] + '"' + ")'" +
-        ">"
-        // Filmaffinity Points
+        ">";
+    console.log("Titulo: " + jsonShow["title"] + "- descr" + jsonShow["description"] + "- sinopsis: " + jsonShow["sinopsis"]);
+
+
+    // Filmaffinity Points
     if (jsonShow["filmaffinityPoints"] != null) {
         newHtml += "<div class='show-box-text'>" + " Filmaffinity " +
             jsonShow["filmaffinityPoints"] + "</div>";
     }
     // Cover            
-    newHtml += "<div class='show-box-img'>"
+    newHtml += "<div class='show-box-img'>";
     newHtml += "<a href='" + jsonShow["urltodownload"] + "'>";
     newHtml += "<img src='" + jsonShow["urlwithCover"] + "'" +
         " alt='cover' " + "/>";
@@ -204,15 +217,15 @@ function newHTMLShow(jsonShow, htmlWithEpisodes) {
     if (quality == null) {
         quality = "Undetermined";
     }
-    newHtml += "<div class='show-box-text'>" + quality + "</div>";
+    newHtml += "<div class='show-box-quality'>" + quality + "</div>";
 
     // Releasedate and filesize
     newHtml += "<div class='show-box-text'>" + jsonShow["releaseDate"] +
         " - " + jsonShow["fileSize"] + "</div>";
 
     // Add html with episode list
-    if (htmlWithEpisodes != null) {
-        newHtml += htmlWithEpisodes;
+    if (htmlWithEpisodeLinks != null) {
+        newHtml += htmlWithEpisodeLinks;
     }
     newHtml += "</div>";
 
@@ -229,16 +242,4 @@ function setAboutShow(title, description, sinopsis) {
     document.getElementById("about-show-title").innerHTML = title;
     document.getElementById("about-show-description").innerHTML = description;
     document.getElementById("about-show-sinopsis").innerHTML = sinopsis;
-}
-
-/**
- * 
- * @param {*} htmlFragment 
- */
-function setMainContent(htmlFragment) {
-    //console.log("setHTMLAllTabContainers:" + htmlFragment);
-    var tabcontent = document.getElementsByClassName("main-content");
-    for (var i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].innerHTML = htmlFragment;
-    }
 }
