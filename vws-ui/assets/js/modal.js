@@ -8,12 +8,19 @@ function showAlertWindow(text) {
     alert(text);
 }
 
-function showModalWindow(text) {
+function showModalWindow(modalHeader, modalText, modalFooter) {
     // Get the modal
     var modal = document.getElementById('modalWindow');
     modal.style.display = "block";
-    document.getElementById('modal-text').innerHTML = text;
 
+    if (modalHeader != null) {
+        document.getElementsByClassName('modal-header')[0].innerHTML = "<span class=\"close\">&times;</span><h3>" + modalHeader + "</h3>"
+    }
+    document.getElementsByClassName('modal-text')[0].innerHTML = "<p> -" + modalText + "</p>";
+
+    if (modalFooter != null) {
+        document.getElementsByClassName('modal-footer')[0].innerHTML = "<p>" + modalFooter + "</p>";
+    }
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
     // When the user clicks on <span> (x), close the modal

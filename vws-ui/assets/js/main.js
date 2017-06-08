@@ -70,7 +70,7 @@ function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID, a
     };
 
     request.onloadstart = function() {
-        modal = showModalWindow("doRequest to: " + resourcePath);
+        modal = showModalWindow("Request to URL", "   " + server + resourcePath, "Wait ...");
     };
 
     request.onloadend = function() {
@@ -239,7 +239,7 @@ function newHTMLShow(jsonShow, htmlWithEpisodeLinks) {
  * @param {*} sinopsis 
  */
 function setAboutShow(title, description, sinopsis) {
-    document.getElementById("about-show-title").innerHTML = title;
-    document.getElementById("about-show-description").innerHTML = description;
-    document.getElementById("about-show-sinopsis").innerHTML = sinopsis;
+    document.getElementById("about-show-title").innerHTML = "<p>Titulo</p>" + title;
+    document.getElementById("about-show-description").innerHTML = "<p>Descripcion</p>" + description;
+    document.getElementById("about-show-sinopsis").innerHTML = "<p>Sinopsis</p>" + sinopsis;
 }

@@ -107,6 +107,7 @@ div.menubar button {
 
 div.menubar button:hover {
     background-color: var(--site-background-color);
+    color: white;
 }
 
 
@@ -163,6 +164,12 @@ div.about-show {
     color: var(--about-show-text-color);
 }
 
+#about-show-title p {
+    margin: 0px;
+    font-size: 1.2em;
+    color: var(--topbar-text-color);
+}
+
 #about-show-description {
     float: top;
     border: 0px solid #aaa;
@@ -170,11 +177,23 @@ div.about-show {
     color: var(--about-show-text-color);
 }
 
+#about-show-description p {
+    margin: 0px;
+    font-size: 1.2em;
+    color: var(--topbar-text-color);
+}
+
 #about-show-sinopsis {
     float: top;
     border: 0px solid #aaa;
     margin: 5px;
     color: var(--about-show-text-color);
+}
+
+#about-show-sinopsis p {
+    margin: 0px;
+    font-size: 1.2em;
+    color: var(--topbar-text-color);
 }
 
 
@@ -254,12 +273,12 @@ div.about-show {
 
 .show-box-img .tooltiptext {
     visibility: hidden;
-    width: 220px;
-    background-color: black;
+    width: auto;
+    background-color: var(--topbar-background-color);
     color: #fff;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
+    border-radius: 3px;
+    padding: 5px;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
