@@ -15,7 +15,7 @@ import es.rvp.web.vws.domain.Show;
  *                         /shows.
  * @author Rodrigo Villamil Pérez
  */
-@RepositoryRestResource(collectionResourceRel = "favorites2", path = "favorites2")
+@RepositoryRestResource(collectionResourceRel = "favorites", path = "favorites")
 public interface ShowFavoritesRestRepository extends PagingAndSortingRepository<Show, Long> {
 
 	List<Show> findByTitle(@Param("title") String title);

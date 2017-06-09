@@ -92,9 +92,14 @@ function sendTVShowFollowForm(event) {
         event.preventDefault();
     }
     // The value of input text
-    var value = document.getElementById("form-tvshows-name").value;
+    var name = document.getElementById("form-tvshows-name").value;
     // Run request ..
-    doRequest('GET', "/tvshows?name=" + name, newHTMLTVShow, "box-with-tvshows-follow", true);
+    doRequest(
+        'GET',
+        "/tvshows?name=" + name,
+        newHTMLTVShow,
+        "box-with-tvshows-follow",
+        true);
     // You must return false to prevent the default form behavior
     return false;
 }
@@ -109,6 +114,9 @@ function newHTMLShowList(response) {
     try {
         var newHTML = "";
         var shows = JSON.parse(response.responseText);
+        if (shows.length == 0) {
+            showAlertWindow("newHTMLShowList: Server returns 0 shows!");
+        }
         for (var i = 0; i < shows.length; i++) {
             console.log("Processing show '" + shows[i]['title'] + "'");
             newHTML += newHTMLShow(shows[i], null);
@@ -129,10 +137,17 @@ function newHTMLFavoritesTVShowList(response) {
     try {
         var newHTML = "";
         var shows = JSON.parse(response.responseText);
+        if (shows.length == 0) {
+            showAlertWindow("newHTMLFavoritesTVShowList: Server returns 0 TV favorite shows!");
+        }
         for (var i = 0; i < shows.length; i++) {
             console.log("Processing favorite TV show '" + shows[i]['title'] + "'");
-            //newHTML += newHTMLShow(shows[i], null);
-            doRequest('GET', "/tvshows?name=" + shows[i]['title'], newHTMLTVShow, "box-with-tvshows-follow", true);
+            doRequest(
+                'GET',
+                "/tvshows?name=" + shows[i]['title'],
+                newHTMLTVShow,
+                "box-with-tvshows-follow",
+                true);
         }
         // console.log("newHTMLShowList - newHTML:" + newHTML);
     } catch (err) {
@@ -143,13 +158,18 @@ function newHTMLFavoritesTVShowList(response) {
 }
 
 /**
- * Create HTML text with TV show
+ * Create HTML text with TV show info
  * @param response: String with JSON format with the tvshow list
  * @returns html text with TV show
  */
 function newHTMLTVShow(response) {
     try {
+        // Ojo! El servidor retorna por cada episodio un objeto Show. Nosotros lo pintamos como 
+        // si fuese uno solo
         var shows = JSON.parse(response.responseText);
+        if (shows.length == 0) {
+            showAlertWindow("newHTMLTVShow: Server returns 0 TV Shows");
+        }
         var newHTML = " <div class='showtv-episodes-container'>";
         for (var i = 0; i < shows.length; i++) {
             console.log("Processing TV show '" + shows[i]['title'] + " T-" +
@@ -233,10 +253,11 @@ function newHTMLShow(jsonShow, htmlWithEpisodeLinks) {
 }
 
 /**
+ * Fill 'about show' section
  * 
- * @param {*} title 
- * @param {*} description 
- * @param {*} sinopsis 
+ * @param title: The show title 
+ * @param description The show description (actor, length..)
+ * @param sinopsis The show sinopsis
  */
 function setAboutShow(title, description, sinopsis) {
     document.getElementById("about-show-title").innerHTML = "<p>Titulo</p>" + title;

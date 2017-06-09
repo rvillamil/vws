@@ -8,7 +8,7 @@
     --about-show-text-color: rgb(208, 208, 208);
     --menubar-button-text-color: rgb(184, 188, 191);
     --menubar-font-size: 0.80em;
-    --form-shows-background-color: rgb(59, 80, 82);
+    --form-shows-background-color: rgb(96, 101, 101);
     /* Layout size*/
     --button-bar-width: 10%;
     --main-content-width: 75%;
@@ -161,7 +161,7 @@ div.about-show {
     float: top;
     border: 0px solid #ccc;
     margin: 5px;
-    color: var(--about-show-text-color);
+    color: var(--about-show-text-color)
 }
 
 #about-show-title p {
@@ -304,11 +304,11 @@ div.about-show {
 }
 
 
-/* ---------- Component: tvshow search form --------------- */
+/* ---------- Component: tvshow follow form --------------- */
 
 .form-shows {
     display: inline-block;
-    background: rgb(59, 80, 82);
+    background: var(--form-shows-background-color);
     border-radius: 0em;
     margin: 0.2em;
     padding: 0.2em;

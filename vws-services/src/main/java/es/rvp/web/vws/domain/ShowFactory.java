@@ -16,5 +16,5 @@ public interface ShowFactory {
 	 *
 	 * @return The show object parsed, in the HTML document. Return null if there is not show
 	 */
-	Show newInstance( final String baseURI, final String htmlDocument );
+	Show newInstance(  String baseURI,  String htmlDocument );
 }

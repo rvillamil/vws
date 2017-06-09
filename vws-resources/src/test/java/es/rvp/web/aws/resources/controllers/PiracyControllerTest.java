@@ -25,15 +25,15 @@ public class PiracyControllerTest {
 	private PiracyController piracyController;
 
 	// Clases a mockear
-	private WebTorrentSpider webTorrentSpider;
-
+	private WebTorrentSpider 			webTorrentSpider;
 	@Before
 	public void setup() {
-		webTorrentSpider = mock(WebTorrentSpider.class);
-		piracyController = new PiracyController(webTorrentSpider);
-		piracyController.maxBillboardFilms  = 2;
-		piracyController.maxVideoPremieres  = 3;
-		piracyController.maxTVshows 		= 3;
+		this.webTorrentSpider 	  = mock(WebTorrentSpider.class);
+
+		this.piracyController = new PiracyController( this.webTorrentSpider);
+		this.piracyController.maxBillboardFilms  = 2;
+		this.piracyController.maxVideoPremieres  = 3;
+		this.piracyController.maxTVshows 		= 3;
 	}
 
 	//--------------------------- parseBillboardFilms -------------------------
@@ -41,13 +41,13 @@ public class PiracyControllerTest {
 	public void whenParseFilmsInBillBoardThenGetTwoFilmsInBillBoard() {
 		// Given
 		// When
-		when(webTorrentSpider.parseBillboardFilms(piracyController.maxBillboardFilms)).thenReturn(
-				newShowsToTest(2, "La Isla"));
+		when(this.webTorrentSpider.parseBillboardFilms(this.piracyController.maxBillboardFilms)).thenReturn(
+				this.newShowsToTest(2, "La Isla"));
 
-		final Set<Show> filmsBillboard = piracyController.parseBillBoardFilms();
+		final Set<Show> filmsBillboard = this.piracyController.parseBillBoardFilms();
 		// Then
 		assertNotNull(filmsBillboard);
-		assertEquals(filmsBillboard, newShowsToTest(2, "La Isla"));
+		assertEquals(filmsBillboard, this.newShowsToTest(2, "La Isla"));
 		assertTrue(filmsBillboard.size() == 2);
 	}
 
@@ -56,13 +56,13 @@ public class PiracyControllerTest {
 	public void whenParseVideoPremieresThenGetTwoVideoPremieres() {
 		// Given
 		// When
-		when(webTorrentSpider.parseVideoPremieres(piracyController.maxVideoPremieres)).thenReturn(
-				newShowsToTest(2, "La Isla en Video"));
+		when(this.webTorrentSpider.parseVideoPremieres(this.piracyController.maxVideoPremieres)).thenReturn(
+				this.newShowsToTest(2, "La Isla en Video"));
 
-		final Set<Show> filmsBillboard = piracyController.parseVideoPremieres();
+		final Set<Show> filmsBillboard = this.piracyController.parseVideoPremieres();
 		// Then
 		assertNotNull(filmsBillboard);
-		assertEquals(filmsBillboard, newShowsToTest(2, "La Isla en Video"));
+		assertEquals(filmsBillboard, this.newShowsToTest(2, "La Isla en Video"));
 		assertTrue(filmsBillboard.size() == 2);
 	}
 	//---------------------------- parseTVShow --------------------------------
@@ -72,17 +72,16 @@ public class PiracyControllerTest {
 		String tvShowPath="series-hd/modern-family/";
 
 		// When
-		when(webTorrentSpider.parseTVShow(tvShowPath,piracyController.maxTVshows)).thenReturn(
-						newShowsToTest(2, "Modern Family HD"));
+		when(this.webTorrentSpider.parseTVShow(tvShowPath,this.piracyController.maxTVshows)).thenReturn(
+						this.newShowsToTest(2, "Modern Family HD"));
 
-		final Set<Show> filmsBillboard = piracyController.parseTVShow(tvShowPath);
+		final Set<Show> filmsBillboard = this.piracyController.parseTVShow(tvShowPath);
 		// Then
 		assertNotNull(filmsBillboard);
-		assertEquals(filmsBillboard, newShowsToTest(2, "Modern Family HD"));
+		assertEquals(filmsBillboard, this.newShowsToTest(2, "Modern Family HD"));
 		assertTrue(filmsBillboard.size() == 2);
 
 	}
-
 
 	//-------------------------- Helpers Methods ------------------------------
 	private Set<Show> newShowsToTest(final int numShows, final String prefixName) {

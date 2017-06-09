@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +23,11 @@ import es.rvp.web.vws.services.WebTorrentSpider;
  */
 @RestController
 @ConfigurationProperties(prefix="general")
+@CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
-	// TODO 00: Comenzar a montar la parte 'Front' con Angular
-	//
+	// TODO 00: Montar la parte 'Front' con Angular
+	// TODO 00: Soporte para Cors : https://spring.io/guides/gs/rest-service-cors/
 	// TODO 01: Implementar la autorizacion a la API en el Backend con OauthZ
 	// TODO 01: Implementar la autenticacion (CAS?, otra cosa?)
 	// TODO 01: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos. Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
