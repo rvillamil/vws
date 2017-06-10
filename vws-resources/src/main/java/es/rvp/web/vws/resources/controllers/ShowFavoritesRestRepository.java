@@ -1,6 +1,6 @@
 package es.rvp.web.vws.resources.controllers;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +18,5 @@ import es.rvp.web.vws.domain.Show;
 @RepositoryRestResource(collectionResourceRel = "favorites", path = "favorites")
 public interface ShowFavoritesRestRepository extends PagingAndSortingRepository<Show, Long> {
 
-	List<Show> findByTitle(@Param("title") String title);
-	@Override
-	List<Show> findAll();
+	Set<Show> findByTitle(@Param("title") String title);
 }
