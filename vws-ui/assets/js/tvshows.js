@@ -35,7 +35,7 @@ function onTVShowFound(resourcePath, htmlFragment) {
     // Run request ..
     doPost(
         "/favorites",
-        'modern-family');
+        "{'title':'modern-family'}");
 
 }
 

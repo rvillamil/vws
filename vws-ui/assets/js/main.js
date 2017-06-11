@@ -93,7 +93,7 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
  * @param  resourcePath 
  * @param  stringData  
  */
-function doPost(resourcePath, stringData) {
+function doPost(resourcePath, body) {
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
@@ -106,7 +106,7 @@ function doPost(resourcePath, stringData) {
         }
     };
 
-    var jSonBody = JSON.stringify(stringData);
+    var jSonBody = JSON.stringify(body);
     request.open("POST", server + resourcePath, true);
     request.setRequestHeader("Content-type", "application/json");
     request.send(jSonBody);
