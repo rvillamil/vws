@@ -30,66 +30,60 @@ function getShows(evt, htmlElementID) {
     evt.currentTarget.className += " active";
 
     if (htmlElementID == "billboardfilms-content") {
-        doRequest('GET', '/billboardfilms', newHTMLShowList, htmlElementID, false);
+        doRequest(
+            'GET',
+            '/billboardfilms',
+            onSuccessGetShows,
+            onErrorGetShows,
+            onBillBoardFilmsFound,
+            onBillBoardFilmsNotFound);
+
     } else if (htmlElementID == "videopremieres-content") {
-        doRequest('GET', '/videopremieres', newHTMLShowList, htmlElementID, false);
+        doRequest(
+            'GET',
+            '/videopremieres',
+            onSuccessGetShows,
+            onErrorGetShows,
+            onVideoPremieresFound,
+            onVideoPremieresNotFound);
+
     } else if (htmlElementID == "tvshows-content") {
-        console.log('d');
-        doRequest('GET', '/favorites', newHTMLFavoritesTVShowList, "box-with-tvshows-follow", false)
+        doRequest(
+            'GET',
+            '/favorites',
+            onSuccessGetFavorites,
+            onErrorGetFavorites,
+            onFavoritesTVShowsFound,
+            onFavoritesTVShowsNotFound);
     } else {
         showAlertWindow("ERROR!! 'main-content' not exists " + htmlElementID)
     }
 }
 
-/**
- * Make a request aginst AWS shows API
- * 
- * @param operation: HTTP method. (e.g. GET, POST..)
- * @param resourcePath: Resource path (e.g. /billboardfilms)
- * @param onSuccessCFunction: on success request, callback function
- * @param htmlElementID: billboardfilms-content, videopremieres-content,... The HTML ID element to replace
- * @param addContent: true for add content to htmlElementID. Otherwise, replace the content
- * @param onShowsFound: Callback function. if request was succesfully, onShowsFound is called when show or shows has been found
- * @param onShowsNotFound: Callback function. if request was succesfully, onShowsNotFound is called when show or show list is empty
- */
-function doRequest(operation, resourcePath, onSuccessCFunction, htmlElementID, addContent, onShowsFound, onShowsNotFound) {
-    console.log("doRequest to: " + resourcePath + " ( Method: " + operation + " )" +
-        " the result replace the html element: " + htmlElementID + " (addcontent=" + addContent + ")");
+function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound, onElementsNotFound) {
+    console.log("doRequest to: " + resourcePath + " ( operation: " + operation + " )");
     var modal = null;
     var request = new XMLHttpRequest();
-    // onreadystatechange: Defines a function to be called when the readyState property changes
+
     request.onreadystatechange = function() {
-        // console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
+        //console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
         if (this.readyState == 4 && this.status == 200) {
-            var response = onSuccessCFunction(this);
-            if (response != null) {
-                if (addContent == true) {
-                    document.getElementById(htmlElementID).innerHTML += response;
-                } else  {
-                    document.getElementById(htmlElementID).innerHTML = response;
-                }
-                if (onShowsFound != null) {
-                    onShowsFound(resourcePath);
-                }
+            var htmlFragment = onSuccess(this);
+            if (htmlFragment != null) {
+                onElementsFound(resourcePath, htmlFragment)
             } else {
-                if (onShowsNotFound != null) {
-                    onShowsNotFound(resourcePath);
-                }
+                onElementsNotFound(resourcePath, htmlFragment);
             }
         } else if (this.readyState == 4) {
-            showAlertWindow("Request problem! - doRequest: [readyState: " +
-                this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
+            onError(this);
         }
     };
-
     request.onloadstart = function() {
-        modal = showModalWindow("Request to URL", "   " + server + resourcePath, "Wait ...");
+        modal = showModalWindow("Espere por favor..", "   " + server + resourcePath, "");
     };
-
     request.onloadend = function() {
         modal.style.display = "none";
     };
-
     request.open(operation, server + resourcePath, true);
     request.send();
 }
@@ -123,7 +117,7 @@ function doPost(resourcePath, stringData) {
  * Request to get tvshow from a 'Form' called 'form-tvshows-name'
  * @param event: form event 
  */
-function sendTVShowFollowForm(event) {
+function sendFormWithTVShowFollow(event) {
     //console.log("sendTVShowFollowForm...");
     // to stop the form from submitting
     if (event.preventDefault) {
@@ -135,125 +129,12 @@ function sendTVShowFollowForm(event) {
     doRequest(
         'GET',
         "/tvshows?name=" + name,
-        newHTMLTVShow,
-        "box-with-tvshows-follow",
-        true,
-        cbTVShowFound,
-        cbTVShowNotFound);
+        onSuccessGetTVShow,
+        onErrorGetTVShow,
+        onTVShowFound,
+        onTVShowNotFound);
     // You must return false to prevent the default form behavior
     return false;
-}
-
-/**
- * callback on tv show not found
- * @param resourcePath 
- */
-function cbTVShowNotFound(resourcePath) {
-    showAlertWindow("Serie no encontrada : " + resourcePath);
-}
-
-
-/**
- * callback on tv show found
- * @param resourcePath 
- */
-function cbTVShowFound(resourcePath) {
-    console.log("TV Show found, the add to favorites list.. " + resourcePath);
-    // Run request ..
-    doPost(
-        "/favorites",
-        'modern-family');
-}
-
-
-/**
- * Create HTML text with show list
- * @param response: String with JSON format with the show list
- * @returns html text with shows or null if shows list is empty
- */
-function newHTMLShowList(response) {
-    try {
-        var newHTML = "";
-        var shows = JSON.parse(response.responseText);
-        if (shows.length == 0) {
-            newHTML = null;
-            showAlertWindow("ERROR!: El servidor ha retornado 0 shows! Revisa el log del servidor..");
-        }
-        for (var i = 0; i < shows.length; i++) {
-            console.log("Processing show '" + shows[i]['title'] + "'");
-            newHTML += newHTMLShow(shows[i], null);
-        }
-        // console.log("newHTMLShowList - newHTML:" + newHTML);
-    } catch (err) {
-        newHTML = null;
-        showAlertWindow("newHTMLShowList method error: " + err.message + " in " + response.responseText);
-    }
-
-    return newHTML;
-}
-
-
-/**
- * Create HTML text with favorites tv show list
- * 
- * @param response: String with JSON format with the tv show list
- * @returns html text with tv shows or null if tv shows list is empty
- */
-function newHTMLFavoritesTVShowList(response) {
-    try {
-        var newHTML = "";
-        var shows = JSON.parse(response.responseText);
-        if (shows.length == 0) {
-            newHTML = null;
-            showModalWindow("No tienes favoritos en la lista todavia. Busca las series que te interesa seguir ...");
-        }
-        for (var i = 0; i < shows.length; i++) {
-            console.log("Processing favorite TV show '" + shows[i]['title'] + "'");
-            doRequest(
-                'GET',
-                "/tvshows?name=" + shows[i]['title'],
-                newHTMLTVShow,
-                "box-with-tvshows-follow",
-                true);
-        }
-        // console.log("newHTMLShowList - newHTML:" + newHTML);
-    } catch (err) {
-        newHTML = null;
-        showAlertWindow("newHTMLFavoritesTVShowList method error: " + err.message + " in " + response.responseText);
-    }
-    return newHTML;
-}
-
-/**
- * Create HTML text with TV show info
- * 
- * @param response: String with JSON format with the tvshow list
- * @returns html text with TV show or null if there is no show
- */
-function newHTMLTVShow(response) {
-    try {
-        // Ojo! El servidor retorna por cada episodio un objeto Show. Nosotros lo pintamos como 
-        // si fuese uno solo
-        var shows = JSON.parse(response.responseText);
-        var newHTML = " <div class='showtv-episodes-container'>";
-        for (var i = 0; i < shows.length; i++) {
-            console.log("Processing TV show '" + shows[i]['title'] + " T-" +
-                shows[i]['session'] + " E-" + shows[i]['episode'] + "'");
-            newHTML += "<a href='" + shows[i]["urltodownload"] + "'>";
-            newHTML += "<p>Episodio " + shows[i]['episode'] + "</p>";
-            newHTML += "</a>";
-        }
-        newHTML += "</div>";
-        if (shows.length > 0) {
-            newHTML = newHTMLShow(shows[0], newHTML);
-        } else {
-            newHTML = null;
-        }
-    } catch (err) {
-        console.log("newHTMLTVShow - error: " + err.message + " in " + response.responseText);
-        newHTML = null;
-    }
-    return newHTML;
 }
 
 /**

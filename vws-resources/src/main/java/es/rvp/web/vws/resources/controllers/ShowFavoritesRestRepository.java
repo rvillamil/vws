@@ -1,22 +1,24 @@
 package es.rvp.web.vws.resources.controllers;
 
-import java.util.Set;
-
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
-import es.rvp.web.vws.domain.Show;
+import es.rvp.web.vws.domain.Favorite;
 
 /**
  * @RepositoryRestResource is not required for a repository to be exported. It
  *                         is only used to change the export details, such as
- *                         using /favorites2 instead of the default value of
- *                         /shows.
+ *                         using /favorites instead of the default value of
+ *                         /favorites.
  * @author Rodrigo Villamil Pérez
  */
+@CrossOrigin(origins = "http://localhost:9090")
 @RepositoryRestResource(collectionResourceRel = "favorites", path = "favorites")
-public interface ShowFavoritesRestRepository extends PagingAndSortingRepository<Show, Long> {
+public interface ShowFavoritesRestRepository extends PagingAndSortingRepository<Favorite, Long> {
 
-	Set<Show> findByTitle(@Param("title") String title);
+	// add : curl -i -X POST -H "Content-Type:application/json" -d "{  \"title\" : \"Frodo2\" }" http://localhost:8080/favorites
+
+	Favorite findByTitle(@Param("title") String title);
 }
