@@ -2,10 +2,13 @@
 
 function onSuccessGetFavorites(request) {
     try {
+        // console.log("request.responseText: " + request.responseText);
+
         var newHTML = "";
         var favorites = JSON.parse(request.responseText);
         var totalFavorites = favorites['page']['totalElements'];
         console.log("Total favorites recovered': " + totalFavorites);
+        document.getElementById("number-tvshows-following").innerHTML = totalFavorites;
         if (totalFavorites == 0) {
             newHTML = null;
         }

@@ -1,334 +1,320 @@
-/* Vars section */
-
-:root {
-    --site-background-color: rgb(79, 80, 82);
-    --topbar-background-color: #333;
-    --topbar-text-color: rgb(246, 189, 4);
-    --topbar-height: 50px;
-    --about-show-text-color: rgb(208, 208, 208);
-    --menubar-button-text-color: rgb(184, 188, 191);
-    --menubar-font-size: 0.80em;
-    --form-shows-background-color: rgb(96, 101, 101);
-    /* Layout size*/
-    --button-bar-width: 10%;
-    --main-content-width: 75%;
-    --about-show-width: 15%;
-}
-
-* {
-    box-sizing: border-box
-}
-
-body {
-    font-family: "Lato", sans-serif;
-    background-color: var(--site-background-color);
-    margin: 0;
-}
-
-a:link {
-    color: white;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-a:visited {
-    color: pink;
-    background-color: transparent;
-    text-decoration: none;
-}
-
-a:hover {
-    color: var(--topbar-text-color);
-    background-color: transparent;
-    text-decoration: underline;
-}
-
-a:active {
-    color: yellow;
-    background-color: transparent;
-    text-decoration: underline;
-}
-
-
-/* -------------------------- Zone: Top ------------------------- */
-
-div.topbar {
-    background-color: var(--topbar-background-color);
-    text-align: left;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: var(--topbar-height);
-    padding: 0px;
-    border: 0px;
-    margin: 0px;
-}
-
-div.topbar p {
-    color: var(--topbar-text-color);
-    padding: 0px;
-    border: 0px;
-    margin: 15px;
-}
-
-
-/* --------------------- Zone: Left (Button zone) -------------------------- */
-
-div.menubar {
-    background-color: var(--topbar-background-color);
-    overflow: hidden;
-    position: fixed;
-    left: 0;
-    width: var(--button-bar-width);
-    top: var(--topbar-height);
-    height: 100vh;
-}
-
-
-/* Style the buttons inside the tab */
-
-div.menubar button {
-    display: block;
-    background-color: inherit;
-    color: var(--menubar-button-text-color);
-    padding: 22px 15px;
-    width: 100%;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: var(--menubar-font-size);
-}
-
-
-/* Change background color of buttons on hover */
-
-div.menubar button:hover {
-    background-color: var(--site-background-color);
-    color: white;
-}
-
-
-/* Create an active/current "tab button" class */
-
-div.menubar button.active {
-    color: var(--topbar-text-color);
-}
-
-
-/* -------------------------- Zone: CENTER ------------------------- */
-
-.main-content {
-    position: fixed;
-    top: var(--topbar-height);
-    left: var(--button-bar-width);
-    padding: 0px 0px;
-    /*
+    /* Vars section */
+    
+     :root {
+        --site-background-color: rgb(79, 80, 82);
+        --topbar-background-color: #333;
+        --topbar-text-color: rgb(246, 189, 4);
+        --topbar-height: 50px;
+        --about-show-text-color: rgb(208, 208, 208);
+        --menubar-button-text-color: rgb(184, 188, 191);
+        --menubar-font-size: 0.80em;
+        --form-shows-background-color: rgb(96, 101, 101);
+        /* Layout size*/
+        --button-bar-width: 10%;
+        --main-content-width: 75%;
+        --about-show-width: 15%;
+    }
+    
+    * {
+        box-sizing: border-box
+    }
+    
+    body {
+        font-family: "Lato", sans-serif;
+        background-color: var(--site-background-color);
+        margin: 0;
+    }
+    
+    a:link {
+        color: white;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    
+    a:visited {
+        color: pink;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: var(--topbar-text-color);
+        background-color: transparent;
+        text-decoration: underline;
+    }
+    
+    a:active {
+        color: yellow;
+        background-color: transparent;
+        text-decoration: underline;
+    }
+    /* -------------------------- Zone: Top ------------------------- */
+    
+    div.topbar {
+        background-color: var(--topbar-background-color);
+        text-align: left;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: var(--topbar-height);
+        padding: 0px;
+        border: 0px;
+        margin: 0px;
+    }
+    
+    div.topbar p {
+        color: var(--topbar-text-color);
+        padding: 0px;
+        border: 0px;
+        margin: 15px;
+    }
+    /* --------------------- Zone: Left (Button zone) -------------------------- */
+    
+    div.menubar {
+        background-color: var(--topbar-background-color);
+        overflow: hidden;
+        position: fixed;
+        left: 0;
+        width: var(--button-bar-width);
+        top: var(--topbar-height);
+        height: 100vh;
+    }
+    /* Style the buttons inside the tab */
+    
+    div.menubar button {
+        display: block;
+        background-color: inherit;
+        color: var(--menubar-button-text-color);
+        padding: 22px 15px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: var(--menubar-font-size);
+    }
+    /* Change background color of buttons on hover */
+    
+    div.menubar button:hover {
+        background-color: var(--site-background-color);
+        color: white;
+    }
+    /* Create an active/current "tab button" class */
+    
+    div.menubar button.active {
+        color: var(--topbar-text-color);
+    }
+    /* -------------------------- Zone: CENTER ------------------------- */
+    
+    .main-content {
+        position: fixed;
+        top: var(--topbar-height);
+        left: var(--button-bar-width);
+        padding: 0px 0px;
+        /*
     border: 2px solid #fa8072;
     */
-    width: var(--main-content-width);
-    /*
+        width: var(--main-content-width);
+        /*
     border-left: none;
     border-right: none;
     */
-    height: 90vh;
-    overflow: scroll;
-}
-
-
-/* -------------------------- Zone: Right -------------------------- */
-
-div.about-show {
-    float: right;
-    /*
+        height: 90vh;
+        overflow: scroll;
+    }
+    /* -------------------------- Zone: Right -------------------------- */
+    
+    div.about-show {
+        float: right;
+        /*
     border: 5px solid #ccc;
     */
-    background-color: var(--site-background-color);
-    width: var(--about-show-width);
-    height: 100vh;
-    font-size: 0.775em;
-    font-weight: lighter;
-}
-
-#about-show-empty-zone {
-    float: top;
-    border: 17px solid var(--site-background-color);
-}
-
-#about-show-title {
-    float: top;
-    border: 0px solid #ccc;
-    margin: 5px;
-    color: var(--about-show-text-color)
-}
-
-#about-show-title p {
-    margin: 0px;
-    font-size: 1.2em;
-    color: var(--topbar-text-color);
-}
-
-#about-show-description {
-    float: top;
-    border: 0px solid #aaa;
-    margin: 5px;
-    color: var(--about-show-text-color);
-}
-
-#about-show-description p {
-    margin: 0px;
-    font-size: 1.2em;
-    color: var(--topbar-text-color);
-}
-
-#about-show-sinopsis {
-    float: top;
-    border: 0px solid #aaa;
-    margin: 5px;
-    color: var(--about-show-text-color);
-}
-
-#about-show-sinopsis p {
-    margin: 0px;
-    font-size: 1.2em;
-    color: var(--topbar-text-color);
-}
-
-
-/* ------------------------ Component: Show ------------------------- */
-
-.show-container {
-    display: inline-block;
-    margin: 5px;
-    border: 1px solid #ccc;
-    width: 140px;
-}
-
-.show-container:hover {
-    border: 1px solid #fa8072;
-}
-
-
-/* Elemento de texto dentro del show-container con la fecha, formato ..*/
-
-.show-box-text {
-    display: block;
-    margin: 1px;
-    padding: 1px;
-    border: 1px;
-    text-align: center;
-    font-size: 0.675em;
-}
-
-
-/* Titulo del show con Tooltip y recortado por puntos */
-
-.show-box-title {
-    width: auto;
-    margin: 1px;
-    padding: 1px;
-    border: 1px;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: 0.875em;
-    font-weight: bold;
-}
-
-.show-box-session {
-    width: auto;
-    margin: 1px;
-    padding: 1px;
-    border: 1px;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    font-size: 0.875em;
-    font-weight: bold;
-}
-
-.show-box-quality {
-    display: block;
-    margin: 1px;
-    padding: 1px;
-    border: 1px;
-    text-align: center;
-    font-size: 0.675em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-
-/* Campo con la portada del show-container */
-
-.show-box-img img {
-    width: 100%;
-    height: auto;
-}
-
-.show-box-img .tooltiptext {
-    visibility: hidden;
-    width: auto;
-    background-color: var(--topbar-background-color);
-    color: #fff;
-    text-align: center;
-    border-radius: 3px;
-    padding: 5px;
-    /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
-    margin-left: -120px;
-}
-
-.show-box-img:hover .tooltiptext {
-    visibility: visible;
-}
-
-.showtv-episodes-container {
-    text-align: center;
-    margin: 1px;
-    border: 0px solid #ccc;
-    width: auto;
-}
-
-.showtv-episodes-container p {
-    margin: 2px;
-    border: 0px solid #ccc;
-    padding: 0px;
-    font-size: 0.875em;
-}
-
-
-/* ---------- Component: tvshow follow form --------------- */
-
-.form-shows {
-    display: inline-block;
-    background: var(--form-shows-background-color);
-    border-radius: 0em;
-    margin: 0.2em;
-    padding: 0.2em;
-    color: var(--menubar-button-text-color);
-    font-size: var(--menubar-font-size);
-    padding-left: 1.5em;
-}
-
-.rounded-element {
-    background: #1A1A1A;
-    border-radius: 1em;
-    border: none;
-    margin: 0.2em;
-    padding: 0.8em;
-    color: #A2A2A2;
-    font-size: 1.1em;
-    padding-left: 1.5em;
-    outline: none;
-}
-
-#box-with-form-tvshows-follow {
-    background: var(--form-shows-background-color);
-}
+        background-color: var(--site-background-color);
+        width: var(--about-show-width);
+        height: 100vh;
+        font-size: 0.775em;
+        font-weight: lighter;
+    }
+    
+    #about-show-empty-zone {
+        float: top;
+        border: 17px solid var(--site-background-color);
+    }
+    
+    #about-show-title {
+        float: top;
+        border: 0px solid #ccc;
+        margin: 5px;
+        color: var(--about-show-text-color)
+    }
+    
+    #about-show-title p {
+        margin: 0px;
+        font-size: 1.2em;
+        color: var(--topbar-text-color);
+    }
+    
+    #about-show-description {
+        float: top;
+        border: 0px solid #aaa;
+        margin: 5px;
+        color: var(--about-show-text-color);
+    }
+    
+    #about-show-description p {
+        margin: 0px;
+        font-size: 1.2em;
+        color: var(--topbar-text-color);
+    }
+    
+    #about-show-sinopsis {
+        float: top;
+        border: 0px solid #aaa;
+        margin: 5px;
+        color: var(--about-show-text-color);
+    }
+    
+    #about-show-sinopsis p {
+        margin: 0px;
+        font-size: 1.2em;
+        color: var(--topbar-text-color);
+    }
+    /* ------------------------ Component: Show ------------------------- */
+    
+    .show-container {
+        display: inline-block;
+        margin: 5px;
+        border: 1px solid #ccc;
+        width: 140px;
+    }
+    
+    .show-container:hover {
+        border: 1px solid #fa8072;
+    }
+    /* Elemento de texto dentro del show-container con la fecha, formato ..*/
+    
+    .show-box-text {
+        display: block;
+        margin: 1px;
+        padding: 1px;
+        border: 1px;
+        text-align: center;
+        font-size: 0.675em;
+    }
+    /* Titulo del show con Tooltip y recortado por puntos */
+    
+    .show-box-title {
+        width: auto;
+        margin: 1px;
+        padding: 1px;
+        border: 1px;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 0.875em;
+        font-weight: bold;
+    }
+    
+    .show-box-session {
+        width: auto;
+        margin: 1px;
+        padding: 1px;
+        border: 1px;
+        text-align: center;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 0.875em;
+        font-weight: bold;
+    }
+    
+    .show-box-quality {
+        display: block;
+        margin: 1px;
+        padding: 1px;
+        border: 1px;
+        text-align: center;
+        font-size: 0.675em;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    /* Campo con la portada del show-container */
+    
+    .show-box-img img {
+        width: 100%;
+        height: auto;
+    }
+    
+    .show-box-img .tooltiptext {
+        visibility: hidden;
+        width: auto;
+        background-color: var(--topbar-background-color);
+        color: #fff;
+        text-align: center;
+        border-radius: 3px;
+        padding: 5px;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        margin-left: -120px;
+    }
+    
+    .show-box-img:hover .tooltiptext {
+        visibility: visible;
+    }
+    
+    .showtv-episodes-container {
+        text-align: center;
+        margin: 1px;
+        border: 0px solid #ccc;
+        width: auto;
+    }
+    
+    .showtv-episodes-container p {
+        margin: 2px;
+        border: 0px solid #ccc;
+        padding: 0px;
+        font-size: 0.875em;
+    }
+    /* ---------- Component: tvshow follow form --------------- */
+    
+    .form-shows {
+        display: inline-block;
+        background: var(--form-shows-background-color);
+        border-radius: 0em;
+        margin: 0.2em;
+        padding: 0.2em;
+        color: var(--menubar-button-text-color);
+        font-size: var(--menubar-font-size);
+        padding-left: 1.5em;
+        padding-right: 4.5em;
+    }
+    
+    .rounded-element {
+        background: #1A1A1A;
+        border-radius: 1em;
+        border: none;
+        margin: 0.2em;
+        padding: 0.8em;
+        color: #A2A2A2;
+        font-size: 1.1em;
+        padding-left: 1.5em;
+        outline: none;
+    }
+    
+    #box-with-form-tvshows-follow {
+        background: var(--form-shows-background-color);
+    }
+    
+    .text-with-tvshows-following {
+        display: inline-block;
+        margin: 0.2em;
+        padding: 0.2em;
+        background: var(--form-shows-background-color);
+        color: var(--topbar-text-color);
+        font-size: var(--menubar-font-size);
+    }

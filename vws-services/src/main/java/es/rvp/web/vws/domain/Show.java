@@ -1,7 +1,5 @@
 package es.rvp.web.vws.domain;
 
-import javax.persistence.Entity;
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;

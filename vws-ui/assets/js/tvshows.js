@@ -32,10 +32,10 @@ function onErrorGetTVShow(request) {
 function onTVShowFound(resourcePath, htmlFragment) {
     document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
     console.log("TV Show found, the add to favorites list.. " + resourcePath);
+    var jsonString = resourcePath.split("=")[1];
     // Run request ..
     doPost(
-        "/favorites",
-        "{'title':'modern-family'}");
+        "/favorites", { "title": jsonString });
 
 }
 

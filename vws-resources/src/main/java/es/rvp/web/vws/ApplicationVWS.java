@@ -29,6 +29,7 @@ public class ApplicationVWS {
 		SpringApplication.run(ApplicationVWS.class, args);
 	}
 
+
 	// ---------------------- Application config -----------------------------
 	@Bean
 	JSoupHelper jSoupHelper() {

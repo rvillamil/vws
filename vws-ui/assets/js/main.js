@@ -106,7 +106,10 @@ function doPost(resourcePath, body) {
         }
     };
 
+
+    console.log("post- body: " + body);
     var jSonBody = JSON.stringify(body);
+    console.log("post-jSonBody: " + jSonBody);
     request.open("POST", server + resourcePath, true);
     request.setRequestHeader("Content-type", "application/json");
     request.send(jSonBody);
