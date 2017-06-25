@@ -26,6 +26,7 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
+	// FiXME 00: Una opcion es cargar los favoritos en el navegador, y antes de hacer una busqueda, consultar si ya los tienes en el navegador y pasar de hacerla contra el servidor...
 	// TODO 00: Montar la parte 'Front' con Angular
 	// TODO 00: Soporte para Cors : https://spring.io/guides/gs/rest-service-cors/
 	// TODO 01: Implementar la autorizacion a la API en el Backend con OauthZ

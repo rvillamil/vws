@@ -16,14 +16,9 @@ import es.rvp.web.vws.domain.Favorite;
  */
 @CrossOrigin(origins = "http://localhost:9090")
 @RepositoryRestResource(collectionResourceRel = "favorites", path = "favorites")
-public interface ShowFavoritesRestRepository extends PagingAndSortingRepository<Favorite, Long> {
+public interface ShowFavoritesRestRepository extends PagingAndSortingRepository<Favorite, Long>  {
 
 	// add : curl -i -X POST -H "Content-Type:application/json" -d "{  \"title\" : \"Frodo2\" }" http://localhost:8080/favorites
 	Favorite findByTitle(@Param("title") String title);
 
-
-	default Favorite saveIfnotExists(final Favorite favorite) {
-        save(favorite);
-        return favorite;
-    }
 }

@@ -19,6 +19,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
+        <!-- Use MySQL Connector-J -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- FIXME 00: Quitar cuando tenga mysql -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
