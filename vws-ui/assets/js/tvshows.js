@@ -64,16 +64,26 @@ function onTVShowFound(resourcePath, htmlFragment) {
     }
     */
     // Opcion nueva
-    var tvShows = ["Reservoir Dogs", "Pulp Fiction", "Jackie Brown", "Kill Bill", "Death Proof", "Inglourious Basterds"];
-    // storing our array as a string
-    localStorage.setItem("favorites2", JSON.stringify(tvShows));
-    tvShows.push('ultima peli');
-    localStorage.setItem("favorites2", JSON.stringify(tvShows));
-
     // retrieving our data and converting it back into an array
     var retrievedData = localStorage.getItem("favorites2");
-    var tvShows2 = JSON.parse(retrievedData);
+    var tvShowsArray = [];
+    if (retrievedData != null) {
+        tvShowsArray = JSON.parse(retrievedData);
+    }
+    //    if (tvShowsArray.length > 0) {
+    // storing our array as a string
+    tvShowsArray.push(strFavorite);
+    localStorage.setItem("favorites2", JSON.stringify(tvShowsArray));
+    //  }
+    /*
+        var tvShows = ["Reservoir Dogs",
+            "Pulp Fiction", "Jackie Brown", "Kill Bill", "Death Proof", "Inglourious Basterds"
+        ];
 
+        // retrieving our data and converting it back into an array
+        var retrievedData = localStorage.getItem("favorites2");
+        var tvShows2 = JSON.parse(retrievedData);
+    */
     /*
         if (include(storedFavorites, jsonFavorite)) {
             console.log('El favorito existe: ' + jsonFavorite);
