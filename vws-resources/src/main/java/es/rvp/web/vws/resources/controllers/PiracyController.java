@@ -8,11 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.rvp.web.vws.domain.Favorite;
+import es.rvp.web.vws.domain.FavoriteRepository;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
@@ -69,6 +73,8 @@ public class PiracyController {
 	@Autowired
 	private final WebTorrentSpider 		webTorrentSpider;
 
+	@Autowired
+	private FavoriteRepository 			favoriteRepository;
 	/**
 	 * Constructor
 	 * @param webTorrentSpider web torrent spider service
@@ -126,4 +132,17 @@ public class PiracyController {
 		LOGGER.info("VWS application started !!");
 		return "Video websites scaper (VWS) is available!";
 	}
+
+
+	@GetMapping(path="/add") // Map ONLY GET Requests
+	@ResponseBody
+	public Favorite addNewFavorite (@RequestParam( final String title) {
+		// @ResponseBody means the returned String is the response, not a view name
+		// @RequestParam means it is a parameter from the GET or POST request
+
+		Favorite favorite = new Favorite();
+		favorite.setTitle(title);
+		return favorite;
+	}
+
 }

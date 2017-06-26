@@ -16,7 +16,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(of = {"title"})
 @ToString
-@Entity
+@Entity // This tells Hibernate to make a table out of this class
 public class Favorite {
 	@Id
 	@NonNull
