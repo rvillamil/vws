@@ -1,0 +1,8 @@
+#
+# Alias
+#
+alias cd..='cd ..'
+alias ll='ls -lF -h'
+alias l='ls -lah'
+alias ponte='cd $(pwd -P)'
+
