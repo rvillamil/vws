@@ -22,7 +22,7 @@ public class SwaggerConfig {
 				.build().apiInfo(this.metaData());
 
 	}
-	// Visit: http://localhost:8080/swagger-ui.html
+	// Visit: 	
 	private ApiInfo metaData() {
 		return new ApiInfo(
 				"VWS REST API",

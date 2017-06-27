@@ -1,5 +1,6 @@
 package es.rvp.web.vws.resources.controllers;
 
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.rvp.web.vws.domain.Favorite;
 import es.rvp.web.vws.domain.FavoriteRepository;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
@@ -30,22 +32,22 @@ public class PiracyController {
 	// TODO 00: Las tareas de refactorizacion son las siguientes:
    /*
 	Backend
-		- Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el 
+		
+		- DONE --> Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el 
 			embebido de spring boot: 
 			a) https://springframework.guru/running-spring-boot-in-a-docker-container/ 
 			b) https://spring.io/guides/gs/spring-boot-docker/
-			 
-		- Docker: El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
-		- Implementar con JPA un repositorio para los favoritos: https://spring.io/guides/gs/accessing-data-mysql/ 
-		- Implementar un controlador para los favoritos que sea menos 'hateoas' que el 'ShowFavoritesRespositoy" que es un rollo..
 		
-		- Usaremos para desarrollo h2 y para producción mysql . Montar perfiles
+	     - Usaremos para desarrollo h2 y para producción mysql . Montar perfiles
 		   - Ver ficheros yaml de configuracion que parecen docker-compose ...¿Para que valen para tener perfiles por entorno con lo que queremos levantar? 
 	   	   -  Revisar la configuracion de spring boot y la carga de properties
 	 	      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 	          - http://www.baeldung.com/spring-boot-application-configuration
 	
-	    - Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+			
+		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
+		 
+		- Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 	Frontend
 		Al entrar en la sección de favoritos vamos al servidor , los cargamos y los mostramos
@@ -74,7 +76,7 @@ public class PiracyController {
 	//
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
-
+	private static final String	WELCOME_TEXT   ="Video websites scaper (VWS) is available!";
 	//
 	// Area de datos
 	//
@@ -87,9 +89,6 @@ public class PiracyController {
 
 	@Autowired
 	private final WebTorrentSpider 		webTorrentSpider;
-
-	@Autowired
-	private FavoriteRepository 			favoriteRepository;
 	/**
 	 * Constructor
 	 * @param webTorrentSpider web torrent spider service
@@ -98,7 +97,15 @@ public class PiracyController {
 		super();
 		this.webTorrentSpider = webTorrentSpider;
 	}
-
+	/**
+	 * @return One text if this web site is available
+	 */
+	@RequestMapping(value="/",
+					method=RequestMethod.GET)
+	String hello() {
+		LOGGER.info(WELCOME_TEXT);
+		return WELCOME_TEXT;
+	}
 	/**
 	 * Parse the torrent portal for 'scraping' the billboard
 	 *
@@ -137,27 +144,4 @@ public class PiracyController {
 		LOGGER.info("Getting the tv show '{}'", tvShowName);
 		return this.webTorrentSpider.parseTVShow(tvShowName, this.maxTVshows);
 	}
-
-	/**
-	 * @return One text if this web site is available
-	 */
-	@RequestMapping(value="/",
-					method=RequestMethod.GET)
-	String hello() {
-		LOGGER.info("VWS application started !!");
-		return "Video websites scaper (VWS) is available!";
-	}
-/*
-
-	@GetMapping(path="/add") // Map ONLY GET Requests
-	@ResponseBody
-	public Favorite addNewFavorite (@RequestParam( final String title) {
-		// @ResponseBody means the returned String is the response, not a view name
-		// @RequestParam means it is a parameter from the GET or POST request
-
-		Favorite favorite = new Favorite();
-		favorite.setTitle(title);
-		return favorite;
-	}
-*/
 }

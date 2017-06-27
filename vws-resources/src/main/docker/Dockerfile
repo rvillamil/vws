@@ -12,10 +12,8 @@ LABEL maintainer "rodrigo.villamil@google.com" description="BBDD for VWS"
 # can be necessary for other Spring Boot applications if they need to actually write in the filesystem.
 VOLUME /tmp
 
-#ENV JAVA_APP_JAR ${project.build.finalName}.jar
-#ADD ${project.build.finalName}.jar /app
-
-ADD /maven/vws-resources-1.0-SNAPSHOT.jar app.jar
+# Copia el ficehro alojado en: vws-resources/target/docker/img-vws-resources/1.0-SNAPSHOT/build/maven/
+ADD /maven/*.jar app.jar
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS=""
 
