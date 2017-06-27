@@ -30,19 +30,18 @@ public class PiracyController {
 	// TODO 00: Las tareas de refactorizacion son las siguientes:
    /*
 	Backend
-		Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el embebido de spring boot: https://spring.io/guides/gs/spring-boot-docker/ 
-		Docker: El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
-		Implementar con JPA un repositorio para los favoritos: https://spring.io/guides/gs/accessing-data-mysql/ 
-		Implementar un controlador para los favoritos que sea menos 'hateoas' que el 'ShowFavoritesRespositoy" que es un rollo..
+		- Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el embebido de spring boot: https://spring.io/guides/gs/spring-boot-docker/ 
+		- Docker: El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
+		- Implementar con JPA un repositorio para los favoritos: https://spring.io/guides/gs/accessing-data-mysql/ 
+		- Implementar un controlador para los favoritos que sea menos 'hateoas' que el 'ShowFavoritesRespositoy" que es un rollo..
 		
-		Usaremos para desarrollo h2 y para producción mysql . Montar perfiles
-		Ver ficheros yaml de configuracion que parecen docker-compose ...¿Para que valen para tener perfiles por entorno con lo que queremos levantar? 
+		- Usaremos para desarrollo h2 y para producción mysql . Montar perfiles
+		   - Ver ficheros yaml de configuracion que parecen docker-compose ...¿Para que valen para tener perfiles por entorno con lo que queremos levantar? 
+	   	   -  Revisar la configuracion de spring boot y la carga de properties
+	 	      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+	          - http://www.baeldung.com/spring-boot-application-configuration
 	
-		Revisar la configuracion de spring boot y la carga de properties
-	 	  - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-	       - http://www.baeldung.com/spring-boot-application-configuration
-	
-	    Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+	    - Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 	Frontend
 		Al entrar en la sección de favoritos vamos al servidor , los cargamos y los mostramos
