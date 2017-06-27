@@ -30,7 +30,11 @@ public class PiracyController {
 	// TODO 00: Las tareas de refactorizacion son las siguientes:
    /*
 	Backend
-		- Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el embebido de spring boot: https://spring.io/guides/gs/spring-boot-docker/ 
+		- Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el 
+			embebido de spring boot: 
+			a) https://springframework.guru/running-spring-boot-in-a-docker-container/ 
+			b) https://spring.io/guides/gs/spring-boot-docker/
+			 
 		- Docker: El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
 		- Implementar con JPA un repositorio para los favoritos: https://spring.io/guides/gs/accessing-data-mysql/ 
 		- Implementar un controlador para los favoritos que sea menos 'hateoas' que el 'ShowFavoritesRespositoy" que es un rollo..

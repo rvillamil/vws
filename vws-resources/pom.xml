@@ -32,15 +32,15 @@
 		</dependency>
 
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-        </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
 
 	</dependencies>
 
 	<build>
 		<plugins>
-			<!-- Spring Boot includes a Maven plugin that can package the project
+			<!-- Spring Boot includes a Maven plugin that can package the project 
 				as an executable jar. -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -55,7 +55,7 @@
 
 			<build>
 				<plugins>
-					<!-- Ver documentacion en https://dmp.fabric8.io/ -->
+					<!-- https://springframework.guru/running-spring-boot-in-a-docker-container/ -->
 					<plugin>
 						<groupId>io.fabric8</groupId>
 						<artifactId>docker-maven-plugin</artifactId>
@@ -67,24 +67,11 @@
 								<image>
 									<name>${docker.vws.backend.name}</name>
 									<build>
-										<cleanup>remove</cleanup>
-										<dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
+										<dockerFile>Dockerfile</dockerFile>
 										<assembly>
-											<mode>dir</mode>
 											<descriptorRef>artifact</descriptorRef>
-											<targetDir>/</targetDir>
 										</assembly>
-									</build>
-									<!-- 
-									<build>
-										<from>${docker.tomcat.img.name}</from>
-										<assembly>
-											<mode>dir</mode>
-											<descriptorRef>artifact</descriptorRef>
-											<targetDir>/usr/local/tomcat/webapps</targetDir>
-										</assembly>
-									</build>
-									 -->
+									</build>									
 								</image>
 							</images>
 						</configuration>
