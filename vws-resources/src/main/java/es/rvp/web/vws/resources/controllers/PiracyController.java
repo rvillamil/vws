@@ -8,14 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.rvp.web.vws.domain.Favorite;
 import es.rvp.web.vws.domain.FavoriteRepository;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
@@ -30,14 +27,31 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
-	// FiXME 00: Una opcion es cargar los favoritos en el navegador, y antes de hacer una busqueda, consultar si ya los tienes en el navegador y pasar de hacerla contra el servidor...
-	// TODO 00: Montar la parte 'Front' con Angular
-	// TODO 00: Soporte para Cors : https://spring.io/guides/gs/rest-service-cors/
-	// TODO 01: Implementar la autorizacion a la API en el Backend con OauthZ
-	// TODO 01: Implementar la autenticacion (CAS?, otra cosa?)
-	// TODO 01: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos. Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
+	// TODO 00: Las tareas de refactorizacion son las siguientes:
+   /*
+	Backend
+		Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el embebido de spring boot: https://spring.io/guides/gs/spring-boot-docker/ 
+		Docker: El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
+		Implementar con JPA un repositorio para los favoritos 
+		Implementar un controlador para los favoritos que sea menos 'hateoas' que el 'ShowFavoritesRespositoy" que es un rollo..
+		
+		Usaremos para desarrollo h2 y para producción mysql . Montar perfiles
+		Ver ficheros yaml de configuracion que parecen docker-compose ...¿Para que valen para tener perfiles por entorno con lo que queremos levantar? 
+	
+		Revisar la configuracion de spring boot y la carga de properties
+	 	  - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+	       - http://www.baeldung.com/spring-boot-application-configuration
+	
+	    Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
+	Frontend
+		Al entrar en la sección de favoritos vamos al servidor , los cargamos y los mostramos
+		Para añadir favoritos hacemos los siguiente: buscamos con la lista de favoritos para ver si ya lo tenemos . Si no lo tenemos , buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos 
+    */
+
+
+	// TODO 01: Jenkins CI - Finalizar el soporte para Docker de la siguiente forma:
 	//
-	// TODO 02: Jenkins CI - Finalizar el soporte para Docker de la siguiente forma:
 	//
 	/*
 	// ....Jenkisfile
@@ -47,12 +61,10 @@ public class PiracyController {
 	    }
 	  }
 	 */
-	// TODO 03: Revisar la configuracion de spring boot y la carga de properties
-	// - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-	// - http://www.baeldung.com/spring-boot-application-configuration
 	//
-	// TODO 04: Reviar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-	//
+	// TODO 02: Implementar la autorizacion a la API en el Backend con OauthZ
+	// TODO 03: Implementar la autenticacion (CAS?, otra cosa?)
+	// TODO 04: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos. Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
 	// TODO 05: Funcionalidades de negocio
 	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
@@ -132,7 +144,7 @@ public class PiracyController {
 		LOGGER.info("VWS application started !!");
 		return "Video websites scaper (VWS) is available!";
 	}
-
+/*
 
 	@GetMapping(path="/add") // Map ONLY GET Requests
 	@ResponseBody
@@ -144,5 +156,5 @@ public class PiracyController {
 		favorite.setTitle(title);
 		return favorite;
 	}
-
+*/
 }
