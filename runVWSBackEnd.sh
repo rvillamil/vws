@@ -6,12 +6,14 @@
 # Fecha: 26/06/17
 #
 #
-cmd="mvn clean install -Dmaven.test.skip=true -P docker-support"
-echo "Running maven.. SKIPPING Test: ${cmd}"
-${cmd}
-cd vws-docker-support
+
 echo "Runnig docker containers with ALL VWS Backend---"
+cd vws-docker-support
+
+docker-compose stop
+./docker-build.sh
 docker-compose up
+
 cd -
 echo ""
 echo "Backend: "

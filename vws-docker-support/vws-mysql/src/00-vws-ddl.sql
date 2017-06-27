@@ -12,8 +12,12 @@ CREATE SCHEMA IF NOT EXISTS `vws` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicod
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `vws` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
 
 USE `vws`;
-DROP TABLE IF EXISTS `FAVORITES`;
-CREATE TABLE `FAVORITES` (  
-  `TITLE` varchar(250) collate utf8_unicode_ci NOT NULL,  
-  PRIMARY KEY  (`TITLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci PACK_KEYS=0 COMMENT=' ';
+
+DROP TABLE IF EXISTS `favorite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `favorite` (
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;

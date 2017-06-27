@@ -33,20 +33,16 @@ public class PiracyController {
    /*
 	Backend
 		
-		- DONE --> Docker: Cambiar el soporte para Docker de la aplicacion: Eliminamos el tomcat y comenzamos a usar el 
-			embebido de spring boot: 
-			a) https://springframework.guru/running-spring-boot-in-a-docker-container/ 
-			b) https://spring.io/guides/gs/spring-boot-docker/
+		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. 
+		  Asi tenemos el SQL a mano tambien para tocarlo. Ver: https://spring.io/guides/gs/accessing-data-mysql/
 		
-	     - Usaremos para desarrollo h2 y para producción mysql . Montar perfiles
-		   - Ver ficheros yaml de configuracion que parecen docker-compose ...¿Para que valen para tener perfiles por entorno con lo que queremos levantar? 
-	   	   -  Revisar la configuracion de spring boot y la carga de properties
+		- Revisar la configuracion de spring boot y la carga de properties
 	 	      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 	          - http://www.baeldung.com/spring-boot-application-configuration
 	
-			
-		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. Asi tenemos el SQL a mano tambien para tocarlo
-		 
+		- REVISAR los controladores REST ¿Siguen las normas basicas? ¿Cuando hacemos un post no deberia de crear un nuevo obejto?
+		
+				 
 		- Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 	Frontend
