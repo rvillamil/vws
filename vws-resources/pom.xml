@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>vws-resources</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>VWS:Resources module</name>
 	<description>Rest controles for VWS</description>
 
@@ -67,6 +67,16 @@
 								<image>
 									<name>${docker.vws.backend.name}</name>
 									<build>
+										<cleanup>remove</cleanup>
+										<dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
+										<assembly>
+											<mode>dir</mode>
+											<descriptorRef>artifact</descriptorRef>
+											<targetDir>/</targetDir>
+										</assembly>
+									</build>
+									<!-- 
+									<build>
 										<from>${docker.tomcat.img.name}</from>
 										<assembly>
 											<mode>dir</mode>
@@ -74,6 +84,7 @@
 											<targetDir>/usr/local/tomcat/webapps</targetDir>
 										</assembly>
 									</build>
+									 -->
 								</image>
 							</images>
 						</configuration>

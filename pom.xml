@@ -33,6 +33,7 @@
 		<!-- Docker image/containers name -->
 		<docker.tomcat.img.name>img-vws-tomcat:${project.version}</docker.tomcat.img.name>
 		<docker.vws.backend.name>img-vws-resources:${project.version}</docker.vws.backend.name>
+		<docker.bbdd.img.name>img-vws-mysql:${project.version}</docker.bbdd.img.name>
 
 		<!-- JACOCO support -->
 		<jacoco.plugin.version>0.7.9</jacoco.plugin.version>

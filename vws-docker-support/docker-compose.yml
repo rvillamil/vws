@@ -1,28 +1,28 @@
 version: '2'
 
 services:
-
- service_vws:
+  service_vws:
      image: img-vws-resources:1.0-SNAPSHOT
      container_name: cnt-vws-resources
      ports:
       - "8383:8080"
-     #links:
-      # Desde 'service_api_back' alcanzamos la bbdd con el alias 'bdd_oracle'
-      #- service_bbdd:service_bbdd
+     links:
+      # Desde 'service_api_back' alcanzamos la bbdd con el alias 'service_bbdd'
+      - service_bbdd:service_bbdd
       #
       # About wait for it:
       #  https://goo.gl/zyjf2J
       #  https://github.com/vishnubob/wait-for-it
       #
-     #command: wait-for-it.sh oracle:1521 --timeout=8 -s -- myservercmd
-      
-#service_bbdd:
-#     # https://github.com/wnameless/docker-oracle-xe-11g
-#     image: wnameless/oracle-xe-11g
-#     container_name: cnt-oracle
-#     ports:
-#      - "49162:22"
-#      - "49163:1521"
-#     environment:
-#      - ORACLE_ALLOW_REMOTE=true
+      # command: wait-for-it.sh oracle:1521 --timeout=8 -s -- myservercmd
+      	
+  service_bbdd:
+     image: img-vws-mysql:1.0-SNAPSHOT
+     container_name: cnt-vws-mysql
+     ports:
+      - "4306:3306"
+     environment:
+      - MYSQL_ROOT_PASSWORD=root
+       
+
+

@@ -1,19 +1,20 @@
-# Tomcat image base 
-FROM tomcat:8.0.41-jre8
-MAINTAINER Rodrigo Villamil Pérez
+# Image base 
+FROM frolvlad/alpine-oraclejdk8:slim
 
-# TODO Docker: Nos permite esperar hasta que arranque la BB.DD: https://goo.gl/zyjf2J
-#
-# COPY bin/wait-for-it.sh /usr/bin/
+# En caso de problemas...
+LABEL maintainer "rodrigo.villamil@google.com" description="BBDD for VWS"
 
-# Copia el contenido del directorio 'A' en 'B' 
-#ADD lib /usr/local/tomcat/lib/
-#ADD lib/environment /usr/local/tomcat/lib/
-ADD conf /usr/local/tomcat/conf/
+# We added a VOLUME pointing to "/tmp" because that is where a Spring Boot application 
+# creates working directories for Tomcat by default. 
+# The effect is to create a temporary file on your host under "/var/lib/docker" and 
+# link it to the container under "/tmp". 
+# This step is optional for the simple app that we wrote here, but 
+# can be necessary for other Spring Boot applications if they need to actually write in the filesystem.
+VOLUME /tmp
 
-# TODO: Montar un README que explique la movida
-# TODO: Crear un usuario para ejecucion de aplicaciones
-# TODO: Crear un usario de adminsitracion de las aplicaciones TOMCAT: tomcat-users.xml
-# TODO: Meter alias de sistema operativo (ll='ls -la') y enlaces molones
+#ADD ../../../target/vws-resources-1.0-SNAPSHOT.jar app.jar
+RUN sh -c 'touch /app.jar'
+ENV JAVA_OPTS=""
 
-CMD ["catalina.sh", "run"]
+# To reduce Tomcat startup time we added a system property pointing to "/dev/urandom" as a source of entropy.
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]

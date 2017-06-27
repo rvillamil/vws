@@ -46,7 +46,7 @@ public class PiracyController {
 	// - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 	// - http://www.baeldung.com/spring-boot-application-configuration
 	//
-	// TODO 04: Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+	// TODO 04: Reviar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 	//
 	// TODO 05: Funcionalidades de negocio
 	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.

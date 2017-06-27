@@ -27,8 +27,9 @@ $mvn clean install -P integration: Compila con el profile 'integration' lanzando
 ## Generar contenedores docker con la aplicacion ##
  * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
    requiere docker 1.12 o superior
- * Ejecutar $mvn install -P docker-support
- * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'
+ * Ejecutar $mvn install -P docker-support  OJO! Los contenedores de docker de mysql y tomcat se generan con el plugin de maven!
+ 
+ * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'--> Revisar igual con el script es mejor
  * Ver que la apliacion está iniciada correctamente en:
 
 		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/billboardfilms
@@ -36,7 +37,12 @@ $mvn clean install -P integration: Compila con el profile 'integration' lanzando
 
  * Parar con crtl-c y ejecutar un 'docker-compose down'
 
-## Entorno de desarrollo  ##
+## Entorno de desarrollo para un FrontEnd Developer ##
+Hay varias formas de trabajar:
+1 - Contra un servidor node 'json-server' con datos de pruebas del fichero 'shows.json': $runJSONServer.sh
+2 - Contra el backend de 'vws-resources': $ runAWSBackEnd.sh : Esto levanta los contenedores docker
+
+## Entorno de desarrollo para un Backend Developer ##
 
  * Importar el proyecto como proyecto maven en tu editor favorito
 

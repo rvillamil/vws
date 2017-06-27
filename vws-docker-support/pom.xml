@@ -29,6 +29,7 @@
 						<version>${docker.maven.plugin.version}</version>
 						<configuration>
 							<images>
+								<!-- 
 								<image>
 									<name>${docker.tomcat.img.name}</name>
 									<build>
@@ -36,6 +37,15 @@
 										<dockerFileDir>${project.basedir}/vws-tomcat</dockerFileDir>
 									</build>
 								</image>
+								 -->
+								<image>
+									<name>${docker.bbdd.img.name}</name>
+									<build>
+										<cleanup>remove</cleanup>
+										<dockerFileDir>${project.basedir}/vws-mysql</dockerFileDir>									</build>
+								</image>
+
+								
 							</images>
 						</configuration>
 
