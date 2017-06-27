@@ -66,7 +66,6 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
-        //console.log("doRequest: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "' ]");
         if (this.readyState == 4 && this.status == 200) {
             var htmlFragment = onSuccess(this);
             if (htmlFragment != null) {
@@ -97,16 +96,19 @@ function doPost(resourcePath, body) {
     var request = new XMLHttpRequest();
 
     request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status === 200) {
-            var json = JSON.parse(request.responseText);
-            console.log(json);
+        if (request.readyState === 4 && request.status === 201) {
+            console.log("doPost OK!: [readyState: " +
+                this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         } else if (this.readyState == 4) {
-            showAlertWindow("Request problem! - doPost: [readyState: " +
+            showAlertWindow("doPost ERROR!: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         }
     };
 
+
+    console.log("post- body: " + body);
     var jSonBody = JSON.stringify(body);
+    console.log("post-jSonBody: " + jSonBody);
     request.open("POST", server + resourcePath, true);
     request.setRequestHeader("Content-type", "application/json");
     request.send(jSonBody);
