@@ -1,0 +1,72 @@
+# ===================================================================
+# COMMON SPRING BOOT PROPERTIES
+#
+# This section provides a list common Spring Boot properties and references
+# to the underlying classes that consume them
+#
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+# LOGGING
+#
+# Estoy usando log4j2 : https://springframework.guru/using-log4j-2-spring-boot/
+#
+# MySQL Support: https://spring.io/guides/gs/accessing-data-mysql/
+
+#
+# Configuracion General de la aplicacion
+#
+# Numero maximo de peliculas a obtener en el parseo
+
+#
+# Default configuration: For development
+#
+spring:
+    application:
+        name: vws-backend
+    jpa:
+        database: MYSQL
+        hibernate:
+            ddl-auto: validate
+
+    datasource:
+        url: jdbc:mysql://127.0.0.1:5306/vws
+        username: root
+        password: root
+        driver-class-name: com.mysql.jdbc.Driver
+
+general:
+  scraping:
+    parse:
+      maxbillboardfilms: 15
+      maxvideopremieres: 20
+      maxtvshows: 5
+    parsertumejortorrent:
+      requestdelay: 303
+          
+---
+#
+# Docker - Production onfiguration
+#
+spring:
+    profiles: container
+    jpa:
+        database: MYSQL
+        hibernate:
+            ddl-auto: auto
+            
+    datasource:        
+        url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+        username: ${DATABASE_USER}
+        password: ${DATABASE_PASSWORD}
+        driver-class-name: com.mysql.jdbc.Driver
+        
+general:
+  scraping:
+    parse:
+      maxbillboardfilms: 20
+      maxvideopremieres: 20
+      maxtvshows: 7
+    parsertumejortorrent:
+      requestdelay: 303
+
