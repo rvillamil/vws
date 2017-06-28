@@ -105,6 +105,9 @@ opcion 2:
   - docker-compose stop (o ctrl-c) para pararlos  
   - docker-compose down para cargartelo todo
   
-Para ver la BB.DD :
+Para ver la BB.DD : 
   mysql vws -P 5306 -uroot -proot -h 127.0.0.1
+  
+Para arrancar la BB.DD solo sin el Backend
+    docker-compose up service-bbdd
   
