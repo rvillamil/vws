@@ -23,7 +23,7 @@ import es.rvp.web.vws.services.WebTorrentSpider;
  * @author Rodrigo Villamil Perez
  */
 @Service("webTorrentSpider")
-@ConfigurationProperties(prefix="parserTumejortorrent")
+@ConfigurationProperties(prefix="general")
 public class WebTorrentSpiderImpl implements WebTorrentSpider {
 
 	// LOGGER
@@ -36,7 +36,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 	//
 	// Area de datos
 	//
-	@Value("${parsertumejortorrent.requestdelay}")
+	@Value("${general.scraping.parsertumejortorrent.requestdelay}")
 	private int 						requestDelay;	// Propiedades externalizada
 	//
 	// IoC

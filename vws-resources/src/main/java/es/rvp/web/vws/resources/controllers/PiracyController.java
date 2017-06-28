@@ -1,6 +1,5 @@
 package es.rvp.web.vws.resources.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.rvp.web.vws.domain.Favorite;
-import es.rvp.web.vws.domain.FavoriteRepository;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
@@ -32,6 +29,10 @@ public class PiracyController {
 	// TODO 00: Las tareas de refactorizacion son las siguientes:
    /*
 	Backend
+		
+		- Spring profiles: Producción con docker. Desarrollo con HSQL
+		  Que funcione con Docker!		  	
+		  	--> https://g00glen00b.be/docker-spring-boot/
 		
 		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. 
 		  Asi tenemos el SQL a mano tambien para tocarlo. Ver: https://spring.io/guides/gs/accessing-data-mysql/

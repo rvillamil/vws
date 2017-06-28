@@ -1,19 +1,21 @@
 # ===================================================================
 # COMMON SPRING BOOT PROPERTIES
 #
-# This section provides a list common Spring Boot properties and references 
+# This section provides a list common Spring Boot properties and references
 # to the underlying classes that consume them
 #
 # See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
-
-# LOGGING
+      
 #
-# Estoy usando log4j2 : https://springframework.guru/using-log4j-2-spring-boot/
+# Configuracion General de la aplicacion
 #
-
-#
-# ParserTumejortorrent
-#
-# Retraso en 'ms' entre las peticiones a la web para los Test de integracion
-parsertumejortorrent.requestdelay=434
+general:
+  scraping:
+    parse:
+      maxbillboardfilms: 5
+      maxvideopremieres: 5
+      maxtvshows: 3
+    parsertumejortorrent:
+      requestdelay: 222
+    

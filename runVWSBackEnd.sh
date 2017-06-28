@@ -12,7 +12,7 @@ cd vws-docker-support
 
 docker-compose stop
 ./docker-build.sh
-docker-compose up
+docker-compose start
 
 cd -
 echo ""

@@ -1,0 +1,21 @@
+# ===================================================================
+# COMMON SPRING BOOT PROPERTIES
+#
+# This section provides a list common Spring Boot properties and references
+# to the underlying classes that consume them
+#
+# See http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+  
+#
+# Configuracion General de la aplicacion
+#
+general:
+  scraping:
+    parse:
+      maxbillboardfilms: 15
+      maxvideopremieres: 20
+      maxtvshows: 5
+    parsertumejortorrent:
+      requestdelay: 434
+    
