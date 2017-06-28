@@ -100,11 +100,10 @@ function doPost(resourcePath, body) {
             console.log("doPost OK!: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         } else if (this.readyState == 4) {
-            showAlertWindow("doPost ERROR!: [readyState: " +
+            showAlertWindow("doPost: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
         }
     };
-
 
     console.log("post- body: " + body);
     var jSonBody = JSON.stringify(body);
@@ -126,14 +125,18 @@ function sendFormWithTVShowFollow(event) {
     }
     // The value of input text
     var name = document.getElementById("form-tvshows-name").value;
-    // Run request ..
+    // FIXME 00 : Solucionar la carga de favotiros: 	
+    // Para añadir favoritos hacemos los siguiente: buscamos con la lista 
+    // de favoritos para ver si ya lo tenemos . Si no lo tenemos , 
+    // buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos
     doRequest(
         'GET',
-        "/tvshows?name=" + name,
-        onSuccessGetTVShow,
-        onErrorGetTVShow,
-        onTVShowFound,
-        onTVShowNotFound);
+        "/favorites/" + name,
+        onSuccessGetFavorite,
+        onErrorGetFavorite,
+        onFavoriteFound,
+        onFavoriteNotFound);
+
     // You must return false to prevent the default form behavior
     return false;
 }

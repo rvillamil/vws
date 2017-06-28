@@ -17,20 +17,20 @@ import es.rvp.web.vws.domain.FavoriteRepository;
 /**
  * Rest Controller In Spring’s approach to building RESTful web services, HTTP
  * requests are handled by a controller.
- * 
+ *
  * @author Rodrigo Villamil Pérez
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:9090")
+@CrossOrigin(origins = "http://localhost:8080")
 public class FavoritesController {
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavoritesController.class);
 	@Autowired
-	private FavoriteRepository favoriteRepository;
+	private final FavoriteRepository favoriteRepository;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param favoriteRepository
 	 *            BBDD Repository
 	 */
@@ -44,7 +44,7 @@ public class FavoritesController {
 	public Iterable<Favorite> getAllFavorites() {
 		LOGGER.info("FavoritesController - getAllFavorites");
 		// This returns a JSON or XML with the users
-		return favoriteRepository.findAll();
+		return this.favoriteRepository.findAll();
 	}
 
 	//
@@ -52,7 +52,7 @@ public class FavoritesController {
 	@ResponseBody
 	public Favorite getFavorite(@PathVariable final String title) {
 		LOGGER.info("FavoritesController - getFavorite with title '{}'", title);
-		return favoriteRepository.findOne(title);
+		return this.favoriteRepository.findOne(title);
 	}
 
 	// Example CURL: curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json'
@@ -62,7 +62,7 @@ public class FavoritesController {
 		LOGGER.info("FavoritesController - postFavorite with title '{}'", title);
 		Favorite favorite = new Favorite();
 		favorite.setTitle(title);
-		favoriteRepository.save(favorite);
+		this.favoriteRepository.save(favorite);
 
 		return favorite;
 	}

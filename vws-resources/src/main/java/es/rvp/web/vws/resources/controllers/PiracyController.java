@@ -23,32 +23,32 @@ import es.rvp.web.vws.services.WebTorrentSpider;
  */
 @RestController
 @ConfigurationProperties(prefix="general")
-@CrossOrigin(origins = "http://localhost:9090")
+@CrossOrigin(origins = "http://localhost:8080")
 public class PiracyController {
 
 	// TODO 00: Las tareas de refactorizacion son las siguientes:
    /*
 	Backend
-		
+
 		- Spring profiles: Producción con docker. Desarrollo con HSQL
-		  Que funcione con Docker!		  	
+		  Que funcione con Docker!
 		  	--> https://g00glen00b.be/docker-spring-boot/
-		
-		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor. 
+
+		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor.
 		  Asi tenemos el SQL a mano tambien para tocarlo. Ver: https://spring.io/guides/gs/accessing-data-mysql/
-		
+
 		- Revisar la configuracion de spring boot y la carga de properties
 	 	      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 	          - http://www.baeldung.com/spring-boot-application-configuration
-	
+
 		- REVISAR los controladores REST ¿Siguen las normas basicas? ¿Cuando hacemos un post no deberia de crear un nuevo obejto?
-		
-				 
+
+
 		- Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 	Frontend
 		Al entrar en la sección de favoritos vamos al servidor , los cargamos y los mostramos
-		Para añadir favoritos hacemos los siguiente: buscamos con la lista de favoritos para ver si ya lo tenemos . Si no lo tenemos , buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos 
+		Para añadir favoritos hacemos los siguiente: buscamos con la lista de favoritos para ver si ya lo tenemos . Si no lo tenemos , buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos
     */
 
 

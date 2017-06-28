@@ -1,20 +1,18 @@
-// curl -i -X POST -H "Content-Type:application/json" -d "{  \"title\" : \"Frodo2\" }" http://localhost:8080/favorites
-
 function onSuccessGetFavorites(request) {
     try {
         // console.log("request.responseText: " + request.responseText);
 
         var newHTML = "";
         var favorites = JSON.parse(request.responseText);
-        var totalFavorites = favorites['page']['totalElements'];
+        var totalFavorites = favorites.length;
         console.log("Total favorites recovered': " + totalFavorites);
         document.getElementById("number-tvshows-following").innerHTML = totalFavorites;
         if (totalFavorites == 0) {
             newHTML = null;
         }
         var title = '';
-        for (var i = 0; i < totalFavorites; i++) {
-            title = favorites['_embedded']['favorites'][i]['title'];
+        for (var i = 0; i < favorites.length; i++) {
+            title = favorites[i]['title'];
             console.log("onSuccessGetFavorites - Processing favorite TV show title '" + title + "'");
             // doRequest( 'GET',  "/tvshows?name=" + shows[i]['title'], newHTMLTVShow, "box-with-tvshows-follow",true);
             doRequest(
@@ -52,4 +50,31 @@ function onFavoriteTVShowFound(resourcePath, htmlFragment) {
 
 function onFavoriteTVShowNotFound(resourcePath, htmlFragment) {
     console.log("Request problem! - onFavoriteTVShowNotFound: - resourcePath: " + resourcePath);
+}
+
+// -------------------- 
+function onSuccessGetFavorite(request) {
+    console.log("onSuccessGetFavorite");
+    var newHTML = "OK";
+    return newHTML;
+}
+
+function onErrorGetFavorite(request) {
+    console.log("onErrorGetFavorite: [readyState: " +
+        request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+}
+
+function onFavoriteFound(resourcePath, htmlFragment) {
+    console.log("onFavoriteFound - " + resourcePath);
+}
+
+function onFavoriteNotFound(resourcePath, htmlFragment) {
+    console.log("onFavoriteNotFound - " + resourcePath);
+    doRequest(
+        'GET',
+        "/tvshows?name=" + resourcePath.split('/')[2],
+        onSuccessGetTVShow,
+        onErrorGetTVShow,
+        onTVShowFound,
+        onTVShowNotFound);
 }

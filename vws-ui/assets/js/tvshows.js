@@ -31,24 +31,13 @@ function onErrorGetTVShow(request) {
 
 function onTVShowFound(resourcePath, htmlFragment) {
     console.log("TV Show found: adding to favorites list.. " + resourcePath);
-    document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
-    
-    // FIXME 00 : Solucionar la carga de favotiros: 	
-    	// Al entrar en la sección de favoritos vamos al servidor , los cargamos y los mostramos
-    	// Para añadir favoritos hacemos los siguiente: buscamos con la lista de favoritos para ver si ya lo tenemos . Si no lo tenemos , buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos
+    // HAcemos el post a la URL de Favoritos
     var strFavorite = resourcePath.split("=")[1];
-    var jsonFavorite = JSON.stringify(strFavorite);       
-    
+    doPost('/favorites/' + strFavorite, null);
+    document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
 }
 
 function onTVShowNotFound(resourcePath, htmlFragment) {
     console.log("Request problem! - onTVShowNotFound: - resourcePath: " + resourcePath);
     showAlertWindow("Serie no encontrada : " + resourcePath);
-}
-
-function include(arr, obj) {
-    for (i = 0; i < arr.length; ++i) {
-        console.log("array: " + arr[i]);
-    }
-    //return (arr.indexOf(obj) != -1);
 }
