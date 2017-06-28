@@ -100,5 +100,11 @@ Dentro del directorio test, tenemos un par de scripts
 Opcion 1:  $runJSONServer.sh
   Requiere instalada el modulo de node, json-server. Carga el fichero .json para pruebas sin BackEnd en localhost:3000
 
-opcion 2:  $runAWSBackEnd.sh
-  Lanza con spring-boot, el backend en la localhost:8080
+opcion 2:  
+  - docker-compose up para iniciar todos los contenerdos (con -d en background)
+  - docker-compose stop (o ctrl-c) para pararlos  
+  - docker-compose down para cargartelo todo
+  
+Para ver la BB.DD :
+  mysql vws -P 5306 -uroot -proot -h 127.0.0.1
+  
