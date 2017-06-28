@@ -7,7 +7,7 @@
 /**
  * Global config
  */
-var server = "http://localhost:8080";
+var server = "http://localhost:9090";
 
 /**
  * Replace de tabcontent with name 'htmlElementID' with HTML show list
@@ -113,7 +113,6 @@ function doPost(resourcePath, body) {
     request.setRequestHeader("Content-type", "application/json");
     request.send(jSonBody);
 }
-
 
 /**
  * Request to get tvshow from a 'Form' called 'form-tvshows-name'
