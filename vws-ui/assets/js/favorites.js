@@ -54,14 +54,17 @@ function onFavoriteTVShowNotFound(resourcePath, htmlFragment) {
 
 // -------------------- 
 function onSuccessGetFavorite(request) {
-    console.log("onSuccessGetFavorite");
-    var newHTML = "OK";
+    console.log("onSuccessGetFavorite: [readyState: " +
+        request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+
+    var newHTML = "OK"; //FIXME...!!! -- if request.status == 200 .. por ejemplo, puede ser la solucion
     return newHTML;
 }
 
 function onErrorGetFavorite(request) {
     console.log("onErrorGetFavorite: [readyState: " +
         request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+
 }
 
 function onFavoriteFound(resourcePath, htmlFragment) {
