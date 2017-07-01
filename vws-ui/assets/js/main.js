@@ -7,7 +7,7 @@
 /**
  * Global config
  */
-var server = "http://localhost:9090";
+var server = "http://localhost:8080";
 
 /**
  * Replace de tabcontent with name 'htmlElementID' with HTML show list

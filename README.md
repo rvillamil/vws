@@ -103,7 +103,6 @@ Opcion 1:  $runJSONServer.sh
 Opcion 2: $runSpringBootServerWithH2.sh
   Ejecuta el Backend pero contra una BB.DD embebida en h2
   La BBDD se regenera y se destruye en cada arranque o parada.
-  En cualquier caso se persiste a fichero por si queremos consultar o no perder nada en un momento dado. Ver application.yml
 
 opcion 3 Como en produccion:
   - docker-compose up para iniciar todos los contenerdos (con -d en background)
