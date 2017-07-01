@@ -32,8 +32,9 @@ function onSuccessGetFavorites(request) {
 }
 
 function onErrorGetFavorites(request) {
-    showAlertWindow("Request problem! - onErrorGetFavorites: [readyState: " +
+    console.log("onErrorGetFavorites: [readyState: " +
         request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+    showAlertWindow("No tienes favoritos en la lista todavia. Busca las series que te interesa seguir ...");
 }
 
 function onFavoritesTVShowsFound(resourcePath, htmlFragment) {
@@ -41,9 +42,10 @@ function onFavoritesTVShowsFound(resourcePath, htmlFragment) {
 }
 
 function onFavoritesTVShowsNotFound(resourcePath, htmlFragment) {
-    showModalWindow("No tienes favoritos en la lista todavia. Busca las series que te interesa seguir ...");
+    console.log("Request problem! - onFavoritesTVShowsNotFound: - resourcePath: " + resourcePath);
 }
 
+// -------------------
 function onFavoriteTVShowFound(resourcePath, htmlFragment) {
     document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
 }
@@ -54,25 +56,14 @@ function onFavoriteTVShowNotFound(resourcePath, htmlFragment) {
 
 // -------------------- 
 function onSuccessGetFavorite(request) {
-    console.log("onSuccessGetFavorite: [readyState: " +
+    console.log("El favorito ya existe! - onSuccessGetFavorite: [readyState: " +
         request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
-
-    var newHTML = "OK"; //FIXME...!!! -- if request.status == 200 .. por ejemplo, puede ser la solucion
-    return newHTML;
+    return "OK"; // --> fuerza a que pase por el handler onFavoriteAlreadyExists
 }
 
 function onErrorGetFavorite(request) {
-    console.log("onErrorGetFavorite: [readyState: " +
+    console.log("El favorito no existe! - onErrorGetFavorite: [readyState: " +
         request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
-
-}
-
-function onFavoriteFound(resourcePath, htmlFragment) {
-    console.log("onFavoriteFound - " + resourcePath);
-}
-
-function onFavoriteNotFound(resourcePath, htmlFragment) {
-    console.log("onFavoriteNotFound - " + resourcePath);
     doRequest(
         'GET',
         "/tvshows?name=" + resourcePath.split('/')[2],
@@ -80,4 +71,12 @@ function onFavoriteNotFound(resourcePath, htmlFragment) {
         onErrorGetTVShow,
         onTVShowFound,
         onTVShowNotFound);
+}
+
+function onFavoriteAlreadyExists(resourcePath, htmlFragment) {
+    console.log("onFavoriteAlreadyExists - " + resourcePath);
+}
+
+function onFavoriteNotExists(resourcePath, htmlFragment) {
+    console.log("onFavoriteNotExists - " + resourcePath);
 }

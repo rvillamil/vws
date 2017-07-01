@@ -23,22 +23,23 @@ import es.rvp.web.vws.services.WebTorrentSpider;
  */
 @RestController
 @ConfigurationProperties(prefix="general")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
 	// TODO 00: PMV Produccion
 	/*
 	Backend
-			- Preparar profiles con h2 para desarrollo y dejar produccion con mysql. Todo se debe ararranca con docker-composes
 			- Subir a Azure gratis
-			- Servicios rest bien hechos:
+			- Servicios rest bien hechos antes de acabar el Front. Ojo PUT , POST e idempotencia
 				http://websystique.com/spring-boot/spring-boot-rest-api-example/
+				- El Favorites ya esta OK
+				- PiracyController no estan muy bien...no es muy rest..
 			- Test unitarios para los controladores REST
 
 		    - REVISAR los controladores REST ¿Siguen las normas basicas?
 		        ¿Cuando hacemos un post no deberia de crear un nuevo obejto?
 					https://spring.io/guides/tutorials/bookmarks/
-
+			- Acabar el Front bien de una vez al cambiar los servicios
 			- oAuth: Crear usuarios y soporte para OAuth con Google:
 				Tnemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 

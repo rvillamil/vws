@@ -50,7 +50,7 @@ function getShows(evt, htmlElementID) {
     } else if (htmlElementID == "tvshows-content") {
         doRequest(
             'GET',
-            '/favorites',
+            '/api/favorites/',
             onSuccessGetFavorites,
             onErrorGetFavorites,
             onFavoritesTVShowsFound,
@@ -105,9 +105,7 @@ function doPost(resourcePath, body) {
         }
     };
 
-    console.log("post- body: " + body);
     var jSonBody = JSON.stringify(body);
-    console.log("post-jSonBody: " + jSonBody);
     request.open("POST", server + resourcePath, true);
     request.setRequestHeader("Content-type", "application/json");
     request.send(jSonBody);
@@ -131,11 +129,11 @@ function sendFormWithTVShowFollow(event) {
     // buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos
     doRequest(
         'GET',
-        "/favorites/" + name,
+        "/api/favorites/" + name,
         onSuccessGetFavorite,
         onErrorGetFavorite,
-        onFavoriteFound,
-        onFavoriteNotFound);
+        onFavoriteAlreadyExists,
+        onFavoriteNotExists);
 
     // You must return false to prevent the default form behavior
     return false;
