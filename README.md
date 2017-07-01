@@ -28,7 +28,7 @@ $mvn clean install -P integration: Compila con el profile 'integration' lanzando
  * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
    requiere docker 1.12 o superior
  * Ejecutar $mvn install -P docker-support  OJO! Los contenedores de docker de mysql y tomcat se generan con el plugin de maven!
- 
+
  * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'--> Revisar igual con el script es mejor
  * Ver que la apliacion está iniciada correctamente en:
 
@@ -100,14 +100,18 @@ Dentro del directorio test, tenemos un par de scripts
 Opcion 1:  $runJSONServer.sh
   Requiere instalada el modulo de node, json-server. Carga el fichero .json para pruebas sin BackEnd en localhost:3000
 
-opcion 2:  
+Opcion 2: $runSpringBootServerWithH2.sh
+  Ejecuta el Backend pero contra una BB.DD embebida en h2
+  La BBDD se regenera y se destruye en cada arranque o parada.
+  En cualquier caso se persiste a fichero por si queremos consultar o no perder nada en un momento dado. Ver application.yml
+
+opcion 3 Como en produccion:
   - docker-compose up para iniciar todos los contenerdos (con -d en background)
-  - docker-compose stop (o ctrl-c) para pararlos  
+  - docker-compose stop (o ctrl-c) para pararlos
   - docker-compose down para cargartelo todo
-  
-Para ver la BB.DD : 
-  mysql vws -P 5306 -uroot -proot -h 127.0.0.1
-  
+  Para ver la BB.DD :
+     mysql vws -P 5306 -uroot -proot -h 127.0.0.1
+
 Para arrancar la BB.DD solo sin el Backend
     docker-compose up service-bbdd
-  
+

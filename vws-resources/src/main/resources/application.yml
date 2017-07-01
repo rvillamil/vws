@@ -11,12 +11,6 @@
 #
 # Estoy usando log4j2 : https://springframework.guru/using-log4j-2-spring-boot/
 #
-# MySQL Support: https://spring.io/guides/gs/accessing-data-mysql/
-
-#
-# Configuracion General de la aplicacion
-#
-# Numero maximo de peliculas a obtener en el parseo
 
 #
 # Default configuration: For development
@@ -25,15 +19,22 @@ spring:
     application:
         name: vws-backend
     jpa:
-        database: MYSQL
+        database: H2
         hibernate:
-            ddl-auto: validate
+            ddl-auto: create-drop
 
     datasource:
-        url: jdbc:mysql://127.0.0.1:5306/vws
+        url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
         username: root
-        password: root
-        driver-class-name: com.mysql.jdbc.Driver
+        password:
+        driver-class-name: org.h2.Driver
+    # http://www.baeldung.com/spring-testing-separate-data-source
+    # https://dzone.com/articles/integrate-h2-database-in-your-spring-boot-applicat
+    h2:
+      console:
+        enabled: true
+        path: /h2
+     
 
 general:
   scraping:
@@ -46,7 +47,7 @@ general:
           
 ---
 #
-# Docker - Production onfiguration
+# Docker - Production configuration
 #
 spring:
     profiles: container
@@ -54,7 +55,7 @@ spring:
         database: MYSQL
         hibernate:
             ddl-auto: auto
-            
+    # MySQL Support: https://spring.io/guides/gs/accessing-data-mysql/
     datasource:        
         url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
         username: ${DATABASE_USER}

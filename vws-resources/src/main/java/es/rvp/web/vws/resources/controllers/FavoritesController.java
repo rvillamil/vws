@@ -21,6 +21,7 @@ import es.rvp.web.vws.domain.FavoriteRepository;
  * @author Rodrigo Villamil Pérez
  */
 @RestController
+//@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:8080")
 public class FavoritesController {
 	// LOGGER
@@ -29,18 +30,16 @@ public class FavoritesController {
 	private final FavoriteRepository favoriteRepository;
 
 	/**
-	 * Constructor
-	 *
-	 * @param favoriteRepository
-	 *            BBDD Repository
+	 * Builder
+	 * @param favoriteRepository DDBB Repository
 	 */
 	public FavoritesController(final FavoriteRepository favoriteRepository) {
 		super();
 		this.favoriteRepository = favoriteRepository;
 	}
 
+	// http://websystique.com/spring-boot/spring-boot-rest-api-example/
 	@GetMapping(path = "/favorites")
-	@ResponseBody
 	public Iterable<Favorite> getAllFavorites() {
 		LOGGER.info("FavoritesController - getAllFavorites");
 		// This returns a JSON or XML with the users

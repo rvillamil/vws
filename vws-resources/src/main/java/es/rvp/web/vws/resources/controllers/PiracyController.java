@@ -26,29 +26,27 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @CrossOrigin(origins = "http://localhost:8080")
 public class PiracyController {
 
-	// TODO 00: Las tareas de refactorizacion son las siguientes:
-   /*
+	// TODO 00: PMV Produccion
+	/*
 	Backend
+			- Preparar profiles con h2 para desarrollo y dejar produccion con mysql. Todo se debe ararranca con docker-composes
+			- Subir a Azure gratis
+			- Servicios rest bien hechos:
+				http://websystique.com/spring-boot/spring-boot-rest-api-example/
+			- Test unitarios para los controladores REST
 
-		- Spring profiles: Producción con docker. Desarrollo con HSQL
-		  Que funcione con Docker!
-		  	--> https://g00glen00b.be/docker-spring-boot/
+		    - REVISAR los controladores REST ¿Siguen las normas basicas?
+		        ¿Cuando hacemos un post no deberia de crear un nuevo obejto?
+					https://spring.io/guides/tutorials/bookmarks/
 
-		- Docker: DUDA? El Mysql docker lo metemos dentro del proyecto persistence que queda mejor.
-		  Asi tenemos el SQL a mano tambien para tocarlo. Ver: https://spring.io/guides/gs/accessing-data-mysql/
+			- oAuth: Crear usuarios y soporte para OAuth con Google:
+				Tnemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 
-		- Revisar la configuracion de spring boot y la carga de properties
+		- Revisar la configuracion de spring boot y la carga de properties mas interesantes
 	 	      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 	          - http://www.baeldung.com/spring-boot-application-configuration
 
-		- REVISAR los controladores REST ¿Siguen las normas basicas? ¿Cuando hacemos un post no deberia de crear un nuevo obejto?
-
-
 		- Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-
-	Frontend
-		Al entrar en la sección de favoritos vamos al servidor , los cargamos y los mostramos
-		Para añadir favoritos hacemos los siguiente: buscamos con la lista de favoritos para ver si ya lo tenemos . Si no lo tenemos , buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos
     */
 
 
@@ -64,10 +62,7 @@ public class PiracyController {
 	  }
 	 */
 	//
-	// TODO 02: Implementar la autorizacion a la API en el Backend con OauthZ
-	// TODO 03: Implementar la autenticacion (CAS?, otra cosa?)
-	// TODO 04: Montar el soporte para Quartz para buscar pelicualas cada 5 minutos. Luego  salvar en BB.DD los resultados lanzados por el quartz. Soport de docker para BB.DD
-	// TODO 05: Funcionalidades de negocio
+	// TODO 02: Funcionalidades de negocio
 	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 	//
