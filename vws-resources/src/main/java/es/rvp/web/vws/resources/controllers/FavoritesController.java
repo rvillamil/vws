@@ -41,7 +41,6 @@ public class FavoritesController {
 		this.favoriteRepository = favoriteRepository;
 	}
 
-	// http://websystique.com/spring-boot/spring-boot-rest-api-example/
 	/**
 	 * GET all favorites
 	 * @return HttpStatus.OK if favorites are found. HttpStatus.NOT_FOUND in other case
