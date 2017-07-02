@@ -31,7 +31,6 @@ public class PiracyController {
 
 	// TODO 00: PMV Produccion
 	/*
-		- Revisar el Front: LAs modales no salen del todo bien cuando deberian ..
 
 		- Montar oAuth: Crear usuarios y soporte para OAuth con Google: Tenemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 

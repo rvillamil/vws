@@ -21,7 +21,7 @@ var url_base_favorites = url_base + "/favorites/";
  * @param htmlElementID: billboardfilms-content, videopremieres-content,... HTML element to replace
  */
 function getShows(evt, htmlElementID) {
-    // console.log("getShows with event: " + event + " for replacing html element: " + htmlElementID);
+    console.log("Loading content for replacing html element: '" + htmlElementID + "'");
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("main-content");
     for (i = 0; i < tabcontent.length; i++) {
