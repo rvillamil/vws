@@ -48,7 +48,7 @@ public class FavoritesController {
 	@RequestMapping(value = "/favorites/",
 					method = RequestMethod.GET)
 	public ResponseEntity<?> listAllFavorites () {
-		LOGGER.info("FavoritesController - listAllFavorites ...");
+		LOGGER.info("FavoritesController - Getting all favorites ...");
 
 		Iterable<Favorite> favorites =  this.favoriteRepository.findAll();
 		if (! favorites.iterator().hasNext()) {

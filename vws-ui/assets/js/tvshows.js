@@ -5,8 +5,7 @@ function onSuccessGetTVShow(request) {
         var shows = JSON.parse(request.responseText);
         var newHTML = " <div class='showtv-episodes-container'>";
         for (var i = 0; i < shows.length; i++) {
-            console.log("Processing TV show '" + shows[i]['title'] + " T-" +
-                shows[i]['session'] + " E-" + shows[i]['episode'] + "'");
+            //console.log("Processing TV show '" + shows[i]['title'] + " T-" + shows[i]['session'] + " E-" + shows[i]['episode'] + "'");
             newHTML += "<a href='" + shows[i]["urltodownload"] + "'>";
             newHTML += "<p>Episodio " + shows[i]['episode'] + "</p>";
             newHTML += "</a>";
@@ -27,13 +26,14 @@ function onSuccessGetTVShow(request) {
 function onErrorGetTVShow(request) {
     console.log("Request problem! - onErrorGetTVShow: [readyState: " +
         request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+    var name = document.getElementById("form-tvshows-name").value;
+    showAlertWindow("No se ha podido obtener el TVShow '" + name + "'")
 }
 
 function onTVShowFound(resourcePath, htmlFragment) {
     console.log("TV Show found: adding to favorites list.. " + resourcePath);
-    // HAcemos el post a la URL de Favoritos
-    var strFavorite = resourcePath.split("=")[1];
-    doPost('/favorites/' + strFavorite, null);
+    var strFavorite = resourcePath.split("/")[3];
+    doPost(url_base_favorites, strFavorite);
     document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
 }
 

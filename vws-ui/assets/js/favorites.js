@@ -7,17 +7,17 @@ function onSuccessGetFavorites(request) {
         var totalFavorites = favorites.length;
         console.log("Total favorites recovered': " + totalFavorites);
         document.getElementById("number-tvshows-following").innerHTML = totalFavorites;
+        document.getElementById("box-with-tvshows-follow").innerHTML = "";
         if (totalFavorites == 0) {
             newHTML = null;
         }
         var title = '';
         for (var i = 0; i < favorites.length; i++) {
             title = favorites[i]['title'];
-            console.log("onSuccessGetFavorites - Processing favorite TV show title '" + title + "'");
-            // doRequest( 'GET',  "/tvshows?name=" + shows[i]['title'], newHTMLTVShow, "box-with-tvshows-follow",true);
+            // console.log("onSuccessGetFavorites - Processing favorite TV show title '" + title + "'");
             doRequest(
                 'GET',
-                "/tvshows?name=" + title,
+                url_base_tvshows + title,
                 onSuccessGetTVShow,
                 onErrorGetTVShow,
                 onFavoriteTVShowFound,
@@ -28,6 +28,9 @@ function onSuccessGetFavorites(request) {
         newHTML = null;
         showAlertWindow("onSuccessGetFavorites exception!: " + err.message + " in " + request.responseText);
     }
+
+    //    modal.style.display = "none";
+
     return newHTML;
 }
 
@@ -64,9 +67,10 @@ function onSuccessGetFavorite(request) {
 function onErrorGetFavorite(request) {
     console.log("El favorito no existe! - onErrorGetFavorite: [readyState: " +
         request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+    var name = document.getElementById("form-tvshows-name").value;
     doRequest(
         'GET',
-        "/tvshows?name=" + resourcePath.split('/')[2],
+        url_base_tvshows + name,
         onSuccessGetTVShow,
         onErrorGetTVShow,
         onTVShowFound,

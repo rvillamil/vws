@@ -23,7 +23,7 @@ function onErrorGetShows(request) {
 }
 
 function onBillBoardFilmsFound(resourcePath, htmlFragment) {
-    document.getElementById("billboardfilms-content").innerHTML += htmlFragment;
+    document.getElementById("billboardfilms-content").innerHTML = htmlFragment;
 }
 
 function onBillBoardFilmsNotFound(resourcePath, htmlFragment) {
@@ -31,7 +31,7 @@ function onBillBoardFilmsNotFound(resourcePath, htmlFragment) {
 }
 
 function onVideoPremieresFound(resourcePath, htmlFragment) {
-    document.getElementById("videopremieres-content").innerHTML += htmlFragment;
+    document.getElementById("videopremieres-content").innerHTML = htmlFragment;
 }
 
 function onVideoPremieresNotFound(resourcePath, htmlFragment) {

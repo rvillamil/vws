@@ -16,7 +16,7 @@ function showModalWindow(modalHeader, modalText, modalFooter) {
     if (modalHeader != null) {
         document.getElementsByClassName('modal-header')[0].innerHTML = "<span class=\"close\">&times;</span><h3>" + modalHeader + "</h3>"
     }
-    document.getElementsByClassName('modal-text')[0].innerHTML = "<p> -" + modalText + "</p>";
+    document.getElementsByClassName('modal-text')[0].innerHTML = "<p>" + modalText + "</p>";
 
     if (modalFooter != null) {
         document.getElementsByClassName('modal-footer')[0].innerHTML = "<p>" + modalFooter + "</p>";

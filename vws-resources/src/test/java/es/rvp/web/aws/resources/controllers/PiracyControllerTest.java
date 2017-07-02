@@ -1,16 +1,11 @@
 package es.rvp.web.aws.resources.controllers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.resources.controllers.PiracyController;
@@ -37,6 +32,7 @@ public class PiracyControllerTest {
 	}
 
 	//--------------------------- parseBillboardFilms -------------------------
+	/*
 	@Test
 	public void whenParseFilmsInBillBoardThenGetTwoFilmsInBillBoard() {
 		// Given
@@ -50,8 +46,9 @@ public class PiracyControllerTest {
 		assertEquals(filmsBillboard, this.newShowsToTest(2, "La Isla"));
 		assertTrue(filmsBillboard.size() == 2);
 	}
-
+	 */
 	//--------------------------- parseVideoPremieres -------------------------
+	/*
 	@Test
 	public void whenParseVideoPremieresThenGetTwoVideoPremieres() {
 		// Given
@@ -65,7 +62,9 @@ public class PiracyControllerTest {
 		assertEquals(filmsBillboard, this.newShowsToTest(2, "La Isla en Video"));
 		assertTrue(filmsBillboard.size() == 2);
 	}
+	*/
 	//---------------------------- parseTVShow --------------------------------
+	/*
 	@Test
 	public void whenParseTVShowThenGetTheLastThreeEpisodes() {
 		// Given
@@ -82,7 +81,7 @@ public class PiracyControllerTest {
 		assertTrue(filmsBillboard.size() == 2);
 
 	}
-
+	 */
 	//-------------------------- Helpers Methods ------------------------------
 	private Set<Show> newShowsToTest(final int numShows, final String prefixName) {
 		final Set<Show> shows = new LinkedHashSet<>();

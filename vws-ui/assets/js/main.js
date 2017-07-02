@@ -8,6 +8,11 @@
  * Global config
  */
 var server = "http://localhost:8080";
+var url_base = "/api";
+var url_base_billboard_films = url_base + "/billboardfilms/";
+var url_base_video_premieres = url_base + "/videopremieres/";
+var url_base_tvshows = url_base + "/tvshows/";
+var url_base_favorites = url_base + "/favorites/";
 
 /**
  * Replace de tabcontent with name 'htmlElementID' with HTML show list
@@ -16,7 +21,7 @@ var server = "http://localhost:8080";
  * @param htmlElementID: billboardfilms-content, videopremieres-content,... HTML element to replace
  */
 function getShows(evt, htmlElementID) {
-    console.log("getShows with event: " + event + " for replacing html element: " + htmlElementID);
+    // console.log("getShows with event: " + event + " for replacing html element: " + htmlElementID);
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("main-content");
     for (i = 0; i < tabcontent.length; i++) {
@@ -32,7 +37,7 @@ function getShows(evt, htmlElementID) {
     if (htmlElementID == "billboardfilms-content") {
         doRequest(
             'GET',
-            '/billboardfilms',
+            url_base_billboard_films,
             onSuccessGetShows,
             onErrorGetShows,
             onBillBoardFilmsFound,
@@ -41,7 +46,7 @@ function getShows(evt, htmlElementID) {
     } else if (htmlElementID == "videopremieres-content") {
         doRequest(
             'GET',
-            '/videopremieres',
+            url_base_video_premieres,
             onSuccessGetShows,
             onErrorGetShows,
             onVideoPremieresFound,
@@ -50,7 +55,7 @@ function getShows(evt, htmlElementID) {
     } else if (htmlElementID == "tvshows-content") {
         doRequest(
             'GET',
-            '/api/favorites/',
+            url_base_favorites,
             onSuccessGetFavorites,
             onErrorGetFavorites,
             onFavoritesTVShowsFound,
@@ -60,8 +65,14 @@ function getShows(evt, htmlElementID) {
     }
 }
 
-function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound, onElementsNotFound) {
-    console.log("doRequest to: " + resourcePath + " ( operation: " + operation + " )");
+function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound, onElementsNotFound, async) {
+    // por defecto asincronas
+    async_request = async;
+    if (async == null) {
+        async_request = true;
+    }
+
+    console.log("doRequest to: " + resourcePath + " ( operation: " + operation + " )" + " - Async: " + async_request);
     var modal = null;
     var request = new XMLHttpRequest();
 
@@ -78,12 +89,13 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
         }
     };
     request.onloadstart = function() {
-        modal = showModalWindow("Espere por favor..", "   " + server + resourcePath, "");
+        modal = showModalWindow("Espere por favor..", "Obteniendo las peliculas del servidor..", "");
     };
     request.onloadend = function() {
         modal.style.display = "none";
     };
-    request.open(operation, server + resourcePath, true);
+
+    request.open(operation, server + resourcePath, async_request);
     request.send();
 }
 
@@ -105,10 +117,9 @@ function doPost(resourcePath, body) {
         }
     };
 
-    var jSonBody = JSON.stringify(body);
     request.open("POST", server + resourcePath, true);
     request.setRequestHeader("Content-type", "application/json");
-    request.send(jSonBody);
+    request.send(body);
 }
 
 /**
@@ -153,7 +164,7 @@ function newHTMLShow(jsonShow, htmlWithEpisodeLinks) {
         "," + '"' + jsonShow["description"] + '"' +
         "," + '"' + jsonShow["sinopsis"] + '"' + ")'" +
         ">";
-    console.log("Titulo: " + jsonShow["title"] + "- descr" + jsonShow["description"] + "- sinopsis: " + jsonShow["sinopsis"]);
+    // console.log("Titulo: " + jsonShow["title"] + "- descr" + jsonShow["description"] + "- sinopsis: " + jsonShow["sinopsis"]);
 
 
     // Filmaffinity Points
