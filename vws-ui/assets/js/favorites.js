@@ -1,7 +1,6 @@
 function onSuccessGetFavorites(request) {
     try {
         // console.log("request.responseText: " + request.responseText);
-
         var newHTML = "";
         var favorites = JSON.parse(request.responseText);
         var totalFavorites = favorites.length;
@@ -28,9 +27,6 @@ function onSuccessGetFavorites(request) {
         newHTML = null;
         showAlertWindow("onSuccessGetFavorites exception!: " + err.message + " in " + request.responseText);
     }
-
-    //    modal.style.display = "none";
-
     return newHTML;
 }
 
