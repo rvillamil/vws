@@ -30,15 +30,16 @@ public class PiracyController {
 	/*
 	Backend
 			- Subir a Azure gratis
-			- Servicios rest bien hechos antes de acabar el Front. Ojo PUT , POST e idempotencia
-				http://websystique.com/spring-boot/spring-boot-rest-api-example/
-				- El Favorites ya esta OK
+			- Servicios rest bien hechos antes de acabar el Front: 	http://websystique.com/spring-boot/spring-boot-rest-api-example/
 				- PiracyController no estan muy bien...no es muy rest..
-			- Test unitarios para los controladores REST
 
-		    - REVISAR los controladores REST ¿Siguen las normas basicas?
-		        ¿Cuando hacemos un post no deberia de crear un nuevo obejto?
-					https://spring.io/guides/tutorials/bookmarks/
+				- Ojo PUT , POST e idempotencia , optimistic lock ...¿Como evitamos problemas de concurrencia?
+					- http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
+					- https://spring.io/guides/tutorials/bookmarks/
+
+			- Test unitarios para los controladores REST, persistencia..todo lo que falte
+
+
 			- Acabar el Front bien de una vez al cambiar los servicios
 			- oAuth: Crear usuarios y soporte para OAuth con Google:
 				Tnemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/

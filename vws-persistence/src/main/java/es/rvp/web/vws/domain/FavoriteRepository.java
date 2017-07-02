@@ -1,8 +1,3 @@
-/**
- * Created by Rodrigo
- *
- * 21:31:51
- */
 package es.rvp.web.vws.domain;
 
 import org.springframework.data.repository.CrudRepository;

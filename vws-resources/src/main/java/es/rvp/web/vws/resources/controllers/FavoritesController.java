@@ -42,6 +42,10 @@ public class FavoritesController {
 	}
 
 	// http://websystique.com/spring-boot/spring-boot-rest-api-example/
+	/**
+	 * GET all favorites
+	 * @return HttpStatus.OK if favorites are found. HttpStatus.NOT_FOUND in other case
+	 */
 	@RequestMapping(value = "/favorites/",
 					method = RequestMethod.GET)
 	public ResponseEntity<?> listAllFavorites () {
@@ -55,31 +59,42 @@ public class FavoritesController {
         return new ResponseEntity<>(favorites, HttpStatus.OK);
 	}
 
-
+	/**
+	 * GET favorite by title
+	 * @param title The name of the favorite
+	 * @return HttpStatus.OK if favorites are found. HttpStatus.NOT_FOUND in other case
+	 */
 	@RequestMapping(value = "/favorites/{title}",
 					method = RequestMethod.GET)
 	public ResponseEntity<?> getFavorite(@PathVariable final String title) {
-		LOGGER.info("FavoritesController - getFavorite with title '{}'", title);
+		LOGGER.info("FavoritesController - Fetching favorite with title '{}'", title);
 
 		Favorite favorite = this.favoriteRepository.findOne(title);
 
 		if (favorite == null) {
-			LOGGER.error("Favorite with title {} not found.", title);
+			LOGGER.error("FavoritesController - Favorite with title '{}' not found.", title);
 			return new ResponseEntity<>(new CustomErrorType(
-					"Favorite with title " + title + " not found"), HttpStatus.NOT_FOUND);
+					"Favorite with title '" + title + "' not found"), HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(favorite, HttpStatus.OK);
 	}
 
+	/**
+	 * POST favorite
+	 *
+	 * @param Requestbody string with the title.
+	 * @param ucBuilder utility to set headers info
+	 * @return HttpStatus.CREATED or HttpStatus.CONFLICT if already exists
+	 */
 	@RequestMapping(value = "/favorites/", method = RequestMethod.POST)
 	public ResponseEntity<?> createFavorite(@RequestBody final String title,
 											final UriComponentsBuilder ucBuilder) {
 		LOGGER.info("FavoritesController - createFavorite with title '{}'", title);
 
 		 if (this.favoriteRepository.exists(title)) {
-			 LOGGER.error("Unable to create. A favorite with title {} already exist", title);
-	            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Favorite with title " +
-	            title+ " already exist."),HttpStatus.CONFLICT); // 409
+			 LOGGER.error("FavoritesController - Unable to create. A favorite with title '{}' already exist", title);
+	            return new ResponseEntity<>(new CustomErrorType("Unable to create. A Favorite with title '" +
+	            title+ "' already exist."),HttpStatus.CONFLICT); // 409
 	     }
 		 Favorite favorite = new Favorite();
 		 favorite.setTitle(title);
@@ -90,4 +105,55 @@ public class FavoritesController {
 	     headers.setLocation(ucBuilder.path("/api/favorites/{title}").buildAndExpand(title).toUri());
 	     return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
+
+	/**
+	 * PUT (Update) the favorite with the title
+	 *
+	 * @param title new title
+	 * @param favorite Object to replace
+	 *
+	 * @return HttpStatus.OK or HttpStatus.NOT_FOUND if not exists
+	 */
+	 @RequestMapping(value = "/favorites/{title}",
+			 		 method = RequestMethod.PUT)
+	 public ResponseEntity<?> updateFavorite(@PathVariable("title") final String title,
+			 								 @RequestBody final Favorite favorite) {
+		 LOGGER.info("FavoritesController - Updating favorite with title {}", title);
+
+		 Favorite currentFavorite = this.favoriteRepository.findOne(title);
+
+		 if (currentFavorite == null) {
+			 LOGGER.error("FavoritesController - Unable to update. Favorite with title '{}' not found.", title);
+			 return new ResponseEntity<>(new CustomErrorType(
+	            		"Unable to upate. Favorite with title '" + title + "' not found."),
+	                    HttpStatus.NOT_FOUND);
+		 }
+
+		 currentFavorite.setTitle(favorite.getTitle());
+
+		 this.favoriteRepository.save(currentFavorite);
+		 return new ResponseEntity<>(currentFavorite, HttpStatus.OK);
+	 }
+
+	 /**
+	  * DELETE Favorite
+	  * @param title
+	  * @return HttpStatus.NO_CONTENT if favorite eas deleted. HttpStatus.NOT_FOUND in other case
+	  */
+	 @RequestMapping ( value = "/favorites/{title}",
+			 		   method = RequestMethod.DELETE)
+	 public ResponseEntity<?> deleteFavorite(@PathVariable("title") final String title) {
+		 LOGGER.info("FavoritesController - Fetching & Deleting favorite with title '{}'", title);
+
+		 Favorite favorite = this.favoriteRepository.findOne(title);
+
+		 if (favorite == null) {
+			 LOGGER.error("FavoritesController - Unable to delete. Favorite with title '{}' not found.", title);
+			 return new ResponseEntity<>(new CustomErrorType(
+					 "Unable to delete. Favorite with title '" + title + "' not found."),
+					 HttpStatus.NOT_FOUND);
+		 }
+		 this.favoriteRepository.delete(title);
+		 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	 }
 }
