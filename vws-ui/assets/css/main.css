@@ -201,7 +201,7 @@
         padding: 1px;
         border: 1px;
         text-align: center;
-        font-size: 0.675em;
+        font-size: 0.775em;
     }
     /* Titulo del show con Tooltip y recortado por puntos */
     
@@ -216,6 +216,7 @@
         overflow: hidden;
         font-size: 0.875em;
         font-weight: bold;
+        color: var(--menubar-button-text-color);
     }
     
     .show-box-session {
@@ -237,7 +238,7 @@
         padding: 1px;
         border: 1px;
         text-align: center;
-        font-size: 0.675em;
+        font-size: 0.775em;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
