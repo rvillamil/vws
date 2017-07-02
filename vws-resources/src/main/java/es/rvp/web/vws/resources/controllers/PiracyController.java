@@ -39,7 +39,7 @@ public class PiracyController {
 
 			- Test unitarios para los controladores REST, persistencia..todo lo que falte
 
-
+			- docker para el front end ..
 			- Acabar el Front bien de una vez al cambiar los servicios
 			- oAuth: Crear usuarios y soporte para OAuth con Google:
 				Tnemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
