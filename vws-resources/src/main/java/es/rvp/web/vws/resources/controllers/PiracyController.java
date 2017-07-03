@@ -35,6 +35,7 @@ public class PiracyController {
 		- Montar oAuth: Crear usuarios y soporte para OAuth con Google: Tenemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 
 		- Dockerizar el front end y poner un nginx por delante
+			Ver https://www.adictosaltrabajo.com/tutoriales/balanceando-apps-de-spring-boot-con-nginx-en-docker/
 
 		- Subir a Azure la primera version con usuario y password y todo dockerizado
 	*/
