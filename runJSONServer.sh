@@ -11,7 +11,7 @@
 echo "Installing json-server..."
 npm install -g json-server
 echo "Runing Json-server on port ${port}"
-cd vws-ui/test
+cd vws-ui/src/test/assets
 json-server -p ${1} shows.json
 cd -
 
