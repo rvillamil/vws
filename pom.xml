@@ -19,8 +19,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility.
-			If you want to follow our recommendation and use a later Java version you
+		<!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. 
+			If you want to follow our recommendation and use a later Java version you 
 			can add a java.version property: -->
 		<java.version>1.8</java.version>
 		<start-class>es.rvp.web.vws.ApplicationVWS</start-class>
@@ -52,17 +52,17 @@
 			</dependency>
 
 			<dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger2</artifactId>
-                <version>2.6.1</version>
-                <scope>compile</scope>
-            </dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>2.6.1</version>
+				<scope>compile</scope>
+			</dependency>
 
 			<dependency>
-			    <groupId>io.springfox</groupId>
-			    <artifactId>springfox-swagger-ui</artifactId>
-			    <version>2.6.1</version>
-			    <scope>compile</scope>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>2.6.1</version>
+				<scope>compile</scope>
 			</dependency>
 
 		</dependencies>
@@ -70,9 +70,9 @@
 
 	<dependencies>
 
-		<!-- Starters are a set of convenient dependency descriptors that you can
-			include in your application. You get a one-stop-shop for all the Spring and
-			related technology that you need, without having to hunt through sample code
+		<!-- Starters are a set of convenient dependency descriptors that you can 
+			include in your application. You get a one-stop-shop for all the Spring and 
+			related technology that you need, without having to hunt through sample code 
 			and copy paste loads of dependency descriptors http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#using-boot-starter -->
 
 		<!-- Add typical dependencies for a web application -->
@@ -80,8 +80,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- To build a war file that is both executable and deployable into an
-			external container you need to mark the embedded container dependencies as
+		<!-- To build a war file that is both executable and deployable into an 
+			external container you need to mark the embedded container dependencies as 
 			“provided”. More info in: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -95,7 +95,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Starter for testing Spring Boot applications with libraries including
+		<!-- Starter for testing Spring Boot applications with libraries including 
 			JUnit, Hamcrest and Mockito -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -126,7 +126,7 @@
 			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
-		<!-- Spring Boot includes an additional set of tools that can make the
+		<!-- Spring Boot includes an additional set of tools that can make the 
 			application development experience a little more pleasant. -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -166,6 +166,11 @@
 
 	<!-- Testing support -->
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/docker</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<!-- JACOCO -->
 			<plugin>
@@ -173,7 +178,7 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.plugin.version}</version>
 				<executions>
-					<!-- Prepares the property pointing to the JaCoCo runtime agent which
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
 						is passed as VM argument when Maven the Surefire plugin is executed. -->
 					<execution>
 						<id>pre-unit-test</id>
@@ -183,12 +188,12 @@
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
 							<destFile>${jacoco.ut.execution.data.file}</destFile>
-							<!-- Sets the name of the property containing the settings for JaCoCo
+							<!-- Sets the name of the property containing the settings for JaCoCo 
 								runtime agent. -->
 							<propertyName>surefireArgLine</propertyName>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for unit tests is created
+					<!-- Ensures that the code coverage report for unit tests is created 
 						after unit tests have been run. -->
 					<execution>
 						<id>post-unit-test</id>
@@ -203,7 +208,7 @@
 							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
-					<!-- Prepares the property pointing to the JaCoCo runtime agent which
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
 						is passed as VM argument when Maven the Failsafe plugin is executed. -->
 					<execution>
 						<id>pre-integration-test</id>
@@ -214,12 +219,12 @@
 						<configuration>
 							<!-- Sets the path to the file which contains the execution data. -->
 							<destFile>${jacoco.it.execution.data.file}</destFile>
-							<!-- Sets the name of the property containing the settings for JaCoCo
+							<!-- Sets the name of the property containing the settings for JaCoCo 
 								runtime agent. -->
 							<propertyName>failsafeArgLine</propertyName>
 						</configuration>
 					</execution>
-					<!-- Ensures that the code coverage report for integration tests after
+					<!-- Ensures that the code coverage report for integration tests after 
 						integration tests have been run. -->
 					<execution>
 						<id>post-integration-test</id>
@@ -260,7 +265,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<executions>
-					<!-- Ensures that both integration-test and verify goals of the Failsafe
+					<!-- Ensures that both integration-test and verify goals of the Failsafe 
 						Maven plugin are executed. -->
 					<execution>
 						<goals>
@@ -270,7 +275,7 @@
 						<configuration>
 							<!-- Sets the VM argument line used when integration tests are run. -->
 							<argLine>${failsafeArgLine}</argLine>
-                            <!-- Skips integration tests if the value of skip.integration.tests
+							<!-- Skips integration tests if the value of skip.integration.tests 
 								property is true -->
 							<skipTests>${skip.integration.tests}</skipTests>
 							<includes>
@@ -287,7 +292,7 @@
 		<pluginManagement>
 			<plugins>
 				<!-- Eclipse - Jacoco support -->
-				<!--This plugin's configuration is used to store Eclipse m2e settings
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -322,8 +327,7 @@
 	</build>
 
 
-	<modules>
-		<module>vws-docker-support</module>
+	<modules>		
 		<module>vws-ui</module>
 		<module>vws-persistence</module>
 		<module>vws-services</module>
