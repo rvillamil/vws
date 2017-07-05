@@ -13,4 +13,59 @@
 	<packaging>pom</packaging>
 	<name>VWS:User Interface</name>
 	<description>Frontend Web for VWS</description>
+	
+	<profiles>
+        <profile>
+            <id>docker-support</id>
+
+            <build>
+                <plugins>
+                    <!-- Docker plugin -->
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <extensions>true</extensions>
+                        <version>${docker.maven.plugin.version}</version>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>${docker.apache.img.name}</name>
+                                    <build>
+                                        <cleanup>remove</cleanup>
+                                        <dockerFileDir>${project.basedir}/src/docker/vws-apache</dockerFileDir>
+                                        <assembly>
+                                            <descriptorRef>project</descriptorRef>
+                                        </assembly>
+                                    </build>
+                                </image>
+
+                            </images>
+                        </configuration>
+
+                        <executions>
+                            <execution>
+                                <id>start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+
+                            <execution>
+                                <id>stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+	
 </project>

@@ -69,6 +69,8 @@ public class PiracyController {
 	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 	//
+	// TODO 06: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
+	//
 
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
