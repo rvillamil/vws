@@ -31,7 +31,8 @@ public class PiracyController {
 
 	// TODO 00: PMV Produccion
 	/*
-
+		- No funciona algun test unitario 
+		
 		- Montar oAuth: Crear usuarios y soporte para OAuth con Google: Tenemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 
 		- Subir a Azure la primera version con usuario y password y todo dockerizado
