@@ -34,9 +34,6 @@ public class PiracyController {
 
 		- Montar oAuth: Crear usuarios y soporte para OAuth con Google: Tenemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 
-		- Dockerizar el front end y poner un nginx por delante
-			Ver https://www.adictosaltrabajo.com/tutoriales/balanceando-apps-de-spring-boot-con-nginx-en-docker/
-
 		- Subir a Azure la primera version con usuario y password y todo dockerizado
 	*/
 	// TODO 01: Finaliza el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
@@ -69,7 +66,10 @@ public class PiracyController {
 	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 	//
-	// TODO 06: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
+	// TODO 06: Configurar el apache y el tomcat embebidos  
+	// * https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/			
+	//
+	// TODO 07: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
 	//
 
 	// LOGGER

@@ -11,6 +11,11 @@ services:
       - MYSQL_PASSWORD=dbp4ss
     ports:
       - 5306:3306
+  
+  service-vws-frontend:
+    image: img-vws-apache:1.0-SNAPSHOT
+    ports:
+      - 80:80
       
   service-vws-backend:
     image: img-vws-resources:1.0-SNAPSHOT      
