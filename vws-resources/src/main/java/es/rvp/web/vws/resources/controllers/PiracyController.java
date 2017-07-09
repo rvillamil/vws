@@ -31,8 +31,9 @@ public class PiracyController {
 
 	// TODO 00: PMV Produccion
 	/*
-		- No funciona algun test unitario 
-		
+		- No funciona algun test unitario y faltan test por hacer:
+			http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
 		- Montar oAuth: Crear usuarios y soporte para OAuth con Google: Tenemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 
 		- Subir a Azure la primera version con usuario y password y todo dockerizado
@@ -67,11 +68,12 @@ public class PiracyController {
 	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 	//
-	// TODO 06: Configurar el apache y el tomcat embebidos  
-	// * https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/			
+	// TODO 06: Configurar el apache y el tomcat embebidos
+	// * https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
 	//
 	// TODO 07: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
 	//
+	// TODO 08: Prubar mutation Testing https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
 
 	// LOGGER
 	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
