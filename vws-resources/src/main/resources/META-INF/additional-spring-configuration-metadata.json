@@ -1,0 +1,29 @@
+{"properties": [
+{
+  "name": "general.scraping.parse.maxbillboardfilms",
+  "type": "java.lang.String",
+  "description": "A description for 'general.scraping.parse.maxbillboardfilms'"
+},
+{
+  "name": "general.scraping.parse.maxvideopremieres",
+  "type": "java.lang.String",
+  "description": "A description for 'general.scraping.parse.maxvideopremieres'"
+},
+{
+  "name": "general.scraping.parse.maxtvshows",
+  "type": "java.lang.String",
+  "description": "A description for 'general.scraping.parse.maxtvshows'"
+},
+{
+  "name": "general.scraping.parsertumejortorrent",
+  "type": "java.lang.String",
+  "description": "A description for 'general.scraping.parsertumejortorrent'"
+}
+,
+{
+  "name": "general.scraping.parsertumejortorrent.requestdelay",
+  "type": "java.lang.String",
+  "description": "A description for 'general.scraping.parsertumejortorrent.requestdelay'"
+}
+
+]}

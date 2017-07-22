@@ -141,6 +141,21 @@ public class WebTorrentSpiderTest {
 	}
 
 	@Test
+	public void whenParseVideoPremieresWithMoreSixVideoThenGetSixVideo() {
+		// Given
+		int numberOfShowsInTheWebSite 	= 20;
+		int numberOfShowsToParse 		= 6;
+		String htmlClassName				= "pelilist";
+
+		// When
+		this.configureTest (numberOfShowsInTheWebSite, htmlClassName);
+		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(numberOfShowsToParse);
+		// Then
+		assertNotNull 	( shows );
+		assertEquals 	( shows.size(), numberOfShowsToParse);
+	}
+
+	@Test
 	public void whenParseTwentyVideoPremieresInBillBoardWithTenVideosThenGetTenVideos() {
 		// Given
 		int numberOfShowsInTheWebSite 	= 10;
@@ -148,7 +163,7 @@ public class WebTorrentSpiderTest {
 		String htmlClassName			= "pelilist";
 
 		// When
-		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
+		this.configureTest (numberOfShowsInTheWebSite/2,htmlClassName);
 		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(numberOfShowsToParse);
 		// Then
 		assertNotNull 	( shows );
@@ -201,7 +216,7 @@ public class WebTorrentSpiderTest {
 	}
 
 	private void configureTest ( final int numberOfShowsInTheWebSite,
-			final String classListName){
+								 final String classListName){
 
 		final String urlWithShow = "http://tumejortorrent.com";
 		// When
