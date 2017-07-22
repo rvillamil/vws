@@ -15,7 +15,7 @@ services:
   service-vws-frontend:
     image: img-vws-apache:1.0-SNAPSHOT
     ports:
-      - 80:80
+      - 9090:80
       
   service-vws-backend:
     image: img-vws-resources:1.0-SNAPSHOT      

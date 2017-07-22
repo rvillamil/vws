@@ -105,7 +105,7 @@ Opcion 2: $runSpringBootServerWithH2.sh
   La BBDD se regenera y se destruye en cada arranque o parada.
 
 opcion 3 Como en produccion:
-  - docker-compose up para iniciar todos los contenerdos (con -d en background)
+  - docker-compose up para iniciar todos los contenerdos (con -d en background): La aplicacion arranca en http://localhost:9090
   - docker-compose stop (o ctrl-c) para pararlos
   - docker-compose down para cargartelo todo
   Para ver la BB.DD :

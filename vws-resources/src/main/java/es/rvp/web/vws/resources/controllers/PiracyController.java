@@ -31,12 +31,13 @@ public class PiracyController {
 
 	// TODO 00: PMV Produccion
 	/*
-		- No funciona algun test unitario y faltan test por hacer:
+		- Faltan test por hacer:
 			http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 		- Montar oAuth: Crear usuarios y soporte para OAuth con Google: Tenemos un ejemplo en: https://spring.io/guides/tutorials/bookmarks/
 
 		- Subir a Azure la primera version con usuario y password y todo dockerizado
+		- Actualiar el README correctamente
 	*/
 	// TODO 01: Finaliza el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
 
