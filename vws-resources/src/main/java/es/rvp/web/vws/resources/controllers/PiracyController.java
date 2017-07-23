@@ -34,9 +34,11 @@ public class PiracyController {
 		- Faltan test por hacer:
 			http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
-		- Montar oAuth: Crear usuarios y soporte para OAuth con Google:
-			https://spring.io/guides/tutorials/spring-boot-oauth2/
+		- Autenticacion basica, usuario y password en BB.DD: Entender spring security
 			https://spring.io/guides/tutorials/bookmarks/
+				https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+		 - I+D: Una vez autenticado, ver como casa sprontg secirty con Oauth
+			https://spring.io/guides/tutorials/spring-boot-oauth2/
 
 		- Subir a Azure la primera version con usuario y password y todo dockerizado
 		- Actualiar el README correctamente
