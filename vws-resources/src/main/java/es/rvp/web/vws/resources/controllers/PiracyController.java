@@ -50,6 +50,10 @@ public class PiracyController {
  	  - https://spring.io/guides/tutorials/spring-boot-oauth2/
 	 */
 
+	/*
+	 TODO: Spring Cloud, Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
+	*/
+
     /*
 	 TODO: Revision del uso de PUT,POST e idempotencia. ¿Como evitamos problemas de concurrencia? "Optimistic lock"
 	  - Charla Gus: https://youtu.be/fZo8Zp2otqQ
