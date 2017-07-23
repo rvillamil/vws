@@ -29,60 +29,88 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
-	// TODO 00: PMV Produccion
 	/*
-		- Faltan test por hacer:
-			http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-
-		- Autenticacion basica, usuario y password en BB.DD: Entender spring security
-			https://spring.io/guides/tutorials/bookmarks/
-				https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
-		 - I+D: Una vez autenticado, ver como casa sprontg secirty con Oauth
-			https://spring.io/guides/tutorials/spring-boot-oauth2/
-
-		- Subir a Azure la primera version con usuario y password y todo dockerizado
-		- Actualiar el README correctamente
+	 FIXME 00: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
 	*/
-	// TODO 01: Finaliza el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
 
 	/*
-	TODO 02: Ojo PUT , POST e idempotencia , optimistic lock ...¿Como evitamos problemas de concurrencia?
-			- http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
-			- https://spring.io/guides/tutorials/bookmarks/
-
-	TODO 03: Revisar la configuracion de spring boot y la carga de properties mas interesantes
-     - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-    - http://www.baeldung.com/spring-boot-application-configuration
-
-	- Revisar bien Spring boot actuator: http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD - Entender spring security
+	  - https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
 	 */
 
-	// TODO 04: Jenkins CI - Finalizar el soporte para Docker de la siguiente forma:
-	//
-	//
 	/*
-	// ....Jenkisfile
-	stage('Create Docker Image') {
-	    dir('webapp') {
-	      docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
+	 TODO: Para subir a GitHub antes:
+	  - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
+	    	   http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+	  - Actualizar el README correctamente
+	*/
+
+	/*
+	 TODO: Autorizar a la aplicacion UI a consumir servicios de mi API con OAuth2
+ 	  - https://spring.io/guides/tutorials/spring-boot-oauth2/
+	 */
+
+    /*
+	 TODO: Revision del uso de PUT,POST e idempotencia. ¿Como evitamos problemas de concurrencia? "Optimistic lock"
+	  - Charla Gus: https://youtu.be/fZo8Zp2otqQ
+	  - http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
+	  - https://spring.io/guides/tutorials/bookmarks/
+	  - Best practices for concurrency control in REST APIs: https://goo.gl/Xqqvii
+	  - https://stackoverflow.com/questions/30080634/concurrency-in-a-rest-api
+    */
+
+	/*
+	 TODO: Revisar la configuracion de spring boot y la carga de properties mas interesantes
+      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+      - http://www.baeldung.com/spring-boot-application-configuration
+	*/
+
+	/*
+	 TODO: Redis - PoC
+	  - Introduction to Spring Data Redis - https://goo.gl/oegRqu
+	  - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
+	*/
+
+	/*
+	 TODO: Spring boot actuator, revision
+	  - http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+	*/
+
+	/*
+	 TODO: Jenkins CI and Docker - Finalizar el soporte para Docker, de la siguiente forma:
+	  ....Jenkisfile
+ 	  stage('Create Docker Image') {
+	      dir('webapp') {
+	       docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
 	    }
-	  }
+	   }
+	*/
+
+	/*
+	 TODO: Funcionalidades de negocio
+	  - Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando
+	    Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
+
+	  - Poner las notas de las pelis:
+	       * Implementar el parser de filmaffinity o bien,
+	       * http://www.cinesift.com/
+	       * Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
+	*/
+
+	/*
+	 TODO: Revisar la configuracion del apache y el tomcat embebidos
+	  - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
+	*/
+
+
+	/*
+	 TODO: Probar mutation Testing
+	  - https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
 	 */
-	//
-	// TODO 05: Funcionalidades de negocio
-	// * Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
-	// * Notas de las pelis: Implementar el parser de filmaffinity  o http://www.cinesift.com/  —> Casi mejor usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
-	//
-	// TODO 06: Configurar el apache y el tomcat embebidos
-	// * https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
-	//
-	// TODO 07: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
-	//
-	// TODO 08: Prubar mutation Testing https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
 
 	// LOGGER
-	private static final Logger LOGGER 	= LoggerFactory.getLogger(PiracyController.class);
-	private static final String	WELCOME_TEXT   ="Video websites scaper (VWS) is available!";
+	private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
+	private static final String	WELCOME_TEXT   	= "Video websites scaper (VWS) is available!";
 	//
 	// Area de datos
 	//

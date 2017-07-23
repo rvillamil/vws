@@ -1,7 +1,7 @@
 # VWS: Video websites scraper #
 
 Web scraping application for video websites
-
+# TODO 01 pp
 
 (La planteamos como no solo de torrent asi tiene mas futuro..) Aplicacion web que realiza el web scraping de paginas con torrents de video.
 Para su ejecución, tienes que hacer lo siguiente:
