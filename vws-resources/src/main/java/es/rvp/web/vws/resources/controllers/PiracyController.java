@@ -42,7 +42,7 @@ public class PiracyController {
 	 TODO: Para subir a GitHub antes:
 	  - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
 	    	   http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-	  - Actualizar el README correctamente
+	  - Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
 	*/
 
 	/*
