@@ -46,8 +46,12 @@ public class PiracyController {
 	*/
 
 	/*
-	 TODO: Autorizar a la aplicacion UI a consumir servicios de mi API con OAuth2
- 	  - https://spring.io/guides/tutorials/spring-boot-oauth2/
+	 TODO: Autenticacion/Autorizacion: Autorizar a la aplicacion UI a consumir servicios de mi API de varias formas
+ 	  - Autenticación con JWT o API Key: https://programar.cloud/post/como-implementar-la-seguridad-en-tu-api-parte-2/
+	  - OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
+	  - Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
+	 	  - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
+	 	  - https://apiumbrella.io
 	 */
 
 	/*
