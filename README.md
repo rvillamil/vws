@@ -111,6 +111,13 @@ opcion 3 Como en produccion:
   Para ver la BB.DD :
      mysql vws -P 5306 -uroot -proot -h 127.0.0.1
 
-Para arrancar la BB.DD solo sin el Backend
+Para Arrancar la BB.DD solo sin el Backend
     docker-compose up service-bbdd
 
+
+## Como mantener el modelo ##
+- Creamos los objetos del modelo (Account, AccountRepository...) con JPA
+- Revisamos el fichero 'application.yml' la opcion de jpa, ddl-auto. Establecemos la mas conveniente (create-drop?)
+- Compilamos la aplicacion (Ver enlace mas arriba)
+- Lanzamos la aplicacion como para produccion
+- Exportamos el modelo aun fichero

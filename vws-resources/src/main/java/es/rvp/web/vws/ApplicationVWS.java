@@ -1,11 +1,17 @@
 package es.rvp.web.vws;
 
+import java.util.Arrays;
+
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
+import es.rvp.web.vws.domain.Account;
+import es.rvp.web.vws.domain.AccountRepository;
+import es.rvp.web.vws.domain.FavoriteRepository;
 import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.domain.ShowFieldParser;
 import es.rvp.web.vws.domain.tumejortorrent.ShowEpisodeParser;
@@ -29,6 +35,22 @@ public class ApplicationVWS {
 		SpringApplication.run(ApplicationVWS.class, args);
 	}
 
+
+	@Bean
+	CommandLineRunner init( final AccountRepository accountRepository,
+						    final FavoriteRepository favoriteRepository ) {
+		return (evt) -> Arrays.asList(
+				"rodrigo,olga".split(","))
+				.forEach(
+						a -> {
+							Account account = accountRepository.save(new Account(a,
+									"password"));
+							//favoriteRepository.save(new Bookmark(account,
+							//		"http://bookmark.com/1/" + a, "A description"));
+							//favoriteRepository.save(new Bookmark(account,
+							//		"http://bookmark.com/2/" + a, "A description"));
+						});
+	}
 
 	// ---------------------- Application config -----------------------------
 	@Bean

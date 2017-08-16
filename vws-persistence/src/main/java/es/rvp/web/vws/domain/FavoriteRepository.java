@@ -1,5 +1,8 @@
 package es.rvp.web.vws.domain;
 
+import java.util.Collection;
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -8,5 +11,12 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Rodrigo Villamil Pérez
  */
-public interface FavoriteRepository extends CrudRepository<Favorite, String> {
+public interface FavoriteRepository extends CrudRepository<Favorite, Long> {
+
+	// SELECT f from Favorite f WHERE f.account.username = :username
+	Collection<Favorite> findByAccountUserName(String userName);
+
+	// SELECT f from Favorite f WHERE f.account.username = :username AND f.title = :title
+	Optional<Favorite> findByAccountUserNameAndTitle(String userName, String title);
 }
+
