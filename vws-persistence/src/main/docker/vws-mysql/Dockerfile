@@ -15,6 +15,6 @@ ENV DEBIAN_FRONTEND noninteractive
 #You can easily populate your mysql services by mounting a SQL dump into
 # that directory and provide custom images with contributed data.
 #SQL files will be imported by default to the database specified by the MYSQL_DATABASE variable.
-ADD src/*.sql /docker-entrypoint-initdb.d
+ADD src/*.sql /docker-entrypoint-initdb.d/
 
 

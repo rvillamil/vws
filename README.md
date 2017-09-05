@@ -117,10 +117,11 @@ Para Arrancar la BB.DD solo sin el Backend
 
 ## Como mantener el modelo ##
 - Creamos los objetos del modelo (Account, AccountRepository...) con JPA
-- Revisamos el fichero 'application.yml' la opcion de jpa, ddl-auto. Establecemos la mas conveniente (create-drop?)
+- Revisamos el fichero 'application.yml' la opcion de jp: Establecemos a create-drop
 - Compilamos la aplicacion (Ver enlace mas arriba)
 - Lanzamos la aplicacion como para produccion
-- Exportamos el modelo aun fichero
+- Ejecutamos el script: backup-DDL.sh
+- Copiamos el fichero resultando: $cp 00-vws-ddl.sql src/main/docker/vws-mysql/src/00-vws-ddl.sql
 
 ## Como conectarse a H2 Embebida ##
 
