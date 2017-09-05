@@ -16,29 +16,30 @@ import lombok.Getter;
  * @author Rodrigo Villamil Pérez
  */
 @Getter
-@Entity  // This tells Hibernate to make a table out of this class
+@Entity // This tells Hibernate to make a table out of this class
 public class Account {
 
-    @OneToMany(mappedBy = "account")
-    private final Set<Favorite> favorites = new HashSet<>();
+	@OneToMany(mappedBy = "account")
+	private final Set<Favorite> favorites = new HashSet<>();
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    @JsonIgnore
-    private String password;
-    private String userName;
+	@Id
+	@GeneratedValue
+	private Long id;
 
+	@JsonIgnore
+	private String password;
 
-    public Account(final String userName, final String password) {
-        this.userName = userName;
-        this.password = password;
-    }
+	private String userName;
 
-    Account() { // jpa only
-    }
+	public Account(final String userName, final String password) {
+		this.userName = userName;
+		this.password = password;
+	}
 
-    public Set<Favorite> getFavorites() {
-        return this.favorites;
-    }
+	Account() { // jpa only
+	}
+
+	public Set<Favorite> getFavorites() {
+		return this.favorites;
+	}
 }

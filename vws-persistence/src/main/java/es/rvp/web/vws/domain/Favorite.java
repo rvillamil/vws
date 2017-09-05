@@ -16,28 +16,31 @@ import lombok.ToString;
 /**
  * @author Rodrigo Villamil Pérez
  */
-@Getter
-@EqualsAndHashCode(of = {"title"})
+
+@EqualsAndHashCode(of = { "title" })
 @ToString
 @Entity // This tells Hibernate to make a table out of this class
 public class Favorite {
 
 	@Id
 	@GeneratedValue
+	@Getter
 	private Long id;
+
 	@NonNull
+	@Getter
 	@Setter
 	private String title;
-	@JsonIgnore
-    @ManyToOne
-    private Account account;
 
-	public Favorite (final Account account, final String title){
+	@JsonIgnore
+	@ManyToOne
+	private Account account;
+
+	public Favorite(final Account account, final String title) {
 		this.account = account;
 		this.title = title;
 	}
 
-	Favorite(){ //JPA only
+	Favorite() { // JPA only
 	}
 }
-

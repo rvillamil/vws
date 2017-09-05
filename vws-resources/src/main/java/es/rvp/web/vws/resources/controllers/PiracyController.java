@@ -30,9 +30,8 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	/*
-	 FIXME 00: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
-	 FIXME 01: El metodo PUT de FavotireController no funciona. Quizas se requiera un ID autoincremental...pero porque? Estoy intentanto alterar la clave!
-	*/
+	 * FIXME 00: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
+	 */
 
 	/*
 	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD - Entender spring security

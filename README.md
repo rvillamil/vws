@@ -121,3 +121,15 @@ Para Arrancar la BB.DD solo sin el Backend
 - Compilamos la aplicacion (Ver enlace mas arriba)
 - Lanzamos la aplicacion como para produccion
 - Exportamos el modelo aun fichero
+
+## Como conectarse a H2 Embebida ##
+
+Esta informacion la tenemos en el application.yml
+
+- http://localhost:8080/h2
+- user: root
+- pass:
+- JDBC URL: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+
+
+
