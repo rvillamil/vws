@@ -17,9 +17,19 @@
 # way to implement this now is to implement it by yourself,
 # so let’s do that now.
 
-#while ! exec 6<>/dev/tcp/${DATABASE_HOST}/${DATABASE_PORT}; do
-#    echo "Trying to connect to MySQL at ${DATABASE_PORT}..."
-    #    sleep 10
+#DATABASE_HOST=127.0.0.1
+#DATABASE_PORT=3306
+
+#while ! mysqladmin ping -h"${DATABASE_HOST}" --silent; do
+#    echo "Waiting for database connection on ${DATABASE_HOST}"
+#       sleep 1
+#done
+
+#until nc -z -v -w30 $CFG_MYSQL_HOST 3306
+#do
+  #echo "Waiting for database connection..."
+  # wait for 5 seconds before check again
+  #sleep 5
 #done
 
 # Run application with container profile

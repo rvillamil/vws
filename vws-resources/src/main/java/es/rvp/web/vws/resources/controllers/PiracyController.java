@@ -30,7 +30,9 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	/*
-	 * FIXME 00: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'
+	 * FIXME 00: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
+	 * instalar el nc en la mauina de java. El problema es que tendremos que generar la imagen de docker a partir de una de
+	 * ubuntu pues esta no tiene el nc
 	 */
 
 	/*
