@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,18 +25,21 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @RestController
 @RequestMapping("/api")
 @ConfigurationProperties(prefix="general")
-@CrossOrigin(origins = "http://localhost:9090")
+// @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
 	/*
-	 * FIXME 00: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
+	 * FIXME 01: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
 	 * instalar el nc en la mauina de java. El problema es que tendremos que generar la imagen de docker a partir de una de
 	 * ubuntu pues esta no tiene el nc
 	 */
 
 	/*
-	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD - Entender spring security
-	  - https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD 
+	  - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks	  
+	  		https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+	    Montar un servidor Oauth y hacer pruebas para entender el Outhz ¿Como damos permisos en Oauth a Olga y Rodrigo y al resto no?
+	 
 	 */
 
 	/*
