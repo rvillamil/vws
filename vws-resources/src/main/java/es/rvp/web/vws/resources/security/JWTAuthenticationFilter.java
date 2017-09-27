@@ -48,6 +48,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	public Authentication attemptAuthentication(
 			HttpServletRequest request,
 			HttpServletResponse response )
+
 					throws AuthenticationException {
 		try {
 			final Account account = new ObjectMapper().readValue(
@@ -61,12 +62,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		}
 	}
 
+	/**
+	 * No hay obligación de devolver el token en la cabecera ni con una clave concreta
+	 * pero se recomienda seguir los estándares utilizados en la actualidad (RFC 2616, RFC 6750).
+	 *
+	 * Lo habitual es devolverlo en la cabecera HTTP utilizando la clave “Authorization” e
+	 * indicando que el valor es un token “Bearer “ + token
+	 *
+	 * Este token lo deberá conservar vuestro cliente web en su localstorage y remitirlo
+	 * en las peticiones posteriores que se hagan al API.
+	 */
 	@Override
 	protected void successfulAuthentication(
-			HttpServletRequest   request,
-			HttpServletResponse  response,
+			HttpServletRequest    request,
+			HttpServletResponse   response,
 			FilterChain 		  chain,
-			Authentication 	  	auth )
+			Authentication 	  	  auth )
 
 					throws IOException, ServletException {
 

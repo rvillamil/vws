@@ -1,24 +1,11 @@
 package es.rvp.web.vws;
 
-import java.io.IOException;
 import java.util.Arrays;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
@@ -56,7 +43,7 @@ public class ApplicationVWS {
 				"rodrigo,olga".split(","))
 				.forEach(
 						a -> {
-							Account account = accountRepository.save(new Account(a,
+							final Account account = accountRepository.save(new Account(a,
 									"password"));
 							//favoriteRepository.save(new Bookmark(account,
 							//		"http://bookmark.com/1/" + a, "A description"));
@@ -67,6 +54,8 @@ public class ApplicationVWS {
 
 	// CORS
 	// FIXME 00: Revisando el asunto del CORS (ver en https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service)
+
+	/*
 	@Bean
 	FilterRegistrationBean corsFilter(@Value("${tagit.origin:http://localhost:9090}") String origin) {
 		return new FilterRegistrationBean(new Filter() {
@@ -97,6 +86,7 @@ public class ApplicationVWS {
 			}
 		});
 	}
+	*/
 
 	// ---------------------- Application config -----------------------------
 	@Bean

@@ -60,7 +60,7 @@ public class FavoritesController {
 		LOGGER.info("Getting all favorites for userId '{}'", userId);
 		this.validateUser(userId);
 
-		Iterable<Favorite> favorites =  this.favoriteRepository.findByAccountUserName(userId);
+		final Iterable<Favorite> favorites =  this.favoriteRepository.findByAccountUserName(userId);
 		if (! favorites.iterator().hasNext() ) {
             return new ResponseEntity<>(new CustomErrorType(
             		"Favorite list is empty"), HttpStatus.NOT_FOUND);
@@ -82,7 +82,7 @@ public class FavoritesController {
 		LOGGER.info("Fetching favorite for user '{}' with title '{}'", userId, title);
 		this.validateUser(userId);
 
-		Optional<Favorite> favorite = this.favoriteRepository.findByAccountUserNameAndTitle(userId, title);
+		final Optional<Favorite> favorite = this.favoriteRepository.findByAccountUserNameAndTitle(userId, title);
 
 		if (!favorite.isPresent()) {
 			LOGGER.error("Favorite for user '{}' with title '{}' not found.", userId, title);
@@ -118,9 +118,9 @@ public class FavoritesController {
 
 		return this.accountRepository.findByUserName(userId)
 				.map(account -> {
-							Favorite result = this.favoriteRepository.save(new Favorite(
+							final Favorite result = this.favoriteRepository.save(new Favorite(
 									account,newFavorite.getTitle()));
-							HttpHeaders headers = new HttpHeaders();
+							final HttpHeaders headers = new HttpHeaders();
 							headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(result.getId()).toUri());
 
 							return new ResponseEntity<>(headers, HttpStatus.CREATED);
@@ -142,7 +142,7 @@ public class FavoritesController {
 
 		 LOGGER.info("Updating (PUT) favorite with id '{}'", id);
 
-		 Favorite favoriteForUpdate = this.favoriteRepository.findOne(id);
+		 final Favorite favoriteForUpdate = this.favoriteRepository.findOne(id);
 		 if ( favoriteForUpdate == null ) {
 			 LOGGER.error("Unable to update. Favorite with id '{}' not found.", id);
 			 return new ResponseEntity<>(new CustomErrorType(
@@ -166,7 +166,7 @@ public class FavoritesController {
 	 public ResponseEntity<?> deleteFavorite( @PathVariable final  Long id) {
 		 LOGGER.info("Fetching & Deleting favorite with id '{}'", id);
 
-		 Favorite favoriteForDelete = this.favoriteRepository.findOne(id);
+		 final Favorite favoriteForDelete = this.favoriteRepository.findOne(id);
 		 if ( favoriteForDelete == null ) {
 			 LOGGER.error("Unable to delete. Favorite with id '{}' not found.", id);
 			 return new ResponseEntity<>(new CustomErrorType(

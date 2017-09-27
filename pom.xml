@@ -40,7 +40,9 @@
 		<jacoco.plugin.version>0.7.9</jacoco.plugin.version>
 		<jacoco.it.execution.data.file>${project.basedir}/target/jacoco-it.exec</jacoco.it.execution.data.file>
 		<jacoco.ut.execution.data.file>${project.basedir}/target/jacoco.exec</jacoco.ut.execution.data.file>
-
+        
+        <!-- Json Web Token Support -->
+        <jwt.version>0.7.0</jwt.version>
 	</properties>
 
 	<dependencyManagement>
@@ -103,6 +105,20 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- Security: Spring Security Support -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <!-- Security: JWT support -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        
 
 		<!-- Utilities -->
 		<dependency>
