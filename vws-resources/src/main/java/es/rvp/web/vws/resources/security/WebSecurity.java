@@ -37,6 +37,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	 * se desactiva el filtro de Cross-site request forgery (CSRF).
 	 * Esto nos permite habilitar el API para cualquier dominio,
 	 * esta es una de las grandes ventajas del uso de JWT.
+	 *
+     * FIXME 00: Revisando el asunto del CORS
 	 */
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {

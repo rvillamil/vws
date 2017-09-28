@@ -132,5 +132,15 @@ Esta informacion la tenemos en el application.yml
 - pass:
 - JDBC URL: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
 
+## Autenticación ##
+Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens
+Para probar:
+
+    # Se lanza una petición de login 
+    curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
+    
+    # Recuperamos los usuarios dados de alta
+    curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/admin/favorites/
+        
 
 

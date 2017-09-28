@@ -36,7 +36,8 @@ public class PiracyController {
 
 	/*
 	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD
-	  - Con JWT para la autenticación: https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/
+	  - He implementado con JWT la autenticación: https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/
+	   Lo que toca es hacer login desde front, quedarse con el bearer que viene en la peticion de login y enviarlo con todas las peticiones
 	  - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
 	  		https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
 	    Montar un servidor Oauth y hacer pruebas para entender el Outhz ¿Como damos permisos en Oauth a Olga y Rodrigo y al resto no?
