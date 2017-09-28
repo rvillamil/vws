@@ -8,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Getter;
 
 /**
@@ -26,7 +24,7 @@ public class Account {
 	@GeneratedValue
 	private Long id;
 
-	@JsonIgnore
+
 	private String password;
 
 	private String userName;

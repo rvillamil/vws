@@ -11,6 +11,6 @@ import org.springframework.data.repository.CrudRepository;
  * @author Rodrigo Villamil Pérez
  */
 public interface AccountRepository extends CrudRepository<Account, Long> {
-	// select a from Account a where a.username = :username
+	// select a from Account a where a.userName = :userName
 	Optional<Account> findByUserName(String userName);
 }

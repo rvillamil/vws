@@ -36,15 +36,24 @@ public class ApplicationVWS {
 	}
 
 
+	/*
+	 * For testing purposes:
+	 *
+	 * curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
+     *
+	 * username: "admin"
+	 * password: "password" <--> $2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.
+	 *
+	 */
 	@Bean
 	CommandLineRunner init( final AccountRepository accountRepository,
 						    final FavoriteRepository favoriteRepository ) {
 		return (evt) -> Arrays.asList(
-				"rodrigo,olga".split(","))
+				"admin".split(","))
 				.forEach(
 						a -> {
 							final Account account = accountRepository.save(new Account(a,
-									"password"));
+									"$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP."));
 							//favoriteRepository.save(new Bookmark(account,
 							//		"http://bookmark.com/1/" + a, "A description"));
 							//favoriteRepository.save(new Bookmark(account,
