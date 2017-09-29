@@ -34,6 +34,11 @@ public class PiracyController {
 	 * ubuntu pues esta no tiene el nc
 	 */
 
+	/**
+	 * FIXME 02: He perdido el soporte para spring-boot-actuator no se si es por el filtro de spring security.
+	 * https://github.com/spring-projects/spring-boot/issues/8255
+	 * Ademas, actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
+	 */
 	/*
 	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD
 	  - He implementado con JWT la autenticación: https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/
