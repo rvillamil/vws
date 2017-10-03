@@ -29,24 +29,32 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	/*
-	 * FIXME 01: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
-	 * instalar el nc en la mauina de java. El problema es que tendremos que generar la imagen de docker a partir de una de
-	 * ubuntu pues esta no tiene el nc
+	  FIXME 01: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
+	  instalar el nc en la mauina de java. El problema es que tendremos que generar la imagen de docker a partir de una de
+	  ubuntu pues esta no tiene el nc
 	 */
 
-	/**
-	 * FIXME 02: He perdido el soporte para spring-boot-actuator no se si es por el filtro de spring security.
-	 * https://github.com/spring-projects/spring-boot/issues/8255
-	 * Ademas, actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
-	 */
 	/*
-	 TODO 00: PMV Produccion: Autenticacion basica, usuario y password en BB.DD
-	  - He implementado con JWT la autenticación: https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/
-	   Lo que toca es hacer login desde front, quedarse con el bearer que viene en la peticion de login y enviarlo con todas las peticiones
-	  - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
-	  		https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
-	    Montar un servidor Oauth y hacer pruebas para entender el Outhz ¿Como damos permisos en Oauth a Olga y Rodrigo y al resto no?
+	  FIXME 02: He perdido el soporte para spring-boot-actuator no se si es por el filtro de spring security.
+	  https://github.com/spring-projects/spring-boot/issues/8255
+	  Ademas, actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
+	*/
 
+	/*
+	  TODO Formacion: Probar en una rama:
+	  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
+	  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
+	 */
+
+	/*
+	 TODO 01: Autenticacion y Autorizacion
+	  - He implementado con JWT la autenticación (https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/)
+	  - Nos queda:
+	    - Quitar el username de las url. Usar el objeto 'Principal' de Spring Securirty: https://spring.io/guides/tutorials/spring-boot-oauth2/
+	    - Hacer login desde front, quedarse con el bearer que viene en la peticion de login, enviarlo con todas las peticiones y autorizar desde back
+	    - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
+	  		https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+	  	- Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
 	 */
 
 	/*

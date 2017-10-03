@@ -52,12 +52,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		httpSecurity
 		.sessionManagement().sessionCreationPolicy(
 				SessionCreationPolicy.STATELESS).and().cors().and().csrf().disable()
-		.authorizeRequests().antMatchers(HttpMethod.POST, LOGIN_URL).permitAll().and()
-		.authorizeRequests().antMatchers(
-				"/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
-				"/configuration/**", "/swagger-ui.html", "/webjars/**").permitAll().and()
-		.authorizeRequests().antMatchers(
-				"/h2/**").permitAll()
+
+		.authorizeRequests()
+		.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+		.antMatchers("/health").permitAll() // spring-boot-actuator
+		.antMatchers("/v2/api-docs", // swagger
+					 "/configuration/ui",
+					 "/swagger-resources/**",
+					 "/configuration/**",
+					 "/swagger-ui.html",
+					 "/webjars/**").permitAll()
+		.antMatchers("/h2/**").permitAll() // h2-embedded
 		.anyRequest().authenticated().and().addFilter(
 				new JWTAuthenticationFilter(authenticationManager()))
 		.addFilter(
