@@ -42,6 +42,7 @@ public class PiracyController {
 
 	/*
 	  TODO Formacion: Probar en una rama:
+	  - Integrar con el servicio auth0 ( https://auth0.com )
 	  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
 	  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
 	 */
