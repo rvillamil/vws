@@ -29,55 +29,46 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
 	/*
+	  TODO: · Tareas de Formacion  ·
+	  - Integrar con el servicio auth0 ( https://auth0.com )
+	  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
+	  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
+	  - Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
+	 	  - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
+	 	  - https://apiumbrella.io
+      - Spring Cloud, Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
+      - Introduction to Spring Data Redis - https://goo.gl/oegRqu
+	  - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
+	 */
+
+
+	/*
 	  FIXME 01: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
 	  instalar el nc en la mauina de java. El problema es que tendremos que generar la imagen de docker a partir de una de
 	  ubuntu pues esta no tiene el nc
 	 */
 
 	/*
-	  FIXME 02: He perdido el soporte para spring-boot-actuator no se si es por el filtro de spring security.
-	  https://github.com/spring-projects/spring-boot/issues/8255
-	  Ademas, actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
+	  FIXME 02: No tiene buena pinta de estar bien configurado el soporte para spring-boot-actuator no se si es por el filtro de spring security.
+	  - https://github.com/spring-projects/spring-boot/issues/8255 , actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
+	  - http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 	*/
 
 	/*
-	  TODO Formacion: Probar en una rama:
-	  - Integrar con el servicio auth0 ( https://auth0.com )
-	  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
-	  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
-	 */
-
-	/*
-	 TODO 01: Autenticacion y Autorizacion
-	  - He implementado con JWT la autenticación (https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/)
-	  - Nos queda:
-	    - Quitar el username de las url. Usar el objeto 'Principal' de Spring Securirty: https://spring.io/guides/tutorials/spring-boot-oauth2/
-	    - Hacer login desde front, quedarse con el bearer que viene en la peticion de login, enviarlo con todas las peticiones y autorizar desde back
-	    - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
-	  		https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
-	  	- Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
-	 */
-
-	/*
-	 TODO: Para subir a GitHub antes:
+	 TODO: Antes de subir a GitHub
+	  - Autenticacion y Autorizacion
+	     - He implementado con JWT la autenticación (https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/)
+	     - Nos queda:
+	        - Quitar el username de las url. Usar el objeto 'Principal' de Spring Security: http://spring.io/guides/tutorials/bookmarks/
+	        - Hacer login desde front, quedarse con el bearer que viene en la peticion de login, enviarlo con todas las peticiones y autorizar desde back
+	        - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
+	  		   https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+	  	    - Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
 	  - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
 	    	   http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 	  - Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
-
 	 */
 
-	/*
-	 TODO: Autenticacion/Autorizacion: Autorizar a la aplicacion UI a consumir servicios de mi API de varias formas
- 	  - Autenticación con JWT o API Key: https://programar.cloud/post/como-implementar-la-seguridad-en-tu-api-parte-2/
-	  - OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
-	  - Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
-	 	  - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
-	 	  - https://apiumbrella.io
-	 */
-
-	/*
-	 TODO: Spring Cloud, Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
-	 */
 
 	/*
 	 TODO: Revision del uso de PUT,POST e idempotencia. ¿Como evitamos problemas de concurrencia? "Optimistic lock"
@@ -94,16 +85,6 @@ public class PiracyController {
       - http://www.baeldung.com/spring-boot-application-configuration
 	 */
 
-	/*
-	 TODO: Redis - PoC
-	  - Introduction to Spring Data Redis - https://goo.gl/oegRqu
-	  - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
-	 */
-
-	/*
-	 TODO: Spring boot actuator, revision
-	  - http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-	 */
 
 	/*
 	 TODO: Jenkins CI and Docker - Finalizar el soporte para Docker, de la siguiente forma:
@@ -121,16 +102,14 @@ public class PiracyController {
 	    Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 
 	  - Poner las notas de las pelis:
-	 * Implementar el parser de filmaffinity o bien,
-	 * http://www.cinesift.com/
-	 * Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
+	   - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
+	   - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 	 */
 
 	/*
 	 TODO: Revisar la configuracion del apache y el tomcat embebidos
 	  - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
 	 */
-
 
 	/*
 	 TODO: Probar mutation Testing

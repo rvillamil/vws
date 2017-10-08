@@ -17,6 +17,11 @@ para Servlet 3.X (no se requiere un web.xml)
 * El proyecto vws-docker-support contiene ...
 * El proyecto vws-persistence contiene ..
 
+Hablar sobre lo que aporta para un desarrollador el codigo que hay aqui:
+Contenedores Docker
+Spring 4
+Autenticacion basada en token JWT y Spring Securiry
+
 ## Compilacion y ejecucion basica  ##
 
 Mejor contar antes los profiles de compilacion ...
@@ -136,11 +141,11 @@ Esta informacion la tenemos en el application.yml
 Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens
 Para probar:
 
-    # Se lanza una petición de login 
+    # Se lanza una petición de login
     curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
-    
+
     # Recuperamos los usuarios dados de alta
     curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/admin/favorites/
-        
+
 
 

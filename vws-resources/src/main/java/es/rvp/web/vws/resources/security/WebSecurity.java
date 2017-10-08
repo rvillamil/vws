@@ -44,8 +44,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	 * se desactiva el filtro de Cross-site request forgery (CSRF).
 	 * Esto nos permite habilitar el API para cualquier dominio,
 	 * esta es una de las grandes ventajas del uso de JWT.
-	 *
-     * FIXME 00: Revisando el asunto del CORS
 	 */
 	@Override
 	protected void configure(final HttpSecurity httpSecurity) throws Exception {
@@ -79,7 +77,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				new JWTAuthorizationFilter(authenticationManager()));
 
 
-		// FIXME 00: Revisar la configuracion para produccion de h2,swagger, CORS, CSRF . Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
+		// FIXME 00: Revisar la configuracion para produccion de h2,swagger, CORS (Habilitar para mi frontend?), CSRF . Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
 		 httpSecurity.headers().frameOptions().disable();
 
 	}
