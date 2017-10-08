@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.rvp.web.vws.domain.Show;
@@ -57,9 +57,8 @@ public class PiracyController {
 	/*
 	 TODO: Antes de subir a GitHub
 	  - Autenticacion y Autorizacion
-	     - He implementado con JWT la autenticación (https://www.adictosaltrabajo.com/tutoriales/securizar-un-api-rest-utilizando-json-web-tokens/)
 	     - Nos queda:
-	        - Quitar el username de las url. Usar el objeto 'Principal' de Spring Security: http://spring.io/guides/tutorials/bookmarks/
+	     	- El API de PiracyControll requiere authenticacion...Es necesario ¿Tiene sentido?
 	        - Hacer login desde front, quedarse con el bearer que viene en la peticion de login, enviarlo con todas las peticiones y autorizar desde back
 	        - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
 	  		   https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
@@ -142,8 +141,7 @@ public class PiracyController {
 	/**
 	 * @return One text if this web site is available
 	 */
-	@RequestMapping(value="/",
-			method=RequestMethod.GET)
+	@GetMapping(value="/")
 	String hello() {
 		LOGGER.info(WELCOME_TEXT);
 		return WELCOME_TEXT;
@@ -154,8 +152,7 @@ public class PiracyController {
 	 *
 	 * @return JSon object, with the billboard films in the torrent portal [0, maxBillboardFilms]
 	 */
-	@RequestMapping(value="/billboardfilms/",
-			method=RequestMethod.GET)
+	@GetMapping(value="/billboardfilms/")
 	public ResponseEntity<?> parseBillBoardFilms() {
 		LOGGER.info("PiracyController - Getting billboard films ...");
 		final Set<Show> shows = webTorrentSpider.parseBillboardFilms(maxBillboardFilms);
@@ -172,8 +169,7 @@ public class PiracyController {
 	 *
 	 * @return JSon object, with the video premieres in the torrent portal [0, maxSize]
 	 */
-	@RequestMapping(value="/videopremieres/",
-			method=RequestMethod.GET)
+	@GetMapping(value="/videopremieres/")
 	public ResponseEntity<?> parseVideoPremieres() {
 		LOGGER.info("PiracyController - Getting video premieres ...");
 		final Set<Show> shows = webTorrentSpider.parseVideoPremieres(maxVideoPremieres);
@@ -194,8 +190,7 @@ public class PiracyController {
 	 *
 	 * @return JSon object, with last episodes from TV show between '0 and maxTVshows'
 	 */
-	@RequestMapping(value="/tvshows/{title}",
-			method=RequestMethod.GET)
+	@GetMapping(value="/tvshows/{title}")
 	public ResponseEntity<?> parseTVShow(@PathVariable("title") final String title) {
 		LOGGER.info("PiracyController - Getting the tvshow '{}'", title);
 		final Set<Show> shows =  webTorrentSpider.parseTVShow(title, maxTVshows);
@@ -208,5 +203,4 @@ public class PiracyController {
 		}
 		return new ResponseEntity<>(shows, HttpStatus.OK);
 	}
-
 }

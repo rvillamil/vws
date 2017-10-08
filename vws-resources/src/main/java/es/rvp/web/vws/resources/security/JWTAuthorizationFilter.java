@@ -32,15 +32,15 @@ import io.jsonwebtoken.Jwts;
  */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-	public JWTAuthorizationFilter(AuthenticationManager authManager) {
+	public JWTAuthorizationFilter(final AuthenticationManager authManager) {
 		super(authManager);
 	}
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+	protected void doFilterInternal(final HttpServletRequest req, final HttpServletResponse res, final FilterChain chain)
 			throws IOException, ServletException {
 		final String header = req.getHeader(HEADER_AUTHORIZACION_KEY);
-		if (header == null || !header.startsWith(TOKEN_BEARER_PREFIX)) {
+		if ((header == null) || !header.startsWith(TOKEN_BEARER_PREFIX)) {
 			chain.doFilter(req, res);
 			return;
 		}
@@ -49,7 +49,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(req, res);
 	}
 
-	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+	private UsernamePasswordAuthenticationToken getAuthentication(final HttpServletRequest request) {
 		final String token = request.getHeader(HEADER_AUTHORIZACION_KEY);
 		if (token != null) {
 			// Se procesa el token y se recupera el usuario.
@@ -59,7 +59,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 					.getBody()
 					.getSubject();
 
-			logger.info("USER: " + user);
 			if (user != null) {
 				return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
 			}

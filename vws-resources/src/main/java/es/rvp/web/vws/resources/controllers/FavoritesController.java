@@ -1,5 +1,6 @@
 package es.rvp.web.vws.resources.controllers;
 
+import java.security.Principal;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -8,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -26,14 +30,14 @@ import es.rvp.web.vws.domain.FavoriteRepository;
  * @author Rodrigo Villamil Pérez
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/favorites/")
 // @CrossOrigin(origins = "http://localhost:9090")
 public class FavoritesController {
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavoritesController.class);
 
 	private final FavoriteRepository 	favoriteRepository;
-	private final AccountRepository 	accountRepository;
+	private final AccountRepository 		accountRepository;
 
 	/**
 	 * Builder
@@ -41,26 +45,23 @@ public class FavoritesController {
 	 * @param AccountRepository  repository with user account
 	 */
 	@Autowired
-	public FavoritesController(final FavoriteRepository favoriteRepository,
-							   final AccountRepository  accountRepository) {
+	public FavoritesController ( final FavoriteRepository favoriteRepository,
+							    final AccountRepository   accountRepository) {
 		super();
 		this.accountRepository = accountRepository;
 		this.favoriteRepository = favoriteRepository;
 	}
 
 	/**
-	 * GET all favorites for user request
-	 *
-	 * @param userId The username
-	 * @return HttpStatus.OK if favorites are found. HttpStatus.NOT_FOUND in other case
+	 * GET all favorites for the authenticated user
+	 * @return HttpStatus.OK if favorites are found or HttpStatus.NOT_FOUND in other case
 	 */
-	@RequestMapping(value = "/{userId}/favorites/",
-					method = RequestMethod.GET)
-	public ResponseEntity<?> listAllFavorites (@PathVariable final String userId) {
-		LOGGER.info("Getting all favorites for userId '{}'", userId);
-		this.validateUser(userId);
+	@GetMapping
+	public ResponseEntity<?> listAllFavorites (final Principal principal) {
+		LOGGER.info("Getting all favorites for userId '{}'", principal.getName());
+		this.validateUser(principal);
 
-		final Iterable<Favorite> favorites =  this.favoriteRepository.findByAccountUserName(userId);
+		final Iterable<Favorite> favorites =  this.favoriteRepository.findByAccountUserName(principal.getName());
 		if (! favorites.iterator().hasNext() ) {
             return new ResponseEntity<>(new CustomErrorType(
             		"Favorite list is empty"), HttpStatus.NOT_FOUND);
@@ -69,23 +70,20 @@ public class FavoritesController {
 	}
 
 	/**
-	 * GET user favorite by title
-	 *
-	 * @param userId The username
+	 * GET favorite by title for the authenticated user
 	 * @param title The name of the favorite
-	 * @return HttpStatus.OK if favorites are found. HttpStatus.NOT_FOUND in other case
+	 * @return HttpStatus.OK if favorites are found or HttpStatus.NOT_FOUND in other case
 	 */
-	@RequestMapping(value = "/{userId}/favorites/{title}",
-					method = RequestMethod.GET)
-	public ResponseEntity<?> getFavorite(@PathVariable final String userId,
-										 @PathVariable final String title) {
-		LOGGER.info("Fetching favorite for user '{}' with title '{}'", userId, title);
-		this.validateUser(userId);
+	@GetMapping(value = "/{title}")
+	public ResponseEntity<?> getFavorite( final Principal principal, @PathVariable final String title) {
+		LOGGER.info("Fetching favorite for user '{}' with title '{}'", principal.getName(), title);
+		this.validateUser(principal);
 
-		final Optional<Favorite> favorite = this.favoriteRepository.findByAccountUserNameAndTitle(userId, title);
+		final Optional<Favorite> favorite = this.favoriteRepository.findByAccountUserNameAndTitle(
+				principal.getName(), title);
 
 		if (!favorite.isPresent()) {
-			LOGGER.error("Favorite for user '{}' with title '{}' not found.", userId, title);
+			LOGGER.error("Favorite for user '{}' with title '{}' not found.", principal.getName(), title);
 			return new ResponseEntity<>(new CustomErrorType(
 					"Favorite with title '" + title + "' not found"), HttpStatus.NOT_FOUND);
 		}
@@ -93,22 +91,20 @@ public class FavoritesController {
 	}
 
 	/**
-	 * POST favorite. Create new favorite
+	 * POST favorite. Create new favorite for the authenticated user
 	 *
-	 * @param userId The username
 	 * @param newFavorite The favorite object to create
-	 * @param ucBuilder utility to set headers info
 	 * @return HttpStatus.CREATED or HttpStatus.CONFLICT if already exists
 	 */
-	@RequestMapping(value = "/{userId}/favorites/",
-					method = RequestMethod.POST)
-	public ResponseEntity<?> createFavorite( @PathVariable final String userId,
-											 @RequestBody final Favorite newFavorite,
-											 final UriComponentsBuilder ucBuilder) {
+	@PostMapping
+	public ResponseEntity<?> createFavorite( final Principal principal,
+											final UriComponentsBuilder ucBuilder,
+											@RequestBody final Favorite newFavorite ) {
 		LOGGER.info("POST favorite with title '{}'", newFavorite.getTitle());
-		this.validateUser(userId);
+		this.validateUser(principal);
 
-		if ( this.favoriteRepository.findByAccountUserNameAndTitle(userId, newFavorite.getTitle()).isPresent() ) {
+		if ( this.favoriteRepository.findByAccountUserNameAndTitle(principal.getName(),
+																  newFavorite.getTitle()).isPresent() ) {
 			 LOGGER.error("Unable to create. A favorite with title '{}' already exist", newFavorite.getTitle());
 
 			 return new ResponseEntity<>(new CustomErrorType(
@@ -116,7 +112,7 @@ public class FavoritesController {
 	        		 HttpStatus.CONFLICT); // 409
 	    }
 
-		return this.accountRepository.findByUserName(userId)
+		return this.accountRepository.findByUserName(principal.getName())
 				.map(account -> {
 							final Favorite result = this.favoriteRepository.save(new Favorite(
 									account,newFavorite.getTitle()));
@@ -135,10 +131,9 @@ public class FavoritesController {
 	 * @param newFavorite Object to replace
 	 * @return HttpStatus.OK or HttpStatus.NOT_FOUND if not exists
 	 */
-	 @RequestMapping(value = "/favorites/{id}",
-			 		 method = RequestMethod.PUT)
+	 @PutMapping(value = "/{id}")
 	 public ResponseEntity<?> updateFavorite( @PathVariable final Long 		id,
-			 								  @RequestBody  final Favorite  newFavorite) {
+			 								 @RequestBody  final Favorite  newFavorite) {
 
 		 LOGGER.info("Updating (PUT) favorite with id '{}'", id);
 
@@ -161,8 +156,7 @@ public class FavoritesController {
 	  * @param id The favorite ID in database
 	  * @return HttpStatus.NO_CONTENT if favorite has been deleted. HttpStatus.NOT_FOUND in other case
 	  */
-	 @RequestMapping ( value = "/favorites/{id}",
-			 		   method = RequestMethod.DELETE)
+	 @DeleteMapping ( value = "/{id}")
 	 public ResponseEntity<?> deleteFavorite( @PathVariable final  Long id) {
 		 LOGGER.info("Fetching & Deleting favorite with id '{}'", id);
 
@@ -179,8 +173,10 @@ public class FavoritesController {
 	 }
 
 	 // ---------------------------------- Private Methods ----------------------------------------
-	 private void validateUser(final String userId) {
-		 this.accountRepository.findByUserName(userId).orElseThrow(
-				 () -> new UserNotFoundException(userId));
+	 private void validateUser(final Principal principal) {
+		 this.accountRepository
+		 	.findByUserName(principal.getName())
+		 	.orElseThrow(
+				 () -> new UserNotFoundException(principal.getName()));
 	 }
 }
