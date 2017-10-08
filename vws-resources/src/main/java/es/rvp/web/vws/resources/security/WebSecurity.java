@@ -79,7 +79,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				new JWTAuthorizationFilter(authenticationManager()));
 
 
-		// FIXME 03: Revisar la configuracion para produccion de h2,swagger, CORS, CSRF . Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
+		// FIXME 00: Revisar la configuracion para produccion de h2,swagger, CORS, CSRF . Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
 		 httpSecurity.headers().frameOptions().disable();
 
 	}
