@@ -58,9 +58,9 @@ public class PiracyController {
 	 TODO: Antes de subir a GitHub
 	  - Autenticacion y Autorizacion
 	     - Nos queda:
-	     	- El API de PiracyControll requiere authenticacion...Es necesario ¿Tiene sentido?
 	        - Hacer login desde front, quedarse con el bearer que viene en la peticion de login, enviarlo con todas las peticiones y autorizar desde back
-	        - Revisar el proyecto en Github: https://github.com/spring-guides/tut-bookmarks
+	        - Revisar el proyecto en Github:
+	           https://github.com/spring-guides/tut-bookmarks
 	  		   https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
 	  	    - Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
 	  - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
