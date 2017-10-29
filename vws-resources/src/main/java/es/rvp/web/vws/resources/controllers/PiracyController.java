@@ -55,6 +55,10 @@ public class PiracyController {
 	*/
 
 	/*
+	  FIXME 03: Problema al autenticar con un usuario que ya no existe (admin) pero que su token se quedo en el localstore. Quedamos autenticados aunque casi todo falle..
+	 */
+
+	/*
 	 TODO: Antes de subir a GitHub
 	  - Autenticacion y Autorizacion
 	     - Nos queda:

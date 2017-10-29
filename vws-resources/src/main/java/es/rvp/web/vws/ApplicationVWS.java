@@ -1,11 +1,10 @@
 package es.rvp.web.vws;
 
-import java.util.Arrays;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
@@ -47,21 +46,21 @@ public class ApplicationVWS {
 	 */
 	@Bean
 	CommandLineRunner init( final AccountRepository accountRepository,
-						    final FavoriteRepository favoriteRepository ) {
-		return (evt) -> Arrays.asList(
-				"admin".split(","))
-				.forEach(
-						a -> {
-							final Account account = accountRepository.save(new Account(a,
-									"$2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP."));
-							//favoriteRepository.save(new Bookmark(account,
-							//		"http://bookmark.com/1/" + a, "A description"));
-							//favoriteRepository.save(new Bookmark(account,
-							//		"http://bookmark.com/2/" + a, "A description"));
-						});
+						    final FavoriteRepository favoriteRepository,
+						    final BCryptPasswordEncoder bCryptPasswordEncoder) {
+
+		return args -> {
+			accountRepository.save(new Account("rodrigo", bCryptPasswordEncoder.encode ("pepe")));
+			accountRepository.save(new Account("olga", bCryptPasswordEncoder.encode ("lola")));
+		};
 	}
 
 	// ---------------------- Application config -----------------------------
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+
 	@Bean
 	JSoupHelper jSoupHelper() {
 		return new JSoupHelperImpl();
