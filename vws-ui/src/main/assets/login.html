@@ -11,29 +11,26 @@
     <link rel="stylesheet" href="css/login.css">
 
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
-    <!--
-    <script src="js/shows.js"></script>
-    <script src="js/favorites.js"></script>
-    <script src="js/tvshows.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
     <script src="js/modal.js"></script>
-    -->
+
     <title>VWS: Video websites scraper -Login </title>
 </head>
 
 
 <body>
-    <form id="form-login">
+    <form id="form-login" action="javascript:doLogin();">
         <div class="imgcontainer">
             <img src="images/img_avatar.png" alt="Avatar" class="avatar">
         </div>
 
         <div class="container">
             <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <input type="text" placeholder="Enter Username" id="form-login-uname" name="uname" required>
 
             <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" id="form-login-passwd" name="passwd" required>
 
             <button type="submit">Login</button>
             <input type="checkbox" checked="checked"> Remember me

@@ -27,7 +27,7 @@ import io.jsonwebtoken.Jwts;
  * No se requieren accesos adicionales a BD ya que al estar firmado digitalmente
  * si hay alguna alteración en el token se corrompe.
  *
- * @author rvp001es
+ * @author Rodrigo Villamil Pérez
  *
  */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {

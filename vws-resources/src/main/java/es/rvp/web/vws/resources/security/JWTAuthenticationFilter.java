@@ -9,7 +9,6 @@ import static es.rvp.web.vws.resources.security.Constants.TOKEN_EXPIRATION_TIME;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,14 +39,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	private final AuthenticationManager authenticationManager;
 
-	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+	public JWTAuthenticationFilter(final AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
 
 	@Override
 	public Authentication attemptAuthentication(
-			HttpServletRequest request,
-			HttpServletResponse response )
+			final HttpServletRequest request,
+			final HttpServletResponse response )
 
 					throws AuthenticationException {
 		try {
@@ -74,10 +73,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	 */
 	@Override
 	protected void successfulAuthentication(
-			HttpServletRequest    request,
-			HttpServletResponse   response,
-			FilterChain 		  chain,
-			Authentication 	  	  auth )
+			final HttpServletRequest    request,
+			final HttpServletResponse   response,
+			final FilterChain 		  chain,
+			final Authentication 	  	  auth )
 
 					throws IOException, ServletException {
 

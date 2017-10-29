@@ -5,16 +5,6 @@
  */
 
 /**
- * Global config
- */
-var server = "http://localhost:8080";
-var url_base = "/api";
-var url_base_billboard_films = url_base + "/billboardfilms/";
-var url_base_video_premieres = url_base + "/videopremieres/";
-var url_base_tvshows = url_base + "/tvshows/";
-var url_base_favorites = url_base + "/favorites/";
-
-/**
  * Replace de tabcontent with name 'htmlElementID' with HTML show list
  *
  * @param evt : MouseEvent
@@ -96,6 +86,7 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
     };
 
     request.open(operation, server + resourcePath, async_request);
+    request.setRequestHeader("Authorization", getAuthToken());
     request.send();
 }
 
@@ -119,6 +110,7 @@ function doPost(resourcePath, body) {
 
     request.open("POST", server + resourcePath, true);
     request.setRequestHeader("Content-type", "application/json");
+    request.setRequestHeader("Authorization", getAuthToken());
     request.send(body);
 }
 
@@ -134,7 +126,6 @@ function sendFormWithTVShowFollow(event) {
     }
     // The value of input text
     var name = document.getElementById("form-tvshows-name").value;
-    // FIXME 00 : Solucionar la carga de favotiros: 	
     // Para añadir favoritos hacemos los siguiente: buscamos con la lista 
     // de favoritos para ver si ya lo tenemos . Si no lo tenemos , 
     // buscamos en el portal de torrents si existe el tvshow. Si existe lo añadimos a favoritos

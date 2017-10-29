@@ -2,6 +2,8 @@ package es.rvp.web.vws.resources.security;
 
 import static es.rvp.web.vws.resources.security.Constants.LOGIN_URL;
 
+import java.util.Arrays;
+
 import org.h2.server.web.WebServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,27 +59,30 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		 */
 		httpSecurity
 		.sessionManagement().sessionCreationPolicy(
-				SessionCreationPolicy.STATELESS).and().cors().and().csrf().disable()
+				SessionCreationPolicy.STATELESS)
+		.and().cors() // by default uses a Bean by the name of 'corsConfigurationSource'
+		.and().csrf().disable()
 
 		.authorizeRequests()
-
-		.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
-		.antMatchers("/health").permitAll() // spring-boot-actuator
-		.antMatchers("/v2/api-docs", // swagger
+			.antMatchers(HttpMethod.POST, LOGIN_URL).permitAll()
+			.antMatchers("/health").permitAll() // spring-boot-actuator
+			.antMatchers("/v2/api-docs", // swagger
 					 "/configuration/ui",
 					 "/swagger-resources/**",
 					 "/configuration/**",
 					 "/swagger-ui.html",
 					 "/webjars/**").permitAll()
-		.antMatchers("/h2/**").permitAll() // h2-embedded
+			.antMatchers("/h2/**").permitAll() // h2-embedded
 
-		.anyRequest().authenticated().and().addFilter(
+			.anyRequest().authenticated()
+			.and()
+			.addFilter(
 				new JWTAuthenticationFilter(authenticationManager()))
-		.addFilter(
+			.addFilter(
 				new JWTAuthorizationFilter(authenticationManager()));
 
 
-		// FIXME 00: Revisar la configuracion para produccion de h2,swagger, CORS (Habilitar para mi frontend?), CSRF . Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
+		// FIXME 00: Revisar la configuracion para produccion de h2,swagger: Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
 		 httpSecurity.headers().frameOptions().disable();
 
 	}
@@ -88,11 +93,20 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
 	}
 
+	/**
+	 * CORS configuration: https://docs.spring.io/spring-security/site/docs/current/reference/html/cors.html
+	 * @return
+	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setExposedHeaders(Arrays.asList("Authorization")); // https://stackoverflow.com/questions/1557602/jquery-and-ajax-response-header
+		configuration.applyPermitDefaultValues();
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
 		return source;
+
 	}
 
 	@Bean

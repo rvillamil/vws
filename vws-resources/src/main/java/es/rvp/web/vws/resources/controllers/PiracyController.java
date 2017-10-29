@@ -58,8 +58,9 @@ public class PiracyController {
 	 TODO: Antes de subir a GitHub
 	  - Autenticacion y Autorizacion
 	     - Nos queda:
-	        - Hacer login desde front, quedarse con el bearer que viene en la peticion de login, enviarlo con todas las peticiones y autorizar desde back
+	        - Revisar la funcionalidad:Ver que tenemos un par de usaurios cada uno con sus series favoritas alamacenadas
 	        - Revisar el proyecto en Github:
+	           https://auth0.com/blog/securing-spring-boot-with-jwts/
 	           https://github.com/spring-guides/tut-bookmarks
 	  		   https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
 	  	    - Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
