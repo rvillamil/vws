@@ -4,6 +4,20 @@
  * https://www.w3schools.com/js/js_ajax_http.asp
  */
 
+
+/**
+ * Redirect to login.html page if user is not autenticated
+ */
+function validateAutentication() {
+    if (!isAuthenticated()) {
+        console.log("validateAutentication: User is NOT autenticated. Redirecting to login.html ..");
+        window.location.assign("login.html");
+    } else {
+        // Cargamos los favoritos
+        getShows(event, 'tvshows-content');
+    }
+}
+
 /**
  * Replace de tabcontent with name 'htmlElementID' with HTML show list
  *

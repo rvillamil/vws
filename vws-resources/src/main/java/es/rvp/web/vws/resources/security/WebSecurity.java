@@ -95,7 +95,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	/**
 	 * CORS configuration: https://docs.spring.io/spring-security/site/docs/current/reference/html/cors.html
-	 * @return
 	 */
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
@@ -106,7 +105,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
-
 	}
 
 	@Bean

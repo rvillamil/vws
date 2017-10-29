@@ -31,13 +31,25 @@ function onErrorGetTVShow(request) {
 }
 
 function onTVShowFound(resourcePath, htmlFragment) {
-    console.log("TV Show found: adding to favorites list.. " + resourcePath);
-    var strFavorite = resourcePath.split("/")[3];
-    doPost(url_base_favorites, strFavorite);
+    var jsonStringWithFavorite = newJsonStringWithFavorite(resourcePath.split("/")[3]);
+
+    console.log("TV Show found: adding to favorites list:'" + jsonStringWithFavorite + "'");
+    doPost(url_base_favorites, jsonStringWithFavorite);
     document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
 }
 
 function onTVShowNotFound(resourcePath, htmlFragment) {
     console.log("Request problem! - onTVShowNotFound: - resourcePath: " + resourcePath);
     showAlertWindow("Serie no encontrada : " + resourcePath);
+}
+
+function newJsonStringWithFavorite(title) {
+    var jsonStrData =
+        '{ "title": ' +
+        '"' +
+        title +
+        '"' +
+        "}";
+
+    return jsonStrData;
 }

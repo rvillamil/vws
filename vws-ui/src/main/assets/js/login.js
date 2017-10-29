@@ -1,18 +1,9 @@
-function redirectToLoginPage() {
+function showMainPage() {
     if (isAuthenticated()) {
-        console.log("Not redirect..User autenticated..");
-    } else {
-        console.log("Redirect...User not autenticated..");
-        window.location.assign("login.html");
-    }
-}
-
-function showLoginPage() {
-    if (isAuthenticated()) {
-        console.log("User autenticated..");
+        console.log("showMainPage: User is autenticated. Redirect to main.html");
         window.location.assign("main.html");
     } else {
-        console.log("User not autenticated..");
+        console.log("showMainPage: User is NOT autenticated. Redirect to login.html");
         window.location.assign("login.html");
     }
 }
@@ -40,11 +31,8 @@ function doLogin() {
     request.withCredentials = true;
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
-            /*
-            console.log("ALL HEADERS: " + request.getAllResponseHeaders());
-            */
             setAuthToken(request.getResponseHeader('Authorization'));
-            window.location.assign("index.html");
+            showMainPage();
         } else if (this.readyState == 4) {
             console.log("doLogin Error: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
