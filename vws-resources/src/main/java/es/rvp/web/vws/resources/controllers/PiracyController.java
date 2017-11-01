@@ -30,6 +30,7 @@ public class PiracyController {
 
 	/*
 	  TODO: · Tareas de Formacion  ·
+	  - Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
 	  - Integrar con el servicio auth0 ( https://auth0.com )
 	  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
 	  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
@@ -62,16 +63,14 @@ public class PiracyController {
 	 TODO: Antes de subir a GitHub
 	  - Autenticacion y Autorizacion
 	     - Nos queda:
-	        - Revisar la funcionalidad:Ver que tenemos un par de usaurios cada uno con sus series favoritas alamacenadas
 	        - Revisar el proyecto en Github:
 	           https://auth0.com/blog/securing-spring-boot-with-jwts/
 	           https://github.com/spring-guides/tut-bookmarks
 	  		   https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
-	  	    - Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
 	  - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
 	    	   http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 	  - Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
-	  - Sonoar gratis en la nube: ver www.sonarcloud.io
+	  - Sonar gratis en la nube: ver www.sonarcloud.io
 	 */
 
 
