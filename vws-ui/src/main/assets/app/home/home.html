@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <!-- JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/shows.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/tvshows.js"></script>
+    <script src="js/modal.js"></script>
+
+    <title>VWS: Video websites scraper</title>
+</head>
+
+<body onload="validateAutentication()">
+    <!-- Zone: Top -->
+    <div class="topbar">
+        <p>VWS: Video websites scraper</p>
+        <div class="form-logout">
+            <form name="form-logout-name" action="javascript:doLogout();">
+                <div id="username-txt">Username</div>
+                <label id="lbl-logout">
+                    <input name="submit-logout" type="submit" value="Log out">
+                </label>
+            </form>
+        </div>
+    </div>
+
+    <!-- Zone: Left (Button zone) -->
+    <div class="menubar">
+        <button class="tablinks" onclick="getShows(event, 'tvshows-content')">Series favoritas</button>
+        <button class="tablinks" onclick="getShows(event, 'billboardfilms-content')">Estrenos de cine</button>
+        <button class="tablinks" onclick="getShows(event, 'videopremieres-content')">Estrenos de Video</button>
+    </div>
+
+    <!-- Zone: Center  -->
+    <div id="billboardfilms-content" class="main-content"></div>
+    <div id="videopremieres-content" class="main-content"></div>
+    <div id="tvshows-content" class="main-content">
+        <div id="box-with-form-tvshows-follow">
+            <form id="form-tvshows-follow" class="form-shows">
+                Seguir serie
+                <input id="form-tvshows-name" type="text" name="name" class="rounded-element">
+                <input type="submit" value="seguir">
+            </form>
+
+            <div class="text-with-tvshows-following">
+                Series actualmente en seguimiento:
+            </div>
+            <div id="number-tvshows-following" class="text-with-tvshows-following">0</div>
+
+        </div>
+        <div id="box-with-tvshows-follow"></div>
+    </div>
+    <p>MASSS</p>
+
+    <!-- Zone: Right  -->
+    <div class="about-show">
+        <div id="about-show-empty-zone">Vacio</div>
+        <div id="about-show-title">
+            <p>Titulo</p>
+        </div>
+        <div id="about-show-description">
+            <p>Descripcion</p>
+        </div>
+        <div id="about-show-sinopsis">
+            <p>Sinopsis</p>
+        </div>
+    </div>
+
+    <!-- Modal Window -->
+    <div id="modalWindow" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h3>Modal Header</h3>
+            </div>
+            <div class="modal-text">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+                <h4>Modal Footer</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form submit - seguir - Action ( This script here mandatory ) -->
+    <script>
+        document.getElementById("form-tvshows-follow").addEventListener("submit", sendFormWithTVShowFollow);
+    </script>
+
+</body>
+
+</html>
