@@ -11,7 +11,7 @@
 function validateAutentication() {
     if (!isAuthenticated()) {
         console.log("validateAutentication: User is NOT autenticated. Redirecting to login.html ..");
-        window.location.assign("login.html");
+        window.location.assign("/app/login/login.html");
     } else {
         // Cargamos los favoritos
         getShows(event, 'tvshows-content');

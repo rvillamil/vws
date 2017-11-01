@@ -24,6 +24,7 @@ function newJsonWithLoginDataForm() {
     return jsonStrData;
 }
 
+// ---> Esto se tiene que hacer con el doPost y sacar el doPost a shared para que tire del config.js. Asi reducimos dependencias y componentizamos mejor
 function doLogin() {
     var body = newJsonWithLoginDataForm();
     console.log("doLogin on '" + server + "/login'" + " whith body-->" + body);
