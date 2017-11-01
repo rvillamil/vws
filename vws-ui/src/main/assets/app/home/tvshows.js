@@ -30,11 +30,23 @@ function onErrorGetTVShow(request) {
     showAlertWindow("No se ha podido obtener el TVShow '" + name + "'")
 }
 
+
+function onErrorOnTVShowFound(request) {
+    showAlertWindow("Post Request error: ", "Status: " + this.status, "");
+}
+
 function onTVShowFound(resourcePath, htmlFragment) {
     var jsonStringWithFavorite = newJsonStringWithFavorite(resourcePath.split("/")[3]);
 
     console.log("TV Show found: adding to favorites list:'" + jsonStringWithFavorite + "'");
-    doPost(url_base_favorites, jsonStringWithFavorite);
+
+    doPost(url_base_favorites,
+        jsonStringWithFavorite,
+        getAuthToken(),
+        null,
+        null,
+        onErrorOnTVShowFound);
+
     document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
 }
 

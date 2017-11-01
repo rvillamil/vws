@@ -1,11 +1,4 @@
 /**
- * Javascript functions
- *
- * https://www.w3schools.com/js/js_ajax_http.asp
- */
-
-
-/**
  * Redirect to login.html page if user is not autenticated
  */
 function validateAutentication() {
@@ -108,32 +101,6 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
     request.open(operation, server + resourcePath, async_request);
     request.setRequestHeader("Authorization", getAuthToken());
     request.send();
-}
-
-/**
- * 
- * @param  resourcePath 
- * @param  stringData  
- */
-function doPost(resourcePath, body) {
-    var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status === 201) {
-            console.log("doPost OK!: [readyState: " +
-                this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
-        } else if (this.readyState == 4 && request.status === 0) {
-            showAlertWindow("ERROR!!! Backend down?");
-        } else if (this.readyState == 4) {
-            showAlertWindow("doPost: [readyState: " +
-                this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
-        }
-    };
-
-    request.open("POST", server + resourcePath, true);
-    request.setRequestHeader("Content-type", "application/json");
-    request.setRequestHeader("Authorization", getAuthToken());
-    request.send(body);
 }
 
 /**

@@ -3,11 +3,6 @@
  *
  * https://www.w3schools.com/js/js_ajax_http.asp
  */
-function showAlertWindow(text) {
-    console.log("showAlertWindow:" + text);
-    alert(text);
-}
-
 function showModalWindow(modalHeader, modalText, modalFooter) {
     // Get the modal
     var modal = document.getElementById('modalWindow');

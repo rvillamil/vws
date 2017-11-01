@@ -1,10 +1,10 @@
 function showMainPage() {
     if (isAuthenticated()) {
         console.log("showMainPage: User is autenticated. Redirecting to 'home.html' ...");
-        window.location.assign("app/home/home.html");
+        window.location.assign("/app/home/home.html");
     } else {
         console.log("showMainPage: User is NOT autenticated. Redirecting to 'login.html'");
-        window.location.assign("app/login/login.html");
+        window.location.assign("/app/login/login.html");
     }
 }
 
@@ -24,32 +24,24 @@ function newJsonWithLoginDataForm() {
     return jsonStrData;
 }
 
-// ---> Esto se tiene que hacer con el doPost y sacar el doPost a shared para que tire del config.js. Asi reducimos dependencias y componentizamos mejor
-function doLogin() {
-    var body = newJsonWithLoginDataForm();
-    console.log("doLogin on '" + server + "/login'" + " whith body-->" + body);
-    var request = new XMLHttpRequest();
-    request.withCredentials = true;
-    request.onreadystatechange = function() {
-        if (request.readyState === 4 && request.status === 200) {
-            setAuthToken(request.getResponseHeader('Authorization'));
-            setCurrentUsername(getFormUsername());
-            showMainPage();
-        } else if (this.readyState == 4 && request.status === 0) {
-            showAlertWindow("ERROR!!! Backend down?");
-        } else if (this.readyState == 4 && request.status === 401) {
-            showAlertWindow("Wrong user or invalid password");
-        } else if (this.readyState == 4) {
-            console.log("doLogin Error: [readyState: " +
-                this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
-            deleteSession();
-            showAlertWindow("Post Request error: ", "Status: " + this.status, "");
-        }
-    };
+function onSuccessLogin(request) {
+    setAuthToken(request.getResponseHeader('Authorization'));
+    setCurrentUsername(getFormUsername());
+    showMainPage();
+}
 
-    request.open("POST", server + "/login", true);
-    request.setRequestHeader("Content-type", "application/json");
-    request.send(body);
+function onErrorLogin(request) {
+    deleteSession();
+    showAlertWindow("Post Request error: ", "Status: " + this.status, "");
+}
+
+function doLogin() {
+    doPost('/login',
+        newJsonWithLoginDataForm(),
+        null,
+        onSuccessLogin,
+        null,
+        onErrorLogin);
 }
 
 function doLogout() {
