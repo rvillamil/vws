@@ -33,16 +33,21 @@ INSERT INTO `account` VALUES (1,'$2a$10$lUEpvunMr4tk0rYbAqQJ0uj5tM.VsYmYocxAyy.D
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
 --
 -- Dumping data for table `favorite`
 --
 
 LOCK TABLES `favorite` WRITE;
 /*!40000 ALTER TABLE `favorite` DISABLE KEYS */;
+INSERT INTO `favorite` VALUES (1,'modern-family',1);
+INSERT INTO `favorite` VALUES (2,'erase-una-vez',1);
+INSERT INTO `favorite` VALUES (3,'modern-family',2);
+
 /*!40000 ALTER TABLE `favorite` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
