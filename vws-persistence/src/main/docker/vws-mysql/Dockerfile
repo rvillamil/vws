@@ -1,5 +1,5 @@
 FROM mysql:5.6
-LABEL maintainer "rodrigo.villamil@google.com" description="BBDD for VWS"
+LABEL maintainer "rodrigo.villamil@google.com" description="MySQL docker container with DDBB for VWS"
 
 # Root user
 USER root

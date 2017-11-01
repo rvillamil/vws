@@ -1,9 +1,12 @@
 package es.rvp.web.vws;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
@@ -26,6 +29,10 @@ import es.rvp.web.vws.domain.tumejortorrent.ShowURLToDownloadParser;
  */
 @SpringBootApplication
 public class ApplicationVWS {
+
+	// LOGGER
+	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationVWS.class);
+
 	/**
 	 * Main method for spring boot applications
 	 * @param args argument list
@@ -40,15 +47,13 @@ public class ApplicationVWS {
 	 *
 	 * curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
      *
-	 * username: "admin"
-	 * password: "password" <--> $2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.
-	 *
 	 */
 	@Bean
+	@Profile("default")
 	CommandLineRunner init( final AccountRepository accountRepository,
 						    final FavoriteRepository favoriteRepository,
 						    final BCryptPasswordEncoder bCryptPasswordEncoder) {
-
+		LOGGER.info ("Loading users/password for testing purposes: rodrigo/pepe and olga/lola");
 		return args -> {
 			accountRepository.save(new Account("rodrigo", bCryptPasswordEncoder.encode ("pepe")));
 			accountRepository.save(new Account("olga", bCryptPasswordEncoder.encode ("lola")));

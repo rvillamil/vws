@@ -3,6 +3,7 @@ package es.rvp.web.vws.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ public class Account {
 
 	private String password;
 
+	@Column(unique=true)
 	private String userName;
 
 	public Account(final String userName, final String password) {

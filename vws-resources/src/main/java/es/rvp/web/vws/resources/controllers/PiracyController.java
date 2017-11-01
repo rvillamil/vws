@@ -63,6 +63,7 @@ public class PiracyController {
 	 TODO: Antes de subir a GitHub
 	  - Autenticacion y Autorizacion
 	     - Nos queda:
+	        - Revisar los conteneeros Docker. Arranque y parada y se me mantienen los datos. Meter un dml con usaurios y favoritos mios
 	        - Revisar el proyecto en Github:
 	           https://auth0.com/blog/securing-spring-boot-with-jwts/
 	           https://github.com/spring-guides/tut-bookmarks

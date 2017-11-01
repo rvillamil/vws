@@ -64,3 +64,9 @@ CREATE TABLE `favorite` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-09-05 11:13:04
+
+ALTER TABLE account
+  ADD CONSTRAINT uniqueUserName
+    UNIQUE (user_name);
+
+

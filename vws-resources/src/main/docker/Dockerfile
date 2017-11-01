@@ -1,14 +1,14 @@
-# Image base 
+# Image base
 FROM java:8
 
 # En caso de problemas...
-LABEL maintainer "rodrigo.villamil@google.com" description="BBDD for VWS"
+LABEL maintainer "rodrigo.villamil@google.com" description="Java 8 docker container with Backend for VWS"
 
-# We added a VOLUME pointing to "/tmp" because that is where a Spring Boot application 
-# creates working directories for Tomcat by default. 
-# The effect is to create a temporary file on your host under "/var/lib/docker" and 
-# link it to the container under "/tmp". 
-# This step is optional for the simple app that we wrote here, but 
+# We added a VOLUME pointing to "/tmp" because that is where a Spring Boot application
+# creates working directories for Tomcat by default.
+# The effect is to create a temporary file on your host under "/var/lib/docker" and
+# link it to the container under "/tmp".
+# This step is optional for the simple app that we wrote here, but
 # can be necessary for other Spring Boot applications if they need to actually write in the filesystem.
 VOLUME /tmp
 

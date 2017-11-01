@@ -1,5 +1,5 @@
 FROM httpd:2.4
-LABEL maintainer "rodrigo.villamil@google.com" description="BBDD for VWS"
+LABEL maintainer "rodrigo.villamil@google.com" description="Apache docker container with FrontEnd for VWS"
 
 # Root user
 USER root
