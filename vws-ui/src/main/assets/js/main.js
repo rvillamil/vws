@@ -26,6 +26,7 @@ function validateAutentication() {
  */
 function getShows(evt, htmlElementID) {
     console.log("Loading content for replacing html element: '" + htmlElementID + "'");
+
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("main-content");
     for (i = 0; i < tabcontent.length; i++) {
@@ -67,7 +68,10 @@ function getShows(evt, htmlElementID) {
     } else {
         showAlertWindow("ERROR!! 'main-content' not exists " + htmlElementID)
     }
+    setCurrentUserInTopBar();
+
 }
+
 
 function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound, onElementsNotFound, async) {
     // por defecto asincronas
@@ -88,6 +92,8 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
             } else {
                 onElementsNotFound(resourcePath, htmlFragment);
             }
+        } else if (this.readyState == 4 && request.status === 0) {
+            showAlertWindow("ERROR!!! Backend down?");
         } else if (this.readyState == 4) {
             onError(this);
         }
@@ -116,6 +122,8 @@ function doPost(resourcePath, body) {
         if (request.readyState === 4 && request.status === 201) {
             console.log("doPost OK!: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
+        } else if (this.readyState == 4 && request.status === 0) {
+            showAlertWindow("ERROR!!! Backend down?");
         } else if (this.readyState == 4) {
             showAlertWindow("doPost: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
@@ -228,4 +236,8 @@ function setAboutShow(title, description, sinopsis) {
     document.getElementById("about-show-title").innerHTML = "<p>Titulo</p>" + title;
     document.getElementById("about-show-description").innerHTML = "<p>Descripcion</p>" + description;
     document.getElementById("about-show-sinopsis").innerHTML = "<p>Sinopsis</p>" + sinopsis;
+}
+
+function setCurrentUserInTopBar() {
+    document.getElementById("username-txt").innerHTML = getCurrentUsername();
 }

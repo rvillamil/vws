@@ -12,12 +12,12 @@ function newJsonWithLoginDataForm() {
     var jsonStrData =
         '{ "userName": ' +
         '"' +
-        document.getElementById("form-login-uname").value +
+        getFormUsername() +
         '"' +
         "," +
         '"password": ' +
         '"' +
-        document.getElementById("form-login-passwd").value +
+        getFormPassword() +
         '"' +
         "}";
 
@@ -32,12 +32,17 @@ function doLogin() {
     request.onreadystatechange = function() {
         if (request.readyState === 4 && request.status === 200) {
             setAuthToken(request.getResponseHeader('Authorization'));
+            setCurrentUsername(getFormUsername());
             showMainPage();
+        } else if (this.readyState == 4 && request.status === 0) {
+            showAlertWindow("ERROR!!! Backend down?");
+        } else if (this.readyState == 4 && request.status === 401) {
+            showAlertWindow("Wrong user or invalid password");
         } else if (this.readyState == 4) {
             console.log("doLogin Error: [readyState: " +
                 this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
-            deleteAuthToken();
-            showAlertWindow("Eeeehhh", "¿Que haces?", "");
+            deleteSession();
+            showAlertWindow("Post Request error: ", "Status: " + this.status, "");
         }
     };
 
@@ -46,18 +51,40 @@ function doLogin() {
     request.send(body);
 }
 
+function doLogout() {
+    console.log("doLogout '" + getCurrentUsername() + "'");
+    deleteSession();
+    showMainPage()
+}
+
 function getAuthToken() {
     return localStorage.getItem('Authorization');
 }
 
 function setAuthToken(authToken) {
-    return localStorage.setItem('Authorization', authToken);
+    localStorage.setItem('Authorization', authToken);
 }
 
 function isAuthenticated() {
     return (getAuthToken() != null) && (getAuthToken().length) > 0;
 }
 
-function deleteAuthToken() {
-    localStorage.removeItem('Authorization');
+function deleteSession() {
+    localStorage.clear();
+}
+
+function setCurrentUsername(username) {
+    localStorage.setItem('username', username);
+}
+
+function getCurrentUsername() {
+    return localStorage.getItem('username');
+}
+
+function getFormUsername() {
+    return document.getElementById("form-login-uname").value
+}
+
+function getFormPassword() {
+    return document.getElementById("form-login-passwd").value
 }
