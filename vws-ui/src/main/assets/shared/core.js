@@ -33,11 +33,12 @@ function doPost(url, body, JWToken, onSuccess, onSuccessNewResource, onError) {
             }
         } else if (this.readyState == 4 && request.status === 0) {
             showAlertWindow("ERROR!!! Backend down?");
-        } else if (this.readyState == 4 && request.status === 401) {
-            console.log("doPost : 401 Authorization error!");
-            showAlertWindow("Authorization error !!");
-        } else if (this.readyState == 4) {
-            console.log("doPost ERROR: [readyState: " + this.readyState + ", status: " + this.status + ", statusText: '" + this.statusText + "']");
+        } else if (this.readyState == 4 && request.status === 401) {            
+            showAlertWindow("HTTP401: Authorization error !!");
+        } else if (this.readyState == 4) {            
+            showAlertWindow("doPost ERROR: [readyState: " + 
+                            this.readyState + ", status: " + this.status +
+                             ", statusText: '" + this.statusText + "']");
             if (onError != null) {
                 onError(this);
             }

@@ -24,24 +24,20 @@ function newJsonWithLoginDataForm() {
     return jsonStrData;
 }
 
-function onSuccessLogin(request) {
-    setAuthToken(request.getResponseHeader('Authorization'));
-    setCurrentUsername(getFormUsername());
-    showMainPage();
-}
-
-function onErrorLogin(request) {
-    deleteSession();
-    showAlertWindow("Post Request error: ", "Status: " + this.status, "");
-}
-
 function doLogin() {
+    
     doPost('/login',
         newJsonWithLoginDataForm(),
         null,
-        onSuccessLogin,
+        function(request){
+            setAuthToken(request.getResponseHeader('Authorization'));
+            setCurrentUsername(getFormUsername());
+            showMainPage();
+        },
         null,
-        onErrorLogin);
+        function(request){
+            deleteSession();            
+        } );
 }
 
 function doLogout() {

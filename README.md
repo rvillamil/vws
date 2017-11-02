@@ -1,18 +1,21 @@
 # VWS: Video websites scraper #
-
 Web scraping application for video websites
-# TODO 01 pp
 
-(La planteamos como no solo de torrent asi tiene mas futuro..) Aplicacion web que realiza el web scraping de paginas con torrents de video.
-Para su ejecución, tienes que hacer lo siguiente:
-- clonar el repo
-- docker run ... docker-compose ...
+Es una aplicación web de tipo Single Page Application, cuya funcionalidad básica consiste en hacer 'scrapping' de portales de torrent para procesesar su contenido y mostrarlo en un navegador de manera mas personalizada.
 
-## Informacion para desarrolladores ##
-La aplicacion está desarrollada utilizando el soporte de spring boot, por tanto
+Evidentemente, esto se podría hacer mucho mas sencillo, pero el objetivo de este desarrollo no es otro que experimentar con tecnologías y en definitiva, aprender.
+
+# Informacion para desarrolladores #
+## Diagrama de Arquitectura ##
+Pintar un diagrama con un backeend con Docker y frontal en un apache ...
+
+## Arquitectura de desarrollo ##
+
+### API - Backend ####
+El backend es una aplicación desarrollada con el soporte de spring boot, por tanto
 está preparada para generar un jar autoejecutable con un tomcat
 embebido aunque tambien se puede desplegar en un servidor de aplicaciones con soporte
-para Servlet 3.X (no se requiere un web.xml)
+para Servlet 3.X (donde no se requiere un web.xml)
 
 * El proyecto vws-docker-support contiene ...
 * El proyecto vws-persistence contiene ..
@@ -22,9 +25,22 @@ Contenedores Docker
 Spring 4
 Autenticacion basada en token JWT y Spring Securiry
 
-## Compilacion y ejecucion basica  ##
+### FrontEnd ###
+TODO: Completar
 
-Mejor contar antes los profiles de compilacion ...
+#### Compilacion y ejecucion basica  #####
+
+## Perfiles maven  ##
+
+Los peerfiles son:
+- develop (default) : Ejecuta test unitarios, skip a los de integracion
+- docker-support (default) : Genera contendedores docker con la aplicacion. Ejecuta el docker build en los proyectos con Docker
+- integration : Ejecuta todos los test
+
+Si ejecutamos un: mvn clean install, equivale a ejecutar un 'mvn install -Pdevelop,docker-support'
+OJO: -P-docker-support , evita que se lancen los docker build
+
+Si queremos evitar lanzar el soporte para docker: mvn install -P integration,-docker-support
 
 $mvn clean install : Compila con el profile 'develop' por defecto
 $mvn clean install -P integration: Compila con el profile 'integration' lanzando los test de integracion
@@ -67,17 +83,6 @@ Hay varias formas de trabajar:
 
   Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
 
-## Perfiles maven  ##
-
-Los peerfiles son:
-- develop (default) : Ejecuta test unitarios, skip a los de integracion
-- docker-support (default) : Genera contendedores docker con la aplicacion. Ejecuta el docker build en los proyectos con Docker
-- integration : Ejecuta todos los test
-
-Si ejecutamos un: mvn clean install, equivale a ejecutar un 'mvn install -Pdevelop,docker-support'
-OJO: -P-docker-support , evita que se lancen los docker build
-
-Si queremos evitar lanzar el soporte para docker: mvn install -P integration,-docker-support
 
 ## Como generar un entregable para produccion  ##
 
