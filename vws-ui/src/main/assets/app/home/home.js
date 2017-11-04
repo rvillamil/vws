@@ -3,10 +3,11 @@
  */
 function validateAutentication() {
     if (!isAuthenticated()) {
-        console.log("validateAutentication: User is NOT autenticated. Redirecting to login.html ..");
+        console.log("validateAutentication - User is NOT autenticated. Redirecting to login.html ..");
         window.location.assign("/app/login/login.html");
     } else {
         // Cargamos los favoritos
+        console.log("validateAutentication - User autenticated !");
         getShows(event, 'tvshows-content');
     }
 }
@@ -18,7 +19,7 @@ function validateAutentication() {
  * @param htmlElementID: billboardfilms-content, videopremieres-content,... HTML element to replace
  */
 function getShows(evt, htmlElementID) {
-    console.log("Loading content for replacing html element: '" + htmlElementID + "'");
+    console.log("getShows - Loading content .. '" + htmlElementID + "'");
 
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("main-content");
@@ -37,43 +38,69 @@ function getShows(evt, htmlElementID) {
             'GET',
             url_base_billboard_films,
             onSuccessGetShows,
-            onErrorGetShows,
-            onBillBoardFilmsFound,
-            onBillBoardFilmsNotFound);
+            null,
+            function(resourcePath, htmlFragment) {
+                document.getElementById("billboardfilms-content").innerHTML = htmlFragment;
+            },
+            function(resourcePath, htmlFragment) {
+                showAlertWindow("ERROR!: El servidor ha retornado 0 peliculas de cine! Revisa el log del servidor..");
+            });
 
     } else if (htmlElementID == "videopremieres-content") {
         doRequest(
             'GET',
             url_base_video_premieres,
             onSuccessGetShows,
-            onErrorGetShows,
-            onVideoPremieresFound,
-            onVideoPremieresNotFound);
+            null,
+            function(resourcePath, htmlFragment) {
+                document.getElementById("videopremieres-content").innerHTML = htmlFragment;
+            },
+            function(resourcePath, htmlFragment) {
+                showAlertWindow("ERROR!: El servidor ha retornado 0 peliculas de video! Revisa el log del servidor ...");
+            });
 
     } else if (htmlElementID == "tvshows-content") {
         doRequest(
             'GET',
             url_base_favorites,
             onSuccessGetFavorites,
-            onErrorGetFavorites,
-            onFavoritesTVShowsFound,
-            onFavoritesTVShowsNotFound);
+            function() {
+                showAlertWindow("No tienes favoritos en la lista todavia. Busca las series que te interesa seguir ...");
+            },
+            function(resourcePath, htmlFragment) {
+                console.log("getShows - Favorites has been loaded sucessfully");
+            },
+            function(resourcePath, htmlFragment) {
+                console.log("getShows - Favorite show request problem!'" + resourcePath + "'");
+            });
     } else {
         showAlertWindow("ERROR!! 'main-content' not exists " + htmlElementID)
     }
-    setCurrentUserInTopBar();
 
+    setCurrentUserInTopBar();
 }
 
-
-function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound, onElementsNotFound, async) {
-    // por defecto asincronas
-    async_request = async;
-    if (async == null) {
-        async_request = true;
+function onSuccessGetShows(request) {
+    try {
+        var newHTML = "";
+        var shows = JSON.parse(request.responseText);
+        if (shows.length == 0) {
+            newHTML = null;
+        }
+        for (var i = 0; i < shows.length; i++) {
+            console.log("onSuccessGetShows - Processing show '" + shows[i]['title'] + "'");
+            newHTML += newHTMLShow(shows[i], null);
+        }
+    } catch (err) {
+        newHTML = null;
+        showAlertWindow("onSuccessGetShows - EXCEPTION!: " + err.message + " in " + request.responseText);
     }
 
-    console.log("doRequest to: " + resourcePath + " ( operation: " + operation + " )" + " - Async: " + async_request);
+    return newHTML;
+}
+
+function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound, onElementsNotFound) {
+    console.log("doRequest '" + operation + "' to " + resourcePath);
     var modal = null;
     var request = new XMLHttpRequest();
 
@@ -88,7 +115,13 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
         } else if (this.readyState == 4 && request.status === 0) {
             showAlertWindow("ERROR!!! Backend down?");
         } else if (this.readyState == 4) {
-            onError(this);
+            if (onError != null) {
+                onError(this);
+            } else {
+                showAlertWindow("doRequest ERROR: [readyState: " +
+                    this.readyState + ", status: " + this.status +
+                    ", statusText: '" + this.statusText + "']");
+            }
         }
     };
     request.onloadstart = function() {
@@ -98,7 +131,7 @@ function doRequest(operation, resourcePath, onSuccess, onError, onElementsFound,
         modal.style.display = "none";
     };
 
-    request.open(operation, server + resourcePath, async_request);
+    request.open(operation, server + resourcePath, true);
     request.setRequestHeader("Authorization", getAuthToken());
     request.send();
 }
@@ -121,10 +154,16 @@ function sendFormWithTVShowFollow(event) {
     doRequest(
         'GET',
         "/api/favorites/" + name,
-        onSuccessGetFavorite,
+        function(request) {
+            return "OK"; // --> fuerza a que llame a la funcion de abajo y pinte en el log "Favorite already exist"
+        },
         onErrorGetFavorite,
-        onFavoriteAlreadyExists,
-        onFavoriteNotExists);
+        function(resourcePath, htmlFragment) {
+            console.log("sendFormWithTVShowFollow - Favorite already exists: '" + resourcePath + "'");
+        },
+        function(resourcePath, htmlFragment) {
+            console.log("sendFormWithTVShowFollow - Favorite does not exists: '" + resourcePath + "'");
+        });
 
     // You must return false to prevent the default form behavior
     return false;

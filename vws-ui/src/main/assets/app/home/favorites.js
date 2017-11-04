@@ -1,10 +1,21 @@
+function newJsonStringWithFavorite(title) {
+    var jsonStrData =
+        '{ "title": ' +
+        '"' +
+        title +
+        '"' +
+        "}";
+
+    return jsonStrData;
+}
+
 function onSuccessGetFavorites(request) {
     try {
         // console.log("request.responseText: " + request.responseText);
         var newHTML = "";
         var favorites = JSON.parse(request.responseText);
         var totalFavorites = favorites.length;
-        console.log("Total favorites recovered': " + totalFavorites);
+        console.log("onSuccessGetFavorites - Total favorites found on DDBB: '" + totalFavorites + "'");
         document.getElementById("number-tvshows-following").innerHTML = totalFavorites;
         document.getElementById("box-with-tvshows-follow").innerHTML = "";
         if (totalFavorites == 0) {
@@ -13,56 +24,29 @@ function onSuccessGetFavorites(request) {
         var title = '';
         for (var i = 0; i < favorites.length; i++) {
             title = favorites[i]['title'];
-            // console.log("onSuccessGetFavorites - Processing favorite TV show title '" + title + "'");
+            // console.log("onSuccessGetFavorites - Processing from DDBB favorite TV show title '" + title + "'");
             doRequest(
                 'GET',
                 url_base_tvshows + title,
                 onSuccessGetTVShow,
                 onErrorGetTVShow,
-                onFavoriteTVShowFound,
-                onFavoriteTVShowNotFound);
+                function(resourcePath, htmlFragment) {
+                    document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
+                },
+                function(resourcePath, htmlFragment) {
+                    console.log("onSuccessGetFavorites - Elements not found! - resourcePath: " + resourcePath);
+                });
 
         }
     } catch (err) {
         newHTML = null;
-        showAlertWindow("onSuccessGetFavorites exception!: " + err.message + " in " + request.responseText);
+        showAlertWindow("onSuccessGetFavorites - EXCEPTION!: " + err.message + " in " + request.responseText);
     }
     return newHTML;
 }
 
-function onErrorGetFavorites(request) {
-    console.log("onErrorGetFavorites: [readyState: " +
-        request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
-    showAlertWindow("No tienes favoritos en la lista todavia. Busca las series que te interesa seguir ...");
-}
-
-function onFavoritesTVShowsFound(resourcePath, htmlFragment) {
-    console.log("onFavoritesTVShowsFound - resourcePath:'" + resourcePath + "'");
-}
-
-function onFavoritesTVShowsNotFound(resourcePath, htmlFragment) {
-    console.log("Request problem! - onFavoritesTVShowsNotFound: - resourcePath: " + resourcePath);
-}
-
-// -------------------
-function onFavoriteTVShowFound(resourcePath, htmlFragment) {
-    document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
-}
-
-function onFavoriteTVShowNotFound(resourcePath, htmlFragment) {
-    console.log("Request problem! - onFavoriteTVShowNotFound: - resourcePath: " + resourcePath);
-}
-
-// -------------------- 
-function onSuccessGetFavorite(request) {
-    console.log("El favorito ya existe! - onSuccessGetFavorite: [readyState: " +
-        request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
-    return "OK"; // --> fuerza a que pase por el handler onFavoriteAlreadyExists
-}
-
 function onErrorGetFavorite(request) {
-    console.log("El favorito no existe! - onErrorGetFavorite: [readyState: " +
-        request.readyState + ", status: " + request.status + ", statusText: '" + request.statusText + "']");
+    console.log("onErrorGetFavorite - Favorite does not exist!");
     var name = document.getElementById("form-tvshows-name").value;
     doRequest(
         'GET',
@@ -70,13 +54,51 @@ function onErrorGetFavorite(request) {
         onSuccessGetTVShow,
         onErrorGetTVShow,
         onTVShowFound,
-        onTVShowNotFound);
+        function(resourcePath, htmlFragment) {
+            showAlertWindow("Serie no encontrada : " + resourcePath);
+        });
 }
 
-function onFavoriteAlreadyExists(resourcePath, htmlFragment) {
-    console.log("onFavoriteAlreadyExists - " + resourcePath);
+function onTVShowFound(resourcePath, htmlFragment) {
+    var jsonStringWithFavorite = newJsonStringWithFavorite(resourcePath.split("/")[3]);
+    console.log("onTVShowFound - TV Show found. Sending request to add my favorite list '" + jsonStringWithFavorite + "'");
+    doPost(url_base_favorites,
+        jsonStringWithFavorite,
+        getAuthToken(),
+        null,
+        null);
+    document.getElementById("box-with-tvshows-follow").innerHTML += htmlFragment;
 }
 
-function onFavoriteNotExists(resourcePath, htmlFragment) {
-    console.log("onFavoriteNotExists - " + resourcePath);
+
+function onSuccessGetTVShow(request) {
+    try {
+        // Ojo! El servidor retorna por cada episodio un objeto Show. Nosotros lo pintamos como 
+        // si fuese uno solo
+        var shows = JSON.parse(request.responseText);
+        var newHTML = " <div class='showtv-episodes-container'>";
+        for (var i = 0; i < shows.length; i++) {
+            //console.log("Processing TV show '" + shows[i]['title'] + " T-" + shows[i]['session'] + " E-" + shows[i]['episode'] + "'");
+            newHTML += "<a href='" + shows[i]["urltodownload"] + "'>";
+            newHTML += "<p>Episodio " + shows[i]['episode'] + "</p>";
+            newHTML += "</a>";
+        }
+        newHTML += "</div>";
+        if (shows.length > 0) {
+            newHTML = newHTMLShow(shows[0], newHTML);
+        } else {
+            newHTML = null;
+        }
+    } catch (err) {
+        newHTML = null;
+        console.log("onSuccessGetTVShow - EXCEPTION!: " + err.message + " in " + request.responseText);
+    }
+    return newHTML;
+}
+
+function onErrorGetTVShow(request) {
+    console.log("onErrorGetTVShow  - Request problem! : [readyState: " +
+        request.readyState + ", status: " + request.status + "']");
+    var name = document.getElementById("form-tvshows-name").value;
+    showAlertWindow("No se ha podido obtener el TVShow '" + name + "'")
 }

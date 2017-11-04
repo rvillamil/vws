@@ -24,20 +24,26 @@ function newJsonWithLoginDataForm() {
     return jsonStrData;
 }
 
+function getFormUsername() {
+    return document.getElementById("form-login-uname").value
+}
+
+function getFormPassword() {
+    return document.getElementById("form-login-passwd").value
+}
+
 function doLogin() {
-    
     doPost('/login',
         newJsonWithLoginDataForm(),
         null,
-        function(request){
+        function(request) {
             setAuthToken(request.getResponseHeader('Authorization'));
             setCurrentUsername(getFormUsername());
             showMainPage();
         },
-        null,
-        function(request){
-            deleteSession();            
-        } );
+        function(request) {
+            deleteSession();
+        });
 }
 
 function doLogout() {
@@ -68,12 +74,4 @@ function setCurrentUsername(username) {
 
 function getCurrentUsername() {
     return localStorage.getItem('username');
-}
-
-function getFormUsername() {
-    return document.getElementById("form-login-uname").value
-}
-
-function getFormPassword() {
-    return document.getElementById("form-login-passwd").value
 }
