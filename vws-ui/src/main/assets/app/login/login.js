@@ -33,7 +33,8 @@ function getFormPassword() {
 }
 
 function doLogin() {
-    doPost('/login',
+    doPost(
+        '/login',
         newJsonWithLoginDataForm(),
         null,
         function(request) {

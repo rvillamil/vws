@@ -335,3 +335,7 @@ hs_err_pid*
 
 # Visual Studio
 .vscode
+
+# modulos de node
+node_modules
+

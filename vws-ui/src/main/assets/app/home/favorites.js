@@ -98,7 +98,6 @@ function onSuccessGetTVShow(request) {
 
 function onErrorGetTVShow(request) {
     console.log("onErrorGetTVShow  - Request problem! : [readyState: " +
-        request.readyState + ", status: " + request.status + "']");
-    var name = document.getElementById("form-tvshows-name").value;
-    showAlertWindow("No se ha podido obtener el TVShow '" + name + "'")
+        request.readyState + ", status: '" + request.status + "']");
+    showAlertWindow("No se ha podido obtener la serie favorita por algun problema");
 }
