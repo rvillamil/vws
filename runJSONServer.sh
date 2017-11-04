@@ -33,15 +33,14 @@ run_json_server() {
 cd vws-ui/src/test/assets
    
 if [ "${1}" == "--backend" ];then
-    echo "Installing or updating json-server..."
-    npm install -g json-server
+    update_or_install_jsonserver
     echo "Runing json-server on port 9090. It requieres java backend server!!"
     json-server -p 9090 shows.json
 elif [ "${1}" == "--test" ];then
     echo "Installing or updating json-server..."
-    #npm install json-server --save-dev
-    echo "Runing NODE server on port 8080. Data testing on 'vws-ui/src/test/assets'"
-    echo "All request are autenticated with user: rodrigo, password: pepe"
+    npm install json-server --save-dev
+    echo "Runing NODE server on port 8080. Autentication Fake. No authorization request. Data testing on 'vws-ui/src/test/assets'"
+    echo ""
     node server.js
 else
     usage && cd - > /dev/null 2>&1 && exit 1

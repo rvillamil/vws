@@ -9,7 +9,8 @@ server.use(middlewares)
 
 // Add this before server.use(router)
 server.use(jsonServer.rewriter({
-    '/api/*': '/$1',
+    '/api/tvshows/*': '/$1',
+    '/api/*': '/$1'
 }))
 
 // To handle POST, PUT and PATCH you need to use a body-parser
@@ -17,7 +18,7 @@ server.use(jsonServer.rewriter({
 server.use(jsonServer.bodyParser)
 server.use((req, res, next) => {
     if (req.path === '/login') {
-        console.log('Login fake: HTTP 200OK');
+        console.log('Autentication fake: HTTP200 OK');
         res.sendStatus(200);
     }
     // Continue to JSON Server router
