@@ -73,6 +73,9 @@ Ejemplos:
 
 * $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
+#### JenkinsFile y Bitbucket Pipelines ####
+...TODO
+
 ### Proceso de desarrollo para un 'Backend Developer' ###
 
 Importar el proyecto como proyecto maven en tu editor favorito
