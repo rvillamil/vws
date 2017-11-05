@@ -23,6 +23,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Example: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+ *
+ * @author Rodrigo Villamil Pérez
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
@@ -53,9 +58,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		 * 1. Se desactiva el uso de cookies
 		 * 2. Se activa la configuración CORS con los valores por defecto
 		 * 3. Se desactiva el filtro CSRF
-		 * 4. Se indica que el login, las paginas de swagger
-		 * 5. El H2 en memoria NO requiere autenticación: https://dzone.com/articles/using-the-h2-database-console-in-spring-boot-with
-		 * 6. Se indica que el resto de URLs esten securizadas
+		 * 4. Se autoriza el acceso al path /login, al contenido 'swagger' y al h2
+		 * 5. Se indica que el resto de URLs esten securizadas
 		 */
 		httpSecurity
 		.sessionManagement().sessionCreationPolicy(
@@ -83,8 +87,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 
 		// FIXME 00: Revisar la configuracion para produccion de h2,swagger: Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
+		// https://dzone.com/articles/using-the-h2-database-console-in-spring-boot-with
 		 httpSecurity.headers().frameOptions().disable();
-
 	}
 
 	@Override

@@ -28,185 +28,175 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 // @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
-	/*
-	  TODO: · Tareas de Formacion  ·
-	  - Meter Roles a la aplicacion: http://www.baeldung.com/role-and-privilege-for-spring-security-registration
-	  - Integrar con el servicio auth0 ( https://auth0.com )
-	  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
-	  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
-	  - Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
-	 	  - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
-	 	  - https://apiumbrella.io
+    /*
+      TODO: · Tareas de Formacion  ·
+      - Meter Roles a la aplicacion:
+           - http://www.baeldung.com/role-and-privilege-for-spring-security-registration
+           - https://github.com/spring-guides/tut-bookmarks
+             - https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+
+      - Integrar con el servicio auth0 ( https://auth0.com )
+      - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
+      - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
+      - Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
+           - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
+           - https://apiumbrella.io
       - Spring Cloud, Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
       - Introduction to Spring Data Redis - https://goo.gl/oegRqu
-	  - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
-	 */
+      - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
+     */
 
+    /*
+      FIXME 01: No tiene buena pinta de estar bien configurado el soporte para spring-boot-actuator no se si es por el filtro de spring security.
+      - https://github.com/spring-projects/spring-boot/issues/8255 , actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
+      - http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+    */
+    /*
+     FIXME 02: Aligerar los contenedores docker con ALPINE. ejemplo : https://stackoverflow.com/questions/39967945/how-do-i-wait-for-a-db-container-to-be-up-before-my-spring-boot-app-starts
+     */
 
-	/*
-	  FIXME 01: Problema con el docker de mysql. El backend no espera a que inicie el mysql ..Ver 'wrapper.sh'. Lo mejor es
-	  instalar el nc en la mauina de java. El problema es que tendremos que generar la imagen de docker a partir de una de
-	  ubuntu pues esta no tiene el nc
-	 */
+    /*
+     TODO: Antes de subir a GitHub
+       - Corregir los fixme
+       - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
+               http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+      - Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
+      - Sonar gratis en la nube: ver www.sonarcloud.io
+      - Mover estos TODOs a otro sitio ... aun ficehro de TODOs por ejemplo?
+     */
 
-	/*
-	  FIXME 02: No tiene buena pinta de estar bien configurado el soporte para spring-boot-actuator no se si es por el filtro de spring security.
-	  - https://github.com/spring-projects/spring-boot/issues/8255 , actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
-	  - http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-	*/
+    /*
+     TODO: Revision del uso de PUT,POST e idempotencia. ¿Como evitamos problemas de concurrencia? "Optimistic lock"
+      - Charla Gus: https://youtu.be/fZo8Zp2otqQ
+      - http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
+      - https://spring.io/guides/tutorials/bookmarks/
+      - Best practices for concurrency control in REST APIs: https://goo.gl/Xqqvii
+      - https://stackoverflow.com/questions/30080634/concurrency-in-a-rest-api
+     */
 
-	/*
-	  FIXME 03: Problema al autenticar con un usuario que ya no existe (admin) pero que su token se quedo en el localstore. Quedamos autenticados aunque casi todo falle..
-	 */
-
-	/*
-	 TODO: Antes de subir a GitHub
-	  - Autenticacion y Autorizacion
-	     - Nos queda:
-	        - Revisar los conteneeros Docker. Arranque y parada y se me mantienen los datos. Meter un dml con usaurios y favoritos mios
-	        - Revisar el proyecto en Github:
-	           https://auth0.com/blog/securing-spring-boot-with-jwts/
-	           https://github.com/spring-guides/tut-bookmarks
-	  		   https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
-	  - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
-	    	   http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-	  - Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
-	  - Sonar gratis en la nube: ver www.sonarcloud.io
-	 */
-
-
-	/*
-	 TODO: Revision del uso de PUT,POST e idempotencia. ¿Como evitamos problemas de concurrencia? "Optimistic lock"
-	  - Charla Gus: https://youtu.be/fZo8Zp2otqQ
-	  - http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
-	  - https://spring.io/guides/tutorials/bookmarks/
-	  - Best practices for concurrency control in REST APIs: https://goo.gl/Xqqvii
-	  - https://stackoverflow.com/questions/30080634/concurrency-in-a-rest-api
-	 */
-
-	/*
-	 TODO: Revisar la configuracion de spring boot y la carga de properties mas interesantes
+    /*
+     TODO: Revisar la configuracion de spring boot y la carga de properties mas interesantes
       - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
       - http://www.baeldung.com/spring-boot-application-configuration
-	 */
+     */
 
 
-	/*
-	 TODO: Jenkins CI and Docker - Finalizar el soporte para Docker, de la siguiente forma:
-	  ....Jenkisfile
- 	  stage('Create Docker Image') {
-	      dir('webapp') {
-	       docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
-	    }
-	   }
-	 */
+    /*
+     TODO: Jenkins CI and Docker - Finalizar el soporte para Docker, de la siguiente forma:
+      ....Jenkisfile
+       stage('Create Docker Image') {
+          dir('webapp') {
+           docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
+        }
+       }
+     */
 
-	/*
-	 TODO: Funcionalidades de negocio
-	  - Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando
-	    Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
+    /*
+     TODO: Funcionalidades de negocio
+      - Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando
+        Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
 
-	  - Poner las notas de las pelis:
-	   - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
-	   - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
-	 */
+      - Poner las notas de las pelis:
+       - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
+       - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
+     */
 
-	/*
-	 TODO: Revisar la configuracion del apache y el tomcat embebidos
-	  - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
-	 */
+    /*
+     TODO: Revisar la configuracion del apache y el tomcat embebidos
+      - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
+     */
 
-	/*
-	 TODO: Probar mutation Testing
-	  - https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
-	 */
+    /*
+     TODO: Probar mutation Testing
+      - https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
+     */
 
-	// LOGGER
-	private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
-	private static final String	WELCOME_TEXT   	= "Video websites scaper (VWS) is available!";
-	//
-	// Area de datos
-	//
-	@Value("${general.scraping.parse.maxbillboardfilms}")
-	public int 						maxBillboardFilms;
-	@Value("${general.scraping.parse.maxvideopremieres}")
-	public int 						maxVideoPremieres;
-	@Value("${general.scraping.parse.maxtvshows}")
-	public int 						maxTVshows;
+    // LOGGER
+    private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
+    private static final String	WELCOME_TEXT   	= "Video websites scaper (VWS) is available!";
+    //
+    // Area de datos
+    //
+    @Value("${general.scraping.parse.maxbillboardfilms}")
+    public int 						maxBillboardFilms;
+    @Value("${general.scraping.parse.maxvideopremieres}")
+    public int 						maxVideoPremieres;
+    @Value("${general.scraping.parse.maxtvshows}")
+    public int 						maxTVshows;
 
-	@Autowired
-	private final WebTorrentSpider 		webTorrentSpider;
-	/**
-	 * Constructor
-	 * @param webTorrentSpider web torrent spider service
-	 */
-	public PiracyController(final WebTorrentSpider webTorrentSpider) {
-		super();
-		this.webTorrentSpider = webTorrentSpider;
-	}
-	/**
-	 * @return One text if this web site is available
-	 */
-	@GetMapping(value="/")
-	String hello() {
-		LOGGER.info(WELCOME_TEXT);
-		return WELCOME_TEXT;
-	}
+    @Autowired
+    private final WebTorrentSpider 		webTorrentSpider;
+    /**
+     * Constructor
+     * @param webTorrentSpider web torrent spider service
+     */
+    public PiracyController(final WebTorrentSpider webTorrentSpider) {
+        super();
+        this.webTorrentSpider = webTorrentSpider;
+    }
+    /**
+     * @return One text if this web site is available
+     */
+    @GetMapping(value="/")
+    String hello() {
+        LOGGER.info(WELCOME_TEXT);
+        return WELCOME_TEXT;
+    }
 
-	/**
-	 * Parse the torrent portal for 'scraping' the billboard
-	 *
-	 * @return JSon object, with the billboard films in the torrent portal [0, maxBillboardFilms]
-	 */
-	@GetMapping(value="/billboardfilms/")
-	public ResponseEntity<?> parseBillBoardFilms() {
-		LOGGER.info("PiracyController - Getting billboard films ...");
-		final Set<Show> shows = webTorrentSpider.parseBillboardFilms(maxBillboardFilms);
-		if ( shows.isEmpty()) {
-			LOGGER.warn("PiracyController - Billbaord films not found.");
-			return new ResponseEntity<>(new CustomErrorType(
-					"Billboard films list is empty"), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(shows, HttpStatus.OK);
-	}
+    /**
+     * Parse the torrent portal for 'scraping' the billboard
+     *
+     * @return JSon object, with the billboard films in the torrent portal [0, maxBillboardFilms]
+     */
+    @GetMapping(value="/billboardfilms/")
+    public ResponseEntity<?> parseBillBoardFilms() {
+        LOGGER.info("PiracyController - Getting billboard films ...");
+        final Set<Show> shows = webTorrentSpider.parseBillboardFilms(maxBillboardFilms);
+        if ( shows.isEmpty()) {
+            LOGGER.warn("PiracyController - Billbaord films not found.");
+            return new ResponseEntity<>(new CustomErrorType(
+                    "Billboard films list is empty"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(shows, HttpStatus.OK);
+    }
 
-	/**
-	 * Parse the torrent portal for 'scraping' the video premieres
-	 *
-	 * @return JSon object, with the video premieres in the torrent portal [0, maxSize]
-	 */
-	@GetMapping(value="/videopremieres/")
-	public ResponseEntity<?> parseVideoPremieres() {
-		LOGGER.info("PiracyController - Getting video premieres ...");
-		final Set<Show> shows = webTorrentSpider.parseVideoPremieres(maxVideoPremieres);
-		if ( shows.isEmpty()) {
-			LOGGER.warn("PiracyController - Video premieres not found.");
+    /**
+     * Parse the torrent portal for 'scraping' the video premieres
+     *
+     * @return JSon object, with the video premieres in the torrent portal [0, maxSize]
+     */
+    @GetMapping(value="/videopremieres/")
+    public ResponseEntity<?> parseVideoPremieres() {
+        LOGGER.info("PiracyController - Getting video premieres ...");
+        final Set<Show> shows = webTorrentSpider.parseVideoPremieres(maxVideoPremieres);
+        if ( shows.isEmpty()) {
+            LOGGER.warn("PiracyController - Video premieres not found.");
 
-			return new ResponseEntity<>(new CustomErrorType(
-					"Video premieres list is empty"), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(shows, HttpStatus.OK);
-	}
+            return new ResponseEntity<>(new CustomErrorType(
+                    "Video premieres list is empty"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(shows, HttpStatus.OK);
+    }
 
-	/**
-	 * Parse one TV show from torrent portal, to get the last tv shows from the session
-	 *
-	 * @param  tvShowName the name of the the tv show
-	 * 	 	   e.g: 'modern-family' from http://tumejortorrent.com/series-hd/modern-family)
-	 *
-	 * @return JSon object, with last episodes from TV show between '0 and maxTVshows'
-	 */
-	@GetMapping(value="/tvshows/{title}")
-	public ResponseEntity<?> parseTVShow(@PathVariable("title") final String title) {
-		LOGGER.info("PiracyController - Getting the tvshow '{}'", title);
-		final Set<Show> shows =  webTorrentSpider.parseTVShow(title, maxTVshows);
+    /**
+     * Parse one TV show from torrent portal, to get the last tv shows from the session
+     *
+     * @param  tvShowName the name of the the tv show
+     * 	 	   e.g: 'modern-family' from http://tumejortorrent.com/series-hd/modern-family)
+     *
+     * @return JSon object, with last episodes from TV show between '0 and maxTVshows'
+     */
+    @GetMapping(value="/tvshows/{title}")
+    public ResponseEntity<?> parseTVShow(@PathVariable("title") final String title) {
+        LOGGER.info("PiracyController - Getting the tvshow '{}'", title);
+        final Set<Show> shows =  webTorrentSpider.parseTVShow(title, maxTVshows);
 
-		if ( shows.isEmpty()) {
-			LOGGER.warn("PiracyController - TVShows episodes with title '{}' not found.", title);
+        if ( shows.isEmpty()) {
+            LOGGER.warn("PiracyController - TVShows episodes with title '{}' not found.", title);
 
-			return new ResponseEntity<>(new CustomErrorType(
-					"TVShows list is empty"), HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<>(shows, HttpStatus.OK);
-	}
+            return new ResponseEntity<>(new CustomErrorType(
+                    "TVShows list is empty"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(shows, HttpStatus.OK);
+    }
 }

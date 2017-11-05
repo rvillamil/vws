@@ -73,8 +73,10 @@ Ejemplos:
 
 * $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
-#### JenkinsFile y Bitbucket Pipelines ####
-...TODO
+#### Ejecucion del backend ####
+Tenemos dos perfiles, descritos en el application.yml:
+- default : Ver script runSpringBootServerWithH2.sh
+- container : Se inicia desde un docker (Ver apartado ejecucion desde docker)
 
 ### Proceso de desarrollo para un 'Backend Developer' ###
 
@@ -92,7 +94,7 @@ Importar el proyecto como proyecto maven en tu editor favorito
 
  1 - http://stackoverflow.com/questions/34927236/how-to-run-spring-boot-app-in-eclipse-tomcat
  2 - Tener en cuenta que aveces sucede este problema:
- 	http://stackoverflow.com/questions/31495451/is-there-a-permanent-fix-for-eclipse-deployment-assembly-losing-the-maven-depend
+   http://stackoverflow.com/questions/31495451/is-there-a-permanent-fix-for-eclipse-deployment-assembly-losing-the-maven-depend
 
   Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
 
@@ -103,7 +105,7 @@ API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
 #### Autenticación: Como testear el API ####
 
 Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens.
-Usuarios de prueba: 
+Usuarios de prueba:
   rodrigo/pepe
   olga/lola
 
@@ -138,9 +140,8 @@ Esta informacion la tenemos en el application.yml
 
 
 ##### Como conectarse a MySQL dockerizado #####
-...
-
-
+- docker exec -i -t cnt-vws-mysql /bin/bash
+- mysql vws -uroot -proot
 
 ## FrontEnd: Arquitectura de desarrollo ##
 
@@ -188,8 +189,8 @@ Para Arrancar la BB.DD solo sin el Backend
  * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'--> Revisar igual con el script es mejor
  * Ver que la apliacion está iniciada correctamente en:
 
-		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/billboardfilms
-		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/
+    - http://localhost:8383/vws-resources-1.0-SNAPSHOT/billboardfilms
+    - http://localhost:8383/vws-resources-1.0-SNAPSHOT/
 
  * Parar con crtl-c y ejecutar un 'docker-compose down'
 
@@ -202,5 +203,10 @@ Para Arrancar la BB.DD solo sin el Backend
  Para ello ejecutamos el comando: // TODO
 
 
+ * Entrar dentro de contenedores docker basados en Alpine:  docker exec -it cnt-vws-resources
+
+
+#### JenkinsFile y Bitbucket Pipelines ####
+...TODO
 
 

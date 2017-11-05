@@ -1,5 +1,5 @@
-# Image base
-FROM java:8
+# Image base: https://hub.docker.com/r/frolvlad/alpine-oraclejdk8/
+FROM frolvlad/alpine-oraclejdk8:slim
 
 # En caso de problemas...
 LABEL maintainer "rodrigo.villamil@google.com" description="Java 8 docker container with Backend for VWS"
@@ -19,7 +19,7 @@ ENV JAVA_OPTS=""
 
 # Nos permite esperar a que la aplicacion arranque cuando tenga un mysql
 ADD utils/wrapper.sh wrapper.sh
-RUN bash -c 'chmod +x /wrapper.sh'
+RUN sh -c 'chmod +x /wrapper.sh'
 
-RUN bash -c 'touch /app.jar'
-ENTRYPOINT ["/bin/bash", "/wrapper.sh"]
+RUN sh -c 'touch /app.jar'
+ENTRYPOINT ["sh", "/wrapper.sh"]
