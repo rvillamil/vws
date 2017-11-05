@@ -1,71 +1,81 @@
 # VWS: Video websites scraper #
-Web scraping application for video websites
 
 Es una aplicación web de tipo Single Page Application, cuya funcionalidad básica consiste en hacer 'scrapping' de portales de torrent para procesesar su contenido y mostrarlo en un navegador de manera mas personalizada.
 
 Evidentemente, esto se podría hacer mucho mas sencillo, pero el objetivo de este desarrollo no es otro que experimentar con tecnologías y en definitiva, aprender.
 
-# Informacion para desarrolladores #
 ## Diagrama de Arquitectura ##
-Pintar un diagrama con un backeend con Docker y frontal en un apache ...
 
-## Arquitectura de desarrollo ##
+Pintar un diagrama con un backeend con Docker y frontal en un apache y la BB.DD docker. API securizada con el soporte de JWT
 
-### API - Backend ####
-El backend es una aplicación desarrollada con el soporte de spring boot, por tanto
-está preparada para generar un jar autoejecutable con un tomcat
-embebido aunque tambien se puede desplegar en un servidor de aplicaciones con soporte
-para Servlet 3.X (donde no se requiere un web.xml)
+## Arquitectura de ejecución ##
 
-* El proyecto vws-docker-support contiene ...
-* El proyecto vws-persistence contiene ..
+### Backend Java: API Rest ###
 
-Hablar sobre lo que aporta para un desarrollador el codigo que hay aqui:
-Contenedores Docker
-Spring 4
-Autenticacion basada en token JWT y Spring Securiry
+El backend es una aplicación Java, desarrollada en capas, con el soporte de spring boot. Cada capa es un subproyecto que depende de la anterior de la siguiente forma:
 
-### FrontEnd ###
-TODO: Completar
+* vws-persistence : Capa de persistencia desarrollada con el soporte de 'spring-data'.
+  * Soporte para H2 embebido, para desarrollo
+  * Soporte para mysql dockerizado, para producción
 
-#### Compilacion y ejecucion basica  #####
+* vws-services: Capa de servicios de negocio.
 
-## Perfiles maven  ##
+* vws-resources: Capa de controladores, donde exponemos nuestra API securizada con el soporte de 'spring-security', al mundo. Contiene la infrasestrucutra necesaria para construir la aplicación Web, soporte para Docker incluido.
+  * Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente se encarga de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado. El 'token' caduca a los 10 dias
 
-Los peerfiles son:
-- develop (default) : Ejecuta test unitarios, skip a los de integracion
-- docker-support (default) : Genera contendedores docker con la aplicacion. Ejecuta el docker build en los proyectos con Docker
-- integration : Ejecuta todos los test
+### FrontEnd Javascript: Cliente ###
 
-Si ejecutamos un: mvn clean install, equivale a ejecutar un 'mvn install -Pdevelop,docker-support'
-OJO: -P-docker-support , evita que se lancen los docker build
+El 'front' es una aplicación SPA, desarrollada con javascript, HTML5 y CSS3. La aplicación se empaqueta para producción dentro de un contenedor docker con apache.
+La organización del proyecto es muy básica:
 
-Si queremos evitar lanzar el soporte para docker: mvn install -P integration,-docker-support
+* app
+  * home : Pagina principal
+  * login : Componente de login
+  * modal : Componente con ventanas modales
+  * ... (resto de componentes)
+* shared : Servicios core, utilidades y configuracion compartida
+* index.html
 
-$mvn clean install : Compila con el profile 'develop' por defecto
-$mvn clean install -P integration: Compila con el profile 'integration' lanzando los test de integracion
+## Backend: Arquitectura de desarrollo ##
 
-## Generar contenedores docker con la aplicacion ##
- * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
-   requiere docker 1.12 o superior
- * Ejecutar $mvn install -P docker-support  OJO! Los contenedores de docker de mysql y tomcat se generan con el plugin de maven!
+### Tecnologías ###
 
- * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'--> Revisar igual con el script es mejor
- * Ver que la apliacion está iniciada correctamente en:
+* GIT
+* maven
+* Docker/Compose
+* MySQL 5.X
+* Java 1.8 - Backend
+  * Spring Boot
+  * log4j2
+  * JSoup
+  * Swagger
+  * lombok
+  * jacoco/surefire/failsafe
+  * JWT
+* IDE eclipse
+* Postman
 
-		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/billboardfilms
-		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/
 
- * Parar con crtl-c y ejecutar un 'docker-compose down'
+### Construcción, empaquetado y perfiles : maven ###
 
-## Entorno de desarrollo para un FrontEnd Developer ##
-Hay varias formas de trabajar:
-1 - Contra un servidor node 'json-server' con datos de pruebas del fichero 'shows.json': $runJSONServer.sh
-2 - Contra el backend de 'vws-resources': $ runAWSBackEnd.sh : Esto levanta los contenedores docker
+Hemos utilizado 'maven' para gestionar el ciclo de construcción del proyecto. Se han implementado tres perfiles:
 
-## Entorno de desarrollo para un Backend Developer ##
+* develop (default):
+  * En tiempo de compilación, ejecuta test unitarios y evita los test de integracion
 
- * Importar el proyecto como proyecto maven en tu editor favorito
+* integration: Ejecuta los test unitarios y de integracion
+
+* docker-support : Ejecuta la 'build' de contendedores docker en los proyectos dockerizados. NOTA: Requiere un demonio de docker corriendo en la maquina
+
+Ejemplos:
+
+* $mvn clean install : Compila con el profile 'develop' por defecto y lanza los tes unitarios exclusivamente
+
+* $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
+
+### Proceso de desarrollo para un 'Backend Developer' ###
+
+Importar el proyecto como proyecto maven en tu editor favorito
 
  * Lo mejor es arrancar el proyecto como un proyecto spring-boot, ya que las
    spring-devtools nos permiten cambios en caliente
@@ -84,27 +94,69 @@ Hay varias formas de trabajar:
   Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
 
 
-## Como generar un entregable para produccion  ##
-
- * Podemos generar un .war ejecutando un 'mvn package' (o un mvn install por supuesto)
-  dentro del proyecto de vws-resources
-  El war, esta preparado para desplegar en un tomcat:
-  http://localhost:8080/vws-resources-1.0-SNAPSHOT/
-
- * Podemos generar un contendor docker con la aplicacion autocontenida en un tomcat.
- Para ello ejecutamos el comando: // TODO
-
-
-## Como ejecutar los test
-
-* Solo test unitarios: mvn clean test
-* Test de integracion:mvn install -Dskip.integration.tests=false (Lo mejor es lanzar con el profile de integracion: mvn clen install -P integration)
-
-
-## Swagger  ##
+#### Sobre Swagger y la documentacion del API ####
 API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
 
-## Ejecucion del BackEnd para test del frontEnd#
+#### Autenticación: Como testear el API ####
+
+Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens.
+Usuarios de prueba: 
+  rodrigo/pepe
+  olga/lola
+
+Para probar:
+    # Postman
+
+    # Se lanza una petición de login
+    curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
+
+    # Con el token JWT que devuelve la peticion anterior, recuperamos los favoritos del usuario 'admin0
+    curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/favorites/
+
+
+
+#### Sobre el Modelado y su manteniento ####
+- Creamos los objetos del modelo (Account, AccountRepository...) con JPA
+- Revisamos el fichero 'application.yml' la opcion de jp: Establecemos a create-drop
+- Compilamos la aplicacion (Ver enlace mas arriba)
+- Lanzamos la aplicacion como para produccion
+- Ejecutamos el script: backup-DDL.sh
+- Copiamos el fichero resultando: $cp 00-vws-ddl.sql src/main/docker/vws-mysql/src/00-vws-ddl.sql
+
+
+##### Como conectarse a H2 Embebida #####
+
+Esta informacion la tenemos en el application.yml
+
+- http://localhost:8080/h2
+- user: root
+- pass:
+- JDBC URL: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+
+
+##### Como conectarse a MySQL dockerizado #####
+...
+
+
+
+## FrontEnd: Arquitectura de desarrollo ##
+
+### Tecnologías ###
+
+* GIT
+* Docker/Compse
+* json-server/node
+* Javascript Vanilla - Frontend
+  * HTML5, CSS3
+* IDE Visual Studio Code
+
+
+### Proceso de desarrollo para un 'Frontend Developer' ###
+
+Hay varias formas de trabajar:
+1 - Contra un servidor node 'json-server' con datos de pruebas del fichero 'shows.json': $runJSONServer.sh
+2 - Contra el backend de 'vws-resources': $ runAWSBackEnd.sh : Esto levanta los contenedores docker
+
 Dentro del directorio test, tenemos un par de scripts
 
 Opcion 1:  $runJSONServer.sh
@@ -124,33 +176,28 @@ opcion 3 Como en produccion:
 Para Arrancar la BB.DD solo sin el Backend
     docker-compose up service-bbdd
 
+## Sobre docker y Como generar un entregable para produccion  ##
 
-## Como mantener el modelo ##
-- Creamos los objetos del modelo (Account, AccountRepository...) con JPA
-- Revisamos el fichero 'application.yml' la opcion de jp: Establecemos a create-drop
-- Compilamos la aplicacion (Ver enlace mas arriba)
-- Lanzamos la aplicacion como para produccion
-- Ejecutamos el script: backup-DDL.sh
-- Copiamos el fichero resultando: $cp 00-vws-ddl.sql src/main/docker/vws-mysql/src/00-vws-ddl.sql
+ * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
+   requiere docker 1.12 o superior
+ * Ejecutar $mvn install -P docker-support  OJO! Los contenedores de docker de mysql y tomcat se generan con el plugin de maven!
 
-## Como conectarse a H2 Embebida ##
+ * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'--> Revisar igual con el script es mejor
+ * Ver que la apliacion está iniciada correctamente en:
 
-Esta informacion la tenemos en el application.yml
+		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/billboardfilms
+		- http://localhost:8383/vws-resources-1.0-SNAPSHOT/
 
-- http://localhost:8080/h2
-- user: root
-- pass:
-- JDBC URL: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+ * Parar con crtl-c y ejecutar un 'docker-compose down'
 
-## Autenticación: Como testear el API ##
-Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens
-Para probar:
+ * Podemos generar un .war ejecutando un 'mvn package' (o un mvn install por supuesto)
+  dentro del proyecto de vws-resources
+  El war, esta preparado para desplegar en un tomcat:
+  http://localhost:8080/vws-resources-1.0-SNAPSHOT/
 
-    # Se lanza una petición de login
-    curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
+ * Podemos generar un contendor docker con la aplicacion autocontenida en un tomcat.
+ Para ello ejecutamos el comando: // TODO
 
-    # Con el token JWT que devuelve la peticion anterior, recuperamos los favoritos del usuario 'admin0
-    curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/favorites/
 
 
 
