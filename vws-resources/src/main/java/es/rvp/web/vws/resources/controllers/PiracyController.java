@@ -28,23 +28,6 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 // @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
-    /*
-      TODO: · Tareas de Formacion  ·
-      - Meter Roles a la aplicacion:
-           - http://www.baeldung.com/role-and-privilege-for-spring-security-registration
-           - https://github.com/spring-guides/tut-bookmarks
-             - https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
-
-      - Integrar con el servicio auth0 ( https://auth0.com )
-      - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
-      - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
-      - Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
-           - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
-           - https://apiumbrella.io
-      - Spring Cloud, Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
-      - Introduction to Spring Data Redis - https://goo.gl/oegRqu
-      - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
-     */
 
     /*
       FIXME 01: No tiene buena pinta de estar bien configurado el soporte para spring-boot-actuator no se si es por el filtro de spring security.
@@ -56,60 +39,12 @@ public class PiracyController {
      */
 
     /*
-     TODO: Antes de subir a GitHub
-       - Corregir los fixme
-       - Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
+     TODO 00: Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
                http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-      - Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
-      - Sonar gratis en la nube: ver www.sonarcloud.io
-      - Mover estos TODOs a otro sitio ... aun ficehro de TODOs por ejemplo?
+     TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
+     TODO 02: Sonar gratis en la nube: ver www.sonarcloud.io
      */
 
-    /*
-     TODO: Revision del uso de PUT,POST e idempotencia. ¿Como evitamos problemas de concurrencia? "Optimistic lock"
-      - Charla Gus: https://youtu.be/fZo8Zp2otqQ
-      - http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
-      - https://spring.io/guides/tutorials/bookmarks/
-      - Best practices for concurrency control in REST APIs: https://goo.gl/Xqqvii
-      - https://stackoverflow.com/questions/30080634/concurrency-in-a-rest-api
-     */
-
-    /*
-     TODO: Revisar la configuracion de spring boot y la carga de properties mas interesantes
-      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-      - http://www.baeldung.com/spring-boot-application-configuration
-     */
-
-
-    /*
-     TODO: Jenkins CI and Docker - Finalizar el soporte para Docker, de la siguiente forma:
-      ....Jenkisfile
-       stage('Create Docker Image') {
-          dir('webapp') {
-           docker.build("arungupta/docker-jenkins-pipeline:${env.BUILD_NUMBER}")
-        }
-       }
-     */
-
-    /*
-     TODO: Funcionalidades de negocio
-      - Descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando
-        Spiderman salga y ademas en la calidad que pongamos, la pondrá a descargar.
-
-      - Poner las notas de las pelis:
-       - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
-       - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
-     */
-
-    /*
-     TODO: Revisar la configuracion del apache y el tomcat embebidos
-      - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
-     */
-
-    /*
-     TODO: Probar mutation Testing
-      - https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
-     */
 
     // LOGGER
     private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
@@ -126,6 +61,7 @@ public class PiracyController {
 
     @Autowired
     private final WebTorrentSpider 		webTorrentSpider;
+
     /**
      * Constructor
      * @param webTorrentSpider web torrent spider service
