@@ -73,6 +73,11 @@ Ejemplos:
 
 * $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
+
+### Sonarqube: Integracion con Sonarcloud  ###
+mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
+### Pipeline: Integracion con Bitbucket pipeline  ###
+
 #### Ejecucion del backend ####
 Tenemos dos perfiles, descritos en el application.yml:
 - default : Ver script runSpringBootServerWithH2.sh
