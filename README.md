@@ -213,6 +213,7 @@ Para Arrancar la BB.DD solo sin el Backend
       - http://www.baeldung.com/spring-boot-application-configuration
 
  * Montar el CAS con Soporte para Oauth, JWT...etc e integrarlo
+      - En mi Sandbox tengo montado un CAS. Faltaría dockerizarlo
       - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
       - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
 
