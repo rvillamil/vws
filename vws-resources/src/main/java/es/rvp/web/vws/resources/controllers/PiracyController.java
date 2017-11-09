@@ -39,8 +39,14 @@ public class PiracyController {
      */
 
     /*
+     FIXME 03: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
+     */
+    /*
      TODO 00: Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
                http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+     */
+
+    /*
      TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
      */
 
