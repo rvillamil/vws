@@ -75,6 +75,7 @@ Ejemplos:
 
 
 ### Sonarqube: Integracion con Sonarcloud  ###
+El proyecto se encuentra en: https://sonarcloud.io/organizations/rvillamil-bitbucket/projects
 mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
 ### Pipeline: Integracion con Bitbucket pipeline  ###
 
