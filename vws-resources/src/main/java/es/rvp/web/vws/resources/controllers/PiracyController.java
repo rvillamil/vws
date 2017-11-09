@@ -42,9 +42,7 @@ public class PiracyController {
      TODO 00: Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
                http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
      TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
-     TODO 02: Sonar gratis en la nube: ver www.sonarcloud.io
      */
-
 
     // LOGGER
     private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
