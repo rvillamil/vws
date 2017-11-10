@@ -16,7 +16,6 @@ import lombok.ToString;
 /**
  * @author Rodrigo Villamil Pérez
  */
-
 @EqualsAndHashCode(of = { "title" })
 @ToString
 @Entity // This tells Hibernate to make a table out of this class
