@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 /**
  * This will be AUTO IMPLEMENTED by Spring into a Bean called favoriteRepository
@@ -11,6 +12,7 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author Rodrigo Villamil Pérez
  */
+@Repository
 public interface FavoriteRepository extends CrudRepository<Favorite, Long> {
 
 	// SELECT f from Favorite f WHERE f.account.username = :username
