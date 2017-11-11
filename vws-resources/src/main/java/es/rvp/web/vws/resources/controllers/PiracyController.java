@@ -25,21 +25,15 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @RestController
 @RequestMapping("/api")
 @ConfigurationProperties(prefix="general")
-// @CrossOrigin(origins = "http://localhost:9090")
 public class PiracyController {
 
 
     /*
-      FIXME 01: No tiene buena pinta de estar bien configurado el soporte para spring-boot-actuator no se si es por el filtro de spring security.
-      - https://github.com/spring-projects/spring-boot/issues/8255 , actuator tiene muchos mas endopints (/health .. /heapdump ..etc)
-      - http://www.baeldung.com/spring-boot-actuators?utm_content=buffer309af&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-    */
-    /*
-     FIXME 02: Aligerar los contenedores docker con ALPINE. ejemplo : https://stackoverflow.com/questions/39967945/how-do-i-wait-for-a-db-container-to-be-up-before-my-spring-boot-app-starts
+     FIXME 01: Aligerar los contenedores docker con ALPINE. ejemplo : https://stackoverflow.com/questions/39967945/how-do-i-wait-for-a-db-container-to-be-up-before-my-spring-boot-app-starts
      */
 
     /*
-     FIXME 03: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
+     FIXME 02: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
      */
     /*
      TODO 00: Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte

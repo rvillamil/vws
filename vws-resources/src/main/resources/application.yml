@@ -34,8 +34,25 @@ spring:
       console:
         enabled: true
         path: /h2
-       
-     
+
+#      
+# Actuator: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready   
+#
+# Estas URL tienen que estar mapeadas en el WebSecurity.java
+#
+endpoints:
+  beans:
+    id: springbeans # Renombramos el path /beans a /springbeans
+    sensitive: false
+  loggers:
+    sensitive: false
+  metrics:
+    sensitive: false
+  mappings:
+    sensitive: false
+  docs:
+    sensitive: false
+    
 
 general:
   scraping:
@@ -45,7 +62,7 @@ general:
       maxtvshows: 5
     parsertumejortorrent:
       requestdelay: 303
-          
+      
 ---
 #
 # Docker - Production configuration
@@ -72,3 +89,20 @@ general:
     parsertumejortorrent:
       requestdelay: 303
 
+#      
+# Actuator: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready   
+#
+# Estas URL tienen que estar mapeadas en el WebSecurity.java
+#
+endpoints:
+  beans:
+    id: springbeans # Renombramos el path /beans a /springbeans
+    sensitive: false
+  loggers:
+    sensitive: false
+  metrics:
+    sensitive: false
+  mappings:
+    sensitive: false
+  docs:
+    sensitive: false
