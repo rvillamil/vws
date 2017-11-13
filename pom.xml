@@ -41,8 +41,8 @@
     <jacoco.it.execution.data.file>${project.basedir}/target/jacoco-it.exec</jacoco.it.execution.data.file>
     <jacoco.ut.execution.data.file>${project.basedir}/target/jacoco.exec</jacoco.ut.execution.data.file>
 
-        <!-- Json Web Token Support -->
-        <jwt.version>0.7.0</jwt.version>
+    <!-- Json Web Token Support -->
+    <jwt.version>0.7.0</jwt.version>
   </properties>
 
   <dependencyManagement>
@@ -108,17 +108,16 @@
 
     <!-- Security: Spring Security Support -->
     <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
 
-        <!-- Security: JWT support -->
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>${jwt.version}</version>
-        </dependency>
-
+    <!-- Security: JWT support -->
+    <dependency>
+       <groupId>io.jsonwebtoken</groupId>
+       <artifactId>jjwt</artifactId>
+       <version>${jwt.version}</version>
+    </dependency>
 
     <!-- Utilities -->
     <dependency>
@@ -194,12 +193,12 @@
         <directory>src/main/docker</directory>
       </resource>
       <resource>
-                <directory>src/main/resources</directory>
-            </resource>
+         <directory>src/main/resources</directory>
+       </resource>
     </resources>
 
     <plugins>
-      <!-- JACOCO -->
+      <!-- JaCoCo -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -269,7 +268,7 @@
         </executions>
       </plugin>
 
-      <!-- Test unitarios. Enganchamos con Jacoco -->
+      <!-- Test unitarios. Enganchamos con JaCoCo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -287,7 +286,7 @@
         </configuration>
       </plugin>
 
-      <!-- Test de integracion. Enganchamos con Jacoco -->
+      <!-- Test de integracion. Enganchamos con JaCoCo -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -318,7 +317,7 @@
 
     <pluginManagement>
       <plugins>
-        <!-- Eclipse - Jacoco support -->
+        <!-- Eclipse - JaCoCo support -->
         <!--This plugin's configuration is used to store Eclipse m2e settings
           only. It has no influence on the Maven build itself. -->
         <plugin>

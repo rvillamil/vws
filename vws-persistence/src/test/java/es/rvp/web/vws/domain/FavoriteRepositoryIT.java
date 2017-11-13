@@ -3,6 +3,7 @@ package es.rvp.web.vws.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.util.Collection;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -28,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class FavoriteRepositoryTest {
+public class FavoriteRepositoryIT {
 
 	/**
 	 * To carry out some DB operation, we need some records already setup in our
@@ -43,16 +44,27 @@ public class FavoriteRepositoryTest {
 	@Autowired
 	FavoriteRepository favoriteRepository;
 
-	// TODO 00: Completar esto ..	
+	// TODO 00: Completar esto .. con mas test
+	
 	@Test	
-	public void givenNothing() {		
+	public void givenUserWhenFindFavoritesGetAllFavorites() {		
+				
 		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+				
+		Favorite favorite1 = new Favorite (account, "favorito1");
+		Favorite favorite2 = new Favorite (account, "favorito2");
+		entityManager.persist(favorite1);
+		entityManager.persist(favorite2);
+		entityManager.flush();
 		
 		// When
-		
-		// then
-		assertFalse(Boolean.FALSE);		
+		Collection<Favorite> favorites = favoriteRepository.findByAccountUserName(userName);
+				
+		// then		
+		assertEquals(favorites.size(), 2);	
 	}	
-	
-
 }

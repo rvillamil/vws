@@ -29,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class AccountRepositoryTest {
+public class AccountRepositoryIT {
 
 	/**
 	 * To carry out some DB operation, we need some records already setup in our
