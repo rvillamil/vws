@@ -13,7 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Integration test showing the basic usage of {@link AccountRepository}.
+ * Integration test showing the basic usage of {@link FavoriteRepository}.
  * 
  * @RunWith(SpringRunner.class) is used to provide a bridge between Spring Boot
  *                              test features and JUnit. Whenever we are using
@@ -23,13 +23,12 @@ import org.springframework.test.context.junit4.SpringRunner;
  *              layer: - configuring H2, an in-memory database - setting
  *              Hibernate, Spring Data, and the DataSource - performing
  *              an @EntityScan - turning on SQL logging
- * @see http://www.baeldung.com/spring-boot-testing
  * 
  * @author Rodrigo Villamil Pérez
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class AccountRepositoryTest {
+public class FavoriteRepositoryTest {
 
 	/**
 	 * To carry out some DB operation, we need some records already setup in our
@@ -42,34 +41,18 @@ public class AccountRepositoryTest {
 	private TestEntityManager entityManager;
 
 	@Autowired
-	AccountRepository accountRepository;
+	FavoriteRepository favoriteRepository;
 
-	@Test
+	// TODO 00: Completar esto ..
+	/*
+	@Test	
 	public void givenExistingUserWhenFindByUserNameThenExists() {		
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
 		
 		// When
-		Optional<Account> theAccount = accountRepository.findByUserName(userName);
 		
 		// then
-		assertEquals(theAccount.get().getUserName(), account.getUserName());
-	}
-	
-	@Test
-	public void givenNotExistingUserWhenFindByUserNameThenExists() {		
-		// Given		
-		Account account = new Account("user", "password");
-		entityManager.persist(account);
-		entityManager.flush();
-		
-		// When
-		Optional<Account> theAccount = accountRepository.findByUserName("userNone");
-		
-		// then
-		assertFalse(theAccount.isPresent());		
-	}
+	}	
+	*/
+
 }
