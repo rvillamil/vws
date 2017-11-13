@@ -43,16 +43,16 @@ public class FavoriteRepositoryTest {
 	@Autowired
 	FavoriteRepository favoriteRepository;
 
-	// TODO 00: Completar esto ..
-	/*
+	// TODO 00: Completar esto ..	
 	@Test	
-	public void givenExistingUserWhenFindByUserNameThenExists() {		
+	public void givenNothing() {		
 		// Given
 		
 		// When
 		
 		// then
+		assertFalse(Boolean.FALSE);		
 	}	
-	*/
+	
 
 }
