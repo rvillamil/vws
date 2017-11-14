@@ -2,6 +2,7 @@ package es.rvp.web.vws.domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -43,8 +44,6 @@ public class FavoriteRepositoryIT {
 
 	@Autowired
 	FavoriteRepository favoriteRepository;
-
-	// TODO 00: Completar esto .. con mas test
 	
 	@Test	
 	public void givenUserWhenFindFavoritesGetAllFavorites() {		
@@ -67,4 +66,94 @@ public class FavoriteRepositoryIT {
 		// then		
 		assertEquals(favorites.size(), 2);	
 	}	
+	
+	@Test	
+	public void givenUserWhenFindFavoritesGetEmptyFavorites() {		
+				
+		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+				
+		
+		// When
+		Collection<Favorite> favorites = favoriteRepository.findByAccountUserName(userName);
+				
+		// then
+		assertTrue(favorites.isEmpty());
+		assertEquals(favorites.size(), 0);	
+	}
+	
+	@Test	
+	public void givenUserNotExistWhenFindFavoritesGetEmptyFavorites() {		
+				
+		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+				
+		
+		// When
+		Collection<Favorite> favorites = favoriteRepository.findByAccountUserName("notExistUser");
+				
+		// then
+		assertTrue(favorites.isEmpty());
+		assertEquals(favorites.size(), 0);	
+	}
+	
+	@Test	
+	public void givenUserNameAndTitleWhenFindByUserNameAndTittleThenGetFavorite (){
+		
+		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+		
+		Favorite favorite1 = new Favorite (account, "title1");		
+		entityManager.persist(favorite1);		
+		entityManager.flush();
+		
+		// When
+		Optional<Favorite> favorite  
+					= favoriteRepository.findByAccountUserNameAndTitle(userName, "title1");
+		
+		// then
+		
+		assertTrue( favorite.isPresent());
+		assertEquals( favorite.get().getTitle(),"title1");
+	}
+	
+
+	// TODO 00: Completar esto .. con mas test...este no funciona porque?
+	// SELECT f from Favorite f WHERE f.account.username = :username AND f.title = :title
+	//Optional<Favorite> findByAccountUserNameAndTitle(String userName, String title);
+
+	/*
+	@Test	
+	public void givenUserNameAndTitleWhenFindByUserNameAndWrongTittleThenGetNone (){
+		
+		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+		
+		Favorite favorite1 = new Favorite (account, "title1");		
+		entityManager.persist(favorite1);		
+		entityManager.flush();
+		
+		// When
+		Optional<Favorite> favorite  
+					= favoriteRepository.findByAccountUserNameAndTitle(userName, "no_title");
+		
+		// then
+		
+		assertFalse(  favorite.isPresent());
+		assertFalse ( favorite.get().getTitle().equals("title1") );
+	}
+	*/
+
 }
