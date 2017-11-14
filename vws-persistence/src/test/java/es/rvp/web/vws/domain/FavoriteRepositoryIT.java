@@ -127,11 +127,6 @@ public class FavoriteRepositoryIT {
 	}
 	
 
-	// TODO 00: Completar esto .. con mas test...este no funciona porque?
-	// SELECT f from Favorite f WHERE f.account.username = :username AND f.title = :title
-	//Optional<Favorite> findByAccountUserNameAndTitle(String userName, String title);
-
-	/*
 	@Test	
 	public void givenUserNameAndTitleWhenFindByUserNameAndWrongTittleThenGetNone (){
 		
@@ -149,11 +144,52 @@ public class FavoriteRepositoryIT {
 		Optional<Favorite> favorite  
 					= favoriteRepository.findByAccountUserNameAndTitle(userName, "no_title");
 		
-		// then
-		
-		assertFalse(  favorite.isPresent());
-		assertFalse ( favorite.get().getTitle().equals("title1") );
+		// then		
+		assertFalse(  favorite.isPresent());		
 	}
-	*/
+	
+	
+	@Test	
+	public void givenUserNameAndTitleWhenFindByWrongUserNameAndTittleThenGetNone (){
+		
+		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+		
+		Favorite favorite1 = new Favorite (account, "title1");		
+		entityManager.persist(favorite1);		
+		entityManager.flush();
+		
+		// When
+		Optional<Favorite> favorite  
+					= favoriteRepository.findByAccountUserNameAndTitle("wrongUsername", "title1");
+		
+		// then		
+		assertFalse(  favorite.isPresent());		
+	}
+	
+	
+	@Test	
+	public void givenUserNameAndTitleWhenFindByWrongUserNameAndWrongTittleThenGetNone (){
+		
+		// Given
+		String userName = "user";
+		Account account = new Account(userName, "password");
+		entityManager.persist(account);
+		entityManager.flush();
+		
+		Favorite favorite1 = new Favorite (account, "title1");		
+		entityManager.persist(favorite1);		
+		entityManager.flush();
+		
+		// When
+		Optional<Favorite> favorite  
+					= favoriteRepository.findByAccountUserNameAndTitle("wrongUsername", "wrongtitle");
+		
+		// then		
+		assertFalse(  favorite.isPresent());		
+	}
 
 }
