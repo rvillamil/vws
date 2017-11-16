@@ -46,7 +46,7 @@ public class FavoriteRepositoryIT {
 	FavoriteRepository favoriteRepository;
 	
 	@Test	
-	public void givenUserWhenFindFavoritesGetAllFavorites() {		
+	public void givenUserWhenFindFavoritesTheRenturnAllFavorites() {		
 				
 		// Given
 		String userName = "user";
@@ -68,7 +68,7 @@ public class FavoriteRepositoryIT {
 	}	
 	
 	@Test	
-	public void givenUserWhenFindFavoritesGetEmptyFavorites() {		
+	public void givenUserWhenFindFavoritesThenRenturnEmptyList() {		
 				
 		// Given
 		String userName = "user";
@@ -86,7 +86,7 @@ public class FavoriteRepositoryIT {
 	}
 	
 	@Test	
-	public void givenUserNotExistWhenFindFavoritesGetEmptyFavorites() {		
+	public void givenUserNotExistWhenFindFavoritesThenReturnEmptyList() {		
 				
 		// Given
 		String userName = "user";
@@ -104,7 +104,7 @@ public class FavoriteRepositoryIT {
 	}
 	
 	@Test	
-	public void givenUserNameAndTitleWhenFindByUserNameAndTittleThenGetFavorite (){
+	public void givenUserNameAndTitleWhenFindByUserNameAndTittleThenReturnFavorite (){
 		
 		// Given
 		String userName = "user";
@@ -128,7 +128,7 @@ public class FavoriteRepositoryIT {
 	
 
 	@Test	
-	public void givenUserNameAndTitleWhenFindByUserNameAndWrongTittleThenGetNone (){
+	public void givenUserNameAndTitleWhenFindByUserNameAndWrongTittleThenReturnNone (){
 		
 		// Given
 		String userName = "user";
@@ -150,7 +150,7 @@ public class FavoriteRepositoryIT {
 	
 	
 	@Test	
-	public void givenUserNameAndTitleWhenFindByWrongUserNameAndTittleThenGetNone (){
+	public void givenUserNameAndTitleWhenFindByWrongUserNameAndTittleThenReturnNone (){
 		
 		// Given
 		String userName = "user";
@@ -172,7 +172,7 @@ public class FavoriteRepositoryIT {
 	
 	
 	@Test	
-	public void givenUserNameAndTitleWhenFindByWrongUserNameAndWrongTittleThenGetNone (){
+	public void givenUserNameAndTitleWhenFindByWrongUserNameAndWrongTittleThenReturnNone (){
 		
 		// Given
 		String userName = "user";

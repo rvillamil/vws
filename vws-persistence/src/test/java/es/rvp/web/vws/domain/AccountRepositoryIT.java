@@ -45,7 +45,7 @@ public class AccountRepositoryIT {
 	AccountRepository accountRepository;
 
 	@Test
-	public void givenExistingUserWhenFindByUserNameThenExists() {		
+	public void givenExistingUserWhenFindByUserNameThenReturnAccount() {		
 		// Given
 		String userName = "user";
 		Account account = new Account(userName, "password");
@@ -60,7 +60,7 @@ public class AccountRepositoryIT {
 	}
 	
 	@Test
-	public void givenNotExistingUserWhenFindByUserNameThenExists() {		
+	public void givenNotExistingUserWhenFindByUserNameThenReturnNone() {		
 		// Given		
 		Account account = new Account("user", "password");
 		entityManager.persist(account);
