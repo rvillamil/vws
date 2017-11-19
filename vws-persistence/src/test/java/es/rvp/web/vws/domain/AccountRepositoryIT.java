@@ -1,6 +1,7 @@
 package es.rvp.web.vws.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class AccountRepositoryTest {
+public class AccountRepositoryIT {
 
 	/**
 	 * To carry out some DB operation, we need some records already setup in our
@@ -44,9 +45,7 @@ public class AccountRepositoryTest {
 	AccountRepository accountRepository;
 
 	@Test
-	public void testFindByUserName() {
-		
-		// FIXME 04: No carga el contexto porque no lo encuentra en la libreria! https://spring.io/guides/gs/multi-module/
+	public void givenExistingUserWhenFindByUserNameThenReturnAccount() {		
 		// Given
 		String userName = "user";
 		Account account = new Account(userName, "password");
@@ -58,5 +57,19 @@ public class AccountRepositoryTest {
 		
 		// then
 		assertEquals(theAccount.get().getUserName(), account.getUserName());
+	}
+	
+	@Test
+	public void givenNotExistingUserWhenFindByUserNameThenReturnNone() {		
+		// Given		
+		Account account = new Account("user", "password");
+		entityManager.persist(account);
+		entityManager.flush();
+		
+		// When
+		Optional<Account> theAccount = accountRepository.findByUserName("userNone");
+		
+		// then
+		assertFalse(theAccount.isPresent());		
 	}
 }
