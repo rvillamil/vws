@@ -2,7 +2,7 @@
 FROM frolvlad/alpine-oraclejdk8:slim
 
 # En caso de problemas...
-LABEL maintainer "rodrigo.villamil@google.com" description="Java 8 docker container with Backend for VWS"
+LABEL maintainer "rodrigo.villamil@google.com" description="Alpine Java 8 docker container with Backend for VWS"
 
 # We added a VOLUME pointing to "/tmp" because that is where a Spring Boot application
 # creates working directories for Tomcat by default.

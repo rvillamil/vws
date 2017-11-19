@@ -92,11 +92,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 new JWTAuthenticationFilter(authenticationManager()))
             .addFilter(
                 new JWTAuthorizationFilter(authenticationManager()));
-
-
-        // FIXME 00: Revisar la configuracion para produccion de h2,swagger: Esta linea de abajo no puede ir a produccion. Es solo para que el h2 funcione
-        // https://dzone.com/articles/using-the-h2-database-console-in-spring-boot-with
-         httpSecurity.headers().frameOptions().disable();
     }
 
     @Override
@@ -121,10 +116,14 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Bean
     @Profile("default")
-    ServletRegistrationBean h2servletRegistration(){
+    ServletRegistrationBean h2servletRegistration() throws Exception{
         LOGGER.info ("Loading H2 configuration for default profile (not production)!");
+        // see: https://dzone.com/articles/using-the-h2-database-console-in-spring-boot-with
+        this.getHttp().headers().frameOptions().disable();
+
         ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
         registrationBean.addUrlMappings("/h2/*");
+
         return registrationBean;
     }
 }
