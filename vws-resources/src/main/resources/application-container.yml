@@ -13,28 +13,23 @@
 #
 
 #
-# Default configuration: For development
+# Docker - Production configuration
 #
 spring:
     application:
         name: vws-backend
+    profiles: container
     jpa:
-        database: H2
+        database: MYSQL
         hibernate:
-            ddl-auto: create-drop
-
-    datasource:
-        url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
-        username: root
-        password:
-        driver-class-name: org.h2.Driver
-    # http://www.baeldung.com/spring-testing-separate-data-source
-    # https://dzone.com/articles/integrate-h2-database-in-your-spring-boot-applicat
-    h2:
-      console:
-        enabled: true
-        path: /h2
-
+            ddl-auto: auto
+    # MySQL Support: https://spring.io/guides/gs/accessing-data-mysql/
+    datasource:        
+        url: jdbc:mysql://${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}
+        username: ${DATABASE_USER}
+        password: ${DATABASE_PASSWORD}
+        driver-class-name: com.mysql.jdbc.Driver
+        
 #      
 # Actuator: https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready   
 #
@@ -57,8 +52,9 @@ endpoints:
 general:
   scraping:
     parse:
-      maxbillboardfilms: 15
+      maxbillboardfilms: 20
       maxvideopremieres: 20
-      maxtvshows: 5
+      maxtvshows: 7
     parsertumejortorrent:
       requestdelay: 303
+
