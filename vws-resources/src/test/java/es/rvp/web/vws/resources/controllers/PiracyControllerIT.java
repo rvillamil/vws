@@ -1,4 +1,4 @@
-package es.rvp.web.aws.resources.controllers;
+package es.rvp.web.vws.resources.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

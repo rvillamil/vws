@@ -1,4 +1,4 @@
-package es.rvp.web.aws.resources.controllers;
+package es.rvp.web.vws.resources.controllers;
 
 import static org.mockito.Mockito.mock;
 

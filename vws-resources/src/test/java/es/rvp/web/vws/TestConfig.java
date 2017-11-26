@@ -1,4 +1,4 @@
-package es.rvp.web.aws;
+package es.rvp.web.vws;
 
 
 import org.springframework.context.annotation.ComponentScan;
@@ -14,6 +14,6 @@ import org.springframework.context.annotation.Configuration;
  * @author Rodrigo Villamil Perez
  */
 @Configuration
-@ComponentScan("es.rvp.web.aws")
+@ComponentScan("es.rvp.web.vws")
 public class TestConfig {
 }
