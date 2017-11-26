@@ -8,7 +8,7 @@ Evidentemente, esto se podría hacer mucho mas sencillo, pero el objetivo de est
 
 Pintar un diagrama con un backeend con Docker y frontal en un apache y la BB.DD docker. API securizada con el soporte de JWT
 
-## Arquitectura de ejecución ##
+## Arquitectura de ???? ##
 
 ### Backend Java: API Rest ###
 
@@ -17,6 +17,8 @@ El backend es una aplicación Java, desarrollada en capas, con el soporte de spr
 * vws-persistence : Capa de persistencia desarrollada con el soporte de 'spring-data'.
   * Soporte para H2 embebido, para desarrollo
   * Soporte para mysql dockerizado, para producción
+
+  - Testeamos con test de integración la capad e persistencia.
 
 * vws-services: Capa de servicios de negocio.
 
