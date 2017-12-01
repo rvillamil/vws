@@ -1,26 +1,46 @@
 package es.rvp.web.vws.resources.controllers;
 
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 
 import es.rvp.web.vws.domain.Show;
-import es.rvp.web.vws.resources.controllers.PiracyController;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
 /**
+ * To test the Controllers, we can use @WebMvc	Test. It will auto-configure the Spring 
+ * MVC infrastructure for our unit tests.
+ * In most of the cases, @WebMvcTest will be limited to bootstrap a single controller. 
+ * It is used along with @MockBean to provide mock implementations for required dependencies.
+ * 
  * @author Rodrigo Villamil Perez
  */
+@RunWith(SpringRunner.class)
+@WebMvcTest(PiracyController.class)
 public class PiracyControllerTest {
 
+	@Autowired
+	private MockMvc mvc;
+	 
 	// Clase a testear
-	private PiracyController piracyController;
+	//private PiracyController piracyController;
 
 	// Clases a mockear
+	@MockBean
 	private WebTorrentSpider 			webTorrentSpider;
+
+	/*
 	@Before
 	public void setup() {
 		this.webTorrentSpider 	  = mock(WebTorrentSpider.class);
@@ -30,10 +50,11 @@ public class PiracyControllerTest {
 		this.piracyController.maxVideoPremieres  = 3;
 		this.piracyController.maxTVshows 		= 3;
 	}
+	*/
 
 	//--------------------------- parseBillboardFilms -------------------------
 	/*
-	@Test
+	@Test	
 	public void whenParseFilmsInBillBoardThenGetTwoFilmsInBillBoard() {
 		// Given
 		// When
@@ -46,7 +67,8 @@ public class PiracyControllerTest {
 		assertEquals(filmsBillboard, this.newShowsToTest(2, "La Isla"));
 		assertTrue(filmsBillboard.size() == 2);
 	}
-	 */
+	*/
+	
 	//--------------------------- parseVideoPremieres -------------------------
 	/*
 	@Test

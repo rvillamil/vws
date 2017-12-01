@@ -57,6 +57,9 @@ La organización del proyecto es muy básica:
 * IDE eclipse
 * Postman
 
+### Testing ####
+
+Nos tomado como referencia:     http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
 ### Construcción, empaquetado y perfiles : maven ###
 

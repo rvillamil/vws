@@ -44,7 +44,7 @@ public class PiracyControllerIT {
     public void whenParseOneFilmInBillBoardThenGetOneFilmInBillBoard() {
         // When
         @SuppressWarnings("rawtypes")
-        final ResponseEntity<Set> response = this.restTemplate.getForEntity("/hackbillboardfilms", Set.class);
+        final ResponseEntity<Set> response = this.restTemplate.getForEntity("/billboardfilms", Set.class);
         final Set<?> showsJSONFormat = response.getBody();
         final HashMap<?, ?> hashMap = (HashMap<?, ?>) showsJSONFormat.iterator().next();
 
