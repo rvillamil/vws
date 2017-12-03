@@ -59,7 +59,13 @@ La organización del proyecto es muy básica:
 
 ### Testing ####
 
-Nos tomado como referencia:     http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+Nos tomado como referencia:
+http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
+
+Para hacer test unitarios en los controladores REST:
+"When we are unit testing a rest service, we would want to launch only the specific controller and the related MVC Components. WebMvcTest annotation is used for unit testing Spring MVC application. This can be used when a test focuses only Spring MVC components. Using this annotation will disable full auto-configuration and only apply configuration relevant to MVC tests."
+
 
 ### Construcción, empaquetado y perfiles : maven ###
 

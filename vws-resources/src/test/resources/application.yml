@@ -8,14 +8,20 @@
 # ===================================================================
       
 #
-# Configuracion General de la aplicacion
+# Configuracion para los test
 #
+
+# VWS Configuration
 general:
   scraping:
     parse:
-      maxbillboardfilms: 5
-      maxvideopremieres: 5
-      maxtvshows: 3
+      maxbillboardfilms: 15
+      maxvideopremieres: 20
+      maxtvshows: 5
     parsertumejortorrent:
-      requestdelay: 222
-    
+      requestdelay: 303
+
+# No necesitamos la seguridad para los test
+security:
+  basic:
+    enabled: False    
