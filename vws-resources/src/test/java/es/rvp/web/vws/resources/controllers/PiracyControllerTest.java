@@ -152,16 +152,13 @@ public class PiracyControllerTest {
   			  	.andExpect(status().is4xxClientError() );
 
     }
-
     
     //-------------------------- Helpers Methods ------------------------------
     private Set<Show> newShowsToTest(final int numShows, final String prefixName) {
         final Set<Show> shows = new LinkedHashSet<>();
-
         for (int i = 0; i < numShows; i++) {
             shows.add(Show.builder().title(prefixName + "_" + i).build());
         }
-
         return shows;
     }
 }
