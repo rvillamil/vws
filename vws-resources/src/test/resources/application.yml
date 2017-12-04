@@ -19,7 +19,7 @@ general:
       maxvideopremieres: 20
       maxtvshows: 5
     parsertumejortorrent:
-      requestdelay: 303
+      requestdelay: 403
 
 # No necesitamos la seguridad para los test
 security:

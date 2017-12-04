@@ -84,40 +84,76 @@ public class PiracyControllerTest {
     }
 
     //--------------------------- parseVideoPremieres -------------------------
-    /*
     @Test
-    public void whenParseVideoPremieresThenGetTwoVideoPremieres() {
+    public void givenwebtorrentwith2videos_whenParseVideoPremieres_ThenReturnJsonArray() throws Exception {
         // Given
-        // When
-        when(this.webTorrentSpider.parseVideoPremieres(this.piracyController.maxVideoPremieres)).thenReturn(
-                this.newShowsToTest(2, "La Isla en Video"));
+        final Set<Show> shows =	this.newShowsToTest(2, "La Isla en Video");
 
-        final Set<Show> filmsBillboard = this.piracyController.parseVideoPremieres();
-        // Then
-        assertNotNull(filmsBillboard);
-        assertEquals(filmsBillboard, this.newShowsToTest(2, "La Isla en Video"));
-        assertTrue(filmsBillboard.size() == 2);
+        // When - Then
+        when(this.webTorrentSpider.parseVideoPremieres(this.maxVideoPremieres)).thenReturn(
+                shows);
+
+        this.mvc.perform 	( get("/api/videopremieres/")
+                      .contentType(MediaType.APPLICATION_JSON))
+                      .andExpect(status().isOk() )
+                      .andExpect(jsonPath("$", hasSize(2)))
+                      .andExpect(jsonPath("$[0].title", is("La Isla en Video_0")))
+                      .andExpect(jsonPath("$[1].title", is("La Isla en Video_1")));
     }
-    */
+    
+    @Test
+    public void givenwebtorrentwith0videos_whenParseVideo_ThenReturnEmtpyArray() throws Exception {
+        // Given
+        final Set<Show> shows = new HashSet<>();
+
+        // When - Then
+        when(this.webTorrentSpider.parseVideoPremieres(this.maxVideoPremieres)).thenReturn(
+                shows);
+
+        this.mvc.perform 	( get("/api/videopremieres/")
+                      .contentType(MediaType.APPLICATION_JSON))
+        			  .andExpect(jsonPath("$.errorMessage", is("Video premieres list is empty")))
+        			  .andExpect(status().is4xxClientError() );
+    }
+    
+   
     //---------------------------- parseTVShow --------------------------------
-    /*
     @Test
-    public void whenParseTVShowThenGetTheLastThreeEpisodes() {
+    public void  givenwebtorrentwithmodernfamilyshow_whenParseTVShow_ThenGetTheLastThreeEpisodes() throws Exception {
         // Given
-        String tvShowPath="series-hd/modern-family/";
+        final Set<Show> shows =	this.newShowsToTest(3, "Modern Family HD");
+        
+        // When - Then
+        String tvShowPath="modern-family";
+        when(this.webTorrentSpider.parseTVShow( tvShowPath, this.maxTVshows)).thenReturn(shows);
 
-        // When
-        when(this.webTorrentSpider.parseTVShow(tvShowPath,this.piracyController.maxTVshows)).thenReturn(
-                        this.newShowsToTest(2, "Modern Family HD"));
-
-        final Set<Show> filmsBillboard = this.piracyController.parseTVShow(tvShowPath);
-        // Then
-        assertNotNull(filmsBillboard);
-        assertEquals(filmsBillboard, this.newShowsToTest(2, "Modern Family HD"));
-        assertTrue(filmsBillboard.size() == 2);
+        this.mvc.perform 	( get("/api/tvshows/" + tvShowPath)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk() )
+                .andExpect(jsonPath("$", hasSize(3)))
+                .andExpect(jsonPath("$[0].title", is("Modern Family HD_0")))
+                .andExpect(jsonPath("$[1].title", is("Modern Family HD_1")))
+                .andExpect(jsonPath("$[2].title", is("Modern Family HD_2")));
 
     }
-     */
+    
+    @Test
+    public void  givenwebtorrentwithoutmodernfamilyshow_whenParseTVShow_ThenReturnEmtpyArray() throws Exception {
+        // Given
+    	final Set<Show> shows = new HashSet<>();
+        
+        // When - Then
+        String tvShowPath="modern-family";
+        when(this.webTorrentSpider.parseTVShow( tvShowPath, this.maxTVshows)).thenReturn(shows);
+
+        this.mvc.perform 	( get("/api/tvshows/" + tvShowPath)
+                .contentType(MediaType.APPLICATION_JSON))
+  			  	.andExpect(jsonPath("$.errorMessage", is("TVShows list is empty")))
+  			  	.andExpect(status().is4xxClientError() );
+
+    }
+
+    
     //-------------------------- Helpers Methods ------------------------------
     private Set<Show> newShowsToTest(final int numShows, final String prefixName) {
         final Set<Show> shows = new LinkedHashSet<>();
