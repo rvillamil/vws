@@ -31,7 +31,6 @@ import es.rvp.web.vws.domain.FavoriteRepository;
  */
 @RestController
 @RequestMapping("/api/favorites/")
-// @CrossOrigin(origins = "http://localhost:9090")
 public class FavoritesController {
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavoritesController.class);
@@ -98,13 +97,15 @@ public class FavoritesController {
 	 */
 	@PostMapping
 	public ResponseEntity<?> createFavorite( final Principal principal,
-											final UriComponentsBuilder ucBuilder,
-											@RequestBody final Favorite newFavorite ) {
+											 final UriComponentsBuilder ucBuilder,
+											 @RequestBody final Favorite newFavorite ) {
 		LOGGER.info("POST favorite with title '{}'", newFavorite.getTitle());
 		this.validateUser(principal);
 
-		if ( this.favoriteRepository.findByAccountUserNameAndTitle(principal.getName(),
-																  newFavorite.getTitle()).isPresent() ) {
+		if ( this.favoriteRepository.findByAccountUserNameAndTitle(
+				principal.getName(),
+				newFavorite.getTitle()).isPresent() ) {
+
 			 LOGGER.error("Unable to create. A favorite with title '{}' already exist", newFavorite.getTitle());
 
 			 return new ResponseEntity<>(new CustomErrorType(

@@ -138,7 +138,28 @@ public class FavoritesControllerTest {
     }
 
     // ----------------------- createFavorite ---------------------------
+
+    @Test
+    public void givenFavorite_whenCreateNewFavorite_thenReturnJson() throws Exception {
+    	// Given
+    	final Favorite favorite = new Favorite (this.account, "Lost");
+
+    	// When - Then
+    	when (this.favoriteRepository.findByAccountUserNameAndTitle(
+        		  this.mockPrincipal.getName(), "Lost").isPresent()).thenReturn(
+        				  Boolean.TRUE);
+
+    	/*
+    	 * TODO 00: ----
+    	this.mvc.perform  ( get("/api/favorites/Lost")
+   			 	.principal(this.mockPrincipal)
+                .contentType(MediaType.APPLICATION_JSON))
+    			.andExpect(status().isOk());
+    	*/
+    }
+
     // ----------------------- updateFavorite ---------------------------
+
     // ----------------------- deleteFavorite ---------------------------
 
 
