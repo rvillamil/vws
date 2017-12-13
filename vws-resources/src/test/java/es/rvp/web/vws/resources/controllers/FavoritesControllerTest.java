@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -122,14 +123,12 @@ public class FavoritesControllerTest {
     @Test
     public void givenNotExistingTitle_whenGetFavorite_thenReturnJson() throws Exception {
     	// Given
-    	// When - Then
-
-    	final Favorite favorite = new Favorite (this.account, "Lost");
+    	final Optional<Favorite> favorite = Optional.empty();
 
     	// When - Then
     	when (this.favoriteRepository.findByAccountUserNameAndTitle(
-        		  this.mockPrincipal.getName(), "Lost")).thenReturn(
-        				  Optional.of(favorite));
+        		  this.mockPrincipal.getName(), "none")).thenReturn(
+        				  favorite);
 
     	this.mvc.perform 	( get("/api/favorites/none")
    			 	.principal(this.mockPrincipal)
@@ -142,20 +141,18 @@ public class FavoritesControllerTest {
     @Test
     public void givenFavorite_whenCreateNewFavorite_thenReturnJson() throws Exception {
     	// Given
-    	final Favorite favorite = new Favorite (this.account, "Lost");
+    	final Optional<Favorite> favorite = Optional.of(new Favorite (this.account, "Lost"));
 
     	// When - Then
     	when (this.favoriteRepository.findByAccountUserNameAndTitle(
-        		  this.mockPrincipal.getName(), "Lost").isPresent()).thenReturn(
-        				  Boolean.TRUE);
+        		  this.mockPrincipal.getName(), "Lost")).thenReturn(
+        				  favorite);
 
-    	/*
-    	 * TODO 00: ----
-    	this.mvc.perform  ( get("/api/favorites/Lost")
+    	this.mvc.perform  ( post("/api/favorites/" )
    			 	.principal(this.mockPrincipal)
                 .contentType(MediaType.APPLICATION_JSON))
-    			.andExpect(status().isOk());
-    	*/
+    			.andExpect(status().is2xxSuccessful());
+
     }
 
     // ----------------------- updateFavorite ---------------------------
