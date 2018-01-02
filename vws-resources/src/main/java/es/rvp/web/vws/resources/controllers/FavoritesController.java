@@ -113,10 +113,11 @@ public class FavoritesController {
 	        		 HttpStatus.CONFLICT); // 409
 	    }
 
+
 		return this.accountRepository.findByUserName(principal.getName())
 				.map(account -> {
-							final Favorite result = this.favoriteRepository.save(new Favorite(
-									account,newFavorite.getTitle()));
+							final Favorite result = this.favoriteRepository.save(
+									new Favorite(account,newFavorite.getTitle()));
 							final HttpHeaders headers = new HttpHeaders();
 							headers.setLocation(ucBuilder.path("/{id}").buildAndExpand(result.getId()).toUri());
 
