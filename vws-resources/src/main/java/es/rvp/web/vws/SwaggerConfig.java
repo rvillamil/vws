@@ -22,7 +22,7 @@ public class SwaggerConfig {
 				.build().apiInfo(this.metaData());
 
 	}
-	// Visit: 	
+	// Visit:
 	private ApiInfo metaData() {
 		return new ApiInfo(
 				"VWS REST API",
@@ -30,8 +30,9 @@ public class SwaggerConfig {
 				"1.0",
 				"Terms of service",
 				new Contact("Rodrigo Villamil",
-						"https://github.com/rvillamil/", "rodrigo.villamil@gmail.com"),
-				"GNU General Public License v3.0",
-				"https://www.gnu.org/licenses/gpl-3.0.en.html");
+							"https://github.com/rvillamil/",
+							"rodrigo.villamil@gmail.com"),
+							"GNU General Public License v3.0",
+							"https://www.gnu.org/licenses/gpl-3.0.en.html");
 	}
 }

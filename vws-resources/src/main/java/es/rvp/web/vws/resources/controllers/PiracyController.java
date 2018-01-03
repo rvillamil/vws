@@ -31,16 +31,8 @@ public class PiracyController {
      FIXME 01: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
      */
     /*
-     TODO 00: Finalizar el resto de Test unitarios para los controladores REST, persistencia..todo lo que falte
-              - https://g00glen00b.be/spring-boot-rest-assured/
-              - http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-              - https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
-			  - http://g00glen00b.be/prototyping-spring-boot-angularjs/
-     */
-    /*
      TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
      */
-
     // LOGGER
     private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
     private static final String	WELCOME_TEXT   	= "Video websites scaper (VWS) is available!";
@@ -82,7 +74,7 @@ public class PiracyController {
     @GetMapping(value="/billboardfilms/")
     public ResponseEntity<?> parseBillBoardFilms() {
         LOGGER.info("PiracyController - Getting billboard films ...");
-        final Set<Show> shows = webTorrentSpider.parseBillboardFilms(maxBillboardFilms);
+        final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(this.maxBillboardFilms);
         if ( shows.isEmpty()) {
             LOGGER.warn("PiracyController - Billbaord films not found.");
             return new ResponseEntity<>(new CustomErrorType(
@@ -99,7 +91,7 @@ public class PiracyController {
     @GetMapping(value="/videopremieres/")
     public ResponseEntity<?> parseVideoPremieres() {
         LOGGER.info("PiracyController - Getting video premieres ...");
-        final Set<Show> shows = webTorrentSpider.parseVideoPremieres(maxVideoPremieres);
+        final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(this.maxVideoPremieres);
         if ( shows.isEmpty()) {
             LOGGER.warn("PiracyController - Video premieres not found.");
 
@@ -120,7 +112,7 @@ public class PiracyController {
     @GetMapping(value="/tvshows/{title}")
     public ResponseEntity<?> parseTVShow(@PathVariable("title") final String title) {
         LOGGER.info("PiracyController - Getting the tvshow '{}'", title);
-        final Set<Show> shows =  webTorrentSpider.parseTVShow(title, maxTVshows);
+        final Set<Show> shows =  this.webTorrentSpider.parseTVShow(title, this.maxTVshows);
 
         if ( shows.isEmpty()) {
             LOGGER.warn("PiracyController - TVShows episodes with title '{}' not found.", title);

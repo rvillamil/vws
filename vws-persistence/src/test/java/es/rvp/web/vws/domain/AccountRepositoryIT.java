@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Integration test showing the basic usage of {@link AccountRepository}.
- * 
+ *
  * @RunWith(SpringRunner.class) is used to provide a bridge between Spring Boot
  *                              test features and JUnit. Whenever we are using
  *                              any Spring Boot testing features in out JUnit
@@ -23,8 +23,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  *              layer: - configuring H2, an in-memory database - setting
  *              Hibernate, Spring Data, and the DataSource - performing
  *              an @EntityScan - turning on SQL logging
- * @see http://www.baeldung.com/spring-boot-testing
- * 
+ *
  * @author Rodrigo Villamil Pérez
  */
 @RunWith(SpringRunner.class)
@@ -45,31 +44,31 @@ public class AccountRepositoryIT {
 	AccountRepository accountRepository;
 
 	@Test
-	public void givenExistingUserWhenFindByUserNameThenReturnAccount() {		
+	public void givenExistingUserWhenFindByUserNameThenReturnAccount() {
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
-		
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
+
 		// When
-		Optional<Account> theAccount = accountRepository.findByUserName(userName);
-		
+		final Optional<Account> theAccount = this.accountRepository.findByUserName(userName);
+
 		// then
 		assertEquals(theAccount.get().getUserName(), account.getUserName());
 	}
-	
+
 	@Test
-	public void givenNotExistingUserWhenFindByUserNameThenReturnNone() {		
-		// Given		
-		Account account = new Account("user", "password");
-		entityManager.persist(account);
-		entityManager.flush();
-		
+	public void givenNotExistingUserWhenFindByUserNameThenReturnNone() {
+		// Given
+		final Account account = new Account("user", "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
+
 		// When
-		Optional<Account> theAccount = accountRepository.findByUserName("userNone");
-		
+		final Optional<Account> theAccount = this.accountRepository.findByUserName("userNone");
+
 		// then
-		assertFalse(theAccount.isPresent());		
+		assertFalse(theAccount.isPresent());
 	}
 }

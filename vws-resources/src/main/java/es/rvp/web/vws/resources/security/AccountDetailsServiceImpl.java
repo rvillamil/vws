@@ -23,8 +23,8 @@ public class AccountDetailsServiceImpl implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		final Optional<Account> account = accountRepository.findByUserName(userName);
+	public UserDetails loadUserByUsername(String userName) {
+		final Optional<Account> account = this.accountRepository.findByUserName(userName);
 
 		if (! account.isPresent() ){
 			throw new UsernameNotFoundException(userName);

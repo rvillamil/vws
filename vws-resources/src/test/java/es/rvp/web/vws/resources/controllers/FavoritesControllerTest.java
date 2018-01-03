@@ -5,8 +5,10 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -75,10 +77,10 @@ public class FavoritesControllerTest {
     	// Given
     	final Collection<Favorite> favorites = this.createFavoritesToTest (this.account, 3, "Lost");
 
-    	// When - Then
     	when (this.favoriteRepository.findByAccountUserName(
       		  this.mockPrincipal.getName())).thenReturn(favorites);
 
+    	// When - Then
     	this.mvc.perform 	( get("/api/favorites/")
     			 .principal(this.mockPrincipal)
                  .contentType(MediaType.APPLICATION_JSON))
@@ -94,10 +96,10 @@ public class FavoritesControllerTest {
     	// Given
     	final Collection<Favorite> favorites = this.createFavoritesToTest (this.account, 0, "Lost");
 
-    	// When - Then
     	when (this.favoriteRepository.findByAccountUserName(
       		  this.mockPrincipal.getName())).thenReturn(favorites);
 
+    	// When - Then
     	this.mvc.perform 	( get("/api/favorites/")
     			 .principal(this.mockPrincipal)
                  .contentType(MediaType.APPLICATION_JSON))
@@ -110,12 +112,10 @@ public class FavoritesControllerTest {
     public void givenTitle_whenGetFavorite_thenReturnJson() throws Exception {
     	// Given
     	final Favorite favorite = new Favorite (this.account, "Lost");
-
-    	// When - Then
     	when (this.favoriteRepository.findByAccountUserNameAndTitle(
         		  this.mockPrincipal.getName(), "Lost")).thenReturn(
         				  Optional.of(favorite));
-
+    	// When - Then
     	this.mvc.perform 	( get("/api/favorites/Lost")
    			 	.principal(this.mockPrincipal)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -126,12 +126,11 @@ public class FavoritesControllerTest {
     public void givenNotExistingTitle_whenGetFavorite_thenReturnJson() throws Exception {
     	// Given
     	final Optional<Favorite> favorite = Optional.empty();
-
-    	// When - Then
     	when (this.favoriteRepository.findByAccountUserNameAndTitle(
         		  this.mockPrincipal.getName(), "none")).thenReturn(
         				  favorite);
 
+    	// When - Then
     	this.mvc.perform 	( get("/api/favorites/none")
    			 	.principal(this.mockPrincipal)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -144,15 +143,13 @@ public class FavoritesControllerTest {
 
     	// Given
     	final Optional<Favorite> favorite = Optional.of(new Favorite (this.account, "Lost"));
-
-    	// When - Then
     	when (this.favoriteRepository.findByAccountUserNameAndTitle(
         		  this.mockPrincipal.getName(), "Lost")).thenReturn(
         				  Optional.empty());
-
     	when (this.favoriteRepository.save(
     			any(Favorite.class))).thenReturn ( favorite.get());
 
+    	// When - Then
     	this.mvc.perform  ( post("/api/favorites/" )
    			 	.principal(this.mockPrincipal)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -164,15 +161,13 @@ public class FavoritesControllerTest {
 
     @Test
     public void givenExistingFavorite_whenCreateNewFavorite_thenReturnHTTP4XX () throws Exception {
-
     	// Given
     	final Optional<Favorite> favorite = Optional.of(new Favorite (this.account, "Lost"));
 
-    	// When - Then --> Fuerza a que exista el favorito
     	when (this.favoriteRepository.findByAccountUserNameAndTitle(
         		  this.mockPrincipal.getName(), "Lost")).thenReturn(
         				  favorite);
-
+    	// When - Then --> Fuerza a que exista el favorito
     	this.mvc.perform  ( post("/api/favorites/" )
    			 	.principal(this.mockPrincipal)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -182,9 +177,74 @@ public class FavoritesControllerTest {
     }
 
     // ----------------------- updateFavorite ---------------------------
-    // TODO 00 : Unit Test
+    @Test
+    public void givenExistingFavorite_whenUpdate_thenReturnJson() throws Exception {
+    	// Given
+    	final Long 		id 			= 5L;
+    	final Favorite  newFavorite = new Favorite (this.account, "New Favorite");
+
+    	final Optional<Favorite> favoriteForUpdate = Optional.of(new Favorite (
+    			this.account, "Favorite for update"));
+    	when (this.favoriteRepository.findOne(id)).thenReturn(
+    			favoriteForUpdate.get());
+
+    	// When - Then
+    	this.mvc.perform  ( put("/api/favorites/5" )
+   			 	.principal(this.mockPrincipal)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestSupport.toJson(newFavorite)))
+    			.andExpect(jsonPath("$.title", is("New Favorite")))
+    			.andDo(print())
+    			.andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void givenNotExistingFavorite_whenUpdate_thenReturnHTTP4XX() throws Exception {
+    	// Given
+    	final Long 		id 			= 5L;
+    	final Favorite  newFavorite = new Favorite (this.account, "New Favorite");
+
+    	when (this.favoriteRepository.findOne(id)).thenReturn(null);
+
+    	// When - Then
+    	this.mvc.perform  ( put("/api/favorites/5" )
+   			 	.principal(this.mockPrincipal)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(TestSupport.toJson(newFavorite)))
+    			.andDo(print())
+    			.andExpect(status().is4xxClientError());
+    }
+
     // ----------------------- deleteFavorite ---------------------------
-    // TODO 00 : Unit Test
+    @Test
+    public void givenExistingFavorite_whenDelete_thenReturnHTTP2XX() throws Exception {
+    	// Given
+    	final Long 		id 			= 5L;
+    	final Optional<Favorite> favoriteToDelete = Optional.of(new Favorite (
+    			this.account, "Favorite to delete"));
+    	when (this.favoriteRepository.findOne(id)).thenReturn(favoriteToDelete.get());
+
+    	// When - Then
+    	this.mvc.perform  ( delete("/api/favorites/5" )
+   			 	.principal(this.mockPrincipal)
+                .contentType(MediaType.APPLICATION_JSON))
+    			.andDo(print())
+    			.andExpect(status().is2xxSuccessful());
+    }
+
+    @Test
+    public void givenNotExistingFavorite_whenDelete_thenReturnHTTP4XX() throws Exception {
+     	// Given
+    	final Long 		id 			= 5L;
+    	when (this.favoriteRepository.findOne(id)).thenReturn(null);
+
+    	// When - Then
+    	this.mvc.perform  ( delete("/api/favorites/5" )
+   			 	.principal(this.mockPrincipal)
+                .contentType(MediaType.APPLICATION_JSON))
+    			.andDo(print())
+    			.andExpect(status().is4xxClientError());
+    }
 
     //------------------------ Helpers Methods --------------------------
     private Collection<Favorite> createFavoritesToTest ( final Account account ,

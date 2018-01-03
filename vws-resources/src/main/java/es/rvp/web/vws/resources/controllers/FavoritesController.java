@@ -99,7 +99,7 @@ public class FavoritesController {
 	public ResponseEntity<?> createFavorite( final Principal principal,
 											 final UriComponentsBuilder ucBuilder,
 											 @RequestBody final Favorite newFavorite ) {
-		LOGGER.info("POST favorite with title '{}'", newFavorite.getTitle());
+		LOGGER.info("Creating (POST) favorite with title '{}'", newFavorite.getTitle());
 		this.validateUser(principal);
 
 		if ( this.favoriteRepository.findByAccountUserNameAndTitle(
@@ -135,7 +135,7 @@ public class FavoritesController {
 	 */
 	 @PutMapping(value = "/{id}")
 	 public ResponseEntity<?> updateFavorite( @PathVariable final Long 		id,
-			 								 @RequestBody  final Favorite  newFavorite) {
+			 								  @RequestBody  final Favorite  newFavorite) {
 
 		 LOGGER.info("Updating (PUT) favorite with id '{}'", id);
 

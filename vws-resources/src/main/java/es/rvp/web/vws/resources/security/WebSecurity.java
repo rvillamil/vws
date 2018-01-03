@@ -89,27 +89,27 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated()
             .and()
             .addFilter(
-                new JWTAuthenticationFilter(authenticationManager()))
+                new JWTAuthenticationFilter(this.authenticationManager()))
             .addFilter(
-                new JWTAuthorizationFilter(authenticationManager()));
+                new JWTAuthorizationFilter(this.authenticationManager()));
     }
 
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         // Se define la clase que recupera los usuarios y el algoritmo para procesar las passwords
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(this.userDetailsService).passwordEncoder(this.bCryptPasswordEncoder());
     }
 
     /**
-     * CORS configuration: https://docs.spring.io/spring-security/site/docs/current/reference/html/cors.html
+     * @see CORS configuration in https://docs.spring.io/spring-security/site/docs/current/reference/html/cors.html
      */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
+        final CorsConfiguration configuration = new CorsConfiguration();
         configuration.setExposedHeaders(Arrays.asList("Authorization")); // https://stackoverflow.com/questions/1557602/jquery-and-ajax-response-header
         configuration.applyPermitDefaultValues();
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
@@ -121,7 +121,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         // see: https://dzone.com/articles/using-the-h2-database-console-in-spring-boot-with
         this.getHttp().headers().frameOptions().disable();
 
-        ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
+        final ServletRegistrationBean registrationBean = new ServletRegistrationBean( new WebServlet());
         registrationBean.addUrlMappings("/h2/*");
 
         return registrationBean;

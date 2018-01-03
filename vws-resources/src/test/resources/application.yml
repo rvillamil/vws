@@ -21,7 +21,7 @@ general:
     parsertumejortorrent:
       requestdelay: 403
 
-# No necesitamos la seguridad para los test
+# Desactivamos spring security para los test
 security:
   basic:
     enabled: False    
