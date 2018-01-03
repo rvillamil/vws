@@ -1,61 +1,91 @@
+<!-- TOC -->
+
+- [VWS: Video websites scraper](#vws-video-websites-scraper)
+    - [Arquitectura software](#arquitectura-software)
+        - [FrontEnd Javascript: Cliente](#frontend-javascript-cliente)
+        - [Backend Java: API Rest](#backend-java-api-rest)
+    - [Backend: Arquitectura de desarrollo](#backend-arquitectura-de-desarrollo)
+        - [Tecnologías](#tecnolog%C3%ADas)
+        - [Testing](#testing)
+        - [Construcción, empaquetado y perfiles : maven](#construcci%C3%B3n-empaquetado-y-perfiles-maven)
+        - [Sonarqube: Integracion con Sonarcloud](#sonarqube-integracion-con-sonarcloud)
+        - [Pipeline: Integracion con Bitbucket pipeline](#pipeline-integracion-con-bitbucket-pipeline)
+            - [Ejecucion del backend](#ejecucion-del-backend)
+        - [Proceso de desarrollo para un 'Backend Developer'](#proceso-de-desarrollo-para-un-backend-developer)
+            - [Sobre Swagger y la documentacion del API](#sobre-swagger-y-la-documentacion-del-api)
+            - [Autenticación: Como testear el API](#autenticaci%C3%B3n-como-testear-el-api)
+            - [Sobre el Modelado y su manteniento](#sobre-el-modelado-y-su-manteniento)
+                - [Como conectarse a H2 Embebida](#como-conectarse-a-h2-embebida)
+                - [Como conectarse a MySQL dockerizado](#como-conectarse-a-mysql-dockerizado)
+    - [FrontEnd: Arquitectura de desarrollo](#frontend-arquitectura-de-desarrollo)
+        - [Tecnologías](#tecnolog%C3%ADas)
+        - [Proceso de desarrollo para un 'Frontend Developer'](#proceso-de-desarrollo-para-un-frontend-developer)
+    - [Sobre docker y Como generar un entregable para produccion](#sobre-docker-y-como-generar-un-entregable-para-produccion)
+            - [Que cosas quiero probar...](#que-cosas-quiero-probar)
+            - [Otras funcionalidades a implementar](#otras-funcionalidades-a-implementar)
+
+<!-- /TOC -->
 # VWS: Video websites scraper #
 
-Es una aplicación web de tipo Single Page Application, cuya funcionalidad básica consiste en hacer 'scrapping' de portales de torrent para procesesar su contenido y mostrarlo en un navegador de manera mas personalizada.
+El proposito de este desarrollo, el cual se podría simplificar en extremo, 
+no es otro que probar, aprender y entender, diferentes técnicas/tecnologías 
+de desarrollo de aplicaciones web. 
 
-Evidentemente, esto se podría hacer mucho mas sencillo, pero el objetivo de este desarrollo no es otro que experimentar con tecnologías y en definitiva, aprender.
+VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad 
+básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent' 
+con peliculas y series de televisión.
 
-## Diagrama de Arquitectura ##
 
-Pintar un diagrama con un backeend con Docker y frontal en un apache y la BB.DD docker. API securizada con el soporte de JWT
+## Arquitectura software ##
+![figure-execution-architecture](resources/images/draw.io-figure-execution-architecture.png "Diagrama de Arquitectura lógica")
+### FrontEnd Javascript: Cliente ###
 
-## Arquitectura de ???? ##
+El 'front' es una aplicación SPA, desarrollada con javascript, HTML5 y CSS3, que lanza peticiones XHR contra una API Rest. En general, el formato de intercambio de información, es JSON.
+
+La aplicación Javascript, se empaqueta para producción dentro de un contenedor docker con un apache y tiene un 'layout' muy básico como sigue:
+
+- app
+  - home : Pagina principal
+  - login : Componente de login
+  - modal : Componente con ventanas modales
+  - ... (resto de componentes)
+- shared : Servicios core, utilidades y configuración compartida
+- index.html
 
 ### Backend Java: API Rest ###
 
 El backend es una aplicación Java, desarrollada en capas, con el soporte de spring boot. Cada capa es un subproyecto que depende de la anterior de la siguiente forma:
 
-* vws-persistence : Capa de persistencia desarrollada con el soporte de 'spring-data'.
-  * Soporte para H2 embebido, para desarrollo
-  * Soporte para mysql dockerizado, para producción
+- vws-persistence : Capa de persistencia desarrollada con el soporte de 'spring-data'.
+  - Utilizamos el soporte de H2 embebido, para la fase de desarrollo y pruebas
+  - Utilizamos el soporte para mysql dockerizado, para producción
 
   - Testeamos con test de integración la capad e persistencia.
 
-* vws-services: Capa de servicios de negocio.
+- vws-services: Capa con el modelo y los servicios de negocio.
 
-* vws-resources: Capa de controladores, donde exponemos nuestra API securizada con el soporte de 'spring-security', al mundo. Contiene la infrasestrucutra necesaria para construir la aplicación Web, soporte para Docker incluido.
-  * Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente se encarga de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado. El 'token' caduca a los 10 dias
+- vws-resources: Capa de controladores, donde exponemos nuestra API securizada con el soporte de 'spring-security', al mundo. Contiene la infraestructura necesaria para generar el backend de la aplicación Web, soporte para Docker incluido.
+  - Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente se encarga de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado. El 'token' caduca a los 10 dias
 
-### FrontEnd Javascript: Cliente ###
-
-El 'front' es una aplicación SPA, desarrollada con javascript, HTML5 y CSS3. La aplicación se empaqueta para producción dentro de un contenedor docker con apache.
-La organización del proyecto es muy básica:
-
-* app
-  * home : Pagina principal
-  * login : Componente de login
-  * modal : Componente con ventanas modales
-  * ... (resto de componentes)
-* shared : Servicios core, utilidades y configuracion compartida
-* index.html
 
 ## Backend: Arquitectura de desarrollo ##
 
 ### Tecnologías ###
 
-* GIT
-* maven
-* Docker/Compose
-* MySQL 5.X
-* Java 1.8 - Backend
-  * Spring Boot
-  * log4j2
-  * JSoup
-  * Swagger
-  * lombok
-  * jacoco/surefire/failsafe
-  * JWT
-* IDE eclipse
-* Postman
+- GIT
+- maven
+- Docker/Compose
+- MySQL 5.X
+- Java 1.8 - Backend
+  - Spring Boot
+  - log4j2
+  - JSoup
+  - Swagger
+  - lombok
+  - jacoco/surefire/failsafe
+  - JWT
+- IDE eclipse
+- Postman
 
 ### Testing ####
 
