@@ -36,7 +36,7 @@ El proposito de este desarrollo
 no es otro que probar, aprender y entender, diferentes técnicas/tecnologías 
 de desarrollo de aplicaciones web. 
 
-La funcionalidad/utilidad es lo de meno. El propio p principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad 
+La funcionalidad/utilidad es lo de meno. El propio principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad 
 básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent' 
 con peliculas y series de televisión.
 
@@ -45,15 +45,15 @@ con peliculas y series de televisión.
 ![figure-execution-architecture](resources/images/draw.io-figure-execution-architecture.png "Diagrama de Arquitectura lógica")
 ### 1.1 FrontEnd ###
 
-El 'front' es una aplicación SPA, desarrollada con javascript, HTML5 y CSS3, que lanza peticiones XHR contra una API Rest securizada. En general, el formato de intercambio de información, es JSON.
+El 'front' es una aplicación SPA, desarrollada en Javascript, además de HTML5 y CSS3 muy básicos, que lanza peticiones XHR contra una API REST securizada. En general, el formato de intercambio de información, es JSON.
 
 - Las peticiones deben de ir acompañadas del token JWT correspondiente, que nuestro API Rest proporciona a los usuarios que se encuentren dados de alta en la aplicacion. Para obtener el token, se requiere consumir el servicio de /login expuesto en el backend
 
-La aplicación 'font' debe de desplegarse lógicamente, en un servidor web, como puede ser Apache o Node. En nuestro caso, para producción, se empaqueta la aplicación en un contenedor docker con todo lo necesario para su ejecución.
+La aplicación 'front' debe de desplegarse lógicamente, en un servidor web, como puede ser Apache o Node. En nuestro caso, para producción, se empaqueta la aplicación en un contenedor docker con todo lo necesario para su ejecución.
 
 ### 1.2 Backend  ###
 ### 1.2.1 Aplicacion Spring Boot  ###
-El backend es una aplicación Java, que implementa una arquitectura clásica en capas, con el soporte de spring boot.
+La lógica de negocio, está desarrollada en Java, con el soporte de spring boot. La arquitectura de esta aplicación es la clásica de capas.
 
 - Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado.
 
@@ -61,7 +61,7 @@ Aunque por ser una aplicacion spring boot, no sería necesario, se ha empaquetad
 
 ### 1.2.2 MySQL: Base de Datos ###
 
-Para la persistencia de los datos (usuarios, favoritos ..), la aplicación java, se conecta contra una BB.DD MySQL.
+Para la persistencia de los datos (usuarios, favoritos ..), la aplicación Java, se conecta contra una BB.DD MySQL.
 
 Un MySQL "dockerizado" esta preparado con todo lo necesario para su ejecución.
 
@@ -71,14 +71,15 @@ El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). 
 
 ### 2.1 Construcción, empaquetado y perfiles : maven ###
 
-Hemos utilizado 'maven' para gestionar el ciclo de construcción del proyecto. Se han implementado tres perfiles:
+Se han implementado tres perfiles en el ciclo de vida maven, que se pasan como opción en el parámetro -P
 
-* develop (default):
-  * En tiempo de compilación, ejecuta test unitarios y evita los test de integracion
+* develop (Perfil por defecto): Lanza los test unitarios y evita los test de integración
 
-* integration: Ejecuta los test unitarios y de integracion
+* integration: Lanza los test unitarios y los de integracion. Util para entornos de Integración Continua
 
-* docker-support : Ejecuta la 'build' de contendedores docker en los proyectos dockerizados. NOTA: Requiere un demonio de docker corriendo en la maquina
+* docker-support : Ejecuta la 'build' de los contenedores docker en los proyectos dockerizados. En general, se usa para generar una version de produccion.
+  
+  * NOTA: Requiere un demonio de docker corriendo en la maquina
 
 Ejemplos:
 
