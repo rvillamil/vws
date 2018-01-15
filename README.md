@@ -2,9 +2,10 @@
 
 - [VWS: Video websites scraper](#vws-video-websites-scraper)
     - [1 Arquitectura software](#1-arquitectura-software)
-        - [1.1 FrontEnd Javascript: Cliente](#11-frontend-javascript-cliente)
-        - [1.2 Backend Java: API Rest](#12-backend-java-api-rest)
-        - [1.3 MySQL: Base de Datos](#13-mysql-base-de-datos)
+        - [1.1 FrontEnd](#11-frontend)
+        - [1.2 Backend](#12-backend)
+        - [1.2.1 Aplicacion Spring Boot](#121-aplicacion-spring-boot)
+        - [1.2.2 MySQL: Base de Datos](#122-mysql-base-de-datos)
     - [2 Arquitectura de desarrollo](#2-arquitectura-de-desarrollo)
         - [2.1 Construcción, empaquetado y perfiles : maven](#21-construcci%C3%B3n-empaquetado-y-perfiles-maven)
         - [2.3 Como comprobar el API](#23-como-comprobar-el-api)
@@ -35,14 +36,14 @@ El proposito de este desarrollo
 no es otro que probar, aprender y entender, diferentes técnicas/tecnologías 
 de desarrollo de aplicaciones web. 
 
-VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad 
+La funcionalidad/utilidad es lo de meno. El propio p principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad 
 básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent' 
 con peliculas y series de televisión.
 
 
 ## 1 Arquitectura software ##
 ![figure-execution-architecture](resources/images/draw.io-figure-execution-architecture.png "Diagrama de Arquitectura lógica")
-### 1.1 FrontEnd Javascript: Cliente ###
+### 1.1 FrontEnd ###
 
 El 'front' es una aplicación SPA, desarrollada con javascript, HTML5 y CSS3, que lanza peticiones XHR contra una API Rest securizada. En general, el formato de intercambio de información, es JSON.
 
@@ -50,23 +51,24 @@ El 'front' es una aplicación SPA, desarrollada con javascript, HTML5 y CSS3, qu
 
 La aplicación 'font' debe de desplegarse lógicamente, en un servidor web, como puede ser Apache o Node. En nuestro caso, para producción, se empaqueta la aplicación en un contenedor docker con todo lo necesario para su ejecución.
 
-### 1.2 Backend Java: API Rest ###
+### 1.2 Backend  ###
+### 1.2.1 Aplicacion Spring Boot  ###
+El backend es una aplicación Java, que implementa una arquitectura clásica en capas, con el soporte de spring boot.
 
-El backend es una aplicación Java, desarrollada con una arquitectura clásica en capas, con el soporte de spring boot.
+- Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado.
 
-- Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado. El 'token' caduca a los N dias configurables
+Aunque por ser una aplicacion spring boot, no sería necesario, se ha empaquetada en un contenedor docker con todo lo necesario para su ejecución.
 
-La aplicación esta empaquetada para producción, sobre un contenedor docker con todo lo necesario.
+### 1.2.2 MySQL: Base de Datos ###
 
-### 1.3 MySQL: Base de Datos ###
+Para la persistencia de los datos (usuarios, favoritos ..), la aplicación java, se conecta contra una BB.DD MySQL.
 
-Para la persistencia de los datos (usuarios, favoritos ..), el backend java, se conecta contra una BB.DD MySQL.
-
-Un MySQL "dockerizado" esta preparado con todo lo necesario. 
+Un MySQL "dockerizado" esta preparado con todo lo necesario para su ejecución.
 
 ## 2 Arquitectura de desarrollo ##
-// TODO: El proyecto esta alojado en ...y se llama
-// Se contruye con maven.. los perfiles son...
+
+El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). El ciclo de vida del proyecto, está cubierto en general, con el soporte de [maven](https://maven.apache.org)
+
 ### 2.1 Construcción, empaquetado y perfiles : maven ###
 
 Hemos utilizado 'maven' para gestionar el ciclo de construcción del proyecto. Se han implementado tres perfiles:
