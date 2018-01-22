@@ -1,33 +1,32 @@
 <!-- TOC -->
-
 - [VWS: Video websites scraper](#vws-video-websites-scraper)
-    - [1 Arquitectura software](#1-arquitectura-software)
-        - [1.1 FrontEnd](#11-frontend)
-        - [1.2 Backend](#12-backend)
-        - [1.2.1 Aplicacion Spring Boot](#121-aplicacion-spring-boot)
-        - [1.2.2 MySQL: Base de Datos](#122-mysql-base-de-datos)
-    - [2 Arquitectura de desarrollo](#2-arquitectura-de-desarrollo)
-        - [2.1 Construcción, empaquetado y perfiles : maven](#21-construcci%C3%B3n-empaquetado-y-perfiles-maven)
-        - [2.3 Como comprobar el API](#23-como-comprobar-el-api)
-        - [2.4 Sobre docker y Como generar un entregable para produccion](#24-sobre-docker-y-como-generar-un-entregable-para-produccion)
-        - [2.5 Sonarqube: Integracion con Sonarcloud](#25-sonarqube-integracion-con-sonarcloud)
-        - [2.6 Pipeline: Integracion con Jenkins pipeline](#26-pipeline-integracion-con-jenkins-pipeline)
-        - [2.7 Arquitectura de desarrollo del módulo de FrontEnd](#27-arquitectura-de-desarrollo-del-m%C3%B3dulo-de-frontend)
-            - [2.5.1 Tecnologías frontend](#251-tecnolog%C3%ADas-frontend)
-            - [2.5.2 Layout del 'frontend'](#252-layout-del-frontend)
-            - [2.5.3 Proceso de desarrollo para un 'Frontend Developer'](#253-proceso-de-desarrollo-para-un-frontend-developer)
-        - [2.6 Arquitectura de desarrollo de los móduloS de Backend](#26-arquitectura-de-desarrollo-de-los-m%C3%B3dulos-de-backend)
-            - [2.6.1 Tecnologias backend](#261-tecnologias-backend)
-            - [2.6.2 Layout de la aplicacion backend](#262-layout-de-la-aplicacion-backend)
-            - [2.6.3 Proceso de desarrollo para un 'Backend Developer'](#263-proceso-de-desarrollo-para-un-backend-developer)
-            - [2.6.4 Test unitarios y de integración en el Backend](#264-test-unitarios-y-de-integraci%C3%B3n-en-el-backend)
-            - [2.6.5 Sobre Swagger y la documentacion del API](#265-sobre-swagger-y-la-documentacion-del-api)
-        - [2.7 Arquitectura de desarrollo de la BB.DD](#27-arquitectura-de-desarrollo-de-la-bbdd)
-            - [2.7.1 Sobre el Modelado y su manteniento](#271-sobre-el-modelado-y-su-manteniento)
-            - [2.7.2  Como conectarse a H2 Embebida](#272-como-conectarse-a-h2-embebida)
-            - [2.7.3 Como conectarse a MySQL dockerizado](#273-como-conectarse-a-mysql-dockerizado)
-    - [4 Nuevas funcionalidades a implementar](#4-nuevas-funcionalidades-a-implementar)
-    - [5 Que cosas quiero probar ...](#5-que-cosas-quiero-probar)
+  - [1 Arquitectura software](#1-arquitectura-software)
+    - [1.1 FrontEnd](#11-frontend)
+    - [1.2 Backend](#12-backend)
+      - [1.2.1 Aplicacion Spring Boot](#121-aplicacion-spring-boot)
+      - [1.2.2 MySQL: Base de Datos](#122-mysql-base-de-datos)
+  - [2 Arquitectura de desarrollo](#2-arquitectura-de-desarrollo)
+    - [2.1 Construcción, empaquetado y perfiles : maven](#21-construcci%C3%B3n-empaquetado-y-perfiles-maven)
+    - [2.2 Pipeline: Integracion con Jenkins pipeline](#22-pipeline-integracion-con-jenkins-pipeline)
+    - [2.3 Sonarqube: Integracion con Sonarcloud](#23-sonarqube-integracion-con-sonarcloud)
+    - [2.4 Como generar un entregable para produccion : Genearion de los contenedores docker y ejecucion](#24-como-generar-un-entregable-para-produccion-genearion-de-los-contenedores-docker-y-ejecucion)
+    - [2.5 Arquitectura de desarrollo del módulo de FrontEnd](#25-arquitectura-de-desarrollo-del-m%C3%B3dulo-de-frontend)
+      - [2.5.1 Tecnologías frontend](#251-tecnolog%C3%ADas-frontend)
+      - [2.5.2 Layout del 'frontend'](#252-layout-del-frontend)
+      - [2.5.3 Proceso de desarrollo para un 'Frontend Developer'](#253-proceso-de-desarrollo-para-un-frontend-developer)
+    - [2.6 Arquitectura de desarrollo de los módulos de Backend](#26-arquitectura-de-desarrollo-de-los-m%C3%B3dulos-de-backend)
+      - [2.6.1 Tecnologias backend](#261-tecnologias-backend)
+      - [2.6.2 Layout de la aplicacion backend](#262-layout-de-la-aplicacion-backend)
+      - [2.6.3 Proceso de desarrollo para un 'Backend Developer'](#263-proceso-de-desarrollo-para-un-backend-developer)
+      - [2.6.4 Test unitarios y de integración en el Backend](#264-test-unitarios-y-de-integraci%C3%B3n-en-el-backend)
+      - [2.6.5 Sobre Swagger y la documentacion del API](#265-sobre-swagger-y-la-documentacion-del-api)
+      - [2.6.6 Como comprobar el API](#266-como-comprobar-el-api)
+    - [2.7 Arquitectura de desarrollo de la BB.DD](#27-arquitectura-de-desarrollo-de-la-bbdd)
+      - [2.7.1 Sobre el Modelado y su manteniento](#271-sobre-el-modelado-y-su-manteniento)
+      - [2.7.2  Como conectarse a H2 Embebida](#272-como-conectarse-a-h2-embebida)
+      - [2.7.3 Como conectarse a MySQL dockerizado](#273-como-conectarse-a-mysql-dockerizado)
+  - [3 Nuevas funcionalidades a implementar](#3-nuevas-funcionalidades-a-implementar)
+  - [4 Que cosas quiero probar ...](#4-que-cosas-quiero-probar)
 
 
 # VWS: Video websites scraper #
@@ -52,14 +51,14 @@ El 'front' es una aplicación SPA, desarrollada en Javascript, además de HTML5 
 La aplicación 'front' debe de desplegarse lógicamente, en un servidor web, como puede ser Apache o Node. En nuestro caso, para producción, se empaqueta la aplicación en un contenedor docker con todo lo necesario para su ejecución.
 
 ### 1.2 Backend  ###
-### 1.2.1 Aplicacion Spring Boot  ###
+#### 1.2.1 Aplicacion Spring Boot  ####
 La lógica de negocio, está desarrollada en Java, con el soporte de spring boot. La arquitectura de esta aplicación es la clásica de capas.
 
 - Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado.
 
 Aunque por ser una aplicacion spring boot, no sería necesario, se ha empaquetada en un contenedor docker con todo lo necesario para su ejecución.
 
-### 1.2.2 MySQL: Base de Datos ###
+#### 1.2.2 MySQL: Base de Datos ####
 
 Para la persistencia de los datos (usuarios, favoritos ..), la aplicación Java, se conecta contra una BB.DD MySQL.
 
@@ -67,7 +66,10 @@ Un MySQL "dockerizado" esta preparado con todo lo necesario para su ejecución.
 
 ## 2 Arquitectura de desarrollo ##
 
-El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). El ciclo de vida del proyecto, está cubierto en general, con el soporte de [maven](https://maven.apache.org)
+El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). El ciclo de vida del proyecto, está cubierto en general, con el soporte de [maven](https://maven.apache.org).
+Tambien hemos dado soporte para integracion continua con un pipeline de Jenkins
+La calidad se mide con Sonar
+
 
 ### 2.1 Construcción, empaquetado y perfiles : maven ###
 
@@ -87,30 +89,19 @@ Ejemplos:
 
 * $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
+### 2.2 Pipeline: Integracion con Jenkins pipeline  ###
+// TODO
+
+### 2.3 Sonarqube: Integracion con Sonarcloud  ###
+El proyecto se encuentra en: https://sonarcloud.io/organizations/rvillamil-bitbucket/projects
+mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
+
 
 Tenemos dos perfiles, descritos en el application.yml:
 - default : Ver script runSpringBootServerWithH2.sh
 - container : Se inicia desde un docker (Ver apartado ejecucion desde docker)
 
-### 2.3 Como comprobar el API ###
-
-Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens.
-Usuarios de prueba:
-  rodrigo/pepe
-  olga/lola
-
-Para probar:
-    # Postman
-
-    # Se lanza una petición de login
-    curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
-
-    # Con el token JWT que devuelve la peticion anterior, recuperamos los favoritos del usuario 'admin0
-    curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/favorites/
-
-
-
-### 2.4 Sobre docker y Como generar un entregable para produccion ###
+### 2.4 Como generar un entregable para produccion : Genearion de los contenedores docker y ejecucion ###
 
  * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
    requiere docker 1.12 o superior
@@ -134,15 +125,19 @@ Para probar:
 
 
  * Entrar dentro de contenedores docker basados en Alpine:  docker exec -it cnt-vws-resources
+ 
+ opcion 3 Como en produccion:
+  - docker-compose up para iniciar todos los contenerdos (con -d en background): La aplicación arranca en http://localhost:9090
+  - docker-compose stop (o ctrl-c) para pararlos
+  - docker-compose down para cargartelo todo
+  Para ver la BB.DD :
+     mysql vws -P 5306 -uroot -proot -h 127.0.0.1
 
-### 2.5 Sonarqube: Integracion con Sonarcloud  ###
-El proyecto se encuentra en: https://sonarcloud.io/organizations/rvillamil-bitbucket/projects
-mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
+Para Arrancar la BB.DD solo sin el Backend
+    docker-compose up service-bbdd
 
-### 2.6 Pipeline: Integracion con Jenkins pipeline  ###
-// TODO
 
-### 2.7 Arquitectura de desarrollo del módulo de FrontEnd ###
+### 2.5 Arquitectura de desarrollo del módulo de FrontEnd ###
 // TODO: La aplicacion frontend, es un módulo mas del proyecto y se llama 'vws-ui'...
 
 #### 2.5.1 Tecnologías frontend ####
@@ -168,29 +163,16 @@ El 'layout' es muy básico:
 #### 2.5.3 Proceso de desarrollo para un 'Frontend Developer' ####
 
 Hay varias formas de trabajar:
-1 - Contra un servidor node 'json-server' con datos de pruebas del fichero 'shows.json': $runJSONServer.sh
-2 - Contra el backend de 'vws-resources': $ runAWSBackEnd.sh : Esto levanta los contenedores docker
-
-Dentro del directorio test, tenemos un par de scripts
 
 Opcion 1:  $runJSONServer.sh
   Requiere instalada el modulo de node, json-server. Carga el fichero .json para pruebas sin BackEnd en localhost:3000
 
-Opcion 2: $runSpringBootServerWithH2.sh
+Opcion 2: Lanzar un backend para usarlo de pruebas:  $runSpringBootServerWithH2.sh
   Ejecuta el Backend pero contra una BB.DD embebida en h2
   La BBDD se regenera y se destruye en cada arranque o parada.
 
-opcion 3 Como en produccion:
-  - docker-compose up para iniciar todos los contenerdos (con -d en background): La aplicación arranca en http://localhost:9090
-  - docker-compose stop (o ctrl-c) para pararlos
-  - docker-compose down para cargartelo todo
-  Para ver la BB.DD :
-     mysql vws -P 5306 -uroot -proot -h 127.0.0.1
 
-Para Arrancar la BB.DD solo sin el Backend
-    docker-compose up service-bbdd
-
-### 2.6 Arquitectura de desarrollo de los móduloS de Backend ###
+### 2.6 Arquitectura de desarrollo de los módulos de Backend ###
 #### 2.6.1 Tecnologias backend ####
 
 - GIT
@@ -257,6 +239,22 @@ Para hacer test unitarios en los controladores REST:
 API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
 
 
+#### 2.6.6 Como comprobar el API ###
+
+Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens.
+Usuarios de prueba:
+  rodrigo/pepe
+  olga/lola
+
+Para probar:
+    # Postman
+
+    # Se lanza una petición de login
+    curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
+
+    # Con el token JWT que devuelve la peticion anterior, recuperamos los favoritos del usuario 'admin0
+    curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/favorites/
+
 ### 2.7 Arquitectura de desarrollo de la BB.DD ###
 #### 2.7.1 Sobre el Modelado y su manteniento ####
 - Creamos los objetos del modelo (Account, AccountRepository...) con JPA
@@ -282,7 +280,8 @@ Esta informacion la tenemos en el application.yml
 - mysql vws -uroot -proot
 
 
-## 4 Nuevas funcionalidades a implementar ##
+
+## 3 Nuevas funcionalidades a implementar ##
 
  * Automatizar la descarga de pelis cuando salgan en una calidad determinada.
      Por ejemplo, “Reservar Spiderman” y cuando "Spiderman" salga y ademas en la calidad que pongamos, la pondrá a descargar.
@@ -291,7 +290,7 @@ Esta informacion la tenemos en el application.yml
     - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
     - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 
-## 5 Que cosas quiero probar ... ##
+## 4 Que cosas quiero probar ... ##
  
  * Revisar la configuracion de spring boot y la carga de properties mas interesantes
       - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
