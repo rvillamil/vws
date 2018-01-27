@@ -20,52 +20,52 @@ import es.rvp.web.vws.domain.ShowFieldParser;
 @Component("showQualityParser")
 public class ShowQualityParser implements ShowFieldParser {
 
-	// LOGGER
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShowQualityParser.class);
+    // LOGGER
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShowQualityParser.class);
 
-	@Autowired
-	private final JSoupHelper jSoupHelper;
+    @Autowired
+    private final JSoupHelper jSoupHelper;
 
-	/**
-	 * Builder
-	 * @param jSoupHelper Facility to parse the HTML document
-	 */
-	public ShowQualityParser (final JSoupHelper jSoupHelper){
-		this.jSoupHelper = jSoupHelper;
-	}
+    /**
+     * Builder
+     * @param jSoupHelper Facility to parse the HTML document
+     */
+    public ShowQualityParser (final JSoupHelper jSoupHelper){
+        this.jSoupHelper = jSoupHelper;
+    }
 
-	/* (non-Javadoc)
-	 * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
-	 */
-	@Override
-	public String parse(final String htmlFragment) {
-		Document doc = Jsoup.parseBodyFragment(htmlFragment);
-		String quality  = null;
-		try {
-			quality = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
-			quality = this.getTextBetweenBracketsByPosition(quality,1).trim();
-			if (quality.equals("")) {
-				quality=null;
-			}
-		}
-		catch (Exception ex) {
-			LOGGER.warn(ex.getMessage(), ex);
-		}
+    /* (non-Javadoc)
+     * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
+     */
+    @Override
+    public String parse(final String htmlFragment) {
+        final Document doc = Jsoup.parseBodyFragment(htmlFragment);
+        String quality  = null;
+        try {
+            quality = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
+            quality = this.getTextBetweenBracketsByPosition(quality,1).trim();
+            if (quality.equals("")) {
+                quality=null;
+            }
+        }
+        catch (final Exception ex) {
+            LOGGER.warn(ex.getMessage(), ex);
+        }
 
-		return quality;
-	}
+        return quality;
+    }
 
-	/**
-	 * Get the text between the brackets of the position.
-	 *
-	 * @param text String with brackets
-	 * 		e.g.: [one][two][three]hello[four]
-	 * @param position The text between brackets position. Warning! Position [1..n]
-	 * 	 	e.g: 2
-	 * @return The text
-	 * 		e.g: "two"
-	 */
-	private String getTextBetweenBracketsByPosition (final String text, final int position) {
-		return text.split(Pattern.quote("["))[position].replace("]", "");
-	}
+    /**
+     * Get the text between the brackets of the position.
+     *
+     * @param text String with brackets
+     * 		e.g.: [one][two][three]hello[four]
+     * @param position The text between brackets position. Warning! Position [1..n]
+     * 	 	e.g: 2
+     * @return The text
+     * 		e.g: "two"
+     */
+    private String getTextBetweenBracketsByPosition (final String text, final int position) {
+        return text.split(Pattern.quote("["))[position].replace("]", "");
+    }
 }

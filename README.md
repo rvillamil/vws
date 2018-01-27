@@ -32,11 +32,11 @@
 # VWS: Video websites scraper #
 
 El proposito de este desarrollo
-no es otro que probar, aprender y entender, diferentes técnicas/tecnologías 
-de desarrollo de aplicaciones web. 
+no es otro que probar, aprender y entender, diferentes técnicas/tecnologías
+de desarrollo de aplicaciones web.
 
-La funcionalidad/utilidad es lo de meno. El propio principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad 
-básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent' 
+La funcionalidad/utilidad es lo de meno. El propio principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad
+básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent'
 con peliculas y series de televisión.
 
 
@@ -104,9 +104,9 @@ mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent pa
 
 Se requiere tener soporte para docker 1.12 o superior, en la máquina donde se genere el entregable y a continuación:
 
- - Ejecutar el comando maven: 
+ - Ejecutar el comando maven:
  ```
- $mvn install -P docker-support
+ $mvn clean install -P integration, docker-support
 ```
 
  - Lanzar todo el stack, con el soporte de 'docker-compose':
@@ -117,7 +117,7 @@ Se requiere tener soporte para docker 1.12 o superior, en la máquina donde se g
 - Comprobar la URL: http://localhost:9090 , donde tenemos los usuarios predefinidos siguientes:
   - usuario 1: 'rodrigo' y clave: 'pepe'
   - usuario 2: 'olga' y clave 'lola'
- 
+
  - Detenemos los contenedores con Ctrl-C o bien ejecutar 'docker-compose stop'
 
 ### 2.5 Arquitectura de desarrollo del módulo de FrontEnd ###
@@ -150,7 +150,7 @@ Hay varias formas de trabajar:
 Opcion 1:  $runJSONServer.sh
   Requiere instalada el modulo de node, json-server. Carga el fichero .json para pruebas sin BackEnd en localhost:3000
 
-Opcion 2: Lanzar un backend para usarlo de pruebas:  $runSpringBootServerWithH2.sh
+Opcion 2: Lanzar un backend para usarlo de pruebas:  $run-springbootapp-with-h2.sh
   Ejecuta el Backend pero contra una BB.DD embebida en h2
   La BBDD se regenera y se destruye en cada arranque o parada.
 
@@ -207,6 +207,7 @@ Importar el proyecto como proyecto maven en tu editor favorito
 
   Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
 
+Probar el API con el postman para detectar errores (Salvar fichero postman con los fuentes)
 
 Tenemos dos perfiles, descritos en el application.yml:
 - default : Ver script runSpringBootServerWithH2.sh
@@ -280,7 +281,7 @@ Esta informacion la tenemos en el application.yml
     - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 
 ## 4 Que cosas quiero probar ... ##
- 
+
  * Revisar la configuracion de spring boot y la carga de properties mas interesantes
       - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
       - http://www.baeldung.com/spring-boot-application-configuration
