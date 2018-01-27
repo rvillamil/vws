@@ -86,8 +86,11 @@ Ejemplos:
 
 * $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
+### 2.2 Jenkins: Integración continua  ###
 
-### 2.2 Sonarqube: Integracion con Sonarcloud  ###
+El fichero Jenkinsfile, es un pipeline válido que funciona dentro del proyecto [ci-tool-stack](https://github.com/rvillamil/ci-tool-stack)
+
+### 2.3 Sonarqube: Integracion con Sonarcloud  ###
 
 El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects) .
 
@@ -97,41 +100,25 @@ Para enviar metricas al Sonar desplegado en Sonarcloud, utilizar maven pasando e
 mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
 ```
 
-### 2.4 Como generar un entregable para produccion : Genearion de los contenedores docker y ejecucion ###
+### 2.4 Como generar un entregable para produccion: Contenedores docker y su ejecucion ###
 
- * Levantar el soporte para docker. El entorno de desarrollo/ejecucion
-   requiere docker 1.12 o superior
- * Ejecutar $mvn install -P docker-support  OJO! Los contenedores de docker de mysql y tomcat se generan con el plugin de maven!
+Se requiere tener soporte para docker 1.12 o superior, en la máquina donde se genere el entregable y a continuación:
 
- * Entrar dentro del proyecto 'vws-docker-support' y ejecutar 'docker-compose up'--> Revisar igual con el script es mejor
- * Ver que la apliacion está iniciada correctamente en:
+ - Ejecutar el comando maven: 
+ ```
+ $mvn install -P docker-support
+```
 
-    - http://localhost:8383/vws-resources-1.0-SNAPSHOT/billboardfilms
-    - http://localhost:8383/vws-resources-1.0-SNAPSHOT/
+ - Lanzar todo el stack, con el soporte de 'docker-compose':
 
- * Parar con crtl-c y ejecutar un 'docker-compose down'
-
- * Podemos generar un .war ejecutando un 'mvn package' (o un mvn install por supuesto)
-  dentro del proyecto de vws-resources
-  El war, esta preparado para desplegar en un tomcat:
-  http://localhost:8080/vws-resources-1.0-SNAPSHOT/
-
- * Podemos generar un contendor docker con la aplicacion autocontenida en un tomcat.
- Para ello ejecutamos el comando: // TODO
-
-
- * Entrar dentro de contenedores docker basados en Alpine:  docker exec -it cnt-vws-resources
+ ```
+ docker-compose up ( con -d, para demonizarlo)
+ ```
+- Comprobar la URL: http://localhost:9090 , donde tenemos los usuarios predefinidos siguientes:
+  - usuario 1: 'rodrigo' y clave: 'pepe'
+  - usuario 2: 'olga' y clave 'lola'
  
- opcion 3 Como en produccion:
-  - docker-compose up para iniciar todos los contenerdos (con -d en background): La aplicación arranca en http://localhost:9090
-  - docker-compose stop (o ctrl-c) para pararlos
-  - docker-compose down para cargartelo todo
-  Para ver la BB.DD :
-     mysql vws -P 5306 -uroot -proot -h 127.0.0.1
-
-Para Arrancar la BB.DD solo sin el Backend
-    docker-compose up service-bbdd
-
+ - Detenemos los contenedores con Ctrl-C o bien ejecutar 'docker-compose stop'
 
 ### 2.5 Arquitectura de desarrollo del módulo de FrontEnd ###
 // TODO: La aplicacion frontend, es un módulo mas del proyecto y se llama 'vws-ui'...
@@ -282,6 +269,8 @@ Esta informacion la tenemos en el application.yml
 - mysql vws -uroot -proot
 
 
+  Para ver la BB.DD desde un cliente Mysql:
+     mysql vws -P 5306 -uroot -proot -h 127.0.0.1
 
 ## 3 Nuevas funcionalidades a implementar ##
 
