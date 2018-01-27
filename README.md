@@ -90,7 +90,7 @@ Ejemplos:
 
 El fichero Jenkinsfile, es un pipeline válido que funciona dentro del proyecto [ci-tool-stack](https://github.com/rvillamil/ci-tool-stack)
 
-### 2.3 Sonarqube: Integracion con Sonarcloud  ###
+### 2.3 Sonarqube: Integración con Sonarcloud  ###
 
 El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects) .
 
@@ -100,7 +100,7 @@ Para enviar metricas al Sonar desplegado en Sonarcloud, utilizar maven pasando e
 mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
 ```
 
-### 2.4 Como generar un entregable para produccion: Contenedores docker y su ejecucion ###
+### 2.4 Como generar un entregable para producción: Contenedores docker y su ejecución ###
 
 Se requiere tener soporte para docker 1.12 o superior, en la máquina donde se genere el entregable y a continuación:
 
@@ -223,10 +223,8 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-tes
 Para hacer test unitarios en los controladores REST:
 "When we are unit testing a rest service, we would want to launch only the specific controller and the related MVC Components. WebMvcTest annotation is used for unit testing Spring MVC application. This can be used when a test focuses only Spring MVC components. Using this annotation will disable full auto-configuration and only apply configuration relevant to MVC tests."
 
-
 #### 2.6.5 Sobre Swagger y la documentacion del API ####
 API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
-
 
 #### 2.6.6 Como comprobar el API ###
 
