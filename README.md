@@ -67,21 +67,18 @@ Un MySQL "dockerizado" esta preparado con todo lo necesario para su ejecución.
 ## 2 Arquitectura de desarrollo ##
 
 El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). El ciclo de vida del proyecto, está cubierto en general, con el soporte de [maven](https://maven.apache.org).
-Tambien hemos dado soporte para integracion continua con un pipeline de Jenkins
-La calidad se mide con Sonar
-
+Tambien hemos dado soporte para integracion continua con un pipeline de Jenkins. En el directorio raiz del proyecto, hay un fichero 'Jenkisfile' que describe el pipeline.
+Se dispone del soporte de JaCoCo para generar informes de cobertura para Sonar.
 
 ### 2.1 Construcción, empaquetado y perfiles : maven ###
 
 Se han implementado tres perfiles en el ciclo de vida maven, que se pasan como opción en el parámetro -P
 
-* develop (Perfil por defecto): Lanza los test unitarios y evita los test de integración
+- develop (Perfil por defecto): Lanza los test unitarios y evita los test de integración
+- integration: Lanza los test unitarios y los de integracion. Util para entornos de Integración Continua
 
-* integration: Lanza los test unitarios y los de integracion. Util para entornos de Integración Continua
-
-* docker-support : Ejecuta la 'build' de los contenedores docker en los proyectos dockerizados. En general, se usa para generar una version de produccion.
-  
-  * NOTA: Requiere un demonio de docker corriendo en la maquina
+- docker-support : Ejecuta la 'build' de los contenedores docker en los proyectos dockerizados. En general, se usa para generar una version de produccion.
+  - NOTA: Requiere un demonio de docker corriendo en la maquina
 
 Ejemplos:
 
@@ -89,17 +86,16 @@ Ejemplos:
 
 * $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
-### 2.2 Pipeline: Integracion con Jenkins pipeline  ###
-// TODO
 
-### 2.3 Sonarqube: Integracion con Sonarcloud  ###
-El proyecto se encuentra en: https://sonarcloud.io/organizations/rvillamil-bitbucket/projects
+### 2.2 Sonarqube: Integracion con Sonarcloud  ###
+
+El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects) .
+
+Para enviar metricas al Sonar desplegado en Sonarcloud, utilizar maven pasando el usuario y password de la siguiente forma:
+
+```
 mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
-
-
-Tenemos dos perfiles, descritos en el application.yml:
-- default : Ver script runSpringBootServerWithH2.sh
-- container : Se inicia desde un docker (Ver apartado ejecucion desde docker)
+```
 
 ### 2.4 Como generar un entregable para produccion : Genearion de los contenedores docker y ejecucion ###
 
@@ -223,6 +219,12 @@ Importar el proyecto como proyecto maven en tu editor favorito
    http://stackoverflow.com/questions/31495451/is-there-a-permanent-fix-for-eclipse-deployment-assembly-losing-the-maven-depend
 
   Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
+
+
+Tenemos dos perfiles, descritos en el application.yml:
+- default : Ver script runSpringBootServerWithH2.sh
+- container : Se inicia desde un docker (Ver apartado ejecucion desde docker)
+
 
 #### 2.6.4 Test unitarios y de integración en el Backend #####
 // TODO
