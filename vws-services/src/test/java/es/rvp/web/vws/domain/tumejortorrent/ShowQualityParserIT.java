@@ -14,6 +14,10 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 import es.rvp.web.vws.utils.HTMLFactorySingleton;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ShowQualityParserIT.
+ */
 /*
  * @author Rodrigo Villamil Perez
  */
@@ -21,14 +25,19 @@ import es.rvp.web.vws.utils.HTMLFactorySingleton;
 @SpringBootTest(classes=TestConfig.class)
 public class ShowQualityParserIT {
 
+	/** The jsoup helper. */
 	// Clase de apoyo
 	@Autowired
 	private JSoupHelper jsoupHelper;
 
+	/** The show quality parser. */
 	// Interface a testear
 	@Autowired
 	private ShowFieldParser showQualityParser;
 
+	/**
+	 * Given HTML with TV show when parse then get episode not null.
+	 */
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetEpisodeNotNull() {
 		// Given

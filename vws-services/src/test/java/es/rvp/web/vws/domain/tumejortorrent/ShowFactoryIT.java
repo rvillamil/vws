@@ -15,6 +15,10 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.domain.ShowFactory;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ShowFactoryIT.
+ */
 /*
  * @author Rodrigo Villamil Perez
  */
@@ -22,14 +26,19 @@ import es.rvp.web.vws.domain.ShowFactory;
 @SpringBootTest(classes=TestConfig.class)
 public class ShowFactoryIT {
 
+	/** The jsoup helper. */
 	// Clase de apoyo
 	@Autowired
 	private JSoupHelper jsoupHelper;
 
+	/** The show factory. */
 	// Interface a testear
 	@Autowired
 	private ShowFactory showFactory;
 
+	/**
+	 * Given HTML with film when parse then get show instance.
+	 */
 	// ------------------------ newInstance -----------------------------------
 	@Test
 	public void givenHTMLWithFilmWhenParseThenGetShowInstance() {
@@ -57,6 +66,9 @@ public class ShowFactoryIT {
 		assertNotNull 	( show.getSinopsis());
 	}
 
+	/**
+	 * Given HTML with TV show when parse then get show instance.
+	 */
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetShowInstance() {
 

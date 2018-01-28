@@ -11,30 +11,48 @@ import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ShowFactoryImpl.
+ *
  * @author Rodrigo Villamil Perez
  */
 @Component("showFactory")
 public class ShowFactoryImpl implements ShowFactory {
 
+	/** The Constant LOGGER. */
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(ShowFactoryImpl.class);
 
+	/** The j soup helper. */
 	@Autowired
 	private final JSoupHelper 				jSoupHelper;
+	
+	/** The show episode parser. */
 	@Autowired
 	private final ShowFieldParser 			showEpisodeParser;
+	
+	/** The show quality parser. */
 	@Autowired
 	private final ShowFieldParser 			showQualityParser;
+	
+	/** The show session parser. */
 	@Autowired
 	private final ShowFieldParser 			showSessionParser;
+	
+	/** The show URL to download parser. */
 	@Autowired
 	private final ShowFieldParser 			showURLToDownloadParser;
 
 
 	/**
-	 * Default builder
+	 * Default builder.
+	 *
 	 * @param jSoupHelper The HTML parser helper
+	 * @param showEpisodeParser the show episode parser
+	 * @param showQualityParser the show quality parser
+	 * @param showSessionParser the show session parser
+	 * @param showURLToDownloadParse the show URL to download parse
 	 */
 	public ShowFactoryImpl(
 			final JSoupHelper  		  	jSoupHelper,

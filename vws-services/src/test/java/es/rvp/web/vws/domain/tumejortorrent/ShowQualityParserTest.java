@@ -14,23 +14,34 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ShowQualityParserTest.
+ *
  * @author Rodrigo Villamil Perez
  */
 public class ShowQualityParserTest {
 
+	/** The show quality parser. */
 	// Clases a testear
 	private ShowFieldParser 		showQualityParser;
 
+	/** The j soup helper. */
 	// Clases a mockear
 	private JSoupHelper 			jSoupHelper;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.jSoupHelper 		= mock (JSoupHelperImpl.class);
 		this.showQualityParser  	= new ShowQualityParser (this.jSoupHelper);
 	}
 
+	/**
+	 * Given HTML with quality field parse then get the quality string.
+	 */
 	@Test
 	public void givenHTMLWithQualityFieldParseThenGetTheQualityString() {
 

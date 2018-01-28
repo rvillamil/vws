@@ -15,23 +15,34 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ShowEpisodeParserTest.
+ *
  * @author Rodrigo Villamil Perez
  */
 public class ShowEpisodeParserTest {
 
+	/** The show episode parser. */
 	// Clases a testear
 	private ShowFieldParser 		showEpisodeParser;
 
+	/** The j soup helper. */
 	// Clases a mockear
 	private JSoupHelper 			jSoupHelper;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.jSoupHelper 		= mock (JSoupHelperImpl.class);
 		this.showEpisodeParser  	= new ShowEpisodeParser (this.jSoupHelper);
 	}
 
+	/**
+	 * Given HTML with TV show when parse then get the episode.
+	 */
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetTheEpisode() {
 
@@ -47,6 +58,9 @@ public class ShowEpisodeParserTest {
 		assertEquals("18", this.showEpisodeParser.parse(htmlFragment));
 	}
 
+	/**
+	 * Given HTML with TV show with two episodes when parse then get the episodes.
+	 */
 	@Test
 	public void givenHTMLWithTVShowWithTwoEpisodesWhenParseThenGetTheEpisodes() {
 
@@ -63,6 +77,9 @@ public class ShowEpisodeParserTest {
 	}
 
 
+	/**
+	 * Given HTML with out session field parse then get null.
+	 */
 	@Test
 	public void givenHTMLWithOutSessionFieldParseThenGetNull() {
 

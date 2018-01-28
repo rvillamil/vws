@@ -9,19 +9,29 @@ import org.mockito.Mockito;
 
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ShowURLToDownloadParserTest.
+ *
  * @author Rodrigo Villamil Perez
  */
 public class ShowURLToDownloadParserTest {
 
+	/** The show URL to download parser. */
 	// Clases a testear
 	private ShowFieldParser 		showURLToDownloadParser;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.showURLToDownloadParser  = new ShowURLToDownloadParser ();
 	}
 
+	/**
+	 * Given HTML with URL to download field parse then get the URL to download string.
+	 */
 	@Test
 	@Ignore // Usar otro tipo de test ¿Un Spy?
 	public void givenHTMLWithURLToDownloadFieldParseThenGetTheURLToDownloadString() {
@@ -37,6 +47,9 @@ public class ShowURLToDownloadParserTest {
 		assertEquals (data, "http://wwww.urltodownload.com");
 	}
 
+	/**
+	 * Given HTML with out URL to download field parse then get null.
+	 */
 	@Test
 	@Ignore
 	public void givenHTMLWithOutURLToDownloadFieldParseThenGetNull() {

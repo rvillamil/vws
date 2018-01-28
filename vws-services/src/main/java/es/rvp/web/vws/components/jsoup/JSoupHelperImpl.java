@@ -12,13 +12,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+// TODO: Auto-generated Javadoc
 /**
- * @see es.rvp.web.vws.components.parsers.jsoup.JSoupHelper
+ * The Class JSoupHelperImpl.
+ *
  * @author Rodrigo Villamil Perez
+ * @see es.rvp.web.vws.components.parsers.jsoup.JSoupHelper
  */
 @Component("jSoupHelper")
 public class JSoupHelperImpl implements JSoupHelper {
 
+	/** The Constant LOGGER. */
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(JSoupHelperImpl.class);
 

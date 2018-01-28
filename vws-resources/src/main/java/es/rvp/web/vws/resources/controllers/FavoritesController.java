@@ -23,6 +23,7 @@ import es.rvp.web.vws.domain.AccountRepository;
 import es.rvp.web.vws.domain.Favorite;
 import es.rvp.web.vws.domain.FavoriteRepository;
 
+// TODO: Auto-generated Javadoc
 /**
  * Rest Controller In Spring’s approach to building RESTful web services, HTTP
  * requests are handled by a controller.
@@ -32,16 +33,22 @@ import es.rvp.web.vws.domain.FavoriteRepository;
 @RestController
 @RequestMapping("/api/favorites/")
 public class FavoritesController {
+	
+	/** The Constant LOGGER. */
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(FavoritesController.class);
 
+	/** The favorite repository. */
 	private final FavoriteRepository 	favoriteRepository;
+	
+	/** The account repository. */
 	private final AccountRepository 	accountRepository;
 
 	/**
-	 * Builder
+	 * Builder.
+	 *
 	 * @param favoriteRepository repository with favorites user shows
-	 * @param AccountRepository  repository with user account
+	 * @param accountRepository the account repository
 	 */
 	@Autowired
 	public FavoritesController ( final FavoriteRepository favoriteRepository,
@@ -52,7 +59,9 @@ public class FavoritesController {
 	}
 
 	/**
-	 * GET all favorites for the authenticated user
+	 * GET all favorites for the authenticated user.
+	 *
+	 * @param principal the principal
 	 * @return HttpStatus.OK if favorites are found or HttpStatus.NOT_FOUND in other case
 	 */
 	@GetMapping
@@ -69,7 +78,9 @@ public class FavoritesController {
 	}
 
 	/**
-	 * GET favorite by title for the authenticated user
+	 * GET favorite by title for the authenticated user.
+	 *
+	 * @param principal the principal
 	 * @param title The name of the favorite
 	 * @return HttpStatus.OK if favorites are found or HttpStatus.NOT_FOUND in other case
 	 */
@@ -92,6 +103,8 @@ public class FavoritesController {
 	/**
 	 * POST favorite. Create new favorite for the authenticated user
 	 *
+	 * @param principal the principal
+	 * @param ucBuilder the uc builder
 	 * @param newFavorite The favorite object to create
 	 * @return HttpStatus.CREATED or HttpStatus.CONFLICT if already exists
 	 */
@@ -127,7 +140,7 @@ public class FavoritesController {
 	}
 
 	/**
-	 * PUT (Update) the favorite by id
+	 * PUT (Update) the favorite by id.
 	 *
 	 * @param id The favorite ID in database
 	 * @param newFavorite Object to replace
@@ -153,11 +166,11 @@ public class FavoritesController {
 	 }
 
 	 /**
-	  * DELETE Favorite by id
-	  *
-	  * @param id The favorite ID in database
-	  * @return HttpStatus.NO_CONTENT if favorite has been deleted. HttpStatus.NOT_FOUND in other case
-	  */
+ 	 * DELETE Favorite by id.
+ 	 *
+ 	 * @param id The favorite ID in database
+ 	 * @return HttpStatus.NO_CONTENT if favorite has been deleted. HttpStatus.NOT_FOUND in other case
+ 	 */
 	 @DeleteMapping ( value = "/{id}")
 	 public ResponseEntity<?> deleteFavorite( @PathVariable final  Long id) {
 		 LOGGER.info("Fetching & Deleting favorite with id '{}'", id);
@@ -174,7 +187,12 @@ public class FavoritesController {
 		 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	 }
 
-	 // ---------------------------------- Private Methods ----------------------------------------
+	 /**
+ 	 * Validate user.
+ 	 *
+ 	 * @param principal the principal
+ 	 */
+ 	// ---------------------------------- Private Methods ----------------------------------------
 	 private void validateUser(final Principal principal) {
 		 this.accountRepository
 		 	.findByUserName(principal.getName())

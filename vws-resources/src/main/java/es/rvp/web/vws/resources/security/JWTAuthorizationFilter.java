@@ -19,6 +19,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import io.jsonwebtoken.Jwts;
 
+// TODO: Auto-generated Javadoc
 /**
  * La clase responsable de la autorización verifica la cabecera en busca de un token, se
  * verifica el token y se extrae la información del mismo para establecer la identidad del
@@ -32,10 +33,18 @@ import io.jsonwebtoken.Jwts;
  */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
+	/**
+	 * Instantiates a new JWT authorization filter.
+	 *
+	 * @param authManager the auth manager
+	 */
 	public JWTAuthorizationFilter(final AuthenticationManager authManager) {
 		super(authManager);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.web.authentication.www.BasicAuthenticationFilter#doFilterInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+	 */
 	@Override
 	protected void doFilterInternal(final HttpServletRequest req, final HttpServletResponse res, final FilterChain chain)
 			throws IOException, ServletException {
@@ -49,6 +58,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(req, res);
 	}
 
+	/**
+	 * Gets the authentication.
+	 *
+	 * @param request the request
+	 * @return the authentication
+	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(final HttpServletRequest request) {
 		final String token = request.getHeader(HEADER_AUTHORIZACION_KEY);
 		if (token != null) {

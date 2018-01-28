@@ -4,6 +4,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+// TODO: Auto-generated Javadoc
 /**
  * Wrapper for JSoup library. Web scraping purposes
  *
@@ -17,7 +18,7 @@ import org.jsoup.select.Elements;
 public interface JSoupHelper {
 
 	/**
-	 * Create HTML document by any text
+	 * Create HTML document by any text.
 	 *
 	 * @param text String with HTML
 	 * @return Jsoup Document object
@@ -25,7 +26,7 @@ public interface JSoupHelper {
 	Document newInstanceFromText (String text);
 
 	/**
-	 * Create new jsoup document instance by existing URL
+	 * Create new jsoup document instance by existing URL.
 	 *
 	 * @param urlString Existing/valid url
 	 * @return Jsoup Document object or null
@@ -34,10 +35,9 @@ public interface JSoupHelper {
 
 	/**
 	 * Create new jsoup document instance with CONTENT of the URL in the first href string,
-	 * from the element param
+	 * from the element param.
 	 *
-	 * @param element
-	 *            jsoup element object with href subelement
+	 * @param element            jsoup element object with href subelement
 	 *            .e.g: from tumejortorrent
 	 *            <li>
 	 *            <a href=
@@ -45,20 +45,18 @@ public interface JSoupHelper {
 	 *            	title="Serie en HD Modern Family Temporada 8 Capitulo 10">
 	 *            	<img src="http://www.tumejortorrent.com/pictures/c/2261_modern-family.jpg"
 	 *            	      alt="Serie en HD Modern Family Temporada 8 Capitulo 10"> </a>
-	 *
+	 * 
 	 *  				.....
 	 *            </li>
-	 *
 	 * @return Jsoup Document object with the URL from element or null
 	 * 		  .e.g: Get the document from the URL
 	 *         href="http://www.tumejortorrent.com/descargar-seriehd/modern-family/capitulo-810/hdtv-720p-ac3-5-1/
-	 *
 	 */
 	Document newInstanceFromElementWithURL(final Element element);
 
 	/**
 	 * Given document object with HTML List return the jsoup elemenst object whith <li> elements
-	 *
+	 * 
 	 * .e.g:
 	 * <ul class="className">
 	 * 		<li>one</li>
@@ -66,11 +64,9 @@ public interface JSoupHelper {
 	 * 		<li>n</li>
 	 * </ul>
 	 *
+	 * @param document the document
 	 * @param classWithNameOfList Class with name of the list
 	 * 		 .e.g: "className"
-	 *
-	 * @param documen Jsoup document object with the HTML
-	 *
 	 * @return JSoup elements with the html list. If className not exists/not
 	 *         found, the list size will be zero (empty list)
 	 *      .e.g: elements = { [<li>one</li>], [<li>two</li>] ..etc }
@@ -115,12 +111,11 @@ public interface JSoupHelper {
 
 
 	/**
-	 * Find elements with url, that have this className
+	 * Find elements with url, that have this className.
 	 *
 	 * @param document The HTML document
 	 * 	.e.g:. <a href="http://www.google.es" title="Prueba" class="btn-torrent" target="_blank">Descarga tu Archivo torrent!</a>
-	 *		   <a href="http://www.yahoo.es" title="Prueba2" class="btn-torrent" target="_blank">Descarga tu Archivo torrent!</a>
-	 *
+	 * 		   <a href="http://www.yahoo.es" title="Prueba2" class="btn-torrent" target="_blank">Descarga tu Archivo torrent!</a>
 	 * @param className The class name
 	 *  .e.g: "btn-torrent"
 	 * @param index the index of the element, from the list of elements obtained
@@ -132,21 +127,20 @@ public interface JSoupHelper {
 
 
 	/**
-	 * Find the url in "src" from "img" elements, that have this className
+	 * Find the url in "src" from "img" elements, that have this className.
 	 *
 	 * @param document The HTML document
 	 * 	.e.g:.
 	 * <div class="entry-left">
- 	 *    <a href="series/modern-family/">
- 	 *		<img src="http://www.prueba1.jpg"
- 	 *		     alt="Descargar Modern Family - Temporada 8  torrent gratis" width="160"
- 	 *		     height="230" style="margin:0px 10px;">
- 	 *    </a>
- 	 *	   <a href="series/modern-family/">
- 	 *		<img src="http://www.prueba2.jpg">
- 	 *	  </a>
- 	 *  </div>
-	 *
+	 *    <a href="series/modern-family/">
+	 * 		<img src="http://www.prueba1.jpg"
+	 * 		     alt="Descargar Modern Family - Temporada 8  torrent gratis" width="160"
+	 * 		     height="230" style="margin:0px 10px;">
+	 *    </a>
+	 * 	   <a href="series/modern-family/">
+	 * 		<img src="http://www.prueba2.jpg">
+	 * 	  </a>
+	 *  </div>
 	 * @param className The class name
 	 *  .e.g: "entry-left"
 	 * @param index the index of the element, from the list of elements obtained

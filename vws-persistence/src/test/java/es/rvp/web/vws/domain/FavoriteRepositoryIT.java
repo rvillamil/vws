@@ -14,9 +14,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+// TODO: Auto-generated Javadoc
 /**
  * Integration test showing the basic usage of {@link FavoriteRepository}.
- * 
+ *
+ * @author Rodrigo Villamil Pérez
  * @RunWith(SpringRunner.class) is used to provide a bridge between Spring Boot
  *                              test features and JUnit. Whenever we are using
  *                              any Spring Boot testing features in out JUnit
@@ -25,8 +27,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  *              layer: - configuring H2, an in-memory database - setting
  *              Hibernate, Spring Data, and the DataSource - performing
  *              an @EntityScan - turning on SQL logging
- * 
- * @author Rodrigo Villamil Pérez
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -42,9 +42,13 @@ public class FavoriteRepositoryIT {
 	@Autowired
 	private TestEntityManager entityManager;
 
+	/** The favorite repository. */
 	@Autowired
 	FavoriteRepository favoriteRepository;
 	
+	/**
+	 * Given user when find favorites the renturn all favorites.
+	 */
 	@Test	
 	public void givenUserWhenFindFavoritesTheRenturnAllFavorites() {		
 				
@@ -67,6 +71,9 @@ public class FavoriteRepositoryIT {
 		assertEquals(favorites.size(), 2);	
 	}	
 	
+	/**
+	 * Given user when find favorites then renturn empty list.
+	 */
 	@Test	
 	public void givenUserWhenFindFavoritesThenRenturnEmptyList() {		
 				
@@ -85,6 +92,9 @@ public class FavoriteRepositoryIT {
 		assertEquals(favorites.size(), 0);	
 	}
 	
+	/**
+	 * Given user not exist when find favorites then return empty list.
+	 */
 	@Test	
 	public void givenUserNotExistWhenFindFavoritesThenReturnEmptyList() {		
 				
@@ -103,6 +113,9 @@ public class FavoriteRepositoryIT {
 		assertEquals(favorites.size(), 0);	
 	}
 	
+	/**
+	 * Given user name and title when find by user name and tittle then return favorite.
+	 */
 	@Test	
 	public void givenUserNameAndTitleWhenFindByUserNameAndTittleThenReturnFavorite (){
 		
@@ -127,6 +140,9 @@ public class FavoriteRepositoryIT {
 	}
 	
 
+	/**
+	 * Given user name and title when find by user name and wrong tittle then return none.
+	 */
 	@Test	
 	public void givenUserNameAndTitleWhenFindByUserNameAndWrongTittleThenReturnNone (){
 		
@@ -149,6 +165,9 @@ public class FavoriteRepositoryIT {
 	}
 	
 	
+	/**
+	 * Given user name and title when find by wrong user name and tittle then return none.
+	 */
 	@Test	
 	public void givenUserNameAndTitleWhenFindByWrongUserNameAndTittleThenReturnNone (){
 		
@@ -171,6 +190,9 @@ public class FavoriteRepositoryIT {
 	}
 	
 	
+	/**
+	 * Given user name and title when find by wrong user name and wrong tittle then return none.
+	 */
 	@Test	
 	public void givenUserNameAndTitleWhenFindByWrongUserNameAndWrongTittleThenReturnNone (){
 		

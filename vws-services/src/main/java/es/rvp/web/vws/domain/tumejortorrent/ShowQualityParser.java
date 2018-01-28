@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
  * Implements #{@link es.rvp.web.vws.domain.ShowFieldParser} for parsing the quality show field
  *
@@ -20,14 +21,17 @@ import es.rvp.web.vws.domain.ShowFieldParser;
 @Component("showQualityParser")
 public class ShowQualityParser implements ShowFieldParser {
 
+    /** The Constant LOGGER. */
     // LOGGER
     private static final Logger LOGGER = LoggerFactory.getLogger(ShowQualityParser.class);
 
+    /** The j soup helper. */
     @Autowired
     private final JSoupHelper jSoupHelper;
 
     /**
-     * Builder
+     * Builder.
+     *
      * @param jSoupHelper Facility to parse the HTML document
      */
     public ShowQualityParser (final JSoupHelper jSoupHelper){

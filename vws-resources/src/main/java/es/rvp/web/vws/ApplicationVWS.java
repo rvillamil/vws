@@ -22,6 +22,7 @@ import es.rvp.web.vws.domain.tumejortorrent.ShowQualityParser;
 import es.rvp.web.vws.domain.tumejortorrent.ShowSessionParser;
 import es.rvp.web.vws.domain.tumejortorrent.ShowURLToDownloadParser;
 
+// TODO: Auto-generated Javadoc
 /**
  * Spring boot Application: https://spring.io/guides/gs/spring-boot/
  *
@@ -30,11 +31,13 @@ import es.rvp.web.vws.domain.tumejortorrent.ShowURLToDownloadParser;
 @SpringBootApplication
 public class ApplicationVWS {
 
+	/** The Constant LOGGER. */
 	// LOGGER
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationVWS.class);
 
 	/**
-	 * Main method for spring boot applications
+	 * Main method for spring boot applications.
+	 *
 	 * @param args argument list
 	 */
 	public static void main(final String[] args) {
@@ -42,6 +45,14 @@ public class ApplicationVWS {
 	}
 
 
+	/**
+	 * Inits the.
+	 *
+	 * @param accountRepository the account repository
+	 * @param favoriteRepository the favorite repository
+	 * @param bCryptPasswordEncoder the b crypt password encoder
+	 * @return the command line runner
+	 */
 	/*
 	 * For testing purposes:
 	 *
@@ -60,37 +71,72 @@ public class ApplicationVWS {
 		};
 	}
 
+	/**
+	 * B crypt password encoder.
+	 *
+	 * @return the b crypt password encoder
+	 */
 	// ---------------------- Application config -----------------------------
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * J soup helper.
+	 *
+	 * @return the j soup helper
+	 */
 	@Bean
 	JSoupHelper jSoupHelper() {
 		return new JSoupHelperImpl();
 	}
 
+	/**
+	 * Show episode parser.
+	 *
+	 * @return the show field parser
+	 */
 	@Bean
 	ShowFieldParser showEpisodeParser() {
 		return new ShowEpisodeParser(this.jSoupHelper());
 	}
 
+	/**
+	 * Show quality parser.
+	 *
+	 * @return the show field parser
+	 */
 	@Bean
 	ShowFieldParser showQualityParser() {
 		return new ShowQualityParser(this.jSoupHelper());
 	}
 
+	/**
+	 * Show session parser.
+	 *
+	 * @return the show field parser
+	 */
 	@Bean
 	ShowFieldParser showSessionParser() {
 		return new ShowSessionParser(this.jSoupHelper());
 	}
 
+	/**
+	 * Show URL to download parser.
+	 *
+	 * @return the show field parser
+	 */
 	@Bean
 	ShowFieldParser showURLToDownloadParser() {
 		return new ShowURLToDownloadParser();
 	}
 
+	/**
+	 * Show factory.
+	 *
+	 * @return the show factory
+	 */
 	@Bean
 	ShowFactory showFactory() {
 		return new ShowFactoryImpl(

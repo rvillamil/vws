@@ -2,13 +2,22 @@ package es.rvp.web.vws.utils;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 
+// TODO: Auto-generated Javadoc
 /**
- * @author Rodrigo
+ * The Enum HTMLFactorySingleton.
  *
+ * @author Rodrigo
  */
 public enum HTMLFactorySingleton {
+	
+	/** The instance. */
 	INSTANCE;
 
+	/**
+	 * New HTML fragment.
+	 *
+	 * @return the string
+	 */
 	public String newHTMLFragment () {
 		final StringBuilder htmlFragment=new StringBuilder("<!DOCTYPE html>");
 		htmlFragment.append("<html>");
@@ -23,6 +32,12 @@ public enum HTMLFactorySingleton {
 		return htmlFragment.toString();
 	}
 
+	/**
+	 * New HTML with H 1 header.
+	 *
+	 * @param h1header the h 1 header
+	 * @return the string
+	 */
 	public String newHTMLWithH1Header(final String h1header) {
 		final StringBuilder htmlFragment=new StringBuilder("<!DOCTYPE html>");
 		htmlFragment.append("<html>");
@@ -41,6 +56,12 @@ public enum HTMLFactorySingleton {
 		return htmlFragment.toString();
 	}
 
+	/**
+	 * New HTML fragment with body.
+	 *
+	 * @param body the body
+	 * @return the string
+	 */
 	public String newHTMLFragmentWithBody (final String body) {
 		final StringBuilder htmlFragment=new StringBuilder("<!DOCTYPE html>");
 		htmlFragment.append("<html>");
@@ -52,6 +73,11 @@ public enum HTMLFactorySingleton {
 		return htmlFragment.toString();
 	}
 
+	/**
+	 * New HTML with IMG fragment.
+	 *
+	 * @return the string
+	 */
 	public String newHTMLWithIMGFragment () {
 		final StringBuilder htmlFragment=new StringBuilder("<!DOCTYPE html>");
 		htmlFragment.append("<html>");
@@ -76,6 +102,11 @@ public enum HTMLFactorySingleton {
 	}
 
 
+	/**
+	 * New HTML with class fragment.
+	 *
+	 * @return the string
+	 */
 	public String newHTMLWithClassFragment () {
 		final StringBuilder htmlFragment=new StringBuilder("<!DOCTYPE html>");
 		htmlFragment.append("<html>");
@@ -91,6 +122,11 @@ public enum HTMLFactorySingleton {
 		return htmlFragment.toString();
 	}
 
+	/**
+	 * New HTML with URL class fragment.
+	 *
+	 * @return the string
+	 */
 	public String newHTMLWithURLClassFragment () {
 		final StringBuilder htmlFragment=new StringBuilder("<!DOCTYPE html>");
 		htmlFragment.append("<html>");
@@ -106,6 +142,13 @@ public enum HTMLFactorySingleton {
 		return htmlFragment.toString();
 	}
 
+	/**
+	 * New HTML with list.
+	 *
+	 * @param numberListElements the number list elements
+	 * @param className the class name
+	 * @return the string
+	 */
 	public String newHTMLWithList ( final int numberListElements,
 			final String 	className ) {
 
@@ -123,6 +166,13 @@ public enum HTMLFactorySingleton {
 		return htmlString + "</ul>";
 	}
 
+	/**
+	 * Gets the HTML by URL.
+	 *
+	 * @param jsoupHelper the jsoup helper
+	 * @param URL the url
+	 * @return the HTML by URL
+	 */
 	public String getHTMLByURL (final JSoupHelper jsoupHelper, final String URL){
 		return jsoupHelper.newInstanceByURL(URL).html();
 	}

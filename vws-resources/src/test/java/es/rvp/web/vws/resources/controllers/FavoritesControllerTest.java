@@ -33,6 +33,7 @@ import es.rvp.web.vws.domain.AccountRepository;
 import es.rvp.web.vws.domain.Favorite;
 import es.rvp.web.vws.domain.FavoriteRepository;
 
+// TODO: Auto-generated Javadoc
 /**
  * To test the Controllers, we can use @WebMvc	Test. It will auto-configure the Spring
  * MVC infrastructure for our unit tests.
@@ -45,22 +46,38 @@ import es.rvp.web.vws.domain.FavoriteRepository;
 @WebMvcTest(FavoritesController.class)
 public class FavoritesControllerTest {
 
+    /** The mvc. */
     @Autowired
     private MockMvc mvc;
 
+    /** The favorite repository. */
     @MockBean
     private  FavoriteRepository 	favoriteRepository;
+    
+    /** The account repository. */
     @MockBean
     private  AccountRepository 		accountRepository;
 
 
+    /** The user name test. */
     // Test Data
     private final String userNameTest = "user";
+    
+    /** The user name password. */
     private final String userNamePassword = "password";
+    
+    /** The account. */
     private Account account;
+    
+    /** The non empty account. */
     private Optional<Account> nonEmptyAccount ;
+    
+    /** The mock principal. */
     private Principal mockPrincipal;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup(){
     	this.account = new Account (this.userNameTest, this.userNamePassword);
@@ -71,6 +88,11 @@ public class FavoritesControllerTest {
     		  this.mockPrincipal.getName())).thenReturn(this.nonEmptyAccount);
     }
 
+    /**
+     * Given account with favorites when get all favorites then return json array.
+     *
+     * @throws Exception the exception
+     */
     // ----------------------- listAllFavorites ---------------------------
     @Test
     public void givenAccountWithFavorites_whenGetAllFavorites_thenReturnJsonArray() throws Exception {
@@ -91,6 +113,11 @@ public class FavoritesControllerTest {
                  .andExpect(jsonPath("$[2].title", is("Lost_2")));
     }
 
+    /**
+     * Given account with outh favorites when get all favorites then return epmty array.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenAccountWithOuthFavorites_whenGetAllFavorites_thenReturnEpmtyArray() throws Exception {
     	// Given
@@ -107,6 +134,11 @@ public class FavoritesControllerTest {
     			 .andExpect(status().is4xxClientError() );
     }
 
+    /**
+     * Given title when get favorite then return json.
+     *
+     * @throws Exception the exception
+     */
     // ------------------------ getFavorite -----------------------------
     @Test
     public void givenTitle_whenGetFavorite_thenReturnJson() throws Exception {
@@ -122,6 +154,11 @@ public class FavoritesControllerTest {
     			.andExpect(status().isOk());
     }
 
+    /**
+     * Given not existing title when get favorite then return json.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenNotExistingTitle_whenGetFavorite_thenReturnJson() throws Exception {
     	// Given
@@ -137,6 +174,11 @@ public class FavoritesControllerTest {
     			.andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Given not existing favorite when create new favorite then return json.
+     *
+     * @throws Exception the exception
+     */
     // ----------------------- createFavorite ---------------------------
     @Test
     public void givenNotExistingFavorite_whenCreateNewFavorite_thenReturnJson() throws Exception {
@@ -159,6 +201,11 @@ public class FavoritesControllerTest {
 
     }
 
+    /**
+     * Given existing favorite when create new favorite then return HTTP 4 XX.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenExistingFavorite_whenCreateNewFavorite_thenReturnHTTP4XX () throws Exception {
     	// Given
@@ -176,6 +223,11 @@ public class FavoritesControllerTest {
     			.andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Given existing favorite when update then return json.
+     *
+     * @throws Exception the exception
+     */
     // ----------------------- updateFavorite ---------------------------
     @Test
     public void givenExistingFavorite_whenUpdate_thenReturnJson() throws Exception {
@@ -198,6 +250,11 @@ public class FavoritesControllerTest {
     			.andExpect(status().is2xxSuccessful());
     }
 
+    /**
+     * Given not existing favorite when update then return HTTP 4 XX.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenNotExistingFavorite_whenUpdate_thenReturnHTTP4XX() throws Exception {
     	// Given
@@ -215,6 +272,11 @@ public class FavoritesControllerTest {
     			.andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Given existing favorite when delete then return HTTP 2 XX.
+     *
+     * @throws Exception the exception
+     */
     // ----------------------- deleteFavorite ---------------------------
     @Test
     public void givenExistingFavorite_whenDelete_thenReturnHTTP2XX() throws Exception {
@@ -232,6 +294,11 @@ public class FavoritesControllerTest {
     			.andExpect(status().is2xxSuccessful());
     }
 
+    /**
+     * Given not existing favorite when delete then return HTTP 4 XX.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenNotExistingFavorite_whenDelete_thenReturnHTTP4XX() throws Exception {
      	// Given
@@ -246,6 +313,14 @@ public class FavoritesControllerTest {
     			.andExpect(status().is4xxClientError());
     }
 
+    /**
+     * Creates the favorites to test.
+     *
+     * @param account the account
+     * @param numFavorites the num favorites
+     * @param prefixName the prefix name
+     * @return the collection
+     */
     //------------------------ Helpers Methods --------------------------
     private Collection<Favorite> createFavoritesToTest ( final Account account ,
     													 final int numFavorites,

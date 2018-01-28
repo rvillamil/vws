@@ -17,13 +17,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import es.rvp.web.vws.TestConfig;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class JsoupHelperIT.
+ *
  * @author Rodrigo Villamil Perez
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=TestConfig.class)
 public class JsoupHelperIT {
 
+	/** The jsoup helper. */
 	// Interface a testear
 	@Autowired
 	private JSoupHelper jsoupHelper;
@@ -31,6 +35,9 @@ public class JsoupHelperIT {
 	//----------------------- newInstanceFromText -----------------------------
 	// Covered by Junit Test
 
+	/**
+	 * Given invalid URL when get document then get null.
+	 */
 	//------------------------ newInstanceByURL -------------------------------
 	@Test
 	public void givenInvalidURLWhenGetDocumentThenGetNull() {
@@ -43,6 +50,9 @@ public class JsoupHelperIT {
 		assertNull 	( document );
 	}
 
+	/**
+	 * Given URL when get document then get info not null.
+	 */
 	@Test
 	public void givenURLWhenGetDocumentThenGetInfoNotNull() {
 		// Given
@@ -56,6 +66,9 @@ public class JsoupHelperIT {
 		assertTrue 		( document.hasText() );
 	}
 
+	/**
+	 * Given element with URL without content when instance document then get null.
+	 */
 	// -------------------- newInstanceFromElementWithURL ---------------------
 	@Test
 	public void givenElementWithURLWithoutContentWhenInstanceDocumentThenGetNull() {
@@ -78,6 +91,9 @@ public class JsoupHelperIT {
 		assertNull 	( document );
 	}
 
+	/**
+	 * Given element with URL with content when instance document then get the document.
+	 */
 	@Test
 	public void givenElementWithURLWithContentWhenInstanceDocumentThenGetTheDocument() {
 		/*
@@ -102,6 +118,9 @@ public class JsoupHelperIT {
 		assertTrue 		( document.hasText());
 	}
 
+	/**
+	 * Given element complex with URL with content when instance document then get the document.
+	 */
 	@Test
 	public void givenElementComplexWithURLWithContentWhenInstanceDocumentThenGetTheDocument() {
 		/*

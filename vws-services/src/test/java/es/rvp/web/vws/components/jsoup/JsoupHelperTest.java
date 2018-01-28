@@ -13,18 +13,29 @@ import org.junit.Test;
 
 import es.rvp.web.vws.utils.HTMLFactorySingleton;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class JsoupHelperTest.
+ *
  * @author Rodrigo Villamil Perez
  */
 public class JsoupHelperTest {
+	
+	/** The jsoup helper. */
 	// Clases a testear
 	private JSoupHelper jsoupHelper;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.jsoupHelper  		= new JSoupHelperImpl ();
 	}
 
+	/**
+	 * Given any text then create HTML fragment.
+	 */
 	//----------------------- newInstanceFromText -----------------------------
 	@Test
 	public void givenAnyTextThenCreateHTMLFragment() {
@@ -42,6 +53,9 @@ public class JsoupHelperTest {
 	// Covered by Integration Test
 	// -------------------- newInstanceFromElementWithURL ---------------------
 	// Covered by Integration Test
+	/**
+	 * Given document with HTML list when parse then get the elements in the list.
+	 */
 	// -------------------- selectElementsByClassListName ---------------------
 	@Test
 	public void givenDocumentWithHTMLListWhenParseThenGetTheElementsInTheList() {
@@ -62,6 +76,9 @@ public class JsoupHelperTest {
 		assertTrue 	( elements.size() == 5);
 	}
 
+	/**
+	 * Given document with out HTML list when parse then get empty list not null.
+	 */
 	@Test
 	public void givenDocumentWithOutHTMLListWhenParseThenGetEmptyListNotNull() {
 		/*
@@ -80,6 +97,9 @@ public class JsoupHelperTest {
 		assertTrue 	( elements.size() == 0);
 	}
 
+	/**
+	 * Given document with invalid HTML list when parse then get empty list not null.
+	 */
 	@Test
 	public void givenDocumentWithInvalidHTMLListWhenParseThenGetEmptyListNotNull() {
 		/*
@@ -99,6 +119,9 @@ public class JsoupHelperTest {
 		assertTrue 	( elements.size() == 0);
 	}
 
+	/**
+	 * Given HTML fragment with two paragraph when select the second get the text.
+	 */
 	// --------------------------- selectElementText --------------------------
 	@Test
 	public void givenHTMLFragmentWithTwoParagraphWhenSelectTheSecondGetTheText() {
@@ -111,6 +134,9 @@ public class JsoupHelperTest {
 		assertEquals (theText, "My second paragraph.");
 	}
 
+	/**
+	 * Given HTML fragment with two paragraph when select the third get null.
+	 */
 	@Test
 	public void givenHTMLFragmentWithTwoParagraphWhenSelectTheThirdGetNull() {
 		// Given
@@ -122,6 +148,9 @@ public class JsoupHelperTest {
 		assertNull (theText);
 	}
 
+	/**
+	 * Given HTML fragment with two paragraph when select no text element then get null.
+	 */
 	@Test
 	public void givenHTMLFragmentWithTwoParagraphWhenSelectNoTextElementThenGetNull() {
 		// Given
@@ -135,6 +164,10 @@ public class JsoupHelperTest {
 		assertNull (theText);
 		assertNull (theText2);
 	}
+	
+	/**
+	 * Given HTML fragment with the same twho class when get the second class get the text.
+	 */
 	// -------------------------- getElementTextByClass -----------------------
 	@Test
 	public void givenHTMLFragmentWithTheSameTwhoClassWhenGetTheSecondClassGetTheText() {
@@ -147,6 +180,9 @@ public class JsoupHelperTest {
 		assertEquals (theText, "Hello2");
 	}
 
+	/**
+	 * Given HTML fragment with the same twho class when get the third class get null.
+	 */
 	@Test
 	public void givenHTMLFragmentWithTheSameTwhoClassWhenGetTheThirdClassGetNull() {
 		// Given
@@ -158,6 +194,9 @@ public class JsoupHelperTest {
 		assertNull (theText);
 	}
 
+	/**
+	 * Given HTML fragment with the same twho class when get inexistent class get null.
+	 */
 	@Test
 	public void givenHTMLFragmentWithTheSameTwhoClassWhenGetInexistentClassGetNull() {
 		// Given
@@ -169,6 +208,9 @@ public class JsoupHelperTest {
 		assertNull (theText);
 	}
 
+	/**
+	 * Given HTML fragment with the same two URL class when get the second class get the text.
+	 */
 	// -------------------------- getElementURLByClass ------------------------
 	@Test
 	public void givenHTMLFragmentWithTheSameTwoURLClassWhenGetTheSecondClassGetTheText() {
@@ -181,6 +223,9 @@ public class JsoupHelperTest {
 		assertEquals (theText, "http://www.google.es");
 	}
 
+	/**
+	 * Given HTML fragment with the same two URL class when get the third class get null.
+	 */
 	@Test
 	public void givenHTMLFragmentWithTheSameTwoURLClassWhenGetTheThirdClassGetNull() {
 		// Given
@@ -192,6 +237,9 @@ public class JsoupHelperTest {
 		assertNull (theText);
 	}
 
+	/**
+	 * Given HTML fragment with the same two URL class when get inexistent class get null.
+	 */
 	@Test
 	public void givenHTMLFragmentWithTheSameTwoURLClassWhenGetInexistentClassGetNull() {
 		// Given
@@ -203,6 +251,9 @@ public class JsoupHelperTest {
 		assertNull (theText);
 	}
 
+	/**
+	 * Given HTML with IMG list when parse by class name then get the UR lfor first img.
+	 */
 	// --------------------- getElementURLIMGByClass --------------------------
 	@Test
 	public void givenHTMLWithIMGListWhenParseByClassNameThenGetTheURLforFirstImg() {
@@ -216,6 +267,9 @@ public class JsoupHelperTest {
 		assertEquals ( theText, "http://www.prueba1.jpg");
 	}
 
+	/**
+	 * Given HTML with IMG list when parse and get the third element by class name then get nul.
+	 */
 	@Test
 	public void givenHTMLWithIMGListWhenParseAndGetTheThirdElementByClassNameThenGetNul() {
 		// Given
@@ -227,6 +281,9 @@ public class JsoupHelperTest {
 		assertNull (theText);
 	}
 
+	/**
+	 * Given HTML with IMG list when parse by wrong class name then get nul.
+	 */
 	@Test
 	public void givenHTMLWithIMGListWhenParseByWrongClassNameThenGetNul() {
 		// Given

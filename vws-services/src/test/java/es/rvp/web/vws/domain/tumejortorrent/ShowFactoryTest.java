@@ -15,21 +15,37 @@ import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ShowFactoryTest.
+ *
  * @author Rodrigo Villamil Perez
  */
 public class ShowFactoryTest {
 
+    /** The show factory. */
     // Clases a testear
     private ShowFactory 				showFactory;
 
+    /** The j soup helper. */
     // Clases a mockear
     private JSoupHelper 				jSoupHelper;
+    
+    /** The show episode parser. */
     private ShowFieldParser 			showEpisodeParser;
+    
+    /** The show quality parser. */
     private ShowFieldParser 			showQualityParser;
+    
+    /** The show session parser. */
     private ShowFieldParser 			showSessionParser;
+    
+    /** The show URL to download parser. */
     private ShowFieldParser 			showURLToDownloadParser;
 
+    /**
+     * Setup.
+     */
     @Before
     public void setup() {
         this.jSoupHelper 			= mock (JSoupHelperImpl.class);
@@ -46,6 +62,9 @@ public class ShowFactoryTest {
                 this.showURLToDownloadParser);
     }
 
+    /**
+     * Given HTML with TV show when parse then get show instance.
+     */
     // ------------------------ newInstance -----------------------------------
     @Test
     public void givenHTMLWithTVShowWhenParseThenGetShowInstance() {
@@ -93,6 +112,9 @@ public class ShowFactoryTest {
         assertEquals ("26/05/1976", show.getReleaseDate());
     }
 
+    /**
+     * Given HTML with film when parse then get show instance.
+     */
     @Test
     public void givenHTMLWithFilmWhenParseThenGetShowInstance() {
 

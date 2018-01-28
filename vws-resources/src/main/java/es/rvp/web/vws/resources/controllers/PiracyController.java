@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
+// TODO: Auto-generated Javadoc
 /**
  * Rest Controller
  * In Spring’s approach to building RESTful web services, HTTP requests are handled by a controller.
@@ -39,31 +40,44 @@ public class PiracyController {
     /*
      TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
      */
+    /** The Constant LOGGER. */
     // LOGGER
     private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
+
+    /** The Constant WELCOME_TEXT. */
     private static final String	WELCOME_TEXT   	= "Video websites scaper (VWS) is available!";
     //
     // Area de datos
+    /** The max billboard films. */
     //
     @Value("${general.scraping.parse.maxbillboardfilms}")
     public int 						maxBillboardFilms;
+
+    /** The max video premieres. */
     @Value("${general.scraping.parse.maxvideopremieres}")
     public int 						maxVideoPremieres;
+
+    /** The max T vshows. */
     @Value("${general.scraping.parse.maxtvshows}")
     public int 						maxTVshows;
 
+    /** The web torrent spider. */
     @Autowired
     private final WebTorrentSpider 		webTorrentSpider;
 
     /**
-     * Constructor
+     * Constructor.
+     *
      * @param webTorrentSpider web torrent spider service
      */
     public PiracyController(final WebTorrentSpider webTorrentSpider) {
         super();
         this.webTorrentSpider = webTorrentSpider;
     }
+
     /**
+     * Hello.
+     *
      * @return One text if this web site is available
      */
     @GetMapping(value="/")
@@ -73,7 +87,7 @@ public class PiracyController {
     }
 
     /**
-     * Parse the torrent portal for 'scraping' the billboard
+     * Parse the torrent portal for 'scraping' the billboard.
      *
      * @return JSon object, with the billboard films in the torrent portal [0, maxBillboardFilms]
      */
@@ -90,7 +104,7 @@ public class PiracyController {
     }
 
     /**
-     * Parse the torrent portal for 'scraping' the video premieres
+     * Parse the torrent portal for 'scraping' the video premieres.
      *
      * @return JSon object, with the video premieres in the torrent portal [0, maxSize]
      */
@@ -108,11 +122,9 @@ public class PiracyController {
     }
 
     /**
-     * Parse one TV show from torrent portal, to get the last tv shows from the session
+     * Parse one TV show from torrent portal, to get the last tv shows from the session.
      *
-     * @param  tvShowName the name of the the tv show
-     * 	 	   e.g: 'modern-family' from http://tumejortorrent.com/series-hd/modern-family)
-     *
+     * @param title the title
      * @return JSon object, with last episodes from TV show between '0 and maxTVshows'
      */
     @GetMapping(value="/tvshows/{title}")

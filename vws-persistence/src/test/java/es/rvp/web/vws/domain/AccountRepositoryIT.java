@@ -12,9 +12,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
+// TODO: Auto-generated Javadoc
 /**
  * Integration test showing the basic usage of {@link AccountRepository}.
  *
+ * @author Rodrigo Villamil Pérez
  * @RunWith(SpringRunner.class) is used to provide a bridge between Spring Boot
  *                              test features and JUnit. Whenever we are using
  *                              any Spring Boot testing features in out JUnit
@@ -23,8 +25,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  *              layer: - configuring H2, an in-memory database - setting
  *              Hibernate, Spring Data, and the DataSource - performing
  *              an @EntityScan - turning on SQL logging
- *
- * @author Rodrigo Villamil Pérez
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -40,9 +40,13 @@ public class AccountRepositoryIT {
 	@Autowired
 	private TestEntityManager entityManager;
 
+	/** The account repository. */
 	@Autowired
 	AccountRepository accountRepository;
 
+	/**
+	 * Given existing user when find by user name then return account.
+	 */
 	@Test
 	public void givenExistingUserWhenFindByUserNameThenReturnAccount() {
 		// Given
@@ -58,6 +62,9 @@ public class AccountRepositoryIT {
 		assertEquals(theAccount.get().getUserName(), account.getUserName());
 	}
 
+	/**
+	 * Given not existing user when find by user name then return none.
+	 */
 	@Test
 	public void givenNotExistingUserWhenFindByUserNameThenReturnNone() {
 		// Given

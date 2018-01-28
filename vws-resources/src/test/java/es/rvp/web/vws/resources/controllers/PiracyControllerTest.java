@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
+// TODO: Auto-generated Javadoc
 /**
  * To test the Controllers, we can use @WebMvc	Test. It will auto-configure the Spring
  * MVC infrastructure for our unit tests.
@@ -36,19 +37,31 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @WebMvcTest(PiracyController.class)
 public class PiracyControllerTest {
 
+    /** The max billboard films. */
     @Value("${general.scraping.parse.maxbillboardfilms}")
     public int 						maxBillboardFilms;
+    
+    /** The max video premieres. */
     @Value("${general.scraping.parse.maxvideopremieres}")
     public int 						maxVideoPremieres;
+    
+    /** The max T vshows. */
     @Value("${general.scraping.parse.maxtvshows}")
     public int 						maxTVshows;
 
+    /** The mvc. */
     @Autowired
     private MockMvc mvc;
 
+    /** The web torrent spider. */
     @MockBean
     private WebTorrentSpider 			webTorrentSpider;
 
+    /**
+     * Givenwebtorrentwith 2 films when parse films in bill board then return json array.
+     *
+     * @throws Exception the exception
+     */
     //--------------------------- parseBillboardFilms -------------------------
     @Test
     public void givenwebtorrentwith2films_whenParseFilmsInBillBoard_ThenReturnJsonArray() throws Exception {
@@ -67,6 +80,11 @@ public class PiracyControllerTest {
                       .andExpect(jsonPath("$[1].title", is("La Isla_1")));
     }
 
+    /**
+     * Givenwebtorrentwith 0 films when parse films in bill board then return emtpy array.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenwebtorrentwith0films_whenParseFilmsInBillBoard_ThenReturnEmtpyArray() throws Exception {
         // Given
@@ -83,6 +101,11 @@ public class PiracyControllerTest {
 
     }
 
+    /**
+     * Givenwebtorrentwith 2 videos when parse video premieres then return json array.
+     *
+     * @throws Exception the exception
+     */
     //--------------------------- parseVideoPremieres -------------------------
     @Test
     public void givenwebtorrentwith2videos_whenParseVideoPremieres_ThenReturnJsonArray() throws Exception {
@@ -101,6 +124,11 @@ public class PiracyControllerTest {
                       .andExpect(jsonPath("$[1].title", is("La Isla en Video_1")));
     }
     
+    /**
+     * Givenwebtorrentwith 0 videos when parse video then return emtpy array.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void givenwebtorrentwith0videos_whenParseVideo_ThenReturnEmtpyArray() throws Exception {
         // Given
@@ -117,6 +145,11 @@ public class PiracyControllerTest {
     }
     
    
+    /**
+     * Givenwebtorrentwithmodernfamilyshow when parse TV show then get the last three episodes.
+     *
+     * @throws Exception the exception
+     */
     //---------------------------- parseTVShow --------------------------------
     @Test
     public void  givenwebtorrentwithmodernfamilyshow_whenParseTVShow_ThenGetTheLastThreeEpisodes() throws Exception {
@@ -137,6 +170,11 @@ public class PiracyControllerTest {
 
     }
     
+    /**
+     * Givenwebtorrentwithoutmodernfamilyshow when parse TV show then return emtpy array.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void  givenwebtorrentwithoutmodernfamilyshow_whenParseTVShow_ThenReturnEmtpyArray() throws Exception {
         // Given
@@ -153,6 +191,13 @@ public class PiracyControllerTest {
 
     }
     
+    /**
+     * New shows to test.
+     *
+     * @param numShows the num shows
+     * @param prefixName the prefix name
+     * @return the sets the
+     */
     //-------------------------- Helpers Methods ------------------------------
     private Set<Show> newShowsToTest(final int numShows, final String prefixName) {
         final Set<Show> shows = new LinkedHashSet<>();

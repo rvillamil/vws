@@ -17,6 +17,7 @@ import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
+// TODO: Auto-generated Javadoc
 /**
  * HTML Service scraping for the torrent portal 'http://tumejortorrent.com'
  *
@@ -26,28 +27,37 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @ConfigurationProperties(prefix="general")
 public class WebTorrentSpiderImpl implements WebTorrentSpider {
 
+    /** The Constant LOGGER. */
     // LOGGER
     private static final Logger LOGGER 	= LoggerFactory.getLogger(WebTorrentSpiderImpl.class);
 
+    /** The portal name. */
     // Constantes
     private final String PORTAL_NAME 		= "tumejortorrent.com";
+    
+    /** The url base. */
     private final String URL_BASE 			= "http://tumejortorrent.com";
 
     //
     // Area de datos
+    /** The request delay. */
     //
     @Value("${general.scraping.parsertumejortorrent.requestdelay}")
     private int 						requestDelay;	// Propiedades externalizada
     //
     // IoC
+    /** The j soup helper. */
     //
     @Autowired
     private final JSoupHelper 			jSoupHelper;
+    
+    /** The show factory. */
     @Autowired
     private final ShowFactory 			showFactory;
 
     /**
-     * Default builder
+     * Default builder.
+     *
      * @param jSoupHelper The HTML parser helper
      * @param showFactory The show factory object
      */
@@ -123,6 +133,14 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
     }
 
 
+    /**
+     * Parses the shows.
+     *
+     * @param urlPath the url path
+     * @param maxSize the max size
+     * @param classListName the class list name
+     * @return the sets the
+     */
     // ----------------------- Metodos privados -------------------------------
     private Set<Show> parseShows ( final String 	urlPath,
             final int 		maxSize,

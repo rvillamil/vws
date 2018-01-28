@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import es.rvp.web.vws.domain.ShowFieldParser;
 
+// TODO: Auto-generated Javadoc
 /**
  * Implements #{@link es.rvp.web.vws.domain.ShowFieldParser} for parsing the URLToDownload show field
  *
@@ -16,6 +17,7 @@ import es.rvp.web.vws.domain.ShowFieldParser;
 @Component("showURLToDownloadParser")
 public class ShowURLToDownloadParser implements ShowFieldParser {
 
+    /** The Constant LOGGER. */
     // LOGGER
     private static final Logger LOGGER = LoggerFactory.getLogger(ShowURLToDownloadParser.class);
 

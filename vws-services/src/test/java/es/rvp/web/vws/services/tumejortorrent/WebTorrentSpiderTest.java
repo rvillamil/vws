@@ -24,18 +24,29 @@ import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.domain.tumejortorrent.ShowFactoryImpl;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WebTorrentSpiderTest.
+ */
 /*
  * @author Rodrigo Villamil Perez
  */
 public class WebTorrentSpiderTest {
 
+	/** The web torrent spider. */
 	// Interface a testear
 	private WebTorrentSpider 		webTorrentSpider;
 
+	/** The j soup helper. */
 	// Clases a mockear
 	private JSoupHelper 			jSoupHelper;
+	
+	/** The show factory. */
 	private ShowFactory				showFactory;
 
+	/**
+	 * Setup.
+	 */
 	@Before
 	public void setup() {
 		this.jSoupHelper 		= mock ( JSoupHelperImpl.class);
@@ -44,6 +55,9 @@ public class WebTorrentSpiderTest {
 				this.showFactory);
 	}
 
+	/**
+	 * Given not domains URL with no show when parse get null.
+	 */
 	//--------------------------- parseHTMLFrom -------------------------------
 	@Test
 	public void givenNotDomainsURLWithNoShowWhenParseGetNull() {
@@ -60,6 +74,9 @@ public class WebTorrentSpiderTest {
 		assertNull ( show);
 	}
 
+	/**
+	 * Given exiting URL belongs to tu mejor torrent with show when parse get the show object.
+	 */
 	@Test
 	public void givenExitingURLBelongsToTuMejorTorrentWithShowWhenParseGetTheShowObject() {
 		// Given
@@ -77,6 +94,9 @@ public class WebTorrentSpiderTest {
 		assertEquals  ( show.getTitle(), "test");
 	}
 
+	/**
+	 * Given not exiting URL belongs to tu mejor torrent with show when parse get the show object.
+	 */
 	@Test
 	public void givenNotExitingURLBelongsToTuMejorTorrentWithShowWhenParseGetTheShowObject() {
 		// Given
@@ -93,6 +113,9 @@ public class WebTorrentSpiderTest {
 		assertNull ( show);
 	}
 
+	/**
+	 * When parse bill board with more five films then get five films.
+	 */
 	//--------------------------- parseBillboardFilms -------------------------
 	@Test
 	public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
@@ -109,6 +132,9 @@ public class WebTorrentSpiderTest {
 		assertEquals 	( shows.size(), numberOfShowsToParse);
 	}
 
+	/**
+	 * When parse twenty films in bill board with ten films then get ten films.
+	 */
 	@Test
 	public void whenParseTwentyFilmsInBillBoardWithTenFilmsThenGetTenFilms() {
 		// Given
@@ -124,6 +150,9 @@ public class WebTorrentSpiderTest {
 		assertEquals 	( shows.size(), numberOfShowsInTheWebSite);
 	}
 
+	/**
+	 * When parse video premieres with more five video then get five video.
+	 */
 	//--------------------------- parseVideoPremieres -------------------------
 	@Test
 	public void whenParseVideoPremieresWithMoreFiveVideoThenGetFiveVideo() {
@@ -140,6 +169,9 @@ public class WebTorrentSpiderTest {
 		assertEquals 	( shows.size(), numberOfShowsToParse);
 	}
 
+	/**
+	 * When parse video premieres with more six video then get six video.
+	 */
 	@Test
 	public void whenParseVideoPremieresWithMoreSixVideoThenGetSixVideo() {
 		// Given
@@ -155,6 +187,9 @@ public class WebTorrentSpiderTest {
 		assertEquals 	( shows.size(), numberOfShowsToParse);
 	}
 
+	/**
+	 * When parse twenty video premieres in bill board with ten videos then get ten videos.
+	 */
 	@Test
 	public void whenParseTwentyVideoPremieresInBillBoardWithTenVideosThenGetTenVideos() {
 		// Given
@@ -170,6 +205,9 @@ public class WebTorrentSpiderTest {
 		assertEquals 	( shows.size(), numberOfShowsInTheWebSite);
 	}
 
+	/**
+	 * When parse modern family with 20 episodes then get the last three episodes.
+	 */
 	//--------------------------- parseTVShow ---------------------------------
 	@Test
 	public void whenParseModernFamilyWith20EpisodesThenGetTheLastThreeEpisodes() {
@@ -186,6 +224,9 @@ public class WebTorrentSpiderTest {
 		assertEquals 	( shows.size(), numberOfShowsToParse);
 	}
 
+	/**
+	 * When parse three modern family episode with thow episodes then get the two episodes.
+	 */
 	@Test
 	public void whenParseThreeModernFamilyEpisodeWithThowEpisodesThenGetTheTwoEpisodes() {
 		// Given
@@ -203,6 +244,12 @@ public class WebTorrentSpiderTest {
 
 
 
+	/**
+	 * Gets the test elements.
+	 *
+	 * @param numberOfElements the number of elements
+	 * @return the test elements
+	 */
 	// ----------------------- test utils -------------------------------------
 	private Elements getTestElements (final int numberOfElements){
 		Elements elements = new Elements();
@@ -215,6 +262,12 @@ public class WebTorrentSpiderTest {
 		return elements;
 	}
 
+	/**
+	 * Configure test.
+	 *
+	 * @param numberOfShowsInTheWebSite the number of shows in the web site
+	 * @param classListName the class list name
+	 */
 	private void configureTest ( final int numberOfShowsInTheWebSite,
 								 final String classListName){
 

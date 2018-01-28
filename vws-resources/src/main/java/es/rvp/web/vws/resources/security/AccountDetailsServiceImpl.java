@@ -13,22 +13,34 @@ import org.springframework.stereotype.Service;
 import es.rvp.web.vws.domain.Account;
 import es.rvp.web.vws.domain.AccountRepository;
 
+/**
+ * The Class AccountDetailsServiceImpl.
+ */
 @Service
 public class AccountDetailsServiceImpl implements UserDetailsService {
 
-	private final AccountRepository accountRepository;
+    /** The account repository. */
+    private final AccountRepository accountRepository;
 
-	public AccountDetailsServiceImpl(AccountRepository usuarioRepository) {
-		this.accountRepository = usuarioRepository;
-	}
+    /**
+     * Instantiates a new account details service impl.
+     *
+     * @param usuarioRepository the usuario repository
+     */
+    public AccountDetailsServiceImpl(AccountRepository usuarioRepository) {
+        this.accountRepository = usuarioRepository;
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String userName) {
-		final Optional<Account> account = this.accountRepository.findByUserName(userName);
+    /* (non-Javadoc)
+     * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
+     */
+    @Override
+    public UserDetails loadUserByUsername(String userName) {
+        final Optional<Account> account = this.accountRepository.findByUserName(userName);
 
-		if (! account.isPresent() ){
-			throw new UsernameNotFoundException(userName);
-		}
-		return new User(account.get().getUserName(), account.get().getPassword(), emptyList());
-	}
+        if (! account.isPresent() ){
+            throw new UsernameNotFoundException(userName);
+        }
+        return new User(account.get().getUserName(), account.get().getPassword(), emptyList());
+    }
 }

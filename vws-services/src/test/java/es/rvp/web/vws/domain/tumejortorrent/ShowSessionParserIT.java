@@ -15,6 +15,10 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 import es.rvp.web.vws.utils.HTMLFactorySingleton;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ShowSessionParserIT.
+ */
 /*
  * @author Rodrigo Villamil Perez
  */
@@ -22,14 +26,19 @@ import es.rvp.web.vws.utils.HTMLFactorySingleton;
 @SpringBootTest(classes=TestConfig.class)
 public class ShowSessionParserIT {
 
+	/** The jsoup helper. */
 	// Clase de apoyo
 	@Autowired
 	private JSoupHelper jsoupHelper;
 
+	/** The show session parser. */
 	// Interface a testear
 	@Autowired
 	private ShowFieldParser showSessionParser;
 
+	/**
+	 * Given HTML with TV show when parse then get episode not null.
+	 */
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetEpisodeNotNull() {
 		// Given
@@ -42,6 +51,9 @@ public class ShowSessionParserIT {
 		assertEquals 	( data, "4");
 	}
 
+	/**
+	 * Given HTML with TV show with 2 episodes when parse then get two episodes.
+	 */
 	@Test
 	public void givenHTMLWithTVShowWith2EpisodesWhenParseThenGetTwoEpisodes() {
 		// Given
@@ -55,6 +67,9 @@ public class ShowSessionParserIT {
 		assertEquals 	( data, "2");
 	}
 
+	/**
+	 * Given HTML with film when parse then get episode null.
+	 */
 	@Test
 	public void givenHTMLWithFilmWhenParseThenGetEpisodeNull() {
 		// Given

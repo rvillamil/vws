@@ -4,8 +4,9 @@ import java.util.Set;
 
 import es.rvp.web.vws.domain.Show;
 
+// TODO: Auto-generated Javadoc
 /**
- * HTML Service scraping for torrent portal
+ * HTML Service scraping for torrent portal.
  *
  * @author Rodrigo Villamil Perez
  */
@@ -21,29 +22,26 @@ public interface WebTorrentSpider {
 	 Show parseHTMLFrom ( String urlWithShow );
 
 	/**
-	 * Parse the torrent portal for 'scraping' the billboard
+	 * Parse the torrent portal for 'scraping' the billboard.
 	 *
+	 * @param maxSize the max size
 	 * @return A set of Show objects, with the billboard films in the torrent portal [0, maxSize]
-	 * @param Max number elements to parser
 	 */
 	 Set<Show> parseBillboardFilms ( final int maxSize );
 
 	/**
-	 * Parse the torrent portal for 'scraping' the video premieres
+	 * Parse the torrent portal for 'scraping' the video premieres.
 	 *
+	 * @param maxSize the max size
 	 * @return A set of Show objects, with the video premieres in the torrent portal [0, maxSize]
-	 * @param Max number elements to parser
 	 */
 	 Set<Show> parseVideoPremieres ( final int maxSize );
 
 	/**
-	 * Parse one TV show from torrent portal, to get the last tv shows from the session
+	 * Parse one TV show from torrent portal, to get the last tv shows from the session.
 	 *
-	 * @param  tvShowPath the relative path in the torrent portal where the tv show is located
-	 * 	 	   e.g: /series-hd/modern-family
-	 * 				(Full url will be http://tumejortorrent.com/series-hd/modern-family)
-	 *
-	 * @param Max number elements to parser
+	 * @param tvShowPath the tv show path
+	 * @param maxSize the max size
 	 * @return The last episodes from TV show between '0 and maxSize'
 	 */
 	 Set<Show> parseTVShow ( final String tvShowPath,

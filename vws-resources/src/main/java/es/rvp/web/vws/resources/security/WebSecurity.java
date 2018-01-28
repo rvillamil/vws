@@ -23,6 +23,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+// TODO: Auto-generated Javadoc
 /**
  * Example: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
  *
@@ -32,14 +33,26 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER 			= LoggerFactory.getLogger(WebSecurity.class);
 
+    /** The user details service. */
     private final UserDetailsService userDetailsService;
 
+    /**
+     * Instantiates a new web security.
+     *
+     * @param userDetailsService the user details service
+     */
     public WebSecurity(final UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * B crypt password encoder.
+     *
+     * @return the b crypt password encoder
+     */
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -47,10 +60,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 
     /**
-      * Podemos observar que se ajusta la configuración para CORS y
+     * Podemos observar que se ajusta la configuración para CORS y
      * se desactiva el filtro de Cross-site request forgery (CSRF).
      * Esto nos permite habilitar el API para cualquier dominio,
      * esta es una de las grandes ventajas del uso de JWT.
+     *
+     * @param httpSecurity the http security
+     * @throws Exception the exception
      */
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
@@ -94,6 +110,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 new JWTAuthorizationFilter(this.authenticationManager()));
     }
 
+    /* (non-Javadoc)
+     * @see org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter#configure(org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder)
+     */
     @Override
     public void configure(final AuthenticationManagerBuilder auth) throws Exception {
         // Se define la clase que recupera los usuarios y el algoritmo para procesar las passwords
@@ -101,6 +120,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * Cors configuration source.
+     *
+     * @return the cors configuration source
      * @see CORS configuration in https://docs.spring.io/spring-security/site/docs/current/reference/html/cors.html
      */
     @Bean
@@ -114,6 +136,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return source;
     }
 
+    /**
+     * H 2 servlet registration.
+     *
+     * @return the servlet registration bean
+     * @throws Exception the exception
+     */
     @Bean
     @Profile("default")
     ServletRegistrationBean h2servletRegistration() throws Exception{

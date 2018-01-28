@@ -28,6 +28,7 @@ import es.rvp.web.vws.domain.Account;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+// TODO: Auto-generated Javadoc
 /**
  * Haciendo uso de las clases proporcionadas por Spring Security, extendemos
  * su comportamiento para reflejar nuestras necesidades.
@@ -38,12 +39,21 @@ import io.jsonwebtoken.SignatureAlgorithm;
  */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+	/** The authentication manager. */
 	private final AuthenticationManager authenticationManager;
 
+	/**
+	 * Instantiates a new JWT authentication filter.
+	 *
+	 * @param authenticationManager the authentication manager
+	 */
 	public JWTAuthenticationFilter(final AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter#attemptAuthentication(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public Authentication attemptAuthentication(
 			final HttpServletRequest request,
@@ -65,12 +75,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	/**
 	 * No hay obligación de devolver el token en la cabecera ni con una clave concreta
 	 * pero se recomienda seguir los estándares utilizados en la actualidad (RFC 2616, RFC 6750).
-	 *
+	 * 
 	 * Lo habitual es devolverlo en la cabecera HTTP utilizando la clave “Authorization” e
 	 * indicando que el valor es un token “Bearer “ + token
-	 *
+	 * 
 	 * Este token lo deberá conservar vuestro cliente web en su localstorage y remitirlo
 	 * en las peticiones posteriores que se hagan al API.
+	 *
+	 * @param request the request
+	 * @param response the response
+	 * @param chain the chain
+	 * @param auth the auth
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
 	 */
 	@Override
 	protected void successfulAuthentication(

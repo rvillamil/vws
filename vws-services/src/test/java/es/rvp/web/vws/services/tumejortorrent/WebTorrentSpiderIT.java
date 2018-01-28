@@ -17,6 +17,10 @@ import es.rvp.web.vws.TestConfig;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WebTorrentSpiderIT.
+ */
 /*
  * @author Rodrigo Villamil Perez
  */
@@ -24,10 +28,14 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @SpringBootTest(classes=TestConfig.class)
 public class WebTorrentSpiderIT {
 
+    /** The web torrent spider. */
     // Interface a testear
     @Autowired
     private WebTorrentSpider 	webTorrentSpider;
 
+    /**
+     * Given URL with film when parse get the show object.
+     */
     //--------------------------- parseHTMLFrom -------------------------
     @Test
     public void givenURLWithFilmWhenParseGetTheShowObject() {
@@ -52,6 +60,9 @@ public class WebTorrentSpiderIT {
         assertNotNull 	( show.getSinopsis());
     }
 
+    /**
+     * Given URL with TV show when parse get the show object.
+     */
     @Test
     public void givenURLWithTVShowWhenParseGetTheShowObject() {
         // Given
@@ -75,6 +86,9 @@ public class WebTorrentSpiderIT {
         assertNotNull 	( show.getSinopsis());
     }
 
+    /**
+     * Given existing URL with no show when parse get null.
+     */
     @Test
     public void givenExistingURLWithNoShowWhenParseGetNull() {
         // Given
@@ -88,6 +102,9 @@ public class WebTorrentSpiderIT {
         assertNull 		( show.getURLTODownload() );
     }
 
+    /**
+     * Given not domains URL with no show when parse get null.
+     */
     @Test
     public void givenNotDomainsURLWithNoShowWhenParseGetNull() {
         // Given
@@ -98,6 +115,9 @@ public class WebTorrentSpiderIT {
         assertNull 	( show );
     }
 
+    /**
+     * When parse bill board with more five films then get five films.
+     */
     //--------------------------- parseBillboardFilms -------------------------
     @Test
     public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
@@ -110,6 +130,9 @@ public class WebTorrentSpiderIT {
     }
 
 
+    /**
+     * When parse video premieres with more five films then get five films.
+     */
     //--------------------------- parseVideoPremieres -------------------------
     @Test
     public void whenParseVideoPremieresWithMoreFiveFilmsThenGetFiveFilms() {
@@ -123,6 +146,9 @@ public class WebTorrentSpiderIT {
     }
 
 
+    /**
+     * When parse modern family then get the last three episodes.
+     */
     //----------------------------- parseTVShow -------------------------------
     @Test
     public void whenParseModernFamilyThenGetTheLastThreeEpisodes() {
