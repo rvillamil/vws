@@ -13,33 +13,33 @@ usage() {
 }
 
 update_or_install_jsonserver(){
-    echo "Installing or updating json-server..."
+    echo "** Installing or updating json-server..."
     npm install -g json-server
 }
 
 #
 # $1: port
-# 
+#
 run_json_server() {
-    echo "Runing Json-server on port ${port}"
+    echo "** Running Json-server on port ${port}"
     cd vws-ui/src/test/assets
     json-server -p ${1} shows.json --routes routes.json --middlewares ./login-fake.js
     cd -
 }
 
 # ----------------- main ----------
-[ -z ${1} ] && echo "Error!!: parameters requiered!" && echo "" && usage && exit 1
+[ -z ${1} ] && echo "** Error!!: parameters requiered!" && echo "" && usage && exit 1
 
 cd vws-ui/src/test/assets
-   
+
 if [ "${1}" == "--backend" ];then
     update_or_install_jsonserver
-    echo "Runing json-server on port 9090. It requieres java backend server!!"
+    echo "** Running json-server on port 9090. It requieres java backend server!!"
     json-server -p 9090 shows.json
 elif [ "${1}" == "--test" ];then
-    echo "Installing or updating json-server..."
+    echo "** Installing or updating json-server..."
     npm install json-server --save-dev
-    echo "Runing NODE server on port 8080. Autentication Fake. No authorization request. Data testing on 'vws-ui/src/test/assets'"
+    echo "** Running NODE server on port 8080. Autentication Fake. No authorization request. Data testing on 'vws-ui/src/test/assets'"
     echo ""
     node server.js
 else

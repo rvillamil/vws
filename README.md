@@ -35,9 +35,11 @@ El proposito de este desarrollo
 no es otro que probar, aprender y entender, diferentes técnicas/tecnologías
 de desarrollo de aplicaciones web.
 
-La funcionalidad/utilidad es lo de meno. El propio principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad
+La funcionalidad/utilidad es lo de menos. El propio principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad
 básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent'
 con peliculas y series de televisión.
+El resultado de ese 'scrapping' los procesamos para generar un portal web, con la información de las últimas peliculas de cine y películas de vídeo obtenidas.
+Además, como funcionalidad añadida, guarda las series favoritas para el usuario, pudiendo consultar los últimos episodios disponibles para las mismas.
 
 
 ## 1 Arquitectura software ##
@@ -46,12 +48,18 @@ con peliculas y series de televisión.
 
 El 'front' es una aplicación SPA, desarrollada en Javascript, además de HTML5 y CSS3 muy básicos, que lanza peticiones XHR contra una API REST securizada. En general, el formato de intercambio de información, es JSON.
 
+Muestra un portal con las carátulas e información de los 'shows' obtenidos del portal del que hacemos scrapping.
+
 - Las peticiones deben de ir acompañadas del token JWT correspondiente, que nuestro API Rest proporciona a los usuarios que se encuentren dados de alta en la aplicacion. Para obtener el token, se requiere consumir el servicio de /login expuesto en el backend
 
 La aplicación 'front' debe de desplegarse lógicamente, en un servidor web, como puede ser Apache o Node. En nuestro caso, para producción, se empaqueta la aplicación en un contenedor docker con todo lo necesario para su ejecución.
 
-### 1.2 Backend  ###
-#### 1.2.1 Aplicacion Spring Boot  ####
+### 1.2 Backend ###
+
+Básicamente es un API Rest, con soporte de persistencia para almacenar las series favoritos. Se encarga de hacer el scrapping del portal con 'shows', retornando JSon al 'Frontend' con la información procesada.
+
+#### 1.2.1 Aplicacion Spring Boot ####
+
 La lógica de negocio, está desarrollada en Java, con el soporte de spring boot. La arquitectura de esta aplicación es la clásica de capas.
 
 - Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado.
@@ -82,19 +90,17 @@ Se han implementado tres perfiles en el ciclo de vida maven, que se pasan como o
 
 Ejemplos:
 
-* $mvn clean install : Compila con el profile 'develop' por defecto y lanza los tes unitarios exclusivamente
+- $mvn clean install : Compila con el profile 'develop' por defecto y lanza los tes unitarios exclusivamente
 
-* $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
+- $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
 
-### 2.2 Jenkins: Integración continua  ###
+### 2.2 Jenkins: Integración continua ###
 
 El fichero Jenkinsfile, es un pipeline válido que funciona dentro del proyecto [ci-tool-stack](https://github.com/rvillamil/ci-tool-stack)
 
-### 2.3 Sonarqube: Integración con Sonarcloud  ###
+### 2.3 Sonarqube: Integración con Sonarcloud ###
 
-El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects) .
-
-Para enviar metricas al Sonar desplegado en Sonarcloud, utilizar maven pasando el usuario y password de la siguiente forma:
+El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects). Para enviar metricas al Sonar desplegado en Sonarcloud:
 
 ```
 mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
@@ -118,10 +124,11 @@ Se requiere tener soporte para docker 1.12 o superior, en la máquina donde se g
   - usuario 1: 'rodrigo' y clave: 'pepe'
   - usuario 2: 'olga' y clave 'lola'
 
- - Detenemos los contenedores con Ctrl-C o bien ejecutar 'docker-compose stop'
+- Detenemos los contenedores con Ctrl-C o bien lanzando desde linea de comandos el comando 'docker-compose stop'
 
 ### 2.5 Arquitectura de desarrollo del módulo de FrontEnd ###
-// TODO: La aplicacion frontend, es un módulo mas del proyecto y se llama 'vws-ui'...
+
+Dentro del proyecto, tenemos un modulo llamado 'vws-ui', que contiene un proyecto Javascript 'vanilla', HTML5 y CSS
 
 #### 2.5.1 Tecnologías frontend ####
 
@@ -147,16 +154,18 @@ El 'layout' es muy básico:
 
 Hay varias formas de trabajar:
 
-Opcion 1:  $runJSONServer.sh
-  Requiere instalada el modulo de node, json-server. Carga el fichero .json para pruebas sin BackEnd en localhost:3000
+Opción 1: Servidor node con datos de prueba en un JSon (json-server). Para simplificar su ejecución, usar el script:
+```
+$run-jsonserver.sh --test
+```
 
-Opcion 2: Lanzar un backend para usarlo de pruebas:  $run-springbootapp-with-h2.sh
-  Ejecuta el Backend pero contra una BB.DD embebida en h2
-  La BBDD se regenera y se destruye en cada arranque o parada.
-
+Opción 2: Servidor node contra un backend previamente instanciado:
+```
+$run-jsonserver.sh --backend
+```
 
 ### 2.6 Arquitectura de desarrollo de los módulos de Backend ###
-#### 2.6.1 Tecnologias backend ####
+#### 2.6.1 Tecnologías backend ####
 
 - GIT
 - maven
@@ -189,61 +198,65 @@ El backend es una aplicación Java, desarrollada en capas, con el soporte de spr
 
 #### 2.6.3 Proceso de desarrollo para un 'Backend Developer' ####
 
-Importar el proyecto como proyecto maven en tu editor favorito
+Importar el proyecto como proyecto 'maven' en tu editor favorito. Tenemos soporte para las 'spring-devtools' que nos permiten hacer cambios en caliente muy fácilmente. En mi caso, utilizo Eclipse.
 
- * Lo mejor es arrancar el proyecto como un proyecto spring-boot, ya que las
-   spring-devtools nos permiten cambios en caliente
+- Aunque no aporta mucho y genera algun [problema](http://stackoverflow.com/questions/31495451/is-there-a-permanent-fix-for-eclipse-deployment-assembly-losing-the-maven-depend), es posible trabajar con un [tomcat desde dentro del eclipse](http://stackoverflow.com/questions/34927236/how-to-run-spring-boot-app-in-eclipse-tomcat)
 
-   El ejectuable se encuentra en "Application.java" .
-   En Eclipse seria "Run As Java Application".
-   En http://localhost:8080
+Tenemos dos perfiles, separados en dos ficheros de configuración 'yml':
 
-   * Aunque no aporta mucho y genera algun problema, es posbile trabajar
-   con un tomcat desde dentro del eclipse, puedes hacer lo siguiente:
+- default : Ver fichero 'application.yml' . Se usa para desarrollo
 
- 1 - http://stackoverflow.com/questions/34927236/how-to-run-spring-boot-app-in-eclipse-tomcat
- 2 - Tener en cuenta que aveces sucede este problema:
-   http://stackoverflow.com/questions/31495451/is-there-a-permanent-fix-for-eclipse-deployment-assembly-losing-the-maven-depend
+- container : Ver fichero 'application-container.yml'. En general, se ejecuta para entornos de producción o para simular el entorno producción
 
-  Pero ademas de que no aporta nada, genera problemas con maven y los faceted projects
+##### 2.6.3.1 Como probar el API: Ejecución del backend #####
 
-Probar el API con el postman para detectar errores (Salvar fichero postman con los fuentes)
+Podemos lanzar nuestro backend de varias formas para probar nuestra API:
 
-Tenemos dos perfiles, descritos en el application.yml:
-- default : Ver script runSpringBootServerWithH2.sh
-- container : Se inicia desde un docker (Ver apartado ejecucion desde docker)
+- Ejecución desde eclipse: El fichero con la función 'main()' es el  en "ApplicationVWS". Si lo ejecutamos desde nuestro editor, instancia la aplicación backend en el puerto 80: http://localhots:8080 . Si no indicamos nada, se ejecuta con el perfil 'default'.
 
+- Ejecución desde consola contra BBDD H2: Hemos generado un script 'run-springbootapp-with-h2.sh' que fundamentalmente lanza la aplicación spring-boot en http://localhots:8080, utilizando el profile 'default'. 
+
+- Ejecución del contenedor docker con la configuración de producción. Para ello, ejecutamos el comando 'docker-compose up' o bien 'docker-compose up service-vws-backend' si solo queremos instanciar el backend. Tenemos la aplicación corriendo en 'http://localhost:8080'
+
+###### 2.6.3.1.1 Postman ######
+
+Para probar el API, lo mejor es utilizar la herramienta 'postman':
+- Importar en el Postman, la colección de peticiones del fichero 'resources/postman/VWS REST API.postman_collection.json'
+
+- Ejecutar un POST contra el servicio /login, para obtener el token que el que haremos el resto de peticiones. 
+
+- Configurar el postman para que todas las peticiones usen ese token en la cabecera y ya podemos lanzar el resto de peticiones
+
+###### 2.6.3.1.2 Curl ######
+
+- Se lanza una petición de login:
+```
+curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "rodrigo", "password": "pepe"}' http://localhost:8080/login
+```
+
+- Con el token JWT que devuelve la peticion anterior, recuperamos los favoritos del usuario 'rodrigo'
+
+```
+curl -H "Authorization: Bearer xxx.yyy.zzz" http://localhost:8080/api/favorites/
+```
 
 #### 2.6.4 Test unitarios y de integración en el Backend #####
-// TODO
-Nos tomado como referencia:
-http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
-http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services
-https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
 
-Para hacer test unitarios en los controladores REST:
-"When we are unit testing a rest service, we would want to launch only the specific controller and the related MVC Components. WebMvcTest annotation is used for unit testing Spring MVC application. This can be used when a test focuses only Spring MVC components. Using this annotation will disable full auto-configuration and only apply configuration relevant to MVC tests."
+Hemos utilizado el soporte de spring y Junit, para desarrollar test unitarios y de integración, tratando de emplear TDD en la medida de lo posible.
+
+Hemos tomado como referencia las buenas prácticas detalladas en el portal [www.baeldung.com](
+http://www.baeldung.com/spring-boot-testing?utm_content=buffer61c1e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer), de la propia [documentación de spring](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html)
+ y de [www.springboottutorial.com](http://www.springboottutorial.com/unit-testing-for-spring-boot-rest-services)
 
 #### 2.6.5 Sobre Swagger y la documentacion del API ####
-API Rest documentada en la URL siguiente: http://localhost:8080/swagger-ui.html
 
-#### 2.6.6 Como comprobar el API ###
+La API Rest. está documentada con el soporte de swagger en la URL siguiente: http://localhost:8080/swagger-ui.html
 
-Las peticiones están securizadas con Spring Secutiry utilizando JSON Web tokens.
-Usuarios de prueba:
-  rodrigo/pepe
-  olga/lola
-
-Para probar:
-    # Postman
-
-    # Se lanza una petición de login
-    curl -i -H "Content-Type: application/json" -X POST -d '{ "userName": "admin", "password": "password"}' http://localhost:8080/login
-
-    # Con el token JWT que devuelve la peticion anterior, recuperamos los favoritos del usuario 'admin0
-    curl -H "Authorization: Bearer xxx.yyy.zzz"  http://localhost:8080/api/favorites/
 
 ### 2.7 Arquitectura de desarrollo de la BB.DD ###
+
+// TODO La BB.DD tiene un modelo muy simple...
+
 #### 2.7.1 Sobre el Modelado y su manteniento ####
 - Creamos los objetos del modelo (Account, AccountRepository...) con JPA
 - Revisamos el fichero 'application.yml' la opcion de jp: Establecemos a create-drop
@@ -273,48 +286,49 @@ Esta informacion la tenemos en el application.yml
 
 ## 3 Nuevas funcionalidades a implementar ##
 
- * Automatizar la descarga de pelis cuando salgan en una calidad determinada.
-     Por ejemplo, “Reservar Spiderman” y cuando "Spiderman" salga y ademas en la calidad que pongamos, la pondrá a descargar.
+- Automatizar la descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando "Spiderman" salga y ademas en la calidad que pongamos, se pondrá a descargar.
 
- * Poner las notas de las pelis:
-    - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
-    - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
+- Poner las notas de las pelis:
+  - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
+  - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 
-## 4 Que cosas quiero probar ... ##
+## 4 Que cosas quiero probar ##
 
- * Revisar la configuracion de spring boot y la carga de properties mas interesantes
-      - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-      - http://www.baeldung.com/spring-boot-application-configuration
+- Revisar la configuracion de spring boot y la carga de properties  
+  - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+  - http://www.baeldung.com/spring-boot-application-configuration
 
- * Montar el CAS con Soporte para Oauth, JWT...etc e integrarlo
-      - En mi Sandbox tengo montado un CAS. Faltaría dockerizarlo
-      - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
-      - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
+- Montar el CAS con Soporte para Oauth, JWT...etc e integrarlo
+  - En mi Sandbox tengo montado un CAS. Faltaría dockerizarlo
+  - Autorizacion con OAuth2: https://spring.io/guides/tutorials/spring-boot-oauth2/
+  - Ver esta documentacion: https://spring.io/guides/tutorials/spring-security-and-angular-js/
 
- * Roles a la aplicacion:
-     - http://www.baeldung.com/role-and-privilege-for-spring-security-registration
-     - https://github.com/spring-guides/tut-bookmarks
-     - https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
+- Roles a la aplicacion:
+  - http://www.baeldung.com/role-and-privilege-for-spring-security-registration
+  - https://github.com/spring-guides/tut-bookmarks
+  - https://spring.io/guides/tutorials/bookmarks/#_securing_a_rest_service
 
- * Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
-     - https://getkong.org/about/ --> https://programar.cloud/post/demo-del-api-gateway-kong/
-     - https://apiumbrella.io
+- Montar un API Gateway/Manager en el que delegar la autenticacion/autorizacion
+  - https://getkong.org/about/
+  - https://programar.cloud/post/demo-del-api-gateway-kong/
+  - https://apiumbrella.io
 
- * Soporte para la nube Spring Cloud
-      - Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
-      - Introducción a la base de datos NoSQL Redis - https://goo.gl/JBqiHE
+- Soporte para la nube Spring Cloud
+  - Microservicios, Eureka: https://spring.io/blog/2015/07/14/microservices-with-spring
+  - Introducción a la base de datos NoSQL Redis 
+  - https://goo.gl/JBqiHE
 
- * Soporte para Spring Data Redis - https://goo.gl/oegRqu
+- Soporte para Spring Data Redis - https://goo.gl/oegRqu
 
- * Evitar problemas de concurrencia: Optimistic Lock
-      - Charla Gus: https://youtu.be/fZo8Zp2otqQ
-      - http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
-      - https://spring.io/guides/tutorials/bookmarks/
-      - Best practices for concurrency control in REST APIs: https://goo.gl/Xqqvii
-      - https://stackoverflow.com/questions/30080634/concurrency-in-a-rest-api
+- Evitar problemas de concurrencia: Optimistic Lock
+  - Charla Gus: https://youtu.be/fZo8Zp2otqQ
+  - http://labs.unacast.com/2016/02/25/on-idempotency-in-distributed-rest-apis/
+  - https://spring.io/guides/tutorials/bookmarks/
+  - Best practices for concurrency control in REST APIs: https://goo.gl/Xqqvii
+  - https://stackoverflow.com/questions/30080634/concurrency-in-a-rest-api
 
- * Revisar la configuracion del apache y el tomcat embebidos
-    - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
+- Revisar la configuracion del apache y el tomcat embebidos
+  - https://elpesodeloslunes.wordpress.com/2014/09/07/el-servidor-tomcat-desde-cero-3-configuracion-basica/
 
- * Probar mutation Testing
-      - https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/
+- Probar mutation Testing
+  - https://www.adictosaltrabajo.com/tutoriales/mutation-testing-con-pit/

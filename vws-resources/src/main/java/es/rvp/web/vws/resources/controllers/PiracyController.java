@@ -27,11 +27,14 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @ConfigurationProperties(prefix="general")
 public class PiracyController {
 
-	/*
-	FIXME 01: ¿La separacion en capas esta bien hecha? Tenemos dos 'domain'. Uno en persistence y otro en services
+    /*
+    FIXME 01: ¿La separacion en capas esta bien hecha? Tenemos dos 'domain'. Uno en persistence y otro en services
     */
-	/*
+    /*
      FIXME 01: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
+     */
+    /*
+     * FIXME 02: Atender a los Bugs de Sonar y revisar el sonar
      */
     /*
      TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github

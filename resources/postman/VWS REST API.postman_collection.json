@@ -1,0 +1,370 @@
+{
+	"info": {
+		"name": "VWS REST API",
+		"_postman_id": "75801a65-861e-f597-0c49-3bce59b877e3",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Favorites Controller",
+			"description": "",
+			"item": [
+				{
+					"name": "listAllFavorites",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/favorites/",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"favorites",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "getFavorite - Modern Family",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/favorites/modern-family",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"favorites",
+								"modern-family"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "createFavorite - Modern Family",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"modern-family\"\n}"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/favorites/",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"favorites",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "deleteFavorite with id=1",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{server}}/api/favorites/1",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"favorites",
+								"1"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Piracy Controller",
+			"description": "",
+			"item": [
+				{
+					"name": "parseBillBoardFilms",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/billboardfilms/",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"billboardfilms",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "parseTVshows - Modern Famiily",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/tvshows/modern-family",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"tvshows",
+								"modern-family"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "parseTVshows - Erase una vez",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/tvshows/erase-una-vez",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"tvshows",
+								"erase-una-vez"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "parseVideoPremieres",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtoken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+						},
+						"url": {
+							"raw": "http://{{server}}/api/videopremieres/",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"videopremieres",
+								""
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"userName\": \"rodrigo\", \"password\": \"pepe\"};"
+				},
+				"url": {
+					"raw": "http://{{server}}/login",
+					"protocol": "http",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
