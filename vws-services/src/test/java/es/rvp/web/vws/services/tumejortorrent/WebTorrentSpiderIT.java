@@ -3,6 +3,7 @@ package es.rvp.web.vws.services.tumejortorrent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -23,112 +24,113 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @SpringBootTest(classes=TestConfig.class)
 public class WebTorrentSpiderIT {
 
-	// Interface a testear
-	@Autowired
-	private WebTorrentSpider 	webTorrentSpider;
+    // Interface a testear
+    @Autowired
+    private WebTorrentSpider 	webTorrentSpider;
 
-	//--------------------------- parseHTMLFrom -------------------------
-	@Test
-	public void givenURLWithFilmWhenParseGetTheShowObject() {
-		// Given
-		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
-		// When
-		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
-		// Then
-		assertNotNull 	( show );
+    //--------------------------- parseHTMLFrom -------------------------
+    @Test
+    public void givenURLWithFilmWhenParseGetTheShowObject() {
+        // Given
+        final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
+        // When
+        final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+        // Then
+        assertNotNull 	( show );
 
-		assertEquals 	( show.getBaseURI(), urlWithShow );
-		assertNotNull 	( show.getTitle());
-		assertNull 		( show.getSession());
-		assertNull 		( show.getEpisode());
-		assertNotNull 	( show.getQuality());
-		assertNotNull 	( show.getFileSize());
-		assertNull 		( show.getFilmaffinityPoints());
-		assertNotNull 	( show.getReleaseDate());
-		assertNotNull 	( show.getURLTODownload() );
-		assertNotNull 	( show.getURLWithCover());
-		assertNotNull 	( show.getDescription());
-		assertNotNull 	( show.getSinopsis());
-	}
+        assertEquals 	( show.getBaseURI(), urlWithShow );
+        assertNotNull 	( show.getTitle());
+        assertNull 		( show.getSession());
+        assertNull 		( show.getEpisode());
+        assertNotNull 	( show.getQuality());
+        assertNotNull 	( show.getFileSize());
+        assertNull 		( show.getFilmaffinityPoints());
+        assertNotNull 	( show.getReleaseDate());
+        assertNotNull 	( show.getURLTODownload() );
+        assertNotNull 	( show.getURLWithCover());
+        assertNotNull 	( show.getDescription());
+        assertNotNull 	( show.getSinopsis());
+    }
 
-	@Test
-	public void givenURLWithTVShowWhenParseGetTheShowObject() {
-		// Given
-		final String urlWithShow = "http://tumejortorrent.com/descargar-seriehd/the-big-bang-theory/capitulo-1018/hdtv-720p-ac3-5-1/";
-		// When
-		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
-		// Then
-		assertNotNull 	( show );
+    @Test
+    public void givenURLWithTVShowWhenParseGetTheShowObject() {
+        // Given
+        final String urlWithShow = "http://tumejortorrent.com/descargar-seriehd/the-big-bang-theory/capitulo-1018/hdtv-720p-ac3-5-1/";
+        // When
+        final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+        // Then
+        assertNotNull 	( show );
 
-		assertEquals 	( show.getBaseURI(), urlWithShow );
-		assertNotNull 	( show.getTitle());
-		assertNotNull 	( show.getSession());
-		assertNotNull 	( show.getEpisode());
-		assertNotNull 	( show.getQuality());
-		assertNotNull 	( show.getFileSize());
-		assertNull 		( show.getFilmaffinityPoints());
-		assertNotNull 	( show.getReleaseDate());
-		assertNotNull 	( show.getURLTODownload() );
-		assertNotNull 	( show.getURLWithCover());
-		assertNotNull 	( show.getDescription());
-		assertNotNull 	( show.getSinopsis());
-	}
+        assertEquals 	( show.getBaseURI(), urlWithShow );
+        assertNotNull 	( show.getTitle());
+        assertNotNull 	( show.getSession());
+        assertNotNull 	( show.getEpisode());
+        assertNotNull 	( show.getQuality());
+        assertNotNull 	( show.getFileSize());
+        assertNull 		( show.getFilmaffinityPoints());
+        assertNotNull 	( show.getReleaseDate());
+        assertNotNull 	( show.getURLTODownload() );
+        assertNotNull 	( show.getURLWithCover());
+        assertNotNull 	( show.getDescription());
+        assertNotNull 	( show.getSinopsis());
+    }
 
-	@Test
-	public void givenExistingURLWithNoShowWhenParseGetNull() {
-		// Given
-		// Ojo, la pagina existe y devuelve contenido
-		final String urlWithShow = "http://tumejortorrent.com/invented/";
-		// When
-		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
-		// Then
-		assertNotNull 	( show );
-		assertEquals 	( show.getBaseURI(), urlWithShow );
-		assertNull 		( show.getURLTODownload() );
-	}
+    @Test
+    public void givenExistingURLWithNoShowWhenParseGetNull() {
+        // Given
+        // Ojo, la pagina existe y devuelve contenido
+        final String urlWithShow = "http://tumejortorrent.com/invented/";
+        // When
+        final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+        // Then
+        assertNotNull 	( show );
+        assertEquals 	( show.getBaseURI(), urlWithShow );
+        assertNull 		( show.getURLTODownload() );
+    }
 
-	@Test
-	public void givenNotDomainsURLWithNoShowWhenParseGetNull() {
-		// Given
-		final String urlWithShow = "http://sfgdgdopguregjer0"; // No pertenece al dominio de tumejortorrent.com
-		// When
-		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
-		// Then
-		assertNull 	( show );
-	}
+    @Test
+    public void givenNotDomainsURLWithNoShowWhenParseGetNull() {
+        // Given
+        final String urlWithShow = "http://sfgdgdopguregjer0"; // No pertenece al dominio de tumejortorrent.com
+        // When
+        final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+        // Then
+        assertNull 	( show );
+    }
 
-	//--------------------------- parseBillboardFilms -------------------------
-	@Test
-	public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
-		// Given
-		// When
-		final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(5);
-		// Then
-		assertNotNull 	( shows );
-		assertEquals 	( shows.size(), 5);
-	}
-
-
-	//--------------------------- parseVideoPremieres -------------------------
-	@Test
-	public void whenParseVideoPremieresWithMoreFiveFilmsThenGetFiveFilms() {
-		// Given
-		// When
-		final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(5);
-		// Then
-		assertNotNull 	( shows );
-		assertEquals 	( shows.size(), 5);
-	}
+    //--------------------------- parseBillboardFilms -------------------------
+    @Test
+    public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
+        // Given
+        // When
+        final Set<Show> shows = this.webTorrentSpider.parseBillboardFilms(5);
+        // Then
+        assertNotNull 	( shows );
+        assertEquals 	( shows.size(), 5);
+    }
 
 
-	//----------------------------- parseTVShow -------------------------------
-	@Test
-	public void whenParseModernFamilyThenGetTheLastThreeEpisodes() {
-		// Given
-		// When
-		final Set<Show> shows = this.webTorrentSpider.parseTVShow("modern-family", 3);
-		// Then
-		assertNotNull 	( shows );
-		assertEquals 	( shows.size(), 3);
-	}
+    //--------------------------- parseVideoPremieres -------------------------
+    @Test
+    public void whenParseVideoPremieresWithMoreFiveFilmsThenGetFiveFilms() {
+        // Given
+        // When
+        final Set<Show> shows = this.webTorrentSpider.parseVideoPremieres(5);
+        // Then
+        assertNotNull 	( shows );
+
+        assertTrue	( shows.size() <= 5);
+    }
+
+
+    //----------------------------- parseTVShow -------------------------------
+    @Test
+    public void whenParseModernFamilyThenGetTheLastThreeEpisodes() {
+        // Given
+        // When
+        final Set<Show> shows = this.webTorrentSpider.parseTVShow("modern-family", 3);
+        // Then
+        assertNotNull 	( shows );
+        assertEquals 	( shows.size(), 3);
+    }
 }

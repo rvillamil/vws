@@ -16,31 +16,31 @@ import es.rvp.web.vws.domain.ShowFieldParser;
 @Component("showURLToDownloadParser")
 public class ShowURLToDownloadParser implements ShowFieldParser {
 
-	// LOGGER
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShowURLToDownloadParser.class);
+    // LOGGER
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShowURLToDownloadParser.class);
 
-	/* (non-Javadoc)
-	 * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
-	 */
-	@Override
-	public String parse(final String htmlDocument) {
-		String urlToDownLoad=null;
+    /* (non-Javadoc)
+     * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
+     */
+    @Override
+    public String parse(final String htmlDocument) {
+        String urlToDownLoad=null;
 
-		Scanner scanner = new Scanner(htmlDocument);
-		while (scanner.hasNextLine()) {
-			String line = scanner.nextLine();
-			// process the line
-			if (line.contains("window.location.href")){
-				String[] lines = line.split("=");
-				urlToDownLoad  = (lines[1] + "=" + lines[2]).replace("\"", "").replace(";", "").trim();
-			}
-		}
-		scanner.close();
+        final Scanner scanner = new Scanner(htmlDocument);
+        while (scanner.hasNextLine()) {
+            final String line = scanner.nextLine();
+            // process the line
+            if (line.contains("window.location.href")){
+                final String[] lines = line.split("=");
+                urlToDownLoad  = lines[1].replace("\"", "").replace(";", "").trim();
+            }
+        }
+        scanner.close();
 
-		if ((urlToDownLoad==null) || urlToDownLoad.isEmpty()) {
-			LOGGER.warn("Problem parsing URLToDownload field!");
-		}
+        if (urlToDownLoad==null || urlToDownLoad.isEmpty()) {
+            LOGGER.warn("Problem parsing URLToDownload field!");
+        }
 
-		return urlToDownLoad;
-	}
+        return urlToDownLoad;
+    }
 }

@@ -42,7 +42,7 @@ public class ShowQualityParser implements ShowFieldParser {
         final Document doc = Jsoup.parseBodyFragment(htmlFragment);
         String quality  = null;
         try {
-            quality = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
+            quality = this.jSoupHelper.selectElementText (doc,"h1",1); // e.g. [TS Screener][Español Castellano][2017]
             quality = this.getTextBetweenBracketsByPosition(quality,1).trim();
             if (quality.equals("")) {
                 quality=null;

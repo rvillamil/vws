@@ -62,7 +62,7 @@ public class ShowFactoryImpl implements ShowFactory {
 		final Document doc 		= this.jSoupHelper.newInstanceFromText(htmlDocument);
 		theShow = Show.builder().
 				baseURI       ( baseURI).
-				title		  ( this.jSoupHelper.selectElementText(doc, "strong", 0)).
+				title		  ( this.jSoupHelper.selectElementText(doc, "strong", 1)).
 				session 	  ( this.showSessionParser.parse(htmlDocument)).
 				episode 	  ( this.showEpisodeParser.parse(htmlDocument)).
 				description   ( this.jSoupHelper.getElementTextByClass(doc, "descripcion_top", 0)).

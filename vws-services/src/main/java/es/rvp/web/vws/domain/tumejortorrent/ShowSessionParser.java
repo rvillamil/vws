@@ -18,50 +18,50 @@ import es.rvp.web.vws.domain.ShowFieldParser;
 @Component("showSessionParser")
 public class ShowSessionParser implements ShowFieldParser {
 
-	// LOGGER
-	private static final Logger LOGGER = LoggerFactory.getLogger(ShowSessionParser.class);
+    // LOGGER
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShowSessionParser.class);
 
-	@Autowired
-	private final JSoupHelper jSoupHelper;
+    @Autowired
+    private final JSoupHelper jSoupHelper;
 
-	/**
-	 * Builder
-	 * @param jSoupHelper Facility to parse the HTML document
-	 */
-	public ShowSessionParser (final JSoupHelper jSoupHelper){
-		this.jSoupHelper = jSoupHelper;
-	}
+    /**
+     * Builder
+     * @param jSoupHelper Facility to parse the HTML document
+     */
+    public ShowSessionParser (final JSoupHelper jSoupHelper){
+        this.jSoupHelper = jSoupHelper;
+    }
 
-	/* (non-Javadoc)
-	 * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
-	 */
-	@Override
-	public String parse(final String htmlFragment) {
-		Document doc = Jsoup.parseBodyFragment(htmlFragment);
-		Integer sessionInt  	= null;
-		String session 			= null;
-		try {
-			// Seleccionamos el encabezado de la pagina, e.g.:
-			//		"Modern Family  /  Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]"
-			session = this.jSoupHelper.selectElementText (doc,"h1",0); // e.g. [TS Screener][Español Castellano][2017]
-			String[] data = session.split("Cap\\.");
-			if (data.length > 1) {
-				session = data[1]; // --> Retorna algo del tipo  "811][AC3 5.1 Español Castellano]"
-				session = session.substring(0,1); // --> Retorna 8
-				sessionInt = Integer.parseInt(session);
-			}
-		}
-		catch (NumberFormatException ex) {
-			LOGGER.warn("parse session field - is not number the string '" + session + "'");
-		}
-		catch (Exception ex) {
-			LOGGER.warn(ex.getMessage(), ex);
-		}
+    /* (non-Javadoc)
+     * @see es.rvp.web.vws.domain.ShowFieldParser#parse(java.lang.String)
+     */
+    @Override
+    public String parse(final String htmlFragment) {
+        final Document doc = Jsoup.parseBodyFragment(htmlFragment);
+        Integer sessionInt  	= null;
+        String session 			= null;
+        try {
+            // Seleccionamos el encabezado de la pagina, e.g.:
+            //		"Modern Family  /  Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]"
+            session = this.jSoupHelper.selectElementText (doc,"h1",1); // e.g. [TS Screener][Español Castellano][2017]
+            final String[] data = session.split("Cap\\.");
+            if (data.length > 1) {
+                session = data[1]; // --> Retorna algo del tipo  "811][AC3 5.1 Español Castellano]"
+                session = session.substring(0,1); // --> Retorna 8
+                sessionInt = Integer.parseInt(session);
+            }
+        }
+        catch (final NumberFormatException ex) {
+            LOGGER.warn("parse session field - is not number the string '" + session + "'");
+        }
+        catch (final Exception ex) {
+            LOGGER.warn(ex.getMessage(), ex);
+        }
 
-		if (sessionInt!=null) {
-			return sessionInt.toString();
-		}else {
-			return null;
-		}
-	}
+        if (sessionInt!=null) {
+            return sessionInt.toString();
+        }else {
+            return null;
+        }
+    }
 }
