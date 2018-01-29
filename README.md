@@ -7,26 +7,28 @@
       - [1.2.2 MySQL: Base de Datos](#122-mysql-base-de-datos)
   - [2 Arquitectura de desarrollo](#2-arquitectura-de-desarrollo)
     - [2.1 Construcción, empaquetado y perfiles : maven](#21-construcci%C3%B3n-empaquetado-y-perfiles-maven)
-    - [2.2 Pipeline: Integracion con Jenkins pipeline](#22-pipeline-integracion-con-jenkins-pipeline)
-    - [2.3 Sonarqube: Integracion con Sonarcloud](#23-sonarqube-integracion-con-sonarcloud)
-    - [2.4 Como generar un entregable para produccion : Genearion de los contenedores docker y ejecucion](#24-como-generar-un-entregable-para-produccion-genearion-de-los-contenedores-docker-y-ejecucion)
+    - [2.2 Jenkins: Integración continua](#22-jenkins-integraci%C3%B3n-continua)
+    - [2.3 Sonarqube: Integración con Sonarcloud](#23-sonarqube-integraci%C3%B3n-con-sonarcloud)
+    - [2.4 Como generar un entregable para producción: Contenedores docker y su ejecución](#24-como-generar-un-entregable-para-producci%C3%B3n-contenedores-docker-y-su-ejecuci%C3%B3n)
     - [2.5 Arquitectura de desarrollo del módulo de FrontEnd](#25-arquitectura-de-desarrollo-del-m%C3%B3dulo-de-frontend)
       - [2.5.1 Tecnologías frontend](#251-tecnolog%C3%ADas-frontend)
       - [2.5.2 Layout del 'frontend'](#252-layout-del-frontend)
       - [2.5.3 Proceso de desarrollo para un 'Frontend Developer'](#253-proceso-de-desarrollo-para-un-frontend-developer)
     - [2.6 Arquitectura de desarrollo de los módulos de Backend](#26-arquitectura-de-desarrollo-de-los-m%C3%B3dulos-de-backend)
-      - [2.6.1 Tecnologias backend](#261-tecnologias-backend)
+      - [2.6.1 Tecnologías backend](#261-tecnolog%C3%ADas-backend)
       - [2.6.2 Layout de la aplicacion backend](#262-layout-de-la-aplicacion-backend)
       - [2.6.3 Proceso de desarrollo para un 'Backend Developer'](#263-proceso-de-desarrollo-para-un-backend-developer)
+        - [2.6.3.1 Como probar el API: Ejecución del backend](#2631-como-probar-el-api-ejecuci%C3%B3n-del-backend)
+          - [2.6.3.1.1 Postman](#26311-postman)
+          - [2.6.3.1.2 Curl](#26312-curl)
       - [2.6.4 Test unitarios y de integración en el Backend](#264-test-unitarios-y-de-integraci%C3%B3n-en-el-backend)
       - [2.6.5 Sobre Swagger y la documentacion del API](#265-sobre-swagger-y-la-documentacion-del-api)
-      - [2.6.6 Como comprobar el API](#266-como-comprobar-el-api)
     - [2.7 Arquitectura de desarrollo de la BB.DD](#27-arquitectura-de-desarrollo-de-la-bbdd)
       - [2.7.1 Sobre el Modelado y su manteniento](#271-sobre-el-modelado-y-su-manteniento)
       - [2.7.2  Como conectarse a H2 Embebida](#272-como-conectarse-a-h2-embebida)
       - [2.7.3 Como conectarse a MySQL dockerizado](#273-como-conectarse-a-mysql-dockerizado)
   - [3 Nuevas funcionalidades a implementar](#3-nuevas-funcionalidades-a-implementar)
-  - [4 Que cosas quiero probar ...](#4-que-cosas-quiero-probar)
+  - [4 Que cosas quiero probar](#4-que-cosas-quiero-probar)
 
 
 # VWS: Video websites scraper #
@@ -224,6 +226,10 @@ Para probar el API, lo mejor es utilizar la herramienta 'postman':
 - Importar en el Postman, la colección de peticiones del fichero 'resources/postman/VWS REST API.postman_collection.json'
 
 - Ejecutar un POST contra el servicio /login, para obtener el token que el que haremos el resto de peticiones. 
+
+- Crear un 'Environment' para el VWS y crear las siguientes claaves - valores:
+  - server = localhost:8080
+  - jwtoken = Token obtenido anteriormente
 
 - Configurar el postman para que todas las peticiones usen ese token en la cabecera y ya podemos lanzar el resto de peticiones
 
