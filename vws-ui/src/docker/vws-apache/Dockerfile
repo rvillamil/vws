@@ -11,7 +11,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ADD /maven/src/main/assets/ /usr/local/apache2/htdocs/
 
 # Configuracion de apache personalizada
-ADD conf/  /usr/local/apache2/conf/
+# ADD conf/  /usr/local/apache2/conf/
 
 # Seteamos bien los permisos
 RUN chown -R root:www-data  /usr/local/apache2/conf/*
+
