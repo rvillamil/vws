@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-// TODO: Auto-generated Javadoc
 /**
  * This will be AUTO IMPLEMENTED by Spring into a Bean called favoriteRepository
  * CRUD refers Create, Read, Update, Delete.

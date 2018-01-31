@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JSoupHelperImpl.
  *
@@ -69,11 +68,11 @@ public class JSoupHelperImpl implements JSoupHelper {
 	public Document newInstanceFromElementWithURL (final Element element) {
 		Document document = null;
 		try {
-			String urlWithShow = element.select("a").attr("href");
+			final String urlWithShow = element.select("a").attr("href");
 			if (!urlWithShow.isEmpty()) {
 				document = this.newInstanceByURL(urlWithShow);
 			}
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			LOGGER.warn("newInstanceFromElementWithURL --> " +  ex.getMessage(), ex);
 		}
 
@@ -100,15 +99,15 @@ public class JSoupHelperImpl implements JSoupHelper {
 	public String selectElementText(final Document document, final String cssQuery, final int index) {
 		String elementValue = null;
 		try {
-			Elements elements = document.select(cssQuery);
+			final Elements elements = document.select(cssQuery);
 
 			if (!elements.isEmpty()) {
-				Element element = document.select(cssQuery).get(index);
+				final Element element = document.select(cssQuery).get(index);
 				if (element != null) {
 					elementValue = element.text().trim();
 				}
 			}
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			LOGGER.warn("selectElementText --> " + ex.getMessage(), ex);
 		}
 		return elementValue;
@@ -121,15 +120,15 @@ public class JSoupHelperImpl implements JSoupHelper {
 	public String getElementTextByClass(final Document document, final String className, final int index) {
 		String elementValue = null;
 		try {
-			Elements elements = document.getElementsByClass(className);
+			final Elements elements = document.getElementsByClass(className);
 
 			if (!elements.isEmpty()) {
-				Element element = elements.get(index);
+				final Element element = elements.get(index);
 				if (element != null) {
 					elementValue = element.ownText().trim();
 				}
 			}
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			LOGGER.warn("getElementTextByClass --> " + ex.getMessage(), ex);
 		}
 
@@ -143,15 +142,15 @@ public class JSoupHelperImpl implements JSoupHelper {
 	public String getElementURLByClass(final Document document, final String className, final int index) {
 		String elementValue = null;
 		try {
-			Elements elements = document.getElementsByClass(className);
+			final Elements elements = document.getElementsByClass(className);
 
 			if (!elements.isEmpty()) {
-				Element element = elements.get(index);
+				final Element element = elements.get(index);
 				if (element != null) {
 					elementValue = element.absUrl("href");
 				}
 			}
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			LOGGER.warn("getElementURLByClass --> " + ex.getMessage(), ex);
 		}
 
@@ -165,15 +164,15 @@ public class JSoupHelperImpl implements JSoupHelper {
 	public String getElementURLIMGByClass(final Document document, final String className, final int index) {
 		String elementValue = null;
 		try {
-			Elements elements = document.getElementsByClass(className);
+			final Elements elements = document.getElementsByClass(className);
 
 			if (!elements.isEmpty()) {
-				Element element = elements.select ("img").get(index);
+				final Element element = elements.select ("img").get(index);
 				if (element != null) {
 					elementValue = element.absUrl("src").trim();
 				}
 			}
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			LOGGER.warn("getElementURLIMGByClass --> " + ex.getMessage(), ex);
 		}
 

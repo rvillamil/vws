@@ -28,7 +28,6 @@ import es.rvp.web.vws.domain.Account;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-// TODO: Auto-generated Javadoc
 /**
  * Haciendo uso de las clases proporcionadas por Spring Security, extendemos
  * su comportamiento para reflejar nuestras necesidades.

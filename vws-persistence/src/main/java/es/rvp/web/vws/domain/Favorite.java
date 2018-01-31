@@ -13,7 +13,6 @@ import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Favorite.
  *

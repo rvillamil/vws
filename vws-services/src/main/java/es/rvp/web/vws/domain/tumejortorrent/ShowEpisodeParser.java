@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
-// TODO: Auto-generated Javadoc
 /**
  * Implements #{@link es.rvp.web.vws.domain.ShowFieldParser} for parsing the episode show field
  *

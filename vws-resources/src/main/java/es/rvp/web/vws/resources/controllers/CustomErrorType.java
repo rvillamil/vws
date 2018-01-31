@@ -3,7 +3,6 @@
  */
 package es.rvp.web.vws.resources.controllers;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class CustomErrorType.
  *

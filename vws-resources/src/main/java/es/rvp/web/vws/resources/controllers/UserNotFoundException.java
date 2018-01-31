@@ -8,7 +8,7 @@ package es.rvp.web.vws.resources.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class UserNotFoundException.
  *
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 class UserNotFoundException extends RuntimeException {
-	
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4912472634624855772L;
 

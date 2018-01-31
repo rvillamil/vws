@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
-// TODO: Auto-generated Javadoc
 /**
  * Rest Controller
  * In Spring’s approach to building RESTful web services, HTTP requests are handled by a controller.
@@ -38,8 +37,10 @@ public class PiracyController {
      * FIXME 02: Atender a los Bugs de Sonar y revisar el sonar
      */
     /*
-     TODO 01: Actualizar el README correctamente: https://www.genbetadev.com/software-libre-y-licencias/checklist-para-liberar-un-proyecto-open-source-en-github
-     */
+	 * TODO 01:
+	 * https://www.genbetadev.com/software-libre-y-licencias/checklist-para-
+	 * liberar-un-proyecto-open-source-en-github
+	 */
     /** The Constant LOGGER. */
     // LOGGER
     private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);

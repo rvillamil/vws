@@ -12,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-// TODO: Auto-generated Javadoc
 /**
  * Integration test showing the basic usage of {@link AccountRepository}.
  *

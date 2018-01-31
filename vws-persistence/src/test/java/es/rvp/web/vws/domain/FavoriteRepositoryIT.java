@@ -14,7 +14,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
-// TODO: Auto-generated Javadoc
 /**
  * Integration test showing the basic usage of {@link FavoriteRepository}.
  *
@@ -53,19 +52,19 @@ public class FavoriteRepositoryIT {
 	public void givenUserWhenFindFavoritesTheRenturnAllFavorites() {		
 				
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 				
-		Favorite favorite1 = new Favorite (account, "favorito1");
-		Favorite favorite2 = new Favorite (account, "favorito2");
-		entityManager.persist(favorite1);
-		entityManager.persist(favorite2);
-		entityManager.flush();
+		final Favorite favorite1 = new Favorite (account, "favorito1");
+		final Favorite favorite2 = new Favorite (account, "favorito2");
+		this.entityManager.persist(favorite1);
+		this.entityManager.persist(favorite2);
+		this.entityManager.flush();
 		
 		// When
-		Collection<Favorite> favorites = favoriteRepository.findByAccountUserName(userName);
+		final Collection<Favorite> favorites = this.favoriteRepository.findByAccountUserName(userName);
 				
 		// then		
 		assertEquals(favorites.size(), 2);	
@@ -78,14 +77,14 @@ public class FavoriteRepositoryIT {
 	public void givenUserWhenFindFavoritesThenRenturnEmptyList() {		
 				
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 				
 		
 		// When
-		Collection<Favorite> favorites = favoriteRepository.findByAccountUserName(userName);
+		final Collection<Favorite> favorites = this.favoriteRepository.findByAccountUserName(userName);
 				
 		// then
 		assertTrue(favorites.isEmpty());
@@ -99,14 +98,14 @@ public class FavoriteRepositoryIT {
 	public void givenUserNotExistWhenFindFavoritesThenReturnEmptyList() {		
 				
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 				
 		
 		// When
-		Collection<Favorite> favorites = favoriteRepository.findByAccountUserName("notExistUser");
+		final Collection<Favorite> favorites = this.favoriteRepository.findByAccountUserName("notExistUser");
 				
 		// then
 		assertTrue(favorites.isEmpty());
@@ -120,18 +119,18 @@ public class FavoriteRepositoryIT {
 	public void givenUserNameAndTitleWhenFindByUserNameAndTittleThenReturnFavorite (){
 		
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 		
-		Favorite favorite1 = new Favorite (account, "title1");		
-		entityManager.persist(favorite1);		
-		entityManager.flush();
+		final Favorite favorite1 = new Favorite (account, "title1");		
+		this.entityManager.persist(favorite1);		
+		this.entityManager.flush();
 		
 		// When
-		Optional<Favorite> favorite  
-					= favoriteRepository.findByAccountUserNameAndTitle(userName, "title1");
+		final Optional<Favorite> favorite  
+					= this.favoriteRepository.findByAccountUserNameAndTitle(userName, "title1");
 		
 		// then
 		
@@ -147,18 +146,18 @@ public class FavoriteRepositoryIT {
 	public void givenUserNameAndTitleWhenFindByUserNameAndWrongTittleThenReturnNone (){
 		
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 		
-		Favorite favorite1 = new Favorite (account, "title1");		
-		entityManager.persist(favorite1);		
-		entityManager.flush();
+		final Favorite favorite1 = new Favorite (account, "title1");		
+		this.entityManager.persist(favorite1);		
+		this.entityManager.flush();
 		
 		// When
-		Optional<Favorite> favorite  
-					= favoriteRepository.findByAccountUserNameAndTitle(userName, "no_title");
+		final Optional<Favorite> favorite  
+					= this.favoriteRepository.findByAccountUserNameAndTitle(userName, "no_title");
 		
 		// then		
 		assertFalse(  favorite.isPresent());		
@@ -172,18 +171,18 @@ public class FavoriteRepositoryIT {
 	public void givenUserNameAndTitleWhenFindByWrongUserNameAndTittleThenReturnNone (){
 		
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 		
-		Favorite favorite1 = new Favorite (account, "title1");		
-		entityManager.persist(favorite1);		
-		entityManager.flush();
+		final Favorite favorite1 = new Favorite (account, "title1");		
+		this.entityManager.persist(favorite1);		
+		this.entityManager.flush();
 		
 		// When
-		Optional<Favorite> favorite  
-					= favoriteRepository.findByAccountUserNameAndTitle("wrongUsername", "title1");
+		final Optional<Favorite> favorite  
+					= this.favoriteRepository.findByAccountUserNameAndTitle("wrongUsername", "title1");
 		
 		// then		
 		assertFalse(  favorite.isPresent());		
@@ -197,18 +196,18 @@ public class FavoriteRepositoryIT {
 	public void givenUserNameAndTitleWhenFindByWrongUserNameAndWrongTittleThenReturnNone (){
 		
 		// Given
-		String userName = "user";
-		Account account = new Account(userName, "password");
-		entityManager.persist(account);
-		entityManager.flush();
+		final String userName = "user";
+		final Account account = new Account(userName, "password");
+		this.entityManager.persist(account);
+		this.entityManager.flush();
 		
-		Favorite favorite1 = new Favorite (account, "title1");		
-		entityManager.persist(favorite1);		
-		entityManager.flush();
+		final Favorite favorite1 = new Favorite (account, "title1");		
+		this.entityManager.persist(favorite1);		
+		this.entityManager.flush();
 		
 		// When
-		Optional<Favorite> favorite  
-					= favoriteRepository.findByAccountUserNameAndTitle("wrongUsername", "wrongtitle");
+		final Optional<Favorite> favorite  
+					= this.favoriteRepository.findByAccountUserNameAndTitle("wrongUsername", "wrongtitle");
 		
 		// then		
 		assertFalse(  favorite.isPresent());		

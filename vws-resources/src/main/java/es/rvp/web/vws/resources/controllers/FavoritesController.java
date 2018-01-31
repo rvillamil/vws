@@ -23,7 +23,6 @@ import es.rvp.web.vws.domain.AccountRepository;
 import es.rvp.web.vws.domain.Favorite;
 import es.rvp.web.vws.domain.FavoriteRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * Rest Controller In Spring’s approach to building RESTful web services, HTTP
  * requests are handled by a controller.

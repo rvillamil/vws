@@ -4,7 +4,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-// TODO: Auto-generated Javadoc
 /**
  * Wrapper for JSoup library. Web scraping purposes
  *

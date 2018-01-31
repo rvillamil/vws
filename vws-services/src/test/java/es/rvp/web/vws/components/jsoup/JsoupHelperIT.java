@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import es.rvp.web.vws.TestConfig;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class JsoupHelperIT.
  *
@@ -101,7 +100,7 @@ public class JsoupHelperIT {
 				 title="Descargar Diez Mil Santos gratis">
 		*/
 		// Given
-		String urlWithContent = "http://www.google.es";
+		final String urlWithContent = "http://www.google.es";
 		final Tag tag1 = Tag.valueOf("a");
 		final Attributes attributes1 = new Attributes();
 		attributes1.put("href", urlWithContent);
@@ -130,7 +129,7 @@ public class JsoupHelperIT {
 		  </li>
 		*/
 		// Given
-		String urlWithContent = "http://www.google.es";
+		final String urlWithContent = "http://www.google.es";
 
 		final Tag tag1 = Tag.valueOf("li");
 		final Tag tag2 = Tag.valueOf("a");

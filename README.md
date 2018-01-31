@@ -28,29 +28,31 @@
       - [2.7.2  Como conectarse a H2 Embebida](#272-como-conectarse-a-h2-embebida)
       - [2.7.3 Como conectarse a MySQL dockerizado](#273-como-conectarse-a-mysql-dockerizado)
   - [3 Nuevas funcionalidades a implementar](#3-nuevas-funcionalidades-a-implementar)
-  - [4 Que cosas quiero probar](#4-que-cosas-quiero-probar)
+  - [4 Técnicas/Tecnlogías a investigar](#4-t%C3%A9cnicastecnlog%C3%ADas-a-investigar)
 
 
 # VWS: Video websites scraper #
 
 El proposito de este desarrollo
 no es otro que probar, aprender y entender, diferentes técnicas/tecnologías
-de desarrollo de aplicaciones web.
+de desarrollo de aplicaciones web. La funcionalidad/utilidad de este desarrollo es lo de menos. El propio principio KISS, se suicidaría si ve como se ha implementado.
 
-La funcionalidad/utilidad es lo de menos. El propio principio KISS, se suicidaría si ve como se ha implementado la solución. En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad
-básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent'
+En cualquier caso, VWS, es una aplicación web de tipo Single Page Application, cuya funcionalidad básica consiste en hacer 'scrapping' de portales con enlaces a ficheros 'torrent'
 con peliculas y series de televisión.
-El resultado de ese 'scrapping' los procesamos para generar un portal web, con la información de las últimas peliculas de cine y películas de vídeo obtenidas.
-Además, como funcionalidad añadida, guarda las series favoritas para el usuario, pudiendo consultar los últimos episodios disponibles para las mismas.
+
+El resultado de ese 'scrapping' se procesa generando un portal web, con la información de las últimas peliculas de cine y o series que se encuentra actualmente en el portal.
+Además, como funcionalidad añadida, almacena las series favoritas, pudiendo consultar los últimos episodios disponibles para las mismas.
+
+VWS requiere autenticación previa de alguno de los usuarios de prueba.
 
 
 ## 1 Arquitectura software ##
 ![figure-execution-architecture](resources/images/draw.io-figure-execution-architecture.png "Diagrama de Arquitectura lógica")
 ### 1.1 FrontEnd ###
 
-El 'front' es una aplicación SPA, desarrollada en Javascript, además de HTML5 y CSS3 muy básicos, que lanza peticiones XHR contra una API REST securizada. En general, el formato de intercambio de información, es JSON.
+El 'front' es una aplicación SPA, desarrollada en Javascript, HTML5 y CSS3 muy básicos, que lanza peticiones XHR contra una API REST securizada. En general, el formato de intercambio de información, es JSON.
 
-Muestra un portal con las carátulas e información de los 'shows' obtenidos del portal del que hacemos scrapping.
+La información que nos proporciona el API, nos permite 'pintar' una pagina, con las carátulas e información de los 'shows' obtenidos.
 
 - Las peticiones deben de ir acompañadas del token JWT correspondiente, que nuestro API Rest proporciona a los usuarios que se encuentren dados de alta en la aplicacion. Para obtener el token, se requiere consumir el servicio de /login expuesto en el backend
 
@@ -58,43 +60,50 @@ La aplicación 'front' debe de desplegarse lógicamente, en un servidor web, com
 
 ### 1.2 Backend ###
 
-Básicamente es un API Rest, con soporte de persistencia para almacenar las series favoritos. Se encarga de hacer el scrapping del portal con 'shows', retornando JSon al 'Frontend' con la información procesada.
+Básicamente es un API Rest, con soporte de persistencia para almacenar los usuarios de la aplicació y sus series favoritas. 
+
+Se encarga de hacer 'scrapping' del portal con 'shows', retornando JSon al 'Frontend' con la información procesada.
 
 #### 1.2.1 Aplicacion Spring Boot ####
 
-La lógica de negocio, está desarrollada en Java, con el soporte de spring boot. La arquitectura de esta aplicación es la clásica de capas.
+La lógica de negocio, está desarrollada en Java, con el soporte de spring boot. La arquitectura de esta aplicación, es la clásica de capas.
 
-- Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, el 'token' JWT que el servidor le ha proporcionado.
+- Securizacion y JWT: La autenticación esta basada en 'token' JWT. El cliente (Frontend, curl, ..etc) se encargará de enviar en sus peticiones, acompañadas en sus cabeceras por el 'token' JWT que el servidor le ha proporcionado en el servicio de /login
 
-Aunque por ser una aplicacion spring boot, no sería necesario, se ha empaquetada en un contenedor docker con todo lo necesario para su ejecución.
+Aunque por ser una aplicacion spring boot, no sería necesario, se ha empaquetado en un contenedor docker con todo lo necesario para su ejecución.
 
 #### 1.2.2 MySQL: Base de Datos ####
 
-Para la persistencia de los datos (usuarios, favoritos ..), la aplicación Java, se conecta contra una BB.DD MySQL.
+Para la persistencia de los datos (usuarios, favoritos ..), la aplicación Java, se conecta contra una BB.DD MySQL
 
 Un MySQL "dockerizado" esta preparado con todo lo necesario para su ejecución.
 
 ## 2 Arquitectura de desarrollo ##
 
-El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). El ciclo de vida del proyecto, está cubierto en general, con el soporte de [maven](https://maven.apache.org).
-Tambien hemos dado soporte para integracion continua con un pipeline de Jenkins. En el directorio raiz del proyecto, hay un fichero 'Jenkisfile' que describe el pipeline.
-Se dispone del soporte de JaCoCo para generar informes de cobertura para Sonar.
+El proyecto se encuentra alojado en [GitHub](https://github.com/rvillamil/vws). 
+
+El ciclo de vida del proyecto, está cubierto en general, con el soporte de [maven](https://maven.apache.org).
+
+
+Tambien hemos dado soporte para integracion continua con un pipeline de Jenkins, el cual, se integra perfectamente si utilizas el Jenkins proporciono con el proyecto [ci-tool-stack](https://github.com/rvillamil/ci-tool-stack).
+
+Se dispone del soporte de [JaCoCo](http://www.eclemma.org/jacoco/) para generar informes de cobertura que encajan muy bien con [SonarQube](https://www.sonarqube.org/). 
 
 ### 2.1 Construcción, empaquetado y perfiles : maven ###
 
-Se han implementado tres perfiles en el ciclo de vida maven, que se pasan como opción en el parámetro -P
+Se han implementado tres perfiles en el ciclo de vida maven, que se pasan como opción en el parámetro -P [perfil]
 
 - develop (Perfil por defecto): Lanza los test unitarios y evita los test de integración
 - integration: Lanza los test unitarios y los de integracion. Util para entornos de Integración Continua
 
 - docker-support : Ejecuta la 'build' de los contenedores docker en los proyectos dockerizados. En general, se usa para generar una version de produccion.
-  - NOTA: Requiere un demonio de docker corriendo en la maquina
+  - NOTA: Evidentemente, requiere un demonio de docker corriendo en la maquina
 
 Ejemplos:
 
 - $mvn clean install : Compila con el profile 'develop' por defecto y lanza los tes unitarios exclusivamente
 
-- $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción con el soporte de docker
+- $mvn clean install -P integration,docker-support: Ejecuta los test unitarios, los de integración y empaqueta la aplicacion para producción, con el soporte de docker
 
 ### 2.2 Jenkins: Integración continua ###
 
@@ -102,7 +111,9 @@ El fichero Jenkinsfile, es un pipeline válido que funciona dentro del proyecto 
 
 ### 2.3 Sonarqube: Integración con Sonarcloud ###
 
-El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects). Para enviar metricas al Sonar desplegado en Sonarcloud:
+El proyecto se encuentra alojado en [Sonarcloud]( https://sonarcloud.io/organizations/rvillamil-bitbucket/projects). 
+
+Para enviar metricas al Sonar desplegado en Sonarcloud:
 
 ```
 mvn clean install -P integration org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar  -Dsonar.host.url=https://sonarcloud.io  -Dsonar.organization=rvillamil-bitbucket   -Dsonar.login=7750fc9fb8a33d688729a9f94d1943393829294f
@@ -120,7 +131,7 @@ Se requiere tener soporte para docker 1.12 o superior, en la máquina donde se g
  - Lanzar todo el stack, con el soporte de 'docker-compose':
 
  ```
- docker-compose up ( con -d, para demonizarlo)
+ docker-compose up [-d, para demonizarlo]
  ```
 - Comprobar la URL: http://localhost:9090 , donde tenemos los usuarios predefinidos siguientes:
   - usuario 1: 'rodrigo' y clave: 'pepe'
@@ -228,8 +239,8 @@ Para probar el API, lo mejor es utilizar la herramienta 'postman':
 - Ejecutar un POST contra el servicio /login, para obtener el token que el que haremos el resto de peticiones. 
 
 - Crear un 'Environment' para el VWS y crear las siguientes claaves - valores:
-  - server = localhost:8080
-  - jwtoken = Token obtenido anteriormente
+  - server => localhost:8080
+  - jwtoken => Token obtenido anteriormente
 
 - Configurar el postman para que todas las peticiones usen ese token en la cabecera y ya podemos lanzar el resto de peticiones
 
@@ -261,44 +272,84 @@ La API Rest. está documentada con el soporte de swagger en la URL siguiente: ht
 
 ### 2.7 Arquitectura de desarrollo de la BB.DD ###
 
-// TODO La BB.DD tiene un modelo muy simple...
+La BBDD tiene un modelado muy simple, pues ademas de almacenar los usuarios de la aplicación para su autenticación, cubre la funcionalidad que permite administrar los favoritos del usario autenticado.
+
+El DDL y DML, se encuentran en los ficheros 'sql' del directorio 'vws/vws-persistence/src/main/docker/vws-mysql/src/*.sql'
 
 #### 2.7.1 Sobre el Modelado y su manteniento ####
-- Creamos los objetos del modelo (Account, AccountRepository...) con JPA
-- Revisamos el fichero 'application.yml' la opcion de jp: Establecemos a create-drop
-- Compilamos la aplicacion (Ver enlace mas arriba)
-- Lanzamos la aplicacion como para produccion
-- Ejecutamos el script: backup-DDL.sh
-- Copiamos el fichero resultando: $cp 00-vws-ddl.sql src/main/docker/vws-mysql/src/00-vws-ddl.sql
 
+La técnica de modelado consiste en generar el esquema, a partir de los objetos de negocio: [JPA Database Schema](https://www.thoughts-on-java.org/create-generate-table-model/)
+
+Como queremos que se genere un fichero SQL para MySQL, utilizaremos la configuración de producción.Los pasos para extender el modelo de BBDD serían los siguientes:
+
+- Creamos los objetos del modelo (Account, AccountRepository...) anotándolos adecuadamente con JPA
+
+- Actualizamo en el fichero 'application-container.yml', la opcion de jpa: 
+  ```
+   jpa:
+        database: MYSQL
+        hibernate:
+            ddl-auto: auto
+  ```
+ 
+  ```
+   jpa:
+        database: MYSQL
+        hibernate:
+            ddl-auto: create-drop
+  ```
+
+- Re-compilamos la aplicacion y generamos los contenedores docker
+
+- Ejecutamos la aplicación como para producción
+
+- Ejecutamos el script 'backup-DDL.sh' que extrae el modelo regenedo a un fichero SQL
+
+- Copiamos el fichero anteriormente generado 
+  ```
+  $cp 00-vws-ddl.sql src/main/docker/vws-mysql/src/00-vws-ddl.sql
+  ```
 
 #### 2.7.2  Como conectarse a H2 Embebida #####
 
-Esta informacion la tenemos en el application.yml
+Con la aplicacion iniciada para el entorno de desarrollo, entraríamos en el navegador en la URL: http://localhost:8080/h2
 
-- http://localhost:8080/h2
-- user: root
-- pass:
-- JDBC URL: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+Introducimos la cadena de conexion, usuario y password que vemos en el fichero 'application.yml'
 
+Ejemplo:
+```
+ user: root
+ pass:
+ JDBC URL: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+```
 
 #### 2.7.3 Como conectarse a MySQL dockerizado #####
-- docker exec -i -t cnt-vws-mysql /bin/bash
-- mysql vws -uroot -proot
 
+Con la aplicación iniciada para el entorno de producción, abrimos un terminal y ejecutamos el siguiente comando:
 
-  Para ver la BB.DD desde un cliente Mysql:
-     mysql vws -P 5306 -uroot -proot -h 127.0.0.1
+  ```
+  $ docker exec -i -t cnt-vws-mysql /bin/bash
+  ```
 
+Una vez dentro, simplemente nos conectamos a la BB.DD con el cliente MySQL que proporciona el contenedor:
+ 
+  ```
+  $ mysql vws -uroot -proot
+  ```
+
+Una segunda opción sería, si tienes un cliente de MySQL instalado en tu maquina HOST, conectarse directamente al servidor MySQL dentro del contenedor,pues está escuchando en el puerto 5306.
+  ```
+  $ mysql vws -P 5306 -uroot -proot -h 127.0.0.1
+  ```
 ## 3 Nuevas funcionalidades a implementar ##
 
-- Automatizar la descarga de pelis cuando salgan en una calidad determinada. Por ejemplo, “Reservar Spiderman” y cuando "Spiderman" salga y ademas en la calidad que pongamos, se pondrá a descargar.
+- Automatización de la descarga de pelis. Por ejemplo, “Reservar Spiderman” y cuando "Spiderman" salga y ademas en la calidad que pongamos, se pondrá a descargar.
 
 - Poner las notas de las pelis:
   - Implementar el parser de filmaffinity o bien http://www.cinesift.com/
   - Usar una API pública de metracritic o similar ( https://www.publicapis.com/ )
 
-## 4 Que cosas quiero probar ##
+## 4 Técnicas/Tecnlogías a investigar ##
 
 - Revisar la configuracion de spring boot y la carga de properties  
   - https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html

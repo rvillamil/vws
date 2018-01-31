@@ -14,7 +14,6 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ShowQualityParserTest.
  *
@@ -46,7 +45,7 @@ public class ShowQualityParserTest {
 	public void givenHTMLWithQualityFieldParseThenGetTheQualityString() {
 
 		// Given
-		String htmlFragment = "loquesea HTML";
+		final String htmlFragment = "loquesea HTML";
 
 		// When
 		when (this.jSoupHelper.selectElementText (
@@ -54,7 +53,7 @@ public class ShowQualityParserTest {
 				anyString(),
 				anyInt()) ).thenReturn(
 						"Modern Family - Temporada 8 [HDTV 720p][Cap.809][AC3 5.1 Español Castellano]");
-		String data = this.showQualityParser.parse(htmlFragment);
+		final String data = this.showQualityParser.parse(htmlFragment);
 		// Then
 		assertEquals ("HDTV 720p", data);
 	}

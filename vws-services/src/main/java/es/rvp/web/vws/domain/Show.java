@@ -6,7 +6,6 @@ import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.Builder;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Show object. Requieres lombok project
  * @author Rodrigo Villamil Perez

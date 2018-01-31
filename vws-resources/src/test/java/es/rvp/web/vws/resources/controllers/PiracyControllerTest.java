@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
-// TODO: Auto-generated Javadoc
 /**
  * To test the Controllers, we can use @WebMvc	Test. It will auto-configure the Spring
  * MVC infrastructure for our unit tests.
@@ -157,7 +156,7 @@ public class PiracyControllerTest {
         final Set<Show> shows =	this.newShowsToTest(3, "Modern Family HD");
         
         // When - Then
-        String tvShowPath="modern-family";
+        final String tvShowPath="modern-family";
         when(this.webTorrentSpider.parseTVShow( tvShowPath, this.maxTVshows)).thenReturn(shows);
 
         this.mvc.perform 	( get("/api/tvshows/" + tvShowPath)
@@ -181,7 +180,7 @@ public class PiracyControllerTest {
     	final Set<Show> shows = new HashSet<>();
         
         // When - Then
-        String tvShowPath="modern-family";
+        final String tvShowPath="modern-family";
         when(this.webTorrentSpider.parseTVShow( tvShowPath, this.maxTVshows)).thenReturn(shows);
 
         this.mvc.perform 	( get("/api/tvshows/" + tvShowPath)

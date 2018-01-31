@@ -23,7 +23,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * Example: https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
  *

@@ -14,7 +14,6 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 import es.rvp.web.vws.utils.HTMLFactorySingleton;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ShowQualityParserIT.
  */
@@ -41,10 +40,10 @@ public class ShowQualityParserIT {
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetEpisodeNotNull() {
 		// Given
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
+		final String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
 				"http://www.tumejortorrent.com/descargar-serie/mom/capitulo-418/hdtv/");
 		// When
-		String data = this.showQualityParser.parse(html);
+		final String data = this.showQualityParser.parse(html);
 		// Then
 		assertNotNull 	( data );
 		assertEquals 	( data, "HDTV");

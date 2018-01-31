@@ -15,7 +15,6 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 import es.rvp.web.vws.utils.HTMLFactorySingleton;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ShowSessionParserIT.
  */
@@ -42,10 +41,10 @@ public class ShowSessionParserIT {
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetEpisodeNotNull() {
 		// Given
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
+		final String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
 				"http://www.tumejortorrent.com/descargar-serie/mom/capitulo-418/hdtv/");
 		// When
-		String data = this.showSessionParser.parse(html);
+		final String data = this.showSessionParser.parse(html);
 		// Then
 		assertNotNull 	( data );
 		assertEquals 	( data, "4");
@@ -58,10 +57,10 @@ public class ShowSessionParserIT {
 	public void givenHTMLWithTVShowWith2EpisodesWhenParseThenGetTwoEpisodes() {
 		// Given
 		// Esta seria devuelve dos episodios
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
+		final String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
 				"http://www.tumejortorrent.com/descargar-serie/the-man-in-the-high-castle/capitulo-25/hdtv/");
 		// When
-		String data = this.showSessionParser.parse(html);
+		final String data = this.showSessionParser.parse(html);
 		// Then
 		assertNotNull 	( data );
 		assertEquals 	( data, "2");
@@ -73,10 +72,10 @@ public class ShowSessionParserIT {
 	@Test
 	public void givenHTMLWithFilmWhenParseThenGetEpisodeNull() {
 		// Given
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
+		final String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
 				"http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/");
 		// When
-		String data = this.showSessionParser.parse(html);
+		final String data = this.showSessionParser.parse(html);
 		// Then
 		assertNull 	( data );
 	}

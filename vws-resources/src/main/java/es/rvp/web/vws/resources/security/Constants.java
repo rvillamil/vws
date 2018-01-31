@@ -1,6 +1,5 @@
 package es.rvp.web.vws.resources.security;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Constants.
  */

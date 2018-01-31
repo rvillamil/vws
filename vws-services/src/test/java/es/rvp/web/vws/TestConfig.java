@@ -16,7 +16,7 @@ import es.rvp.web.vws.domain.tumejortorrent.ShowURLToDownloadParser;
 import es.rvp.web.vws.services.WebTorrentSpider;
 import es.rvp.web.vws.services.tumejortorrent.WebTorrentSpiderImpl;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * "application-context" for testing purposes.
  *

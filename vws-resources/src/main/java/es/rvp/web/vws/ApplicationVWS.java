@@ -22,7 +22,6 @@ import es.rvp.web.vws.domain.tumejortorrent.ShowQualityParser;
 import es.rvp.web.vws.domain.tumejortorrent.ShowSessionParser;
 import es.rvp.web.vws.domain.tumejortorrent.ShowURLToDownloadParser;
 
-// TODO: Auto-generated Javadoc
 /**
  * Spring boot Application: https://spring.io/guides/gs/spring-boot/
  *

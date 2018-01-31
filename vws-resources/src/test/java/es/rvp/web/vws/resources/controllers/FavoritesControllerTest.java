@@ -33,7 +33,6 @@ import es.rvp.web.vws.domain.AccountRepository;
 import es.rvp.web.vws.domain.Favorite;
 import es.rvp.web.vws.domain.FavoriteRepository;
 
-// TODO: Auto-generated Javadoc
 /**
  * To test the Controllers, we can use @WebMvc	Test. It will auto-configure the Spring
  * MVC infrastructure for our unit tests.

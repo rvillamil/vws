@@ -2,7 +2,6 @@ package es.rvp.web.vws.utils;
 
 import es.rvp.web.vws.components.jsoup.JSoupHelper;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Enum HTMLFactorySingleton.
  *

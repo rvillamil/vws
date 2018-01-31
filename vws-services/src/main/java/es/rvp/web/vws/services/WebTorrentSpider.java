@@ -4,7 +4,6 @@ import java.util.Set;
 
 import es.rvp.web.vws.domain.Show;
 
-// TODO: Auto-generated Javadoc
 /**
  * HTML Service scraping for torrent portal.
  *

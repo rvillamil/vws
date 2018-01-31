@@ -16,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import es.rvp.web.vws.TestConfig;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.services.WebTorrentSpider;
-
-// TODO: Auto-generated Javadoc
 /**
  * The Class WebTorrentSpiderIT.
  */

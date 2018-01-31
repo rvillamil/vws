@@ -17,7 +17,7 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.ShowFieldParser;
 import es.rvp.web.vws.utils.HTMLFactorySingleton;
 
-// TODO: Auto-generated Javadoc
+
 /**
  * The Class ShowURLToDownloadParserIT.
  */
@@ -44,10 +44,10 @@ public class ShowURLToDownloadParserIT {
 	@Test
 	public void givenHTMLWithTVShowWhenParseThenGetURLToDownload() {
 		// Given
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
+		final String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
 				"http://www.tumejortorrent.com/descargar-serie/mom/capitulo-418/hdtv/");
 		// When
-		String data = this.showURLToDownloadParser.parse(html);
+		final String data = this.showURLToDownloadParser.parse(html);
 		// Then
 		assertNotNull 	( data );
 		assertTrue (this.isURLValid (data));
@@ -59,10 +59,10 @@ public class ShowURLToDownloadParserIT {
 	@Test
 	public void givenHTMLWithFilmWhenParseThenGetURLToDownload() {
 		// Given
-		String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
+		final String html =HTMLFactorySingleton.INSTANCE.getHTMLByURL(this.jsoupHelper,
 				"http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/");
 		// When
-		String data = this.showURLToDownloadParser.parse(html);
+		final String data = this.showURLToDownloadParser.parse(html);
 		// Then
 		assertNotNull 	( data );
 		assertTrue (this.isURLValid (data));
@@ -79,7 +79,7 @@ public class ShowURLToDownloadParserIT {
 		Boolean valid=true;
 		try {
 			new URL (urlString);
-		} catch (MalformedURLException e) {
+		} catch (final MalformedURLException e) {
 			valid = false;
 		}
 		return valid;

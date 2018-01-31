@@ -15,7 +15,6 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.domain.ShowFactory;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ShowFactoryIT.
  */
@@ -46,7 +45,7 @@ public class ShowFactoryIT {
 		final String urlWithShow = "http://tumejortorrent.com/descargar-pelicula/monster-trucks/ts-screener/";
 
 		// When
-		Show show = this.showFactory.newInstance( urlWithShow,
+		final Show show = this.showFactory.newInstance( urlWithShow,
 												  this.jsoupHelper.newInstanceByURL(urlWithShow).html());
 
 		// Then
@@ -75,7 +74,7 @@ public class ShowFactoryIT {
 		// Given
 		final String urlWithShow = "http://www.tumejortorrent.com/descargar-serie/the-man-in-the-high-castle/capitulo-25/hdtv/";
 		// When
-		Show show = this.showFactory.newInstance( urlWithShow,
+		final Show show = this.showFactory.newInstance( urlWithShow,
 				  								 this.jsoupHelper.newInstanceByURL(urlWithShow).html());
 		// Then
 		assertNotNull 	( show );

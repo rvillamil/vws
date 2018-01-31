@@ -1,6 +1,5 @@
 package es.rvp.web.vws.domain;
 
-// TODO: Auto-generated Javadoc
 /**
  * Factory for #{@link es.rvp.web.vws.domain.Show} objects
  *

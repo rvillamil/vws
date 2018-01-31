@@ -11,11 +11,16 @@ import javax.persistence.OneToMany;
 
 import lombok.Getter;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Account.
  *
  * @author Rodrigo Villamil Pérez
+ */
+
+/**
+ * Gets the user name.
+ *
+ * @return the user name
  */
 
 /**

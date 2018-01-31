@@ -15,7 +15,6 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.components.jsoup.JSoupHelperImpl;
 import es.rvp.web.vws.domain.ShowFieldParser;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ShowSessionParserTest.
  *
@@ -47,7 +46,7 @@ public class ShowSessionParserTest {
 	public void givenHTMLWithSessionFieldParseThenGetTheSessionString() {
 
 		// Given
-		String htmlFragment = "loquesea HTML";
+		final String htmlFragment = "loquesea HTML";
 
 		// When
 		when (this.jSoupHelper.selectElementText (
@@ -55,7 +54,7 @@ public class ShowSessionParserTest {
 				anyString(),
 				anyInt()) ).thenReturn(
 						"Mom  /  Mom - Temporada 4 [HDTV][Cap.418][AC3 5.1 Español Castellano]");
-		String data = this.showSessionParser.parse(htmlFragment);
+		final String data = this.showSessionParser.parse(htmlFragment);
 		// Then
 		assertEquals ("4", data);
 	}
@@ -67,7 +66,7 @@ public class ShowSessionParserTest {
 	public void givenHTMLWithTVShowWithTwoEpisodesWhenParseThenGetTheSession() {
 
 		// Given
-		String htmlFragment = "loquesea HTML";
+		final String htmlFragment = "loquesea HTML";
 
 		// When
 		when (this.jSoupHelper.selectElementText (
@@ -85,7 +84,7 @@ public class ShowSessionParserTest {
 	public void givenHTMLWithOutSessionFieldParseThenGetNull() {
 
 		// Given
-		String htmlFragment = "loquesea HTML";
+		final String htmlFragment = "loquesea HTML";
 
 		// When
 		when (this.jSoupHelper.selectElementText (
@@ -94,7 +93,7 @@ public class ShowSessionParserTest {
 				anyInt()) ).thenReturn(
 						"Modern Family - Temporada 8 [HDTV 720p][AC3 5.1 Español Castellano]");
 
-		String data = this.showSessionParser.parse(htmlFragment);
+		final String data = this.showSessionParser.parse(htmlFragment);
 
 		// Then
 		assertNull (data);

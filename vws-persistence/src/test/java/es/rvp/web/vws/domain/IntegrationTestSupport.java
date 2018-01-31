@@ -3,7 +3,6 @@ package es.rvp.web.vws.domain;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// TODO: Auto-generated Javadoc
 /**
  * Spring boot Application for integration testing support.
  *

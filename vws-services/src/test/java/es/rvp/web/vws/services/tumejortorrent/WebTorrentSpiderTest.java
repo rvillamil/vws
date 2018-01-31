@@ -24,7 +24,6 @@ import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.domain.tumejortorrent.ShowFactoryImpl;
 import es.rvp.web.vws.services.WebTorrentSpider;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class WebTorrentSpiderTest.
  */
@@ -65,11 +64,11 @@ public class WebTorrentSpiderTest {
 		final String urlWithShow = "http://www.invalidvalidurlwithshow.com";
 
 		// When
-		Document doc = new Document (urlWithShow);
+		final Document doc = new Document (urlWithShow);
 		when (this.jSoupHelper.newInstanceByURL(urlWithShow)).thenReturn(doc);
 		when (this.showFactory.newInstance(urlWithShow, doc.html())).thenReturn(Show.builder().title("test").build());
 
-		Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNull ( show);
 	}
@@ -83,12 +82,12 @@ public class WebTorrentSpiderTest {
 		final String urlWithShow = "http://tumejortorrent.com/anyvalidurlwithshow.com";
 
 		// When
-		Document doc = new Document (urlWithShow);
+		final Document doc = new Document (urlWithShow);
 		when (this.jSoupHelper.newInstanceByURL(urlWithShow)).thenReturn(doc);
 		when (this.showFactory.newInstance(urlWithShow, doc.html())).thenReturn(
 				Show.builder().title("test").build());
 
-		Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNotNull ( show);
 		assertEquals  ( show.getTitle(), "test");
@@ -103,12 +102,12 @@ public class WebTorrentSpiderTest {
 		final String urlWithShow = "http://tumejortorrent.com/notexisting.com";
 
 		// When
-		Document doc = new Document (urlWithShow);
+		final Document doc = new Document (urlWithShow);
 		when (this.jSoupHelper.newInstanceByURL(urlWithShow)).thenReturn(null); // No existe la URL
 		when (this.showFactory.newInstance(urlWithShow, doc.html())).thenReturn(
 				Show.builder().title("test").build());
 
-		Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
+		final Show show = this.webTorrentSpider.parseHTMLFrom(urlWithShow);
 		// Then
 		assertNull ( show);
 	}
@@ -120,9 +119,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseBillBoardWithMoreFiveFilmsThenGetFiveFilms() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 20;
-		int numberOfShowsToParse 		= 5;
-		String htmlClassName				= "pelilist";
+		final int numberOfShowsInTheWebSite 	= 20;
+		final int numberOfShowsToParse 		= 5;
+		final String htmlClassName				= "pelilist";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
@@ -138,9 +137,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseTwentyFilmsInBillBoardWithTenFilmsThenGetTenFilms() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 10;
-		int numberOfShowsToParse 		= 20;
-		String htmlClassName				= "pelilist";
+		final int numberOfShowsInTheWebSite 	= 10;
+		final int numberOfShowsToParse 		= 20;
+		final String htmlClassName				= "pelilist";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
@@ -157,9 +156,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseVideoPremieresWithMoreFiveVideoThenGetFiveVideo() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 20;
-		int numberOfShowsToParse 		= 5;
-		String htmlClassName				= "pelilist";
+		final int numberOfShowsInTheWebSite 	= 20;
+		final int numberOfShowsToParse 		= 5;
+		final String htmlClassName				= "pelilist";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite, htmlClassName);
@@ -175,9 +174,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseVideoPremieresWithMoreSixVideoThenGetSixVideo() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 20;
-		int numberOfShowsToParse 		= 6;
-		String htmlClassName				= "pelilist";
+		final int numberOfShowsInTheWebSite 	= 20;
+		final int numberOfShowsToParse 		= 6;
+		final String htmlClassName				= "pelilist";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite, htmlClassName);
@@ -193,9 +192,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseTwentyVideoPremieresInBillBoardWithTenVideosThenGetTenVideos() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 10;
-		int numberOfShowsToParse 		= 20;
-		String htmlClassName			= "pelilist";
+		final int numberOfShowsInTheWebSite 	= 10;
+		final int numberOfShowsToParse 		= 20;
+		final String htmlClassName			= "pelilist";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite/2,htmlClassName);
@@ -212,9 +211,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseModernFamilyWith20EpisodesThenGetTheLastThreeEpisodes() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 20;
-		int numberOfShowsToParse 		= 3;
-		String htmlClassName				= "buscar-list";
+		final int numberOfShowsInTheWebSite 	= 20;
+		final int numberOfShowsToParse 		= 3;
+		final String htmlClassName				= "buscar-list";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
@@ -230,9 +229,9 @@ public class WebTorrentSpiderTest {
 	@Test
 	public void whenParseThreeModernFamilyEpisodeWithThowEpisodesThenGetTheTwoEpisodes() {
 		// Given
-		int numberOfShowsInTheWebSite 	= 2;
-		int numberOfShowsToParse 		= 3;
-		String htmlClassName			= "buscar-list";
+		final int numberOfShowsInTheWebSite 	= 2;
+		final int numberOfShowsToParse 		= 3;
+		final String htmlClassName			= "buscar-list";
 
 		// When
 		this.configureTest (numberOfShowsInTheWebSite,htmlClassName);
@@ -252,10 +251,10 @@ public class WebTorrentSpiderTest {
 	 */
 	// ----------------------- test utils -------------------------------------
 	private Elements getTestElements (final int numberOfElements){
-		Elements elements = new Elements();
+		final Elements elements = new Elements();
 
 		for (int i=0; i < numberOfElements; ++i) {
-			Element e = new Element (Tag.valueOf("tag"), "element_"+ i+1);
+			final Element e = new Element (Tag.valueOf("tag"), "element_"+ i+1);
 			elements.add(e);
 		}
 
@@ -273,7 +272,7 @@ public class WebTorrentSpiderTest {
 
 		final String urlWithShow = "http://tumejortorrent.com";
 		// When
-		Document doc = new Document (urlWithShow);
+		final Document doc = new Document (urlWithShow);
 		when (this.jSoupHelper.newInstanceByURL(anyString())).thenReturn(doc);
 		when (this.jSoupHelper.selectElementsByClassListName(doc, classListName)).thenReturn(this.getTestElements(numberOfShowsInTheWebSite));
 		when (this.jSoupHelper.newInstanceFromElementWithURL(anyObject())).thenReturn(new Document ("showhtml")); // Crea un elemento con el show
@@ -281,7 +280,7 @@ public class WebTorrentSpiderTest {
 		// Hacemos este artificio, para que no meta elementos repetidos
 		when (this.showFactory.newInstance(anyString(), anyString())).thenAnswer(invocation -> {
 			Thread.sleep(10);
-			String title = String.valueOf(System.currentTimeMillis());
+			final String title = String.valueOf(System.currentTimeMillis());
 			return Show.builder().title(title).build();
 		});
 	}

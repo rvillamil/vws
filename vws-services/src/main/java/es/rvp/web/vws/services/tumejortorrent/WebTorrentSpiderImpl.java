@@ -16,8 +16,6 @@ import es.rvp.web.vws.components.jsoup.JSoupHelper;
 import es.rvp.web.vws.domain.Show;
 import es.rvp.web.vws.domain.ShowFactory;
 import es.rvp.web.vws.services.WebTorrentSpider;
-
-// TODO: Auto-generated Javadoc
 /**
  * HTML Service scraping for the torrent portal 'http://tumejortorrent.com'
  *
