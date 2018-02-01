@@ -37,9 +37,8 @@ public class PiracyController {
      * FIXME 02: Atender a los Bugs de Sonar y revisar el sonar
      */
     /*
-	 * TODO 01:
-	 * https://www.genbetadev.com/software-libre-y-licencias/checklist-para-
-	 * liberar-un-proyecto-open-source-en-github
+	 * TODO 01: Meter las licencias y el plugin de licencias: mvn license
+	 * (https://choosealicense.com/licenses/mit/)
 	 */
     /** The Constant LOGGER. */
     // LOGGER
