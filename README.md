@@ -33,7 +33,7 @@
 
 # VWS: Video websites scraper #
 
-El proposito de este desarrollo
+El objetivo de este proyecto
 no es otro que probar, aprender y entender, diferentes técnicas/tecnologías
 de desarrollo de aplicaciones web. La funcionalidad/utilidad de este desarrollo es lo de menos. El propio principio KISS, se suicidaría si ve como se ha implementado.
 

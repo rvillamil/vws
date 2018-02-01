@@ -3,7 +3,7 @@ version: '2.0'
 services:
    
   service-bbdd:
-    image: img-vws-mysql:1.0-SNAPSHOT
+    image: img-vws-mysql:0.0.1-SNAPSHOT
     container_name: cnt-vws-mysql    
     environment:
       - MYSQL_ROOT_PASSWORD=root      
@@ -13,13 +13,13 @@ services:
       - 5306:3306
   
   service-vws-frontend:
-    image: img-vws-apache:1.0-SNAPSHOT
+    image: img-vws-apache:0.0.1-SNAPSHOT
     container_name: cnt-vws-apache
     ports:
       - 9090:80
       
   service-vws-backend:
-    image: img-vws-resources:1.0-SNAPSHOT      
+    image: img-vws-resources:0.0.1-SNAPSHOT      
     container_name: cnt-vws-resources
     depends_on:
       - service-bbdd

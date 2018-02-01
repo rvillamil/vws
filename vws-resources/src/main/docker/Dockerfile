@@ -12,7 +12,7 @@ LABEL maintainer "rodrigo.villamil@google.com" description="Alpine Java 8 docker
 # can be necessary for other Spring Boot applications if they need to actually write in the filesystem.
 VOLUME /tmp
 
-# Copia el fichero alojado en: vws-resources/target/docker/img-vws-resources/1.0-SNAPSHOT/build/maven/
+# Copia el fichero alojado en: vws-resources/target/docker/img-vws-resources/X.Y.Z-SNAPSHOT/build/maven/
 ADD /maven/*.jar app.jar
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS=""
