@@ -1,5 +1,5 @@
 # Image base: https://hub.docker.com/r/frolvlad/alpine-oraclejdk8/
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM openjdk:8-jre-alpine
 
 # En caso de problemas...
 LABEL maintainer "rodrigo.villamil@google.com" description="Alpine Java 8 docker container with Backend for VWS"
