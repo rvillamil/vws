@@ -28,9 +28,6 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 public class PiracyController {
 
     /*
-    FIXME 01: ¿La separacion en capas esta bien hecha? Tenemos dos 'domain'. Uno en persistence y otro en services
-    */
-    /*
      FIXME 01: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
      */
     /*
