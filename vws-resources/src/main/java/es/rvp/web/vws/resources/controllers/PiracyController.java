@@ -27,13 +27,6 @@ import es.rvp.web.vws.services.WebTorrentSpider;
 @ConfigurationProperties(prefix="general")
 public class PiracyController {
 
-    /*
-     FIXME 01: Configurar bien Jacoco o bien Cobertura para que me indique la cobertura de los mas de 50 test que tengo
-     */
-    /*
-     * FIXME 02: Atender a los Bugs de Sonar y revisar el sonar
-     */
-
     /** The Constant LOGGER. */
     private static final Logger LOGGER 			= LoggerFactory.getLogger(PiracyController.class);
 

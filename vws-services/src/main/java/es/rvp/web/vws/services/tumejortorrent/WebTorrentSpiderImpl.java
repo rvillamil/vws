@@ -32,7 +32,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
     /** The portal name. */
     // Constantes
     private final String PORTAL_NAME 		= "tumejortorrent.com";
-    
+
     /** The url base. */
     private final String URL_BASE 			= "http://tumejortorrent.com";
 
@@ -48,7 +48,7 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
     //
     @Autowired
     private final JSoupHelper 			jSoupHelper;
-    
+
     /** The show factory. */
     @Autowired
     private final ShowFactory 			showFactory;
@@ -191,6 +191,8 @@ public class WebTorrentSpiderImpl implements WebTorrentSpider {
 
                 } catch (final InterruptedException e) {
                     LOGGER.error(e.getMessage(), e.getCause());
+                    // Restore interrupted state...
+                    Thread.currentThread().interrupt();
                 }
             }
         }
