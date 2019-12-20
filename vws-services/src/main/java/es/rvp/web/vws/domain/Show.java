@@ -1,10 +1,10 @@
 package es.rvp.web.vws.domain;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
-import lombok.experimental.Builder;
 
 /**
  * The Show object. Requieres lombok project
@@ -37,42 +37,42 @@ public class Show {
 
 	/** The title. */
 	@NonNull
-	private final String title;
+	private final String title="";
 	
 	/** The base URI. */
-	private final String baseURI;
+	private final String baseURI="";
 	
 	/** The session. */
-	private final String session;
+	private final String session="";
 	
 	/** The episode. */
-	private final String episode;
+	private final String episode="";
 	//
 	// TS-Screener,..etc
 	/** The quality. */
 	//
-	private final String quality;
+	private final String quality="";
 	
 	/** The file size. */
 	// 800Mb..etc
-	private final String fileSize;
+	private final String fileSize="";
 	
 	/** The filmaffinity points. */
-	private final Double filmaffinityPoints;
+	private final Double filmaffinityPoints=0.0;
 	
 	/** The release date. */
 	// Release Date: 06/05/2016d
-	private final String releaseDate;
+	private final String releaseDate="";
 	
 	/** The URLTO download. */
-	private final String URLTODownload;
+	private final String URLTODownload="";
 	
 	/** The URL with cover. */
-	private final String URLWithCover;
+	private final String URLWithCover="";
 	
 	/** The description. */
-	private final String description;
+	private final String description="";
 	
 	/** The sinopsis. */
-	private final String sinopsis;
+	private final String sinopsis="";
 }

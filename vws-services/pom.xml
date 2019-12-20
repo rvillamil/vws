@@ -6,7 +6,7 @@
   <parent>
     <groupId>es.rvp.web.vws</groupId>
     <artifactId>vws</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
   </parent>
   
   <artifactId>vws-services</artifactId>
@@ -18,7 +18,7 @@
     <dependency>
       <groupId>es.rvp.web.vws</groupId>
       <artifactId>vws-persistence</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>0.0.2-SNAPSHOT</version>
     </dependency>
     
     <dependency>

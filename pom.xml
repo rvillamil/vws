@@ -7,13 +7,13 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>1.5.10.RELEASE</version>
+    <version>2.2.2.RELEASE</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
 
   <groupId>es.rvp.web.vws</groupId>
   <artifactId>vws</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
@@ -22,9 +22,9 @@
     <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility.
       If you want to follow our recommendation and use a later Java version you
       can add a java.version property: -->
-    <java.version>1.8</java.version>
+    <java.version>11</java.version>
     <start-class>es.rvp.web.vws.ApplicationVWS</start-class>
-    <lombok.version>1.14.8</lombok.version>
+    <lombok.version>1.18.10</lombok.version>
     <docker.maven.plugin.version>0.20.1</docker.maven.plugin.version>
 
     <!-- Only unit tests are run by default. -->
@@ -40,7 +40,7 @@
     <docker.apache.img.name>img-vws-apache:${project.version}</docker.apache.img.name>
 
     <!-- JACOCO support -->
-    <jacoco.plugin.version>0.7.9</jacoco.plugin.version>
+    <jacoco.plugin.version>0.8.3</jacoco.plugin.version>
     <jacoco.it.execution.data.file>${project.basedir}/target/jacoco-it.exec</jacoco.it.execution.data.file>
     <jacoco.ut.execution.data.file>${project.basedir}/target/jacoco.exec</jacoco.ut.execution.data.file>
 
@@ -57,20 +57,20 @@
       <dependency>
         <groupId>org.jsoup</groupId>
         <artifactId>jsoup</artifactId>
-        <version>1.9.1</version>
+        <version>1.12.1</version>
       </dependency>
 
       <dependency>
         <groupId>io.springfox</groupId>
         <artifactId>springfox-swagger2</artifactId>
-        <version>2.6.1</version>
+        <version>2.9.2</version>
         <scope>compile</scope>
       </dependency>
 
       <dependency>
         <groupId>io.springfox</groupId>
         <artifactId>springfox-swagger-ui</artifactId>
-        <version>2.6.1</version>
+        <version>2.9.2</version>
         <scope>compile</scope>
       </dependency>
 
@@ -131,6 +131,7 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+    
 
     <!-- LOG4J2 Framework -->
     <dependency>
@@ -159,11 +160,6 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-actuator-docs</artifactId>
     </dependency>
 
 
