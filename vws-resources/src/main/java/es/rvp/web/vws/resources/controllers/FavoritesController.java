@@ -151,16 +151,16 @@ public class FavoritesController {
 
 		 LOGGER.info("Updating (PUT) favorite with id '{}'", id);
 
-		 final Favorite favoriteForUpdate = this.favoriteRepository.findOne(id);
-		 if ( favoriteForUpdate == null ) {
+		 final Optional<Favorite> favoriteForUpdate = this.favoriteRepository.findById(id);
+		 if ( ! favoriteForUpdate.isPresent() ) {
 			 LOGGER.error("Unable to update. Favorite with id '{}' not found.", id);
 			 return new ResponseEntity<>(new CustomErrorType(
 	            		"Unable to update. Favorite with id '" + id + "' not found."),
 	                    HttpStatus.NOT_FOUND);
 		 }
 
-		 favoriteForUpdate.setTitle(newFavorite.getTitle());
-		 this.favoriteRepository.save(favoriteForUpdate);
+		 favoriteForUpdate.get().setTitle(newFavorite.getTitle());
+		 this.favoriteRepository.save(favoriteForUpdate.get());
 		 return new ResponseEntity<>(favoriteForUpdate, HttpStatus.OK);
 	 }
 
@@ -174,15 +174,15 @@ public class FavoritesController {
 	 public ResponseEntity<?> deleteFavorite( @PathVariable final  Long id) {
 		 LOGGER.info("Fetching & Deleting favorite with id '{}'", id);
 
-		 final Favorite favoriteForDelete = this.favoriteRepository.findOne(id);
-		 if ( favoriteForDelete == null ) {
+		 final Optional<Favorite> favoriteForDelete = this.favoriteRepository.findById(id);
+		 if ( ! favoriteForDelete.isPresent() ) {
 			 LOGGER.error("Unable to delete. Favorite with id '{}' not found.", id);
 			 return new ResponseEntity<>(new CustomErrorType(
 	            		"Unable to delete. Favorite with id '" + id + "' not found."),
 	                    HttpStatus.NOT_FOUND);
 		 }
 
-		 this.favoriteRepository.delete(id);
+		 this.favoriteRepository.deleteById(id);
 		 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	 }
 

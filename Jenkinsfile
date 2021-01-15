@@ -1,76 +1,25 @@
-#!groovy
+pipeline {
+    agent { docker { image 'maven:3.6.3' } }
 
-// Global
-sonarHost="http://sonarqube:9000"
-mavenProfiles="integration"
-
-node {
-
-  // Tools y Jenkins 'configuracion tool' section
-  def jdktool    = tool name: "JDK_8", type: 'hudson.model.JDK'
-  def mvnHome    = tool name: 'Maven_3'
-  def dockerHome = tool name: 'Docker_latest'
-
-  /* Set JAVA_HOME, and special PATH variables: docker, java, maven */
-    List javaEnv = [
-        "PATH+MVN=${jdktool}/bin:${mvnHome}/bin:${dockerHome}/bin",
-        "M2_HOME=${mvnHome}",
-        "JAVA_HOME=${jdktool}",
-	"DOCKER_HOME=${dockerHome}"
-    ]
-
-
-    withEnv(javaEnv) {
-
-      stage ('Initialize') {
-	sh '''
-            echo "PATH=${PATH}"
-            echo "M2_HOME=${M2_HOME}"
-            echo "JAVA_HOME=${JAVA_HOME}"
-            echo "DOCKER_HOME=${DOCKER_HOME}"
-        '''
-      }
-
-      stage('Checkout SCM') {
-	checkout scm
-      }
-
-      // FIXME: Mientras arreglamos los test de integracion y el soporte para Docker...
-      // Compilamos y lanzamos los test aunque fallen
-      stage ('BuildAndTest') {
-	cmd = "mvn clean install -B -P "+ mavenProfiles + " -Dmaven.test.failure.ignore=true"
-	sh "${cmd}"
-      }
-
-      stage ('Archive') {
-	// Archivamos los artefactos en Jenkins: Si no hay nada que archivar
-	// no va a fallar
-	archiveArtifacts allowEmptyArchive: true,
-			 artifacts: '**/target/*.jar',
-			 fingerprint: true,
-			 onlyIfSuccessful: true
-	// Publica los resultados de los test de Junit en Jenkins
-	junit allowEmptyResults: true,
-	      testResults: '**/target/surefire-reports/TEST-*.xml'
-
-	// Publica los resultados de los test de Integracion en Jenkins
-	junit allowEmptyResults: true,
-	      testResults: '**/target/failsafe-reports/TEST-*.xml'
-      }
-
-      stage ('SonarQube') {
-	print "Generando informes para el SonarHost en " + sonarHost
-	withSonarQubeEnv('SonarQube Server') {
-	  // requires SonarQube Scanner for Maven 3.2+
-	  // The Java Plugin is going to reuse reports and not generate them,
-	  // so before trying to configure your analysis to import these reports,
-	  // you need to be sure they are correctly generated and not empty.
-	  sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-	}
-      }
-    } // End With(javaEnv)
-
-} // End node
-
-
-
+    stages {
+        stage('build') {
+            steps {
+                 sh 'mvn -B clean package -Dmaven.test.skip=true'
+            }
+        }
+        stage('Software Composition Analysis (SCA)') {
+            steps {
+                 sh 'echo "**** CycloneDX ****"'
+                 sh 'mvn -B org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom'
+            }
+        }
+        // dependencyTrackPublisher artifact: 'devsecops-java-sandbox', autoCreateProjects: false, dependencyTrackApiKey: '', dependencyTrackUrl: '', projectId: '2d6fc921-8dd7-4c3d-9279-eb747a1fb6e1', synchronous: false
+        stage('Dependency Track Publisher') {
+            steps {
+                withCredentials([string(credentialsId: 'mydependencytrack-api-key', variable: 'API_KEY')]) {
+                    dependencyTrackPublisher dependencyTrackUrl: 'http://mydependencytrack-devsecops-rvp-local:8081', artifact: 'target/bom.xml', projectName: "vws", projectVersion: "0.0.2-SNAPSHOT", synchronous: true, dependencyTrackApiKey: API_KEY
+                }
+            }
+        }
+    }
+}

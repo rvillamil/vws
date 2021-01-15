@@ -37,42 +37,42 @@ public class Show {
 
 	/** The title. */
 	@NonNull
-	private final String title="";
+	public String title="";
 	
 	/** The base URI. */
-	private final String baseURI="";
+	public String baseURI="";
 	
 	/** The session. */
-	private final String session="";
+	public String session="";
 	
 	/** The episode. */
-	private final String episode="";
+	public String episode="";
 	//
 	// TS-Screener,..etc
 	/** The quality. */
 	//
-	private final String quality="";
+	public String quality="";
 	
 	/** The file size. */
 	// 800Mb..etc
-	private final String fileSize="";
+	public String fileSize="";
 	
 	/** The filmaffinity points. */
-	private final Double filmaffinityPoints=0.0;
+	public Double filmaffinityPoints=0.0;
 	
 	/** The release date. */
 	// Release Date: 06/05/2016d
-	private final String releaseDate="";
+	public String releaseDate="";
 	
 	/** The URLTO download. */
-	private final String URLTODownload="";
+	public String URLTODownload="";
 	
 	/** The URL with cover. */
-	private final String URLWithCover="";
+	public String URLWithCover="";
 	
 	/** The description. */
-	private final String description="";
+	public String description="";
 	
 	/** The sinopsis. */
-	private final String sinopsis="";
+	public String sinopsis="";
 }

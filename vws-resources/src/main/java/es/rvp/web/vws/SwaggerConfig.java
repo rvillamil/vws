@@ -29,7 +29,7 @@ public class SwaggerConfig {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select().apis(RequestHandlerSelectors.basePackage("es.rvp.web.vws.resources.controllers"))
 				.paths(PathSelectors.any())
-				.build().apiInfo(this.metaData());
+				.build();
 
 	}
 
@@ -39,6 +39,7 @@ public class SwaggerConfig {
 	 * @return the api info
 	 */
 	// Visit:
+	/*
 	private ApiInfo metaData() {
 		return new ApiInfo(
 				"VWS REST API",
@@ -51,4 +52,5 @@ public class SwaggerConfig {
 							"GNU General Public License v3.0",
 							"https://www.gnu.org/licenses/gpl-3.0.en.html");
 	}
+	*/
 }
